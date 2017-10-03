@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Needy - Quản lý</string>
+
+    <string name="font_serif">serif</string>
+
+    <string name="phone_number">Số điện thoại</string>
+    <string name="password">Mật khẩu</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="login">Đăng nhập</string>
+    <string name="register_account">Đăng ký</string>
+
+    <string name="create_new_account">TẠO TÀI KHOẢN</string>
+    <string name="first_name">Họ và tên đệm</string>
+    <string name="last_name">Tên</string>
+    <string name="gender">Giới tính</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="home_address">Địa chỉ nhà riêng</string>
+    <string name="next">Tiếp theo</string>
+
+    <string name="get_new_password">LẤY MẬT KHẨU MỚI</string>
+    <string name="intro_get_new_password">Vui lòng nhập số điện thoại đã đăng ký để\nthiết lập mật khẩu mới</string>
+    <string name="not_have_account">Chưa đăng ký tài khoản?</string>
+
+    <string name="validate_opt">XÁC THỰC TÀI KHOẢN</string>
+    <string name="intro_validate_otp">Vui lòng nhập vào mã xác thực OTP\nnhận được từ hệ thống qua SMS\nđể kích hoạt tài khoản.</string>
+    <string name="otp_code">Nhập mã OTP</string>
+    <string name="done">Hoàn tất</string>
+
+    <string name="reset_password">ĐẶT LẠI MẬT KHẨU</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="intro_reset_password"></string>
+    <string name="get_new_otp">Cấp lại mã OTP</string>
+    <string name="waiting_otp">Chờ %1$s giây</string>
+    
+    <string name="register_company">Đăng ký hệ thống</string>
+    <string name="intro_register_company">Hỗ trợ đăng ký</string>
+    <string name="company_name">Tên công ty/tổ chức</string>
+    <string name="office_address">Địa chỉ công ty/tổ chức</string>
+    <string name="store_name">Tên cửa hàng</string>
+    <string name="store_address">Địa chỉ cửa hàng</string>
+</resources>

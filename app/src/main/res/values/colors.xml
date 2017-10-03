@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_gray_white">#DFE0E2</color>
+    <color name="color_stroke">#cccccc</color>
+    <color name="colorPrimary">#f35929</color>
+    <color name="colorPrimaryDark">#d24013</color>
+    <color name="colorAccent">#f35929</color>
+    <color name="color_black_transparent">#7c000000</color>
+    <color name="color_black_transparent_mos">#CC000000</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_orange">#FF9400</color>
+    <color name="color_gray">#87919F</color>
+    <color name="color_orange_light">#FF772E</color>
+    <color name="color_yellow">#FFFB79</color>
+    <color name="color_black">#000000</color>
+    <color name="color_light_orange">#FFDA85</color>
+    <color name="color_slightly_orange">#FFAC63</color>
+    <color name="color_orange_mos">#FD6204</color>
+    <color name="color_green">#009900</color>
+    <color name="color_blue">#017afa</color>
+    <color name="color_red">#FF0000</color>
+    <color name="color_red_mos">#DE2D31</color>
+    <color name="color_yellow_mos">#F6E44A</color>
+    <color name="color_white_transparent">#BFFAFAFA</color>
+    <color name="color_yellow_white">#f2ffcc</color>
+    <color name="color_dark_slate_gray">#2f4f4f</color>
+    <color name="color_green_blue">#66ff99</color>
+    <color name="color_yellow_dark">#FFAA16</color>
+    <color name="color_orange_light_white">#FFB185</color>
+    <color name="color_orange_light_transparent">#FFE3D7</color>
+    <color name="color_gray_mos">#87919F</color>
+    <color name="color_blue_light">#B2C9D0</color>
+    <color name="color_white_light">#F7F7F8</color>
+    <color name="color_red_light">#E77E7A</color>
+    <color name="color_blue_mos">#01579B</color>
+
+    <color name="gray10">#ffdddddd</color>
+    <color name="gray12">#ffe0e0e0</color>
+    <color name="gray13">#ffababab</color>
+    <color name="gray20">#ffcccccc</color>
+    <color name="gray27">#ffbbbbbb</color>
+    <color name="gray50">#ff808080</color>
+    <color name="gray65">#ff595959</color>
+    <color name="gray70">#ff4d4d4d</color>
+    <color name="gray78">#ff383838</color>
+    <color name="gray95">#ff111111</color>
+</resources>
