@@ -39,4 +39,10 @@
     <string name="office_address">Địa chỉ công ty/tổ chức</string>
     <string name="store_name">Tên cửa hàng</string>
     <string name="store_address">Địa chỉ cửa hàng</string>
+
+    <string name="store_tab">Cửa hàng</string>
+    <string name="cart_tab">Đơn hàng</string>
+    <string name="notification_tab">Thông báo</string>
+    <string name="account_tab">Tôi</string>
+
 </resources>
