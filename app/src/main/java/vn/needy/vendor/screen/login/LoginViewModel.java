@@ -5,6 +5,8 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.util.Log;
 
+import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
+import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerAccount.RegisterAccountActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -62,6 +64,8 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onLoginClick() {
         Log.d(TAG, "onLoginClick()");
+        mNavigator.startActivity(MainActivity.class);
+        mNavigator.finishActivity();
     }
 
     @Override
@@ -71,7 +75,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onForgotPasswordClick() {
-
+        mNavigator.startActivity(ForgotPasswordActivity.class);
     }
 
     @Override

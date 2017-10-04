@@ -23,6 +23,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".screen.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
         <activity android:name=".screen.login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -30,6 +36,24 @@
             />
 
         <activity android:name=".screen.registerAccount.RegisterAccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
+        <activity android:name=".screen.validateOtp.ValidateOtpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
+        <activity android:name=".screen.forgotPassword.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
+        <activity android:name=".screen.resetPassword.ResetPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"

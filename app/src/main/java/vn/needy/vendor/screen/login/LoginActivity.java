@@ -1,6 +1,5 @@
 package vn.needy.vendor.screen.login;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;

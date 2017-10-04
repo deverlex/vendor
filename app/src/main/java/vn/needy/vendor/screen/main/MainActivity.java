@@ -5,14 +5,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.screen.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    protected void onCreateActivity(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
-
     }
 }
