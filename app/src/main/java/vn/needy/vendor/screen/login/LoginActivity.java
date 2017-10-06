@@ -31,7 +31,7 @@ public class LoginActivity extends BaseActivity {
         Navigator navigator = new Navigator(this);
         RealmApi realmApi = new RealmApi();
 
-        mViewModel = new LoginViewModel(this, navigator);
+        mViewModel = new LoginViewModel(this, getApplication(), navigator);
         UserRepository userRepository =
                 new UserRepository(new UserRemoteDataSource(VendorServiceClient.getInstance()),
                         new UserLocalDataSource(realmApi));

@@ -109,6 +109,7 @@ dependencies {
     compile dependencies.floatingsearchview
     compile dependencies.expandablerecyclerview
     compile dependencies.firebaseMessage
+    compile dependencies.firebaseAuth
     compile dependencies.bottomBar
 
     testCompile dependencies.junit

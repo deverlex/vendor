@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.android.gms.internal.lo;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -14,6 +15,9 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.data.model.User;
 import vn.needy.vendor.data.source.UserRepository;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
 import vn.needy.vendor.data.source.remote.api.response.LoginResponse;
@@ -67,6 +71,9 @@ public class LoginPresenter implements LoginContract.Presenter {
                 }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<LoginResponse>() {
                     @Override
                     public void accept(LoginResponse loginResponse) throws Exception {
+                        SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
+                        String auth = new Gson().toJson(loginResponse.getAuth());
+                        prefsApi.put(SharedPrefsKey.KEY_AUTH, auth);
                         mUserRepository.saveUser(loginResponse.getUser());
                         mViewModel.onLoginSuccess();
                     }

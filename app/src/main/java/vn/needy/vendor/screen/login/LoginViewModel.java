@@ -1,11 +1,13 @@
 package vn.needy.vendor.screen.login;
 
+import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.util.Log;
 
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
+import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerAccount.RegisterAccountActivity;
@@ -20,6 +22,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private static final String TAG = LoginViewModel.class.getName();
 
     private final Context mContext;
+    private final Application mApplication;
     private final Navigator mNavigator;
     private LoginContract.Presenter mPresenter;
 
@@ -28,8 +31,9 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private String mPhoneNumber;
     private String mPassword;
 
-    LoginViewModel(Context context, Navigator navigator) {
+    LoginViewModel(Context context, Application application, Navigator navigator) {
         mContext = context;
+        mApplication = application;
         mNavigator = navigator;
     }
 
@@ -51,6 +55,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onLoginSuccess() {
 
+        VendorServiceClient.initialize(mApplication);
     }
 
     @Override
