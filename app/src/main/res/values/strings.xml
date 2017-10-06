@@ -33,7 +33,7 @@
     <string name="get_new_otp">Cấp lại mã OTP</string>
     <string name="waiting_otp">Chờ %1$s giây</string>
     
-    <string name="register_company">Đăng ký hệ thống</string>
+    <string name="register_company">ĐĂNG KÝ HỆ THỐNG</string>
     <string name="intro_register_company">Hỗ trợ đăng ký</string>
     <string name="company_name">Tên công ty/tổ chức</string>
     <string name="office_address">Địa chỉ công ty/tổ chức</string>

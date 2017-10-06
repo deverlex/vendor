@@ -5,6 +5,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.util.Log;
 
+import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerAccount.RegisterAccountActivity;
@@ -20,6 +21,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     private final Context mContext;
     private final Navigator mNavigator;
+    private LoginContract.Presenter mPresenter;
 
     private String mPhoneNumberError;
     private String mPasswordError;
@@ -43,7 +45,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void setPresenter(LoginContract.Presenter presenter) {
-
+        mPresenter = presenter;
     }
 
     @Override
@@ -64,8 +66,14 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onLoginClick() {
         Log.d(TAG, "onLoginClick()");
-        mNavigator.startActivity(MainActivity.class);
-        mNavigator.finishActivity();
+//        mNavigator.startActivity(MainActivity.class);
+//        mNavigator.finishActivity();
+        mPresenter.login(mPhoneNumber, mPassword);
+    }
+
+    @Override
+    public void onLoginError(BaseException exception) {
+//        mNavigator.showToastCustom(exeption.getMessage());
     }
 
     @Override

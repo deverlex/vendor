@@ -25,5 +25,6 @@ ext {
                   annotation            : 'javax.annotation:javax.annotation-api:1.3',
                   expandablerecyclerview: 'com.bignerdranch.android:expandablerecyclerview:2.1.1',
                   firebaseMessage       : 'com.google.firebase:firebase-messaging:11.0.4',
+                  firebaseAuth          : 'com.google.firebase:firebase-auth:11.0.4',
                   bottomBar          : 'com.roughike:bottom-bar:2.3.1',]
 }
