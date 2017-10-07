@@ -11,6 +11,7 @@ import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerAccount.RegisterAccountActivity;
+import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -25,16 +26,19 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private final Application mApplication;
     private final Navigator mNavigator;
     private LoginContract.Presenter mPresenter;
+    private final DialogManager mDialogManager;
 
     private String mPhoneNumberError;
     private String mPasswordError;
     private String mPhoneNumber;
     private String mPassword;
 
-    LoginViewModel(Context context, Application application, Navigator navigator) {
+    LoginViewModel(Context context, Application application,
+                   Navigator navigator, DialogManager dialogManager) {
         mContext = context;
         mApplication = application;
         mNavigator = navigator;
+        mDialogManager = dialogManager;
     }
 
     @Override
@@ -54,8 +58,8 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onLoginSuccess() {
-
         VendorServiceClient.initialize(mApplication);
+        
     }
 
     @Override
@@ -70,7 +74,6 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onLoginClick() {
-        Log.d(TAG, "onLoginClick()");
 //        mNavigator.startActivity(MainActivity.class);
 //        mNavigator.finishActivity();
         mPresenter.login(mPhoneNumber, mPassword);
@@ -78,7 +81,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onLoginError(BaseException exception) {
-//        mNavigator.showToastCustom(exeption.getMessage());
+        mNavigator.showToastCustom(exception.getMessage());
     }
 
     @Override
@@ -93,12 +96,12 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onShowProgressBar() {
-
+        mDialogManager.showProgressDialog();
     }
 
     @Override
     public void onHideProgressBar() {
-
+        mDialogManager.dismissProgressDialog();
     }
 
     @Bindable

@@ -45,4 +45,9 @@
     <string name="notification_tab">Thông báo</string>
     <string name="account_tab">Tôi</string>
 
+    <string name="action_yes">Có</string>
+    <string name="action_no">Không</string>
+    <string name="OK">Đồng ý</string>
+    <string name="please_wait">Vui lòng chờ..</string>
+
 </resources>

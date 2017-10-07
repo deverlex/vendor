@@ -39,12 +39,12 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
         loginRequest.setFcmToken(deviceToken);
 
         return mVendorApi.login(header, loginRequest)
-                .map(new Function<LoginResponse, LoginResponse>() {
-                    @Override
-                    public LoginResponse apply(@NonNull LoginResponse userResponse) throws Exception {
-                        return userResponse;
-                    }
-                });
+            .map(new Function<LoginResponse, LoginResponse>() {
+                @Override
+                public LoginResponse apply(@NonNull LoginResponse userResponse) throws Exception {
+                    return userResponse;
+                }
+            });
     }
 
 //    @Override

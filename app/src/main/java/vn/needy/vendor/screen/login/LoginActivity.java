@@ -13,6 +13,7 @@ import vn.needy.vendor.data.source.remote.UserRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.databinding.ActivityLoginBinding;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -30,8 +31,9 @@ public class LoginActivity extends BaseActivity {
 
         Navigator navigator = new Navigator(this);
         RealmApi realmApi = new RealmApi();
+        DialogManager dialogManager = new DialogManager(this);
 
-        mViewModel = new LoginViewModel(this, getApplication(), navigator);
+        mViewModel = new LoginViewModel(this, getApplication(), navigator, dialogManager);
         UserRepository userRepository =
                 new UserRepository(new UserRemoteDataSource(VendorServiceClient.getInstance()),
                         new UserLocalDataSource(realmApi));

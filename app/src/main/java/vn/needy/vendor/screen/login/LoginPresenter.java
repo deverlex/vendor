@@ -80,6 +80,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
+                        Log.d(TAG, "error login");
                         mViewModel.onLoginError(error);
                     }
                 });

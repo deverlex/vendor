@@ -34,12 +34,11 @@ public class SplashActivity extends AppCompatActivity {
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "" + (auth == null));
-                if (auth == null) {
+//                if (auth == null) {
                     loginPage();
-                } else {
-                    mainPage();
-                }
+//                } else {
+//                    mainPage();
+//                }
                 new Navigator(SplashActivity.this).startActivity(mIntent);
                 finish();
             }
