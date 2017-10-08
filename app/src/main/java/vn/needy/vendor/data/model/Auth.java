@@ -8,16 +8,33 @@ import com.google.gson.annotations.SerializedName;
 
 public class Auth implements Parcelable {
 
-    @SerializedName("phoneNumber")
+    @SerializedName("key")
     @Expose
-    private String mPhoneNumber;
+    private String mKey;
     @SerializedName("token")
     @Expose
     private String mToken;
 
+    protected Auth(Parcel in) {
+        mKey = in.readString();
+        mToken = in.readString();
+    }
+
+    public static final Creator<Auth> CREATOR = new Creator<Auth>() {
+        @Override
+        public Auth createFromParcel(Parcel in) {
+            return new Auth(in);
+        }
+
+        @Override
+        public Auth[] newArray(int size) {
+            return new Auth[size];
+        }
+    };
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mPhoneNumber);
+        dest.writeString(mKey);
         dest.writeString(mToken);
     }
 
@@ -26,24 +43,12 @@ public class Auth implements Parcelable {
         return 0;
     }
 
-    public static final Creator<User> CREATOR = new Parcelable.Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
-
-    public String getPhoneNumber() {
-        return mPhoneNumber;
+    public String getKey() {
+        return mKey;
     }
 
-    public void setPhoneNumber(String mPhoneNumber) {
-        this.mPhoneNumber = mPhoneNumber;
+    public void setKey(String mKey) {
+        this.mKey = mKey;
     }
 
     public String getToken() {

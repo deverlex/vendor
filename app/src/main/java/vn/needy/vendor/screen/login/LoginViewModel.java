@@ -4,7 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
@@ -59,7 +60,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onLoginSuccess() {
         VendorServiceClient.initialize(mApplication);
-        
+        ((LoginActivity) mContext).onGateway();
     }
 
     @Override
@@ -74,8 +75,6 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onLoginClick() {
-//        mNavigator.startActivity(MainActivity.class);
-//        mNavigator.finishActivity();
         mPresenter.login(mPhoneNumber, mPassword);
     }
 
@@ -130,5 +129,10 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Bindable
     public String getPasswordError() {
         return mPasswordError;
+    }
+
+    public interface Gateway {
+
+        void onGateway();
     }
 }

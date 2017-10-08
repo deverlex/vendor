@@ -10,7 +10,7 @@ import vn.needy.vendor.utils.navigator.Navigator;
  * Created by lion on 02/10/2017.
  */
 
-public class RegisterViewModel extends BaseObservable implements RegisterContract.ViewModel {
+public class RegisterAccountViewModel extends BaseObservable implements RegisterAccountContract.ViewModel {
 
     private final Navigator mNavigator;
 
@@ -25,7 +25,7 @@ public class RegisterViewModel extends BaseObservable implements RegisterContrac
     private String mLastName;
     private String mAddress;
 
-    public RegisterViewModel(Context context, Navigator navigator) {
+    public RegisterAccountViewModel(Context context, Navigator navigator) {
         mNavigator = navigator;
     }
 
@@ -40,7 +40,7 @@ public class RegisterViewModel extends BaseObservable implements RegisterContrac
     }
 
     @Override
-    public void setPresenter(RegisterContract.Presenter presenter) {
+    public void setPresenter(RegisterAccountContract.Presenter presenter) {
 
     }
 

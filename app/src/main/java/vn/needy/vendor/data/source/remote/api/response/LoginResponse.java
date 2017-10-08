@@ -10,8 +10,6 @@ import vn.needy.vendor.data.model.Auth;
 import vn.needy.vendor.data.model.User;
 
 public class LoginResponse implements Parcelable {
-
-    private static final String TAG = LoginResponse.class.getName();
     @Expose
     @SerializedName("auth")
     private Auth mAuth;
@@ -19,8 +17,8 @@ public class LoginResponse implements Parcelable {
     @SerializedName("user")
     private User mUser;
     @Expose
-    @SerializedName("state")
-    private int mState;
+    @SerializedName("status")
+    private int mStatus;
     @Expose
     @SerializedName("message")
     private String mMessage;
@@ -28,7 +26,7 @@ public class LoginResponse implements Parcelable {
     protected LoginResponse(Parcel in) {
         mAuth = in.readParcelable(Auth.class.getClassLoader());
         mUser = in.readParcelable(User.class.getClassLoader());
-        mState = in.readInt();
+        mStatus = in.readInt();
         mMessage = in.readString();
     }
 
@@ -36,7 +34,7 @@ public class LoginResponse implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(mAuth, flags);
         dest.writeParcelable(mUser, flags);
-        dest.writeInt(mState);
+        dest.writeInt(mStatus);
         dest.writeString(mMessage);
     }
 
@@ -73,12 +71,12 @@ public class LoginResponse implements Parcelable {
         mUser = user;
     }
 
-    public int getState() {
-        return mState;
+    public int getStatus() {
+        return mStatus;
     }
 
-    public void setState(int status) {
-        mState = status;
+    public void setStatus(int status) {
+        mStatus = status;
     }
 
     public String getMessage() {

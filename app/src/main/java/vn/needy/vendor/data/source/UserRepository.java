@@ -1,6 +1,8 @@
 package vn.needy.vendor.data.source;
 
 import io.reactivex.Observable;
+import vn.needy.vendor.data.model.Auth;
+import vn.needy.vendor.data.model.Company;
 import vn.needy.vendor.data.model.User;
 import vn.needy.vendor.data.source.remote.api.response.LoginResponse;
 
@@ -19,7 +21,7 @@ public class UserRepository {
         mUserLocalDataSource = userLocalDataSource;
     }
 
-    public Observable<LoginResponse> login(String userName, String passWord, String deviceToken) {
+    public Observable<User> login(String userName, String passWord, String deviceToken) {
         return mUserRemoteDataSource.login(userName, passWord, deviceToken);
     }
 

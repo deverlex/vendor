@@ -13,7 +13,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import vn.needy.vendor.data.model.Company;
 import vn.needy.vendor.data.model.User;
+import vn.needy.vendor.data.source.CompanyRepository;
 import vn.needy.vendor.data.source.UserRepository;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
@@ -34,9 +36,9 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final CompositeDisposable mCompositeDisposable;
     private final UserRepository mUserRepository;
 
-    LoginPresenter(LoginContract.ViewModel viewModel, UserRepository repository) {
+    LoginPresenter(LoginContract.ViewModel viewModel, UserRepository userRepository) {
         mViewModel = viewModel;
-        mUserRepository = repository;
+        mUserRepository = userRepository;
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -66,15 +68,13 @@ public class LoginPresenter implements LoginContract.Presenter {
                 }).doAfterTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
-                        mViewModel.onHideProgressBar();
+//                        mViewModel.onHideProgressBar();
                     }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<LoginResponse>() {
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<User>() {
                     @Override
-                    public void accept(LoginResponse loginResponse) throws Exception {
-                        SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
-                        String auth = new Gson().toJson(loginResponse.getAuth());
-                        prefsApi.put(SharedPrefsKey.KEY_AUTH, auth);
-                        mUserRepository.saveUser(loginResponse.getUser());
+                    public void accept(User user) throws Exception {
+                        // save user into app database
+                        mUserRepository.saveUser(user);
                         mViewModel.onLoginSuccess();
                     }
                 }, new SafetyError() {

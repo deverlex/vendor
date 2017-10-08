@@ -2,6 +2,7 @@ package vn.needy.vendor.data.source.remote.api.service;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.FieldNamingPolicy;
@@ -24,6 +25,9 @@ import vn.needy.vendor.data.source.remote.api.middleware.RxErrorHandlingCallAdap
  */
 
 public class ServiceClient {
+
+    private static final String TAG = ServiceClient.class.getName();
+
     private static final int CONNECTION_TIMEOUT = 30;
 
     static <T> T createService(Application application, String endPoint, Class<T> serviceClass) {
@@ -41,6 +45,8 @@ public class ServiceClient {
         int cacheSize = 30 * 1024 * 1024; // 10 MiB
         httpClientBuilder.cache(new Cache(application.getCacheDir(), cacheSize));
         if (interceptor != null) {
+            ///clear all interceptors before add new
+            httpClientBuilder.networkInterceptors().clear();
             httpClientBuilder.addInterceptor(interceptor);
         }
         httpClientBuilder.readTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS);

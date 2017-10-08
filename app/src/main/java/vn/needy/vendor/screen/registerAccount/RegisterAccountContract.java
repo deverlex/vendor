@@ -7,7 +7,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 02/10/2017.
  */
 
-public interface RegisterContract {
+interface RegisterAccountContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 

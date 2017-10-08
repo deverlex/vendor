@@ -11,7 +11,7 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class RegisterAccountActivity extends BaseActivity {
 
-    private RegisterContract.ViewModel mViewModel;
+    private RegisterAccountContract.ViewModel mViewModel;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -19,10 +19,10 @@ public class RegisterAccountActivity extends BaseActivity {
 
         Navigator navigator = new Navigator(this);
 
-        mViewModel = new RegisterViewModel(this, navigator);
+        mViewModel = new RegisterAccountViewModel(this, navigator);
 
         ActivityRegisterAccountBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_register_account);
-        binding.setViewModel((RegisterViewModel) mViewModel);
+        binding.setViewModel((RegisterAccountViewModel) mViewModel);
     }
 }

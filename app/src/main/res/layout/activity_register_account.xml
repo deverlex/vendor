@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.registerAccount.RegisterViewModel"
+            type="vn.needy.vendor.screen.registerAccount.RegisterAccountViewModel"
             />
     </data>
     <ScrollView android:layout_width="match_parent"

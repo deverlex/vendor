@@ -46,6 +46,12 @@
             android:windowSoftInputMode="stateHidden"
             />
 
+        <activity android:name=".screen.registerCompany.RegisterCompanyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
         <activity android:name=".screen.validateOtp.ValidateOtpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

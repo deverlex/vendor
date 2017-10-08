@@ -1,6 +1,8 @@
 package vn.needy.vendor.data.source;
 
 import io.reactivex.Observable;
+import vn.needy.vendor.data.model.Auth;
+import vn.needy.vendor.data.model.Company;
 import vn.needy.vendor.data.model.User;
 import vn.needy.vendor.data.source.remote.api.response.LoginResponse;
 
@@ -18,8 +20,6 @@ public interface UserDataSource {
     }
 
     interface RemoteDataSource {
-        Observable<LoginResponse> login(String userName, String passWord, String deviceToken);
-
-//        Observable<UpdateProfileResponse> updateProfile(UpdateProfileRequest updateProfileRequest);
+        Observable<User> login(String userName, String passWord, String deviceToken);
     }
 }

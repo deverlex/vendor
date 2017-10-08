@@ -3,12 +3,15 @@ package vn.needy.vendor.data.source.local.sharedprf;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Created by lion on 23/09/2017.
  */
 
 public class SharedPrefsImpl implements SharedPrefsApi {
+
+    private static final String TAG = SharedPrefsImpl.class.getName();
 
     private static final String PREFS_NAME = "VendorSharedPreferences";
 

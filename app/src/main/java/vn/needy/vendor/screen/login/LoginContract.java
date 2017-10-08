@@ -25,14 +25,11 @@ public interface LoginContract {
         void onShowProgressBar();
 
         void onHideProgressBar();
-
     }
 
     interface Presenter extends BasePresenter {
         void login(String phoneNumber, String passWord);
 
         boolean validateDataInput(String phoneNumber, String passWord);
-
-
     }
 }

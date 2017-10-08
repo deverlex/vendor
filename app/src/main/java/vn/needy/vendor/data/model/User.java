@@ -6,8 +6,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -17,9 +15,15 @@ import io.realm.annotations.PrimaryKey;
 
 public class User extends RealmObject implements Parcelable {
     @PrimaryKey
-    @SerializedName("id")
+    @SerializedName("phoneNumber")
     @Expose
-    private long mId;
+    private String mPhoneNumber;
+    @SerializedName("state")
+    @Expose
+    private int mState;
+    @SerializedName("timeUnlock")
+    @Expose
+    private int mTimeUnlock;
     @SerializedName("firstName")
     @Expose
     private String mFirstName;
@@ -58,7 +62,9 @@ public class User extends RealmObject implements Parcelable {
     private String mLastUpdatedTime;
 
     protected User(Parcel in) {
-        mId = in.readLong();
+        mState = in.readInt();
+        mTimeUnlock = in.readInt();
+        mPhoneNumber = in.readString();
         mFirstName = in.readString();
         mLastName = in.readString();
         mGender = in.readString();
@@ -79,7 +85,9 @@ public class User extends RealmObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
+        dest.writeInt(mState);
+        dest.writeInt(mTimeUnlock);
+        dest.writeString(mPhoneNumber);
         dest.writeString(mFirstName);
         dest.writeString(mLastName);
         dest.writeString(mGender);
@@ -111,12 +119,28 @@ public class User extends RealmObject implements Parcelable {
         }
     };
 
-    public long getId() {
-        return mId;
+    public int getState() {
+        return mState;
     }
 
-    public void setId(long mId) {
-        this.mId = mId;
+    public void setState(int mState) {
+        this.mState = mState;
+    }
+
+    public int getTimeUnlock() {
+        return mTimeUnlock;
+    }
+
+    public void setTimeUnlock(int mTimeUnlock) {
+        this.mTimeUnlock = mTimeUnlock;
+    }
+
+    public String getPhoneNumber() {
+        return mPhoneNumber;
+    }
+
+    public void setPhoneNumber(String mPhoneNumber) {
+        this.mPhoneNumber = mPhoneNumber;
     }
 
     public String getFirstName() {
