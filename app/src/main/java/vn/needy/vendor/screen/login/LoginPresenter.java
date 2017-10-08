@@ -3,9 +3,9 @@ package vn.needy.vendor.screen.login;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.android.gms.internal.lo;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.gson.Gson;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -13,16 +13,11 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.data.model.Company;
+import vn.needy.vendor.R;
 import vn.needy.vendor.data.model.User;
-import vn.needy.vendor.data.source.CompanyRepository;
 import vn.needy.vendor.data.source.UserRepository;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
-import vn.needy.vendor.data.source.remote.api.response.LoginResponse;
 
 /**
  * Created by lion on 05/10/2017.
@@ -92,12 +87,31 @@ public class LoginPresenter implements LoginContract.Presenter {
         boolean isValidate = true;
         if (TextUtils.isEmpty(phoneNumber)) {
             isValidate = false;
-            mViewModel.onInputPhoneNumberError();
+            mViewModel.onInputPhoneNumberError(R.string.phone_number_empty);
+        }
+        if (!isValidPhoneNumber(phoneNumber)) {
+            isValidate = false;
+            mViewModel.onInputPhoneNumberError(R.string.is_not_phone_number);
         }
         if (TextUtils.isEmpty(passWord)) {
             isValidate = false;
-            mViewModel.onInputPasswordError();
+            mViewModel.onInputPasswordError(R.string.password_empty);
+        }
+        if (!TextUtils.isEmpty(passWord) && passWord.length() < 8) {
+            isValidate = false;
+            mViewModel.onInputPasswordError(R.string.password_miss_length);
         }
         return isValidate;
+    }
+
+    public boolean isValidPhoneNumber(String phoneNumber) {
+        final PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+        try {
+            Phonenumber.PhoneNumber pNumber = phoneNumberUtil.parse(phoneNumber, "VN");
+            PhoneNumberUtil.PhoneNumberType phoneNumberType = phoneNumberUtil.getNumberType(pNumber);
+            return phoneNumberType == PhoneNumberUtil.PhoneNumberType.MOBILE;
+        } catch (final Exception e) {
+        }
+        return false;
     }
 }

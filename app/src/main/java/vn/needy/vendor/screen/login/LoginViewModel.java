@@ -4,13 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.os.Handler;
-import android.os.Looper;
+
+import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
-import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerAccount.RegisterAccountActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -64,13 +63,15 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
-    public void onInputPhoneNumberError() {
-
+    public void onInputPhoneNumberError(int errorMsg) {
+        mPhoneNumberError = mContext.getString(errorMsg);
+        notifyPropertyChanged(BR.phoneNumberError);
     }
 
     @Override
-    public void onInputPasswordError() {
-
+    public void onInputPasswordError(int errorMsg) {
+        mPasswordError = mContext.getString(errorMsg);
+        notifyPropertyChanged(BR.passwordError);
     }
 
     @Override
@@ -132,7 +133,6 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     public interface Gateway {
-
         void onGateway();
     }
 }

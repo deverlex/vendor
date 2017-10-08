@@ -1,6 +1,7 @@
 package vn.needy.vendor.utils.binding;
 
 import android.databinding.BindingAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -15,5 +16,10 @@ public class BindingUtils {
     @BindingAdapter("text")
     public static void setText(TextView view, int resId) {
         view.setText(resId);
+    }
+
+    @BindingAdapter("errorText")
+    public static void setErrorText(EditText editText, String text) {
+        editText.setError(text);
     }
 }

@@ -58,6 +58,7 @@
                     android:paddingStart="@dimen/dp_10"
                     android:textColor="@color/color_black"
                     android:textColorHint="@color/gray70"
+                    app:errorText="@{viewModel.phoneNumberError}"
                     tools:ignore="UnusedAttribute"
                     />
                 <View
@@ -98,6 +99,7 @@
                         android:paddingStart="@dimen/dp_10"
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray70"
+                        app:errorText="@{viewModel.passwordError}"
                         tools:ignore="UnusedAttribute"
                         />
                     <ImageButton

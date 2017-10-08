@@ -50,4 +50,13 @@
     <string name="OK">Đồng ý</string>
     <string name="please_wait">Vui lòng chờ..</string>
 
+    <string name="enable_location">Bật vị trí</string>
+    <string name="alert_location">Cài đặt vị trí của bạn bị tắt, vui lòng bật để tiếp tục.</string>
+    <string name="cancel_open_location">Thoát</string>
+    <string name="goto_location_setting">Cài đặt vị trí</string>
+    
+    <string name="phone_number_empty">Số điện thoại rỗng</string>
+    <string name="password_empty">Mật khẩu rỗng</string>
+    <string name="is_not_phone_number">Không đúng định dạng</string>
+    <string name="password_miss_length">Mật khẩu cần ít nhất 8 ký tự</string>
 </resources>

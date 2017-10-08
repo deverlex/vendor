@@ -110,7 +110,9 @@ dependencies {
     compile dependencies.expandablerecyclerview
     compile dependencies.firebaseMessage
     compile dependencies.firebaseAuth
+    compile dependencies.location
     compile dependencies.bottomBar
+    compile dependencies.phoneNumber
 
     testCompile dependencies.junit
     testCompile dependencies.mockito

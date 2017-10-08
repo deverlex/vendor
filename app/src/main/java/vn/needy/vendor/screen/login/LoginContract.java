@@ -10,9 +10,9 @@ public interface LoginContract {
 
         void onLoginSuccess();
 
-        void onInputPhoneNumberError();
+        void onInputPhoneNumberError(int errorMsg);
 
-        void onInputPasswordError();
+        void onInputPasswordError(int errorMsg);
 
         void onLoginError(BaseException exception);
 
