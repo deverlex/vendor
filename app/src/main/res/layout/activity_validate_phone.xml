@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.validateOtp.ValidateOtpViewModel"
+            type="vn.needy.vendor.screen.validatePhone.ValidatePhoneViewModel"
             />
     </data>
 
@@ -17,7 +17,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".screen.validateOtp.ValidateOtpActivity"
+            android:background="@drawable/background_login"
+            tools:context=".screen.validatePhone.ValidatePhoneActivity"
             tools:ignore="ScrollViewSize"
             >
 
@@ -33,7 +34,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/validate_opt"
+                        android:text="@string/validate_phone"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_18"
                         />
@@ -47,11 +48,11 @@
                 android:layout_marginRight="@dimen/dp_20"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_120"
-                android:text="@string/intro_validate_otp"
-                android:lines="3"
+                android:text="@string/intro_validate_phone"
                 android:textAlignment="center"
                 android:textSize="@dimen/sp_18"
                 android:textColor="@color/color_white"
+                android:gravity="center"
                 />
 
             <RelativeLayout
@@ -63,42 +64,67 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_40"
+                android:paddingBottom="@dimen/dp_20"
                 android:layout_below="@+id/text_intro_get"
                 android:background="@color/color_white">
                 <EditText
-                    android:id="@+id/text_otp"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/text_phone_number"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_5"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_20"
-                    android:layout_marginBottom="@dimen/dp_5"
-                    android:layout_centerHorizontal="true"
+                    android:drawableLeft="@{@drawable/ic_cellphone}"
                     android:background="@drawable/background_text"
-                    android:drawableLeft="@drawable/ic_code_tags"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_code_tags"
+                    android:drawablePadding="@dimen/dp_20"
+                    android:drawableStart="@{@drawable/ic_cellphone}"
                     android:fontFamily="@string/font_serif"
-                    android:hint="@string/otp_code"
-                    android:inputType="textCapWords"
+                    android:hint="@string/phone_number"
+                    android:inputType="phone"
                     android:textAllCaps="false"
-                    android:paddingEnd="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_5"
                     android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_5"
                     android:paddingStart="@dimen/dp_10"
                     android:textColor="@color/color_black"
                     android:textColorHint="@color/gray70"
                     android:textSize="@dimen/sp_20"
                     tools:ignore="UnusedAttribute"
                     />
-
                 <View
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_1"
                     android:background="@color/gray27"
-                    android:layout_below="@+id/text_otp"
-                    android:layout_alignLeft="@+id/text_otp"
-                    android:layout_alignRight="@+id/text_otp"
-                    android:layout_marginBottom="@dimen/dp_20"/>
+                    android:layout_below="@+id/text_phone_number"
+                    android:layout_alignLeft="@+id/text_phone_number"
+                    android:layout_alignRight="@+id/text_phone_number"/>
+                <EditText
+                    android:id="@+id/text_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_5"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_below="@+id/text_phone_number"
+                    android:drawableLeft="@{@drawable/ic_code_tags}"
+                    android:background="@drawable/background_text"
+                    android:drawablePadding="@dimen/dp_20"
+                    android:drawableStart="@{@drawable/ic_code_tags}"
+                    android:fontFamily="@string/font_serif"
+                    android:hint="@string/otp_code"
+                    android:inputType="phone"
+                    android:textAllCaps="false"
+                    android:paddingEnd="@dimen/dp_5"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_5"
+                    android:paddingStart="@dimen/dp_10"
+                    android:textColor="@color/color_black"
+                    android:textColorHint="@color/gray70"
+                    tools:ignore="UnusedAttribute"
+                    />
             </RelativeLayout>
 
             <TextView
@@ -107,13 +133,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/containerInput"
                 android:layout_marginTop="@dimen/dp_20"
-                android:layout_centerHorizontal="true"
+                android:layout_alignRight="@+id/containerInput"
                 android:paddingRight="@dimen/dp_30"
                 android:paddingLeft="@dimen/dp_30"
                 android:paddingTop="@dimen/dp_10"
                 android:paddingBottom="@dimen/dp_10"
                 android:text="@string/get_new_otp"
-                android:textSize="@dimen/sp_18"
+                android:textSize="@dimen/sp_16"
                 android:textColor="@color/color_white"
                 android:textStyle="bold"
                 />
@@ -123,16 +149,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_resend_otp"
-                android:layout_centerHorizontal="true"
+                android:layout_alignRight="@+id/text_resend_otp"
+                android:paddingRight="@dimen/dp_30"
                 android:textColor="@color/color_white"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/waiting_for_otp"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
                 android:background="@color/colorPrimaryDark"
                 android:fontFamily="@string/font_serif"
-                android:text="@string/done"
+                android:text="@string/get_otp"
                 android:textColor="@color/color_white"
                 android:textStyle="bold"
                 tools:ignore="UnusedAttribute"
