@@ -14,7 +14,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
-import vn.needy.vendor.screen.registerAccount.RegisterAccountActivity;
+import vn.needy.vendor.screen.validatePhone.ValidatePhoneActivity;
 import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -100,7 +100,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onSignUpClick() {
-        mNavigator.startActivity(RegisterAccountActivity.class);
+        mNavigator.startActivity(ValidatePhoneActivity.class);
     }
 
     @Override

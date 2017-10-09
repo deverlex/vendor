@@ -42,7 +42,7 @@
             android:windowSoftInputMode="stateHidden"
             />
 
-        <activity android:name=".screen.registerAccount.RegisterAccountActivity"
+        <activity android:name=".screen.registerUser.RegisterUserActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"
@@ -54,7 +54,7 @@
             android:windowSoftInputMode="stateHidden"
             />
 
-        <activity android:name=".screen.validateOtp.ValidateOtpActivity"
+        <activity android:name=".screen.validatePhone.ValidatePhoneActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"

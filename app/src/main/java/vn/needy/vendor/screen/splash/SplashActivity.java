@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private static final String TAG = SplashActivity.class.getName();
 
-    private static final int SECOND_DELAYED = 2000;
+    private static final int SECOND_DELAYED = 1000;
     private Handler mHandler;
     private Runnable mRunnable;
     private Intent mIntent;

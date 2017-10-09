@@ -100,7 +100,7 @@
                         android:paddingStart="@dimen/dp_10"
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray70"
-                        android:onTextChanged="@{viewModel.onTextChanged}"
+                        android:onTextChanged="@{viewModel::onTextChanged}"
                         app:errorText="@{viewModel.passwordError}"
                         app:transformationMethod="@{viewModel.transformationMethod}"
                         tools:ignore="UnusedAttribute"

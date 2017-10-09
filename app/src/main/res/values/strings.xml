@@ -5,9 +5,9 @@
 
     <string name="phone_number">Số điện thoại</string>
     <string name="password">Mật khẩu</string>
-    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="forgot_password"><u>Quên mật khẩu?</u></string>
     <string name="login">Đăng nhập</string>
-    <string name="register_account">Đăng ký</string>
+    <string name="register_account"><u>Đăng ký</u></string>
 
     <string name="create_new_account">TẠO TÀI KHOẢN</string>
     <string name="first_name">Họ và tên đệm</string>
@@ -19,11 +19,11 @@
     <string name="next">Tiếp theo</string>
 
     <string name="get_new_password">LẤY MẬT KHẨU MỚI</string>
-    <string name="intro_get_new_password">Vui lòng nhập số điện thoại đã đăng ký để\nthiết lập mật khẩu mới</string>
+    <string name="intro_get_new_password">Vui lòng nhập số điện thoại đã đăng ký để thiết lập mật khẩu mới</string>
     <string name="not_have_account">Chưa đăng ký tài khoản?</string>
 
-    <string name="validate_opt">XÁC THỰC TÀI KHOẢN</string>
-    <string name="intro_validate_otp">Vui lòng nhập vào mã xác thực OTP\nnhận được từ hệ thống qua SMS\nđể kích hoạt tài khoản.</string>
+    <string name="validate_opt">XÁC THỰC SỐ ĐIỆN THOẠI</string>
+    <string name="intro_validate_otp">Vui lòng nhập vào mã xác thực OTP nhận được từ hệ thống qua SMS để kích hoạt tài khoản.</string>
     <string name="otp_code">Nhập mã OTP</string>
     <string name="done">Hoàn tất</string>
 
@@ -39,6 +39,7 @@
     <string name="office_address">Địa chỉ công ty/tổ chức</string>
     <string name="store_name">Tên cửa hàng</string>
     <string name="store_address">Địa chỉ cửa hàng</string>
+    <string name="policies"><u>Điều khoản</u></string>
 
     <string name="store_tab">Cửa hàng</string>
     <string name="cart_tab">Đơn hàng</string>
@@ -60,4 +61,7 @@
     <string name="password_over_limit">Tối đa 32 ký tự</string>
     <string name="is_not_phone_number">Không đúng định dạng</string>
     <string name="password_miss_length">Mật khẩu cần ít nhất 8 ký tự</string>
+
+    <string name="first_name_empty">Họ và tên đệm rỗng</string>
+    <string name="last_name_empty">Tên rỗng</string>
 </resources>
