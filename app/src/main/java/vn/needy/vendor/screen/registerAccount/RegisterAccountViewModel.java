@@ -19,6 +19,7 @@ public class RegisterAccountViewModel extends BaseObservable implements Register
     private String mFirstNameError;
     private String mLastNameError;
     private String mAddressError;
+
     private String mPhoneNumber;
     private String mPassword;
     private String mFirstName;
@@ -50,7 +51,7 @@ public class RegisterAccountViewModel extends BaseObservable implements Register
     }
 
     @Override
-    public void onBackLogin() {
+    public void onBackLoginClick() {
 
     }
 

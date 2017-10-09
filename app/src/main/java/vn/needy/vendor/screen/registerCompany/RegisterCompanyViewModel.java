@@ -1,12 +1,14 @@
 package vn.needy.vendor.screen.registerCompany;
 
+import android.util.Log;
+
 /**
  * Created by lion on 07/10/2017.
  */
 
 public class RegisterCompanyViewModel implements RegisterCompanyContract.ViewModel {
 
-
+    private static final String TAG = RegisterCompanyViewModel.class.getName();
 
     @Override
     public void onStart() {
@@ -24,12 +26,17 @@ public class RegisterCompanyViewModel implements RegisterCompanyContract.ViewMod
     }
 
     @Override
-    public void onClickNext() {
+    public void onNextClick() {
 
     }
 
     @Override
-    public void onClickPosition() {
+    public void onPositionClick() {
+
+    }
+
+    @Override
+    public void onSupportClick() {
 
     }
 }

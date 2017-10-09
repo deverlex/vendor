@@ -10,9 +10,11 @@ import vn.needy.vendor.screen.BaseViewModel;
 interface RegisterCompanyContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onClickNext();
+        void onNextClick();
 
-        void onClickPosition();
+        void onPositionClick();
+
+        void onSupportClick();
     }
 
     interface Presenter extends BasePresenter {

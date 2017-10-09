@@ -10,9 +10,9 @@ import vn.needy.vendor.screen.BaseViewModel;
 public class ValidateOtpContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onDone();
+        void onDoneClick();
 
-        void onResend();
+        void onResendClick();
     }
 
     interface Presenter extends BasePresenter {

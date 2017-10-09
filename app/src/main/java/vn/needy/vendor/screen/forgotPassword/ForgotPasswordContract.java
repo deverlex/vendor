@@ -11,9 +11,9 @@ public class ForgotPasswordContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void onRequireOtp();
+        void onRequireOtpClick();
 
-        void onRegister();
+        void onRegisterClick();
     }
 
     interface Presenter extends BasePresenter {

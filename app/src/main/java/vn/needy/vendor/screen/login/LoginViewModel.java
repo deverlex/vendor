@@ -7,7 +7,6 @@ import android.databinding.Bindable;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.TransformationMethod;
-import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
 

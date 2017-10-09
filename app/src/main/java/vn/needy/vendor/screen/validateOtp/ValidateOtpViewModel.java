@@ -22,12 +22,12 @@ public class ValidateOtpViewModel implements ValidateOtpContract.ViewModel {
     }
 
     @Override
-    public void onDone() {
+    public void onDoneClick() {
 
     }
 
     @Override
-    public void onResend() {
+    public void onResendClick() {
 
     }
 }

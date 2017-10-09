@@ -13,7 +13,7 @@ interface RegisterAccountContract {
 
         void onRegisterClick();
 
-        void onBackLogin();
+        void onBackLoginClick();
     }
 
     interface Presenter extends BasePresenter {

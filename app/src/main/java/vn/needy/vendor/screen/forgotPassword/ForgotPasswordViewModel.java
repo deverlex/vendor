@@ -36,12 +36,12 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     }
 
     @Override
-    public void onRequireOtp() {
+    public void onRequireOtpClick() {
         mNavigator.startActivity(ResetPasswordActivity.class);
     }
 
     @Override
-    public void onRegister() {
+    public void onRegisterClick() {
 
     }
 }
