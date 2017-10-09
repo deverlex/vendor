@@ -4,13 +4,19 @@ import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.TransformationMethod;
+import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import vn.needy.vendor.R;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
 import vn.needy.vendor.screen.registerAccount.RegisterAccountActivity;
+import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -32,6 +38,9 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private String mPasswordError;
     private String mPhoneNumber;
     private String mPassword;
+    private int mDrawableShowPassword;
+    private boolean mVisibleShowPassword;
+    private TransformationMethod mTransformationMethod;
 
     LoginViewModel(Context context, Application application,
                    Navigator navigator, DialogManager dialogManager) {
@@ -39,6 +48,9 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         mApplication = application;
         mNavigator = navigator;
         mDialogManager = dialogManager;
+
+        mDrawableShowPassword = R.drawable.ic_eye_off;
+        mTransformationMethod = PasswordTransformationMethod.getInstance();
     }
 
     @Override
@@ -71,11 +83,14 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onInputPasswordError(int errorMsg) {
         mPasswordError = mContext.getString(errorMsg);
+        mVisibleShowPassword = false;
         notifyPropertyChanged(BR.passwordError);
+        notifyPropertyChanged(BR.visibleShowPassword);
     }
 
     @Override
     public void onLoginClick() {
+        mPhoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(mPhoneNumber);
         mPresenter.login(mPhoneNumber, mPassword);
     }
 
@@ -104,6 +119,27 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         mDialogManager.dismissProgressDialog();
     }
 
+    @Override
+    public void onViewPasswordClick() {
+        if (mDrawableShowPassword == R.drawable.ic_eye) {
+            mDrawableShowPassword = R.drawable.ic_eye_off;
+            mTransformationMethod = PasswordTransformationMethod.getInstance();
+        } else {
+            mDrawableShowPassword = R.drawable.ic_eye;
+            mTransformationMethod = HideReturnsTransformationMethod.getInstance();
+        }
+        notifyPropertyChanged(BR.drawableShowPassword);
+        notifyPropertyChanged(BR.transformationMethod);
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (s.length() > 0) {
+            mVisibleShowPassword = true;
+        } else mVisibleShowPassword = false;
+        notifyPropertyChanged(BR.visibleShowPassword);
+    }
+
     @Bindable
     public String getPhoneNumber() {
         return mPhoneNumber;
@@ -130,6 +166,21 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Bindable
     public String getPasswordError() {
         return mPasswordError;
+    }
+
+    @Bindable
+    public int getDrawableShowPassword() {
+        return mDrawableShowPassword;
+    }
+
+    @Bindable
+    public boolean isVisibleShowPassword() {
+        return mVisibleShowPassword;
+    }
+
+    @Bindable
+    public TransformationMethod getTransformationMethod() {
+        return mTransformationMethod;
     }
 
     public interface Gateway {

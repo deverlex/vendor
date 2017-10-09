@@ -4,9 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -36,7 +34,6 @@ import vn.needy.vendor.utils.navigator.Navigator;
 /**
  * Created by lion on 02/10/2017.
  */
-
 public class LoginActivity extends BaseActivity implements LoginViewModel.Gateway {
 
     private static final String TAG = LoginActivity.class.getName();
@@ -52,6 +49,8 @@ public class LoginActivity extends BaseActivity implements LoginViewModel.Gatewa
 
         //Clear data
         SharedPrefsImpl.getInstance().clear();
+        VendorServiceClient.initialize(getApplication());
+
         mRealmApi =new RealmApi();
 
         mNavigator = new Navigator(this);

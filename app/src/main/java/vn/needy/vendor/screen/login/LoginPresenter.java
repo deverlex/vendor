@@ -1,11 +1,8 @@
 package vn.needy.vendor.screen.login;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -18,6 +15,7 @@ import vn.needy.vendor.data.model.User;
 import vn.needy.vendor.data.source.UserRepository;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
+import vn.needy.vendor.utils.Utils;
 
 /**
  * Created by lion on 05/10/2017.
@@ -75,8 +73,8 @@ public class LoginPresenter implements LoginContract.Presenter {
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        Log.d(TAG, "error login");
                         mViewModel.onLoginError(error);
+                        mViewModel.onHideProgressBar();
                     }
                 });
         mCompositeDisposable.add(disposable);
@@ -89,7 +87,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             isValidate = false;
             mViewModel.onInputPhoneNumberError(R.string.phone_number_empty);
         }
-        if (!isValidPhoneNumber(phoneNumber)) {
+        if (!Utils.PhoneNumberUtils.isValidPhoneNumber(phoneNumber)) {
             isValidate = false;
             mViewModel.onInputPhoneNumberError(R.string.is_not_phone_number);
         }
@@ -97,21 +95,14 @@ public class LoginPresenter implements LoginContract.Presenter {
             isValidate = false;
             mViewModel.onInputPasswordError(R.string.password_empty);
         }
+        if (!TextUtils.isEmpty(passWord) && passWord.length() > 32) {
+            isValidate = false;
+            mViewModel.onInputPasswordError(R.string.password_over_limit);
+        }
         if (!TextUtils.isEmpty(passWord) && passWord.length() < 8) {
             isValidate = false;
             mViewModel.onInputPasswordError(R.string.password_miss_length);
         }
         return isValidate;
-    }
-
-    public boolean isValidPhoneNumber(String phoneNumber) {
-        final PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
-        try {
-            Phonenumber.PhoneNumber pNumber = phoneNumberUtil.parse(phoneNumber, "VN");
-            PhoneNumberUtil.PhoneNumberType phoneNumberType = phoneNumberUtil.getNumberType(pNumber);
-            return phoneNumberType == PhoneNumberUtil.PhoneNumberType.MOBILE;
-        } catch (final Exception e) {
-        }
-        return false;
     }
 }

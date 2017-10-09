@@ -57,6 +57,7 @@
     
     <string name="phone_number_empty">Số điện thoại rỗng</string>
     <string name="password_empty">Mật khẩu rỗng</string>
+    <string name="password_over_limit">Tối đa 32 ký tự</string>
     <string name="is_not_phone_number">Không đúng định dạng</string>
     <string name="password_miss_length">Mật khẩu cần ít nhất 8 ký tự</string>
 </resources>

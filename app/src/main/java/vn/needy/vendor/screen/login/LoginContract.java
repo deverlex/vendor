@@ -1,5 +1,7 @@
 package vn.needy.vendor.screen.login;
 
+import android.support.annotation.DrawableRes;
+
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
@@ -25,6 +27,10 @@ public interface LoginContract {
         void onShowProgressBar();
 
         void onHideProgressBar();
+
+        void onViewPasswordClick();
+
+        void onTextChanged(CharSequence s, int start, int before, int count);
     }
 
     interface Presenter extends BasePresenter {

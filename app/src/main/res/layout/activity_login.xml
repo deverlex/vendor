@@ -8,6 +8,7 @@
             name="viewModel"
             type="vn.needy.vendor.screen.login.LoginViewModel"
             />
+        <import type="android.view.View" />
     </data>
 
     <ScrollView
@@ -99,7 +100,9 @@
                         android:paddingStart="@dimen/dp_10"
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray70"
+                        android:onTextChanged="@{viewModel.onTextChanged}"
                         app:errorText="@{viewModel.passwordError}"
+                        app:transformationMethod="@{viewModel.transformationMethod}"
                         tools:ignore="UnusedAttribute"
                         />
                     <ImageButton
@@ -107,10 +110,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_5"
-                        app:srcCompat="@drawable/ic_eye_off"
+                        app:srcVector="@{viewModel.drawableShowPassword}"
                         android:background="@color/color_white"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
+                        android:onClick="@{() -> viewModel.onViewPasswordClick()}"
+                        android:visibility="@{viewModel.visibleShowPassword? View.VISIBLE : View.GONE}"
                         />
                 </RelativeLayout>
             </RelativeLayout>
