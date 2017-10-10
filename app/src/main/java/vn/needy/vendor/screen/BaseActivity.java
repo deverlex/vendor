@@ -12,6 +12,9 @@ import android.view.ViewConfiguration;
 
 import java.lang.reflect.Field;
 import java.util.Locale;
+
+import vn.needy.vendor.R;
+
 /**
  * Created by lion on 24/09/2017.
  */
@@ -85,5 +88,18 @@ public class BaseActivity  extends AppCompatActivity {
                 .replace(target, fragment)
                 .commit();
         return fragment;
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+    }
+
+    public void onBackPressed(){
+        //you can do your other onBackPressed logic here..
+
+        //Then just call finish()
+        finish();
     }
 }
