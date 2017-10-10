@@ -95,7 +95,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onLoginError(BaseException exception) {
-        mNavigator.showToastCustom(exception.getMessage());
+        mNavigator.showToastButtom(exception.getMessage());
     }
 
     @Override

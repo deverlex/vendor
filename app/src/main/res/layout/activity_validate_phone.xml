@@ -8,6 +8,7 @@
             name="viewModel"
             type="vn.needy.vendor.screen.validatePhone.ValidatePhoneViewModel"
             />
+        <import type="android.view.View" />
     </data>
 
     <ScrollView
@@ -17,7 +18,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_login"
             tools:context=".screen.validatePhone.ValidatePhoneActivity"
             tools:ignore="ScrollViewSize"
             >
@@ -26,7 +26,9 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary">
+                android:background="@drawable/shadow_bottom"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -34,9 +36,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:text="@string/validate_phone"
-                        android:textColor="@color/color_white"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/sp_18"
+                        />
+
+                    <ImageButton
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        app:srcCompat="@drawable/ic_backleft"
+                        android:background="@color/transparent"
+                        android:onClick="@{() -> viewModel.onBackPressed()}"
                         />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
@@ -47,15 +58,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp_20"
                 android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginTop="@dimen/dp_120"
-                android:text="@string/intro_validate_phone"
+                android:layout_marginTop="@dimen/dp_100"
+                android:text="@={viewModel.introContent}"
                 android:textAlignment="center"
                 android:textSize="@dimen/sp_18"
                 android:textColor="@color/color_white"
                 android:gravity="center"
                 />
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/containerInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,6 +77,7 @@
                 android:layout_marginTop="@dimen/dp_40"
                 android:paddingBottom="@dimen/dp_20"
                 android:layout_below="@+id/text_intro_get"
+                android:orientation="vertical"
                 android:background="@color/color_white">
                 <EditText
                     android:id="@+id/text_phone_number"
@@ -74,13 +86,14 @@
                     android:padding="@dimen/dp_5"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:layout_marginRight="@dimen/dp_20"
-                    android:layout_marginBottom="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_10"
                     android:drawableLeft="@{@drawable/ic_cellphone}"
                     android:background="@drawable/background_text"
                     android:drawablePadding="@dimen/dp_20"
                     android:drawableStart="@{@drawable/ic_cellphone}"
                     android:fontFamily="@string/font_serif"
+                    android:text="@={viewModel.phoneNumber}"
                     android:hint="@string/phone_number"
                     android:inputType="phone"
                     android:textAllCaps="false"
@@ -91,15 +104,10 @@
                     android:textColor="@color/color_black"
                     android:textColorHint="@color/gray70"
                     android:textSize="@dimen/sp_20"
+                    android:visibility="@{viewModel.visiblePhoneNumber? View.VISIBLE : View.GONE}"
+                    app:errorText="@{viewModel.phoneNumberError}"
                     tools:ignore="UnusedAttribute"
                     />
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/gray27"
-                    android:layout_below="@+id/text_phone_number"
-                    android:layout_alignLeft="@+id/text_phone_number"
-                    android:layout_alignRight="@+id/text_phone_number"/>
                 <EditText
                     android:id="@+id/text_otp"
                     android:layout_width="match_parent"
@@ -107,13 +115,14 @@
                     android:padding="@dimen/dp_5"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:layout_marginRight="@dimen/dp_20"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_below="@+id/text_phone_number"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_10"
                     android:drawableLeft="@{@drawable/ic_code_tags}"
                     android:background="@drawable/background_text"
                     android:drawablePadding="@dimen/dp_20"
                     android:drawableStart="@{@drawable/ic_code_tags}"
                     android:fontFamily="@string/font_serif"
+                    android:text="@={viewModel.optCode}"
                     android:hint="@string/otp_code"
                     android:inputType="phone"
                     android:textAllCaps="false"
@@ -122,10 +131,20 @@
                     android:paddingRight="@dimen/dp_5"
                     android:paddingStart="@dimen/dp_10"
                     android:textColor="@color/color_black"
+                    android:textSize="@dimen/sp_20"
                     android:textColorHint="@color/gray70"
+                    android:visibility="@{viewModel.visiblePhoneNumber? View.GONE : View.VISIBLE}"
+                    app:errorText="@{viewModel.otpCodeError}"
                     tools:ignore="UnusedAttribute"
                     />
-            </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/gray27"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_20"
+                    />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/text_resend_otp"
@@ -133,40 +152,51 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/containerInput"
                 android:layout_marginTop="@dimen/dp_20"
-                android:layout_alignRight="@+id/containerInput"
-                android:paddingRight="@dimen/dp_30"
-                android:paddingLeft="@dimen/dp_30"
+                android:layout_centerHorizontal="true"
                 android:paddingTop="@dimen/dp_10"
                 android:paddingBottom="@dimen/dp_10"
                 android:text="@string/get_new_otp"
-                android:textSize="@dimen/sp_16"
+                android:textSize="@dimen/sp_18"
                 android:textColor="@color/color_white"
-                android:textStyle="bold"
+                android:onClick="@{() -> viewModel.onResendVerificationClick()}"
+                android:visibility="@{viewModel.visiblePhoneNumber? View.GONE : View.VISIBLE}"
                 />
-
-            <TextView
-                android:id="@+id/waiting_for_otp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_resend_otp"
-                android:layout_alignRight="@+id/text_resend_otp"
-                android:paddingRight="@dimen/dp_30"
-                android:textColor="@color/color_white"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/waiting_for_otp"
-                android:layout_marginTop="@dimen/dp_20"
+                android:layout_below="@+id/containerInput"
+                android:layout_marginTop="@dimen/dp_120"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginStart="@dimen/dp_10"
                 android:background="@color/colorPrimaryDark"
                 android:fontFamily="@string/font_serif"
-                android:text="@string/get_otp"
+                android:text="@string/next"
                 android:textColor="@color/color_white"
                 android:textStyle="bold"
+                android:onClick="@{() -> viewModel.onSendVerificationClick()}"
+                android:visibility="@{viewModel.visiblePhoneNumber? View.VISIBLE : View.GONE}"
+                tools:ignore="UnusedAttribute"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/containerInput"
+                android:layout_marginTop="@dimen/dp_120"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/colorPrimaryDark"
+                android:fontFamily="@string/font_serif"
+                android:text="@string/done"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                android:onClick="@{() -> viewModel.onValidateClick()}"
+                android:visibility="@{viewModel.visiblePhoneNumber? View.GONE : View.VISIBLE}"
                 tools:ignore="UnusedAttribute"
                 />
         </RelativeLayout>

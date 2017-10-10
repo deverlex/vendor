@@ -26,7 +26,7 @@ public class Utils {
             PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
             try {
                 Phonenumber.PhoneNumber swissNumberProto = phoneNumberUtil.parse(phoneNumber, "VN");
-                phoneNumber = phoneNumberUtil.format(swissNumberProto, PhoneNumberUtil.PhoneNumberFormat.NATIONAL);
+                phoneNumber = phoneNumberUtil.format(swissNumberProto, PhoneNumberUtil.PhoneNumberFormat.E164);
                 return phoneNumber.replaceAll("\\s+", "");
             } catch (NumberParseException e) {
             }

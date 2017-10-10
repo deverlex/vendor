@@ -17,13 +17,16 @@
     <string name="login">Đăng nhập</string>
     <string name="register_account"><u>Đăng ký</u></string>
 
-    <string name="validate_phone">XÁC THỰC SỐ ĐIỆN THOẠI</string>
-    <string name="intro_validate_phone">Vui lòng nhập vào số điện thoại và nhấn nút <b>NHẬN MÃ</b>.</string>
-    <string name="intro_validate_opt">Vui lòng nhập vào mã OTP và nhấn <b>TIẾP THEO</b></string>
-    <string name="get_otp">Nhận mã</string>
-    <string name="otp_code">Nhập mã OTP</string>
-
-
+    <string name="validate_phone">XÁC MINH SỐ ĐIỆN THOẠI</string>
+    <string name="intro_validate_phone">Vui lòng nhập vào số điện thoại và nhấn nút <b>tiếp theo</b>.</string>
+    <string name="intro_validate_opt">Vui lòng nhập vào mã xác minh và nhấn <b>hoàn tất</b></string>
+    <string name="otp_code">Mã xác minh</string>
+    <string name="otp_code_invalid">Mã xác minh không đúng</string>
+    <string name="otp_code_empty">Mã xác minh trống</string>
+    <string name="resend_over_limit">Vượt quá số lần yêu cầu, xin chờ.</string>
+    <string name="validation_error">Có lỗi xảy ra, thử lại.</string>
+    <string name="waiting_otp">Chờ %1$s giây để yêu cầu gửi lại mã xác minh.</string>
+    <string name="error_connection">Vui lòng bật kết nối internet để đăng ký</string>
 
     <!--For activity_register_user -->
     <string name="create_new_account">TẠO TÀI KHOẢN</string>
@@ -43,9 +46,8 @@
     <string name="reset_password">ĐẶT LẠI MẬT KHẨU</string>
     <string name="new_password">Mật khẩu mới</string>
     <string name="intro_reset_password"></string>
-    <string name="get_new_otp"><u>Cấp lại mã OTP</u></string>
-    <string name="waiting_otp">Chờ %1$s giây</string>
-    
+    <string name="get_new_otp"><u>Cấp lại mã xác minh</u></string>
+
     <string name="register_company">ĐĂNG KÝ HỆ THỐNG</string>
     <string name="intro_register_company">Hỗ trợ đăng ký</string>
     <string name="company_name">Tên công ty/tổ chức</string>
