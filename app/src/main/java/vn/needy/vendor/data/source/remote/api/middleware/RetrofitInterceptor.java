@@ -1,7 +1,5 @@
 package vn.needy.vendor.data.source.remote.api.middleware;
 
-import android.util.Log;
-
 import okhttp3.Interceptor;
 import java.io.IOException;
 import okhttp3.Request;
@@ -13,8 +11,6 @@ import vn.needy.vendor.data.model.Auth;
  */
 
 public class RetrofitInterceptor implements Interceptor {
-
-    private static final String TAG = RetrofitInterceptor.class.getName();
 
     private Auth mAuth;
 

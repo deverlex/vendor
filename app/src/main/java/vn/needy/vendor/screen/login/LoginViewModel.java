@@ -132,7 +132,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void onPasswordTextChanged(CharSequence s, int start, int before, int count) {
         if (s.length() > 0) {
             mVisibleShowPassword = true;
         } else mVisibleShowPassword = false;

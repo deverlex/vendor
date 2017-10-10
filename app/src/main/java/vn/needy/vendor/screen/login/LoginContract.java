@@ -30,7 +30,7 @@ public interface LoginContract {
 
         void onViewPasswordClick();
 
-        void onTextChanged(CharSequence s, int start, int before, int count);
+        void onPasswordTextChanged(CharSequence s, int start, int before, int count);
     }
 
     interface Presenter extends BasePresenter {
