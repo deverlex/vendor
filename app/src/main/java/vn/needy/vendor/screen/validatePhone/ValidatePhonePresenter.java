@@ -37,6 +37,8 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
     private final ValidatePhoneContract.ViewModel mViewModel;
     private final Activity mActivity;
 
+    private int mDuration;
+
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks
             = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -70,6 +72,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
         mViewModel = viewModel;
         mActivity = activity;
         mAuth = FirebaseAuth.getInstance();
+        mDuration = 0;
     }
 
     @Override
@@ -85,15 +88,20 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
         sendVerificationPhone(phoneNumber);
         mViewModel.onShowProgressBar();
+        waitingForResend();
     }
 
     @Override
     public void resendVerification(String phoneNumber) {
-         if (mResendToken != null) {
+        if (mDuration > 0) {
+            String msg = String.format(mActivity.getString(R.string.waiting_otp), String.valueOf(mDuration));
+            mViewModel.onWaitingTimeForResend(msg);
+        } else if (mResendToken != null) {
             phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
             resendVerificationCode(phoneNumber, mResendToken);
             mViewModel.onShowProgressBar();
-         }
+            waitingForResend();
+        }
     }
 
     @Override
@@ -174,6 +182,22 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
                     mViewModel.onVerificationSuccess(idToken);
                 } else {
                     mViewModel.onVerificationError(mActivity.getString(R.string.validation_error));
+                }
+            }
+        });
+    }
+
+    private void waitingForResend() {
+        mDuration = TIME_DURATION;
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                while (mDuration > 0) {
+                    mDuration -= 1;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                    }
                 }
             }
         });

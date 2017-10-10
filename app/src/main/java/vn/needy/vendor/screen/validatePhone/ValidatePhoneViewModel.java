@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -19,8 +18,6 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class ValidatePhoneViewModel extends BaseObservable implements ValidatePhoneContract.ViewModel {
 
-    private static final String TAG = ValidatePhoneViewModel.class.getName();
-
     private final Context mContext;
     private final Navigator mNavigator;
     private final DialogManager mDialogManager;
@@ -33,7 +30,7 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
     private String mPhoneNumber;
     private String mOtpCode;
 
-    private boolean isVisiblePhoneNumber;
+    private boolean mVisiblePhoneNumber;
 
     public ValidatePhoneViewModel(Context context, Navigator navigator, DialogManager dialogManager) {
         mContext = context;
@@ -41,7 +38,7 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
         mDialogManager = dialogManager;
         mIntroContent = context.getString(R.string.intro_validate_phone);
 
-        isVisiblePhoneNumber = true;
+        mVisiblePhoneNumber = true;
     }
 
     @Override
@@ -96,7 +93,7 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
             mPresenter.sendVerification(mPhoneNumber);
             // change intro content for add otp code
             mIntroContent = mContext.getString(R.string.intro_validate_opt);
-            isVisiblePhoneNumber = false;
+            mVisiblePhoneNumber = false;
             notifyPropertyChanged(BR.visiblePhoneNumber);
             notifyPropertyChanged(BR.introContent);
         }
@@ -126,7 +123,7 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
 
     @Override
     public void onBackPressed() {
-        if (isVisiblePhoneNumber) {
+        if (mVisiblePhoneNumber) {
             mNavigator.onBackPressed();
         } else {
             onResetUI();
@@ -135,7 +132,7 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
 
     private void onResetUI() {
         mIntroContent = mContext.getString(R.string.intro_validate_phone);
-        isVisiblePhoneNumber = true;
+        mVisiblePhoneNumber = true;
         notifyPropertyChanged(BR.visiblePhoneNumber);
         notifyPropertyChanged(BR.introContent);
     }
@@ -179,10 +176,11 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
 
     @Bindable
     public boolean isVisiblePhoneNumber() {
-        return isVisiblePhoneNumber;
+        return mVisiblePhoneNumber;
     }
 
     public void setVisiblePhoneNumber(boolean visiblePhoneNumber) {
-        isVisiblePhoneNumber = visiblePhoneNumber;
+        mVisiblePhoneNumber = visiblePhoneNumber;
     }
+
 }
