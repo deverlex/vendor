@@ -93,7 +93,7 @@ public class BaseActivity  extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
     }
 
     public void onBackPressed(){

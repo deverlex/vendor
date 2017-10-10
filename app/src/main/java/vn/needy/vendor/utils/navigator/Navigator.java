@@ -32,7 +32,6 @@ public class Navigator {
 
     public void startActivity(@NonNull Intent intent) {
         mActivity.startActivity(intent);
-        mActivity.overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     public void startActivity(@NonNull Class<? extends Activity> clazz) {

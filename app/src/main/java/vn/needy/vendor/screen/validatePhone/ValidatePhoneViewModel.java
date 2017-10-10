@@ -3,11 +3,13 @@ package vn.needy.vendor.screen.validatePhone;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.screen.registerUser.RegisterUserActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -59,11 +61,10 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
 
     @Override
     public void onVerificationSuccess(String accessToken) {
-//        Bundle extras = new Bundle();
-//        extras.putString(ValidatePhoneActivity.KEY_ACCESS_TOKEN, accessToken);
-//        mNavigator.startActivity(RegisterUserActivity.class, extras);
-//        mNavigator.finishActivity();
-        Log.d(TAG, "onVerificationSuccess: " + accessToken);
+        Bundle extras = new Bundle();
+        extras.putString(ValidatePhoneActivity.KEY_ACCESS_TOKEN, accessToken);
+        mNavigator.startActivity(RegisterUserActivity.class, extras);
+        mNavigator.finishActivity();
     }
 
     @Override

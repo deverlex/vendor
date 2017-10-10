@@ -43,7 +43,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
             mViewModel.onHideProgressBar();
-//            signInWithPhoneAuthCredential(credential);
+            signInWithPhoneAuthCredential(credential);
         }
 
         @Override
