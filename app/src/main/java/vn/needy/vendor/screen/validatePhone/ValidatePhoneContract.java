@@ -1,9 +1,5 @@
 package vn.needy.vendor.screen.validatePhone;
 
-import android.support.annotation.StringRes;
-
-import com.google.firebase.auth.PhoneAuthCredential;
-
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

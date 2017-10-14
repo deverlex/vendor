@@ -112,7 +112,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
                 signInWithPhoneAuthCredential(credential);
                 mViewModel.onShowProgressBar();
             } else {
-                mViewModel.onInputOtpCodeError(R.string.otp_code_invalid);
+                mViewModel.onVerificationError(mActivity.getString(R.string.validation_error));
             }
         } else {
             mViewModel.onInputOtpCodeError(R.string.otp_code_empty);
@@ -198,6 +198,15 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
+                }
+                if (mDuration == 0) {
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mViewModel.onHideProgressBar();
+                            mViewModel.onVerificationError(mActivity.getString(R.string.validation_error));
+                        }
+                    });
                 }
             }
         });

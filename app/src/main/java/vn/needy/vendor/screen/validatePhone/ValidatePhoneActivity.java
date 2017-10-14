@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -38,6 +39,8 @@ public class ValidatePhoneActivity extends BaseActivity {
     protected void onCreateActivity(Bundle savedInstanceState) {
         getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_login));
 
+        FirebaseAuth.getInstance().signOut();
+
         Navigator navigator = new Navigator(this);
         DialogManager dialogManager = new DialogManager(this);
 
@@ -58,4 +61,5 @@ public class ValidatePhoneActivity extends BaseActivity {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
     }
+
 }

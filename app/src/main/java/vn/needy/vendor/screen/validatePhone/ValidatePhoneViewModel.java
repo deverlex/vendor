@@ -125,9 +125,7 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
     public void onBackPressed() {
         if (mVisiblePhoneNumber) {
             mNavigator.onBackPressed();
-        } else {
-            onResetUI();
-        }
+        } else onResetUI();
     }
 
     private void onResetUI() {
