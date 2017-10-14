@@ -7,17 +7,38 @@ import com.google.gson.annotations.SerializedName;
  * Created by lion on 05/10/2017.
  */
 
-public class LoginRequest extends BaseRequest {
+public class LoginRequest {
 
     @Expose
-    @SerializedName("fcmToken")
-    private String mFcmToken;
+    @SerializedName("username")
+    private String mPhoneNumber;
 
-    public String getFcmToken() {
-        return mFcmToken;
+    @Expose
+    @SerializedName("password")
+    private String mPassWord;
+
+    public LoginRequest() {
+        super();
     }
 
-    public void setFcmToken(String mFcmToken) {
-        this.mFcmToken = mFcmToken;
+    public LoginRequest(String phoneNumber, String passWord) {
+        mPhoneNumber = phoneNumber;
+        mPassWord = passWord;
+    }
+
+    public String getPhoneNumber() {
+        return mPhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.mPhoneNumber = phoneNumber;
+    }
+
+    public String getPassWord() {
+        return mPassWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.mPassWord = passWord;
     }
 }

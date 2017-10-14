@@ -1,8 +1,7 @@
 package vn.needy.vendor.screen.login;
 
 import android.text.TextUtils;
-
-import com.google.firebase.iid.FirebaseInstanceId;
+import android.util.Log;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -10,11 +9,21 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.User;
-import vn.needy.vendor.data.source.UserRepository;
+import vn.needy.vendor.data.model.Company;
+import vn.needy.vendor.data.model.Credential;
+import vn.needy.vendor.data.source.CredentialRepository;
+import vn.needy.vendor.data.source.CompanyRepository;
+import vn.needy.vendor.data.source.local.CompanyLocalDataSource;
+import vn.needy.vendor.data.source.local.CredentialLocalDataSource;
+import vn.needy.vendor.data.source.local.realm.RealmApi;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.data.source.remote.CredentialRemoteDataSource;
+import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
+import vn.needy.vendor.data.source.remote.api.service.VendorApi;
 import vn.needy.vendor.utils.Utils;
 
 /**
@@ -27,11 +36,19 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.ViewModel mViewModel;
     private final CompositeDisposable mCompositeDisposable;
-    private final UserRepository mUserRepository;
 
-    LoginPresenter(LoginContract.ViewModel viewModel, UserRepository userRepository) {
+    private final CredentialRepository mCredentialRepository;
+    private final CompanyRepository mCompanyRepository;
+
+    LoginPresenter(LoginContract.ViewModel viewModel, VendorApi vendorApi) {
         mViewModel = viewModel;
-        mUserRepository = userRepository;
+        mCredentialRepository = new CredentialRepository(
+                new CredentialRemoteDataSource(vendorApi),
+                new CredentialLocalDataSource(SharedPrefsImpl.getInstance()));
+
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteDataSource(vendorApi),
+                new CompanyLocalDataSource(new RealmApi()));
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -46,38 +63,72 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void login(String phoneNumber, String passWord) {
-        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+    public void login(final String phoneNumber, final String passWord) {
         if (!validateDataInput(phoneNumber, passWord)) {
             return;
         }
-        Disposable disposable = mUserRepository.login(phoneNumber, passWord, deviceToken)
+        Disposable disposable = mCredentialRepository.login(phoneNumber, passWord)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         mViewModel.onShowProgressBar();
                     }
-                }).doAfterTerminate(new Action() {
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Response<Void>>() {
                     @Override
-                    public void run() throws Exception {
-//                        mViewModel.onHideProgressBar();
-                    }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<User>() {
-                    @Override
-                    public void accept(User user) throws Exception {
-                        // save user into app database
-                        mUserRepository.saveUser(user);
-                        mViewModel.onLoginSuccess();
+                    public void accept(Response<Void> response) throws Exception {
+                        String token = response.headers().get("Authorization");
+                        // Save token into storage
+                        if (TextUtils.isEmpty(token)) {
+                            mViewModel.onHideProgressBar();
+                            mViewModel.onLoginError(R.string.error_credential);
+                        }  else {
+                            mCredentialRepository.saveToken(token);
+                            mCredentialRepository.saveCredential(new Credential(phoneNumber, passWord));
+                            mViewModel.onLoginSuccess();
+                        }
                     }
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onLoginError(error);
                         mViewModel.onHideProgressBar();
+                        Log.w(TAG, error.getMessage());
+                        mViewModel.onLoginError(R.string.error_service);
                     }
                 });
         mCompositeDisposable.add(disposable);
+
+
+//        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+//        Disposable disposable = mUserRepository.login(phoneNumber, passWord)
+//                .subscribeOn(Schedulers.io())
+//                .doOnSubscribe(new Consumer<Disposable>() {
+//                    @Override
+//                    public void accept(Disposable disposable) throws Exception {
+//                        mViewModel.onShowProgressBar();
+//                    }
+//                }).doAfterTerminate(new Action() {
+//                    @Override
+//                    public void run() throws Exception {
+////                        mViewModel.onHideProgressBar();
+//                    }
+//                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
+//                    @Override
+//                    public void accept(String token) throws Exception {
+//                        // save user into app database
+////                        mUserRepository.saveUser(user);
+//
+//                        mViewModel.onLoginSuccess();
+//                    }
+//                }, new SafetyError() {
+//                    @Override
+//                    public void onSafetyError(BaseException error) {
+//                        mViewModel.onLoginError(error);
+//                        mViewModel.onHideProgressBar();
+//                    }
+//                });
+//        mCompositeDisposable.add(disposable);
     }
 
     @Override
@@ -104,5 +155,31 @@ public class LoginPresenter implements LoginContract.Presenter {
             mViewModel.onInputPasswordError(R.string.password_miss_length);
         }
         return isValidate;
+    }
+
+    @Override
+    public void findCompanyInherent() {
+        Disposable disposable = mCompanyRepository.findCompanyInherent()
+                .subscribeOn(Schedulers.io())
+                .doAfterTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mViewModel.onHideProgressBar();
+                    }
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Company>() {
+                    @Override
+                    public void accept(Company company) throws Exception {
+                        ///save company and redirect to main
+                        mCompanyRepository.saveCompany(company);
+                        mViewModel.onRedirectToMain();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        // redirect to register company
+                        mViewModel.onRedirectToRegisterCompany();
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 }

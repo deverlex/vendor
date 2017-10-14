@@ -16,6 +16,8 @@
     <string name="forgot_password"><u>Quên mật khẩu?</u></string>
     <string name="login">Đăng nhập</string>
     <string name="register_account"><u>Đăng ký</u></string>
+    <string name="error_service">Lỗi kết nối dịch vụ</string>
+    <string name="error_credential">Số điện thoại hoặc mật khẩu không chính xác</string>
 
     <string name="validate_phone">XÁC MINH SỐ ĐIỆN THOẠI</string>
     <string name="intro_validate_phone">Vui lòng nhập vào số điện thoại và nhấn nút <b>tiếp theo</b>.</string>

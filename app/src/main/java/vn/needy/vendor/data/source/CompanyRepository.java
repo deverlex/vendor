@@ -18,11 +18,11 @@ public class CompanyRepository {
         mCompanyLocalDataSource = companyLocalDataSource;
     }
 
-    public Observable<Company> findCompany() {
-        return mCompanyRemoteDataSource.findCompany();
+    public Observable<Company> findCompanyInherent() {
+        return mCompanyRemoteDataSource.findCompanyInherent();
     }
 
     public void saveCompany(Company company) {
-
+        mCompanyLocalDataSource.saveCompany(company);
     }
 }

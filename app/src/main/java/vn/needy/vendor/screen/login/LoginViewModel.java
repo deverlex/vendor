@@ -14,14 +14,12 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
+import vn.needy.vendor.screen.main.MainActivity;
+import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
 import vn.needy.vendor.screen.validatePhone.ValidatePhoneActivity;
 import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
-
-/**
- * Created by lion on 02/10/2017.
- */
 
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
 
@@ -70,7 +68,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onLoginSuccess() {
         VendorServiceClient.initialize(mApplication);
-        ((LoginActivity) mContext).onGateway();
+        mPresenter.findCompanyInherent();
     }
 
     @Override
@@ -94,8 +92,8 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
-    public void onLoginError(BaseException exception) {
-        mNavigator.showToastButtom(exception.getMessage());
+    public void onLoginError(int errorMsg) {
+        mNavigator.showToastCenterText(mContext.getString(errorMsg));
     }
 
     @Override
@@ -137,6 +135,18 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
             mVisibleShowPassword = true;
         } else mVisibleShowPassword = false;
         notifyPropertyChanged(BR.visibleShowPassword);
+    }
+
+    @Override
+    public void onRedirectToMain() {
+        mNavigator.startActivity(MainActivity.class);
+        mNavigator.finishActivity();
+    }
+
+    @Override
+    public void onRedirectToRegisterCompany() {
+        mNavigator.startActivity(RegisterCompanyActivity.class);
+        mNavigator.finishActivity();
     }
 
     @Bindable
@@ -182,7 +192,4 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         return mTransformationMethod;
     }
 
-    public interface Gateway {
-        void onGateway();
-    }
 }
