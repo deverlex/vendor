@@ -1,7 +1,6 @@
 package vn.needy.vendor.screen.login;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -9,7 +8,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
 import vn.needy.vendor.R;
 import vn.needy.vendor.data.model.Company;
 import vn.needy.vendor.data.model.Credential;
@@ -23,7 +21,7 @@ import vn.needy.vendor.data.source.remote.CredentialRemoteDataSource;
 import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
-import vn.needy.vendor.data.source.remote.api.service.VendorApi;
+import vn.needy.vendor.data.source.remote.api.security.Certification;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.utils.Utils;
 
@@ -72,14 +70,14 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void accept(Disposable disposable) throws Exception {
                         mViewModel.onShowProgressBar();
                     }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Response<Void>>() {
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Certification>() {
                     @Override
-                    public void accept(Response<Void> response) throws Exception {
-                        String token = response.headers().get("Authorization");
+                    public void accept(Certification certification) throws Exception {
+                        String token = certification.getToken();
                         // Save token into storage
                         if (TextUtils.isEmpty(token)) {
                             mViewModel.onHideProgressBar();
-                            mViewModel.onLoginError(R.string.error_credential);
+                            mViewModel.onLoginError(certification.getMessage());
                         }  else {
                             mCredentialRepository.saveToken(token);
                             mCredentialRepository.saveCredential(new Credential(phoneNumber, passWord));
@@ -90,8 +88,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onHideProgressBar();
-                        Log.w(TAG, error.getMessage());
-                        mViewModel.onLoginError(R.string.error_service);
+                        mViewModel.onLoginError(R.string.error_credential);
                     }
                 });
         mCompositeDisposable.add(disposable);

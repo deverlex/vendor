@@ -1,4 +1,4 @@
-package vn.needy.vendor.data.source.remote.api.request;
+package vn.needy.vendor.data.source.remote.api.security;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by lion on 05/10/2017.
  */
 
-public class LoginRequest {
+public class Credentials {
 
     @Expose
     @SerializedName("username")
@@ -17,11 +17,11 @@ public class LoginRequest {
     @SerializedName("password")
     private String mPassWord;
 
-    public LoginRequest() {
+    public Credentials() {
         super();
     }
 
-    public LoginRequest(String phoneNumber, String passWord) {
+    public Credentials(String phoneNumber, String passWord) {
         mPhoneNumber = phoneNumber;
         mPassWord = passWord;
     }

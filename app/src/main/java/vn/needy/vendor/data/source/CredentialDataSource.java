@@ -1,9 +1,8 @@
 package vn.needy.vendor.data.source;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
-import retrofit2.Response;
 import vn.needy.vendor.data.model.Credential;
+import vn.needy.vendor.data.source.remote.api.security.Certification;
 
 /**
  * Created by lion on 13/10/2017.
@@ -12,7 +11,7 @@ import vn.needy.vendor.data.model.Credential;
 public interface CredentialDataSource {
 
     interface RemoteDataSource {
-        Observable<Response<Void>> login(String phoneNumber, String passWord);
+        Observable<Certification> login(String phoneNumber, String passWord);
     }
 
     interface LocalDataSource {

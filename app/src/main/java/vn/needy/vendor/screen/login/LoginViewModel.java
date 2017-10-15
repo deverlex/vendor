@@ -11,7 +11,6 @@ import android.text.method.TransformationMethod;
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
 import vn.needy.vendor.screen.main.MainActivity;
@@ -72,6 +71,16 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
+    public void onLoginError(int errorMsg) {
+        mNavigator.showToastCenterText(mContext.getString(errorMsg));
+    }
+
+    @Override
+    public void onLoginError(String message) {
+        mNavigator.showToastCenterText(message);
+    }
+
+    @Override
     public void onInputPhoneNumberError(int errorMsg) {
         mPhoneNumberError = mContext.getString(errorMsg);
         notifyPropertyChanged(BR.phoneNumberError);
@@ -89,11 +98,6 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     public void onLoginClick() {
         mPhoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(mPhoneNumber);
         mPresenter.login(mPhoneNumber, mPassword);
-    }
-
-    @Override
-    public void onLoginError(int errorMsg) {
-        mNavigator.showToastCenterText(mContext.getString(errorMsg));
     }
 
     @Override
