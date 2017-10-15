@@ -24,6 +24,7 @@ import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
 import vn.needy.vendor.data.source.remote.api.service.VendorApi;
+import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.utils.Utils;
 
 /**
@@ -38,17 +39,14 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final CompositeDisposable mCompositeDisposable;
 
     private final CredentialRepository mCredentialRepository;
-    private final CompanyRepository mCompanyRepository;
+    private CompanyRepository mCompanyRepository;
 
-    LoginPresenter(LoginContract.ViewModel viewModel, VendorApi vendorApi) {
+    LoginPresenter(LoginContract.ViewModel viewModel) {
         mViewModel = viewModel;
         mCredentialRepository = new CredentialRepository(
-                new CredentialRemoteDataSource(vendorApi),
+                new CredentialRemoteDataSource(VendorServiceClient.getInstance()),
                 new CredentialLocalDataSource(SharedPrefsImpl.getInstance()));
 
-        mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteDataSource(vendorApi),
-                new CompanyLocalDataSource(new RealmApi()));
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -159,6 +157,9 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void findCompanyInherent() {
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
+                new CompanyLocalDataSource(new RealmApi()));
         Disposable disposable = mCompanyRepository.findCompanyInherent()
                 .subscribeOn(Schedulers.io())
                 .doAfterTerminate(new Action() {

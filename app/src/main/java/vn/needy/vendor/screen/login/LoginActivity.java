@@ -19,8 +19,6 @@ import vn.needy.vendor.utils.navigator.Navigator;
  */
 public class LoginActivity extends BaseActivity {
 
-    private static final String TAG = LoginActivity.class.getName();
-
     private LoginContract.ViewModel mViewModel;
 
     @Override
@@ -35,7 +33,7 @@ public class LoginActivity extends BaseActivity {
         DialogManager dialogManager = new DialogManager(this);
         mViewModel = new LoginViewModel(this, getApplication(), new Navigator(this), dialogManager);
 
-        LoginContract.Presenter presenter = new LoginPresenter(mViewModel, VendorServiceClient.getInstance());
+        LoginContract.Presenter presenter = new LoginPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
 
         ActivityLoginBinding binding =
