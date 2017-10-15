@@ -15,15 +15,9 @@ import io.realm.annotations.PrimaryKey;
 
 public class User extends RealmObject implements Parcelable {
     @PrimaryKey
-    @SerializedName("phoneNumber")
+    @SerializedName("username")
     @Expose
     private String mPhoneNumber;
-    @SerializedName("state")
-    @Expose
-    private int mState;
-    @SerializedName("timeUnlock")
-    @Expose
-    private int mTimeUnlock;
     @SerializedName("firstName")
     @Expose
     private String mFirstName;
@@ -36,12 +30,12 @@ public class User extends RealmObject implements Parcelable {
     @SerializedName("address")
     @Expose
     private String mAddress;
-    @SerializedName("avatarUrl")
+    @SerializedName("avatar")
     @Expose
-    private String mAvatarUrl;
-    @SerializedName("coverImageUrl")
+    private String mAvatar;
+    @SerializedName("coverPicture")
     @Expose
-    private String mCoverImageUrl;
+    private String mCoverPicture;
     @SerializedName("email")
     @Expose
     private String mEmail;
@@ -60,23 +54,25 @@ public class User extends RealmObject implements Parcelable {
     @SerializedName("lastUpdatedTime")
     @Expose
     private String mLastUpdatedTime;
+    @SerializedName("lastResetPassword")
+    @Expose
+    private String mLastResetPassword;
 
     protected User(Parcel in) {
-        mState = in.readInt();
-        mTimeUnlock = in.readInt();
         mPhoneNumber = in.readString();
         mFirstName = in.readString();
         mLastName = in.readString();
         mGender = in.readString();
         mAddress = in.readString();
-        mAvatarUrl = in.readString();
-        mCoverImageUrl = in.readString();
+        mAvatar = in.readString();
+        mCoverPicture = in.readString();
         mEmail = in.readString();
         mBirthday = in.readString();
         mLat = in.readFloat();
         mLng = in.readFloat();
         mCreatedTime = in.readString();
         mLastUpdatedTime = in.readString();
+        mLastResetPassword = in.readString();
     }
 
     public User() {
@@ -85,21 +81,20 @@ public class User extends RealmObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mState);
-        dest.writeInt(mTimeUnlock);
         dest.writeString(mPhoneNumber);
         dest.writeString(mFirstName);
         dest.writeString(mLastName);
         dest.writeString(mGender);
         dest.writeString(mAddress);
-        dest.writeString(mAvatarUrl);
-        dest.writeString(mCoverImageUrl);
+        dest.writeString(mAvatar);
+        dest.writeString(mCoverPicture);
         dest.writeString(mEmail);
         dest.writeString(mBirthday);
         dest.writeFloat(mLat);
         dest.writeFloat(mLng);
         dest.writeString(mCreatedTime);
         dest.writeString(mLastUpdatedTime);
+        dest.writeString(mLastResetPassword);
     }
 
     @Override
@@ -119,123 +114,115 @@ public class User extends RealmObject implements Parcelable {
         }
     };
 
-    public int getState() {
-        return mState;
-    }
-
-    public void setState(int mState) {
-        this.mState = mState;
-    }
-
-    public int getTimeUnlock() {
-        return mTimeUnlock;
-    }
-
-    public void setTimeUnlock(int mTimeUnlock) {
-        this.mTimeUnlock = mTimeUnlock;
-    }
-
     public String getPhoneNumber() {
         return mPhoneNumber;
     }
 
-    public void setPhoneNumber(String mPhoneNumber) {
-        this.mPhoneNumber = mPhoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.mPhoneNumber = phoneNumber;
     }
 
     public String getFirstName() {
         return mFirstName;
     }
 
-    public void setFirstName(String mFirstName) {
-        this.mFirstName = mFirstName;
+    public void setFirstName(String firstName) {
+        this.mFirstName = firstName;
     }
 
     public String getLastName() {
         return mLastName;
     }
 
-    public void setLastName(String mLastName) {
-        this.mLastName = mLastName;
+    public void setLastName(String lastName) {
+        this.mLastName = lastName;
     }
 
     public String getGender() {
         return mGender;
     }
 
-    public void setGender(String mGender) {
-        this.mGender = mGender;
+    public void setGender(String gender) {
+        this.mGender = gender;
     }
 
     public String getAddress() {
         return mAddress;
     }
 
-    public void setAddress(String mAddress) {
-        this.mAddress = mAddress;
+    public void setAddress(String address) {
+        this.mAddress = address;
     }
 
-    public String getAvatarUrl() {
-        return mAvatarUrl;
+    public String getAvatar() {
+        return mAvatar;
     }
 
-    public void setAvatarUrl(String mAvatarUrl) {
-        this.mAvatarUrl = mAvatarUrl;
+    public void setAvatar(String avatar) {
+        this.mAvatar = avatar;
     }
 
-    public String getCoverImageUrl() {
-        return mCoverImageUrl;
+    public String getCoverPicture() {
+        return mCoverPicture;
     }
 
-    public void setCoverImageUrl(String mCoverImageUrl) {
-        this.mCoverImageUrl = mCoverImageUrl;
+    public void setCoverPicture(String coverPicture) {
+        this.mCoverPicture = coverPicture;
     }
 
     public String getEmail() {
         return mEmail;
     }
 
-    public void setEmail(String mEmail) {
-        this.mEmail = mEmail;
+    public void setEmail(String email) {
+        this.mEmail = email;
     }
 
     public String getBirthday() {
         return mBirthday;
     }
 
-    public void setBirthday(String mBirthday) {
-        this.mBirthday = mBirthday;
+    public void setBirthday(String birthday) {
+        this.mBirthday = birthday;
     }
 
     public float getLat() {
         return mLat;
     }
 
-    public void setLat(float mLat) {
-        this.mLat = mLat;
+    public void setLat(float lat) {
+        this.mLat = lat;
     }
 
     public float getLng() {
         return mLng;
     }
 
-    public void setLng(float mLng) {
-        this.mLng = mLng;
+    public void setLng(float lng) {
+        this.mLng = lng;
     }
 
     public String getCreatedTime() {
         return mCreatedTime;
     }
 
-    public void setCreatedTime(String mCreatedTime) {
-        this.mCreatedTime = mCreatedTime;
+    public void setCreatedTime(String createdTime) {
+        this.mCreatedTime = createdTime;
     }
 
     public String getLastUpdatedTime() {
         return mLastUpdatedTime;
     }
 
-    public void setLastUpdatedTime(String mLastUpdatedTime) {
-        this.mLastUpdatedTime = mLastUpdatedTime;
+    public void setLastUpdatedTime(String lastUpdatedTime) {
+        this.mLastUpdatedTime = lastUpdatedTime;
+    }
+
+    public String getLastResetPassword() {
+        return mLastResetPassword;
+    }
+
+    public void setLastResetPassword(String lastResetPassword) {
+        this.mLastResetPassword = lastResetPassword;
     }
 }

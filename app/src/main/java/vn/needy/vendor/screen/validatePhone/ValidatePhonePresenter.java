@@ -171,7 +171,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
                 });
     }
 
-    private void getUserTokenId(FirebaseUser user) {
+    private void getUserTokenId(final FirebaseUser user) {
         user.getIdToken(true).addOnCompleteListener(mActivity, new OnCompleteListener<GetTokenResult>() {
             @Override
             public void onComplete(@NonNull Task<GetTokenResult> task) {
@@ -179,7 +179,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
                 if (task.isSuccessful()) {
                     String idToken = task.getResult().getToken();
                     // Send token to your backend via HTTPS
-                    mViewModel.onVerificationSuccess(idToken);
+                    mViewModel.onVerificationSuccess(user.getUid(), idToken);
                 } else {
                     mViewModel.onVerificationError(mActivity.getString(R.string.validation_error));
                 }

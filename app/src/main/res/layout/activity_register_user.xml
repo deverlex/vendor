@@ -6,9 +6,11 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.registerAccount.RegisterAccountViewModel"
+            type="vn.needy.vendor.screen.registerUser.RegisterUserViewModel"
             />
+        <import type="android.view.View" />
     </data>
+
     <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -18,14 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".screen.splash.SplashActivity"
+            tools:context=".screen.registerUser.RegisterUserActivity"
             tools:ignore="ScrollViewSize">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary">
+                android:background="@color/colorPrimaryDark">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -46,11 +48,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/toolbar"
                 android:paddingTop="@dimen/dp_10"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_70"
+                android:layout_centerVertical="true"
                 android:background="@color/color_white">
                 <EditText
                     android:id="@+id/text_first_name"
@@ -67,6 +68,7 @@
                     android:drawableStart="@{@drawable/ic_account}"
                     android:fontFamily="@string/font_serif"
                     android:hint="@string/first_name"
+                    android:text="@={viewModel.firstName}"
                     android:inputType="textCapWords"
                     android:textAllCaps="false"
                     android:paddingEnd="@dimen/dp_5"
@@ -75,6 +77,7 @@
                     android:paddingStart="@dimen/dp_10"
                     android:textColor="@color/color_black"
                     android:textColorHint="@color/gray70"
+                    app:errorText="@{viewModel.firstNameError}"
                     tools:ignore="UnusedAttribute"
                     />
                 <View
@@ -87,7 +90,7 @@
                     />
                 <EditText
                     android:id="@+id/text_last_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_first_name"
                     android:padding="@dimen/dp_5"
@@ -101,6 +104,7 @@
                     android:drawableStart="@{@drawable/ic_account}"
                     android:fontFamily="@string/font_serif"
                     android:hint="@string/last_name"
+                    android:text="@={viewModel.lastName}"
                     android:inputType="textCapWords"
                     android:textAllCaps="false"
                     android:paddingEnd="@dimen/dp_5"
@@ -109,6 +113,7 @@
                     android:paddingStart="@dimen/dp_10"
                     android:textColor="@color/color_black"
                     android:textColorHint="@color/gray70"
+                    app:errorText="@{viewModel.lastNameError}"
                     tools:ignore="UnusedAttribute"
                     />
                 <View
@@ -118,7 +123,7 @@
                     android:layout_below="@+id/text_last_name"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:layout_marginRight="@dimen/dp_20"/>
-                <EditText
+                <TextView
                     android:id="@+id/text_phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -133,15 +138,14 @@
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@{@drawable/ic_cellphone}"
                     android:fontFamily="@string/font_serif"
-                    android:hint="@string/phone_number"
-                    android:inputType="phone"
+                    android:text="@={viewModel.phoneNumber}"
                     android:textAllCaps="false"
                     android:paddingEnd="@dimen/dp_5"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_5"
                     android:paddingStart="@dimen/dp_10"
                     android:textColor="@color/color_black"
-                    android:textColorHint="@color/gray70"
+                    android:textSize="@dimen/sp_18"
                     tools:ignore="UnusedAttribute"
                     />
                 <View
@@ -160,7 +164,7 @@
                     >
                     <EditText
                         android:id="@+id/text_password"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_5"
                         android:layout_marginLeft="@dimen/dp_10"
@@ -176,6 +180,7 @@
                         android:drawableStart="@{@drawable/ic_lock}"
                         android:fontFamily="serif"
                         android:hint="@string/password"
+                        android:text="@={viewModel.password}"
                         android:inputType="textPassword"
                         android:paddingEnd="@dimen/dp_5"
                         android:paddingLeft="@dimen/dp_10"
@@ -184,19 +189,24 @@
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray70"
                         android:textSize="@dimen/sp_16"
+                        android:onTextChanged="@{viewModel::onTextChanged}"
+                        app:transformationMethod="@{viewModel.transformationMethod}"
+                        app:errorText="@{viewModel.passwordError}"
                         tools:ignore="UnusedAttribute"
                         />
                     <ImageButton
                         android:id="@+id/viewPasswordButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_eye_off"
+                        app:srcVector="@{viewModel.drawableShowPassword}"
                         android:padding="@dimen/dp_5"
                         android:background="@color/color_white"
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginRight="@dimen/dp_20"
+                        android:visibility="@{viewModel.visibleShowPassword? View.VISIBLE : View.GONE}"
+                        android:onClick="@{() -> viewModel.onViewPasswordClick()}"
                         />
                 </RelativeLayout>
 
@@ -236,7 +246,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="horizontal"
-                        android:layout_marginRight="@dimen/dp_20">
+                        android:layout_marginRight="@dimen/dp_20"
+                        android:onCheckedChanged="@{viewModel::onCheckedChanged}">
                         <RadioButton
                             android:id="@+id/rbMale"
                             android:layout_width="wrap_content"
@@ -287,6 +298,7 @@
                         android:drawableStart="@{@drawable/ic_home_map}"
                         android:fontFamily="@string/font_serif"
                         android:hint="@string/home_address"
+                        android:text="@={viewModel.address}"
                         android:inputType="textCapWords"
                         android:textAllCaps="false"
                         android:paddingEnd="@dimen/dp_5"
@@ -314,21 +326,31 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/policies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:text="@string/policies"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_16"
+                android:fontFamily="@string/font_serif"
+                android:padding="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_alignRight="@+id/containerInput"
+                android:layout_below="@+id/containerInput" />
+
             <Button
                 android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/containerInput"
                 android:layout_centerHorizontal="true"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
-                android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_40"
+                android:layout_alignParentBottom="true"
                 android:background="@color/colorPrimaryDark"
                 android:fontFamily="@string/font_serif"
                 android:onClick="@{() -> viewModel.onRegisterClick()}"
-                android:text="@string/next"
+                android:text="@string/done"
                 android:textColor="@color/color_white"
                 android:textStyle="bold"
                 tools:ignore="UnusedAttribute"

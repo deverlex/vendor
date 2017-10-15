@@ -1,19 +1,11 @@
 package vn.needy.vendor.data.source.local;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-
 import io.reactivex.ObservableEmitter;
 import io.reactivex.functions.BiConsumer;
 import io.realm.Realm;
-import vn.needy.vendor.data.model.Auth;
 import vn.needy.vendor.data.model.User;
 import vn.needy.vendor.data.source.UserDataSource;
 import vn.needy.vendor.data.source.local.realm.RealmApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 
 /**
  * Created by lion on 04/10/2017.

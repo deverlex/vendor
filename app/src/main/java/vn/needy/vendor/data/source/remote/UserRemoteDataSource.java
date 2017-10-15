@@ -1,22 +1,13 @@
 package vn.needy.vendor.data.source.remote;
 
-import com.google.gson.Gson;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import android.util.Log;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
-import vn.needy.vendor.data.model.Company;
-import vn.needy.vendor.data.model.User;
 import vn.needy.vendor.data.source.UserDataSource;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.data.source.remote.api.request.LoginRequest;
-import vn.needy.vendor.data.source.remote.api.response.CompanyResponse;
-import vn.needy.vendor.data.source.remote.api.response.LoginResponse;
+import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
+import vn.needy.vendor.data.source.remote.api.response.RegisterUserResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorApi;
 
 /**
@@ -33,27 +24,39 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<User> login(final String phoneNumber, String passWord, String deviceToken) {
-        Map<String, String> header = new LinkedHashMap<>();
-        header.put("X-User-Application", "Vendor");
-        header.put("X-User-PhoneNumber", phoneNumber);
-        header.put("X-User-Password", passWord);
-
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setFcmToken(deviceToken);
-
-        return mVendorApi.login(header, loginRequest)
-            .map(new Function<LoginResponse, User>() {
-                @Override
-                public User apply(@NonNull LoginResponse loginResponse) throws Exception {
-                    // save auth into SharedPreference
-                    SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
-                    String authContext = new Gson().toJson(loginResponse.getAuth());
-                    prefsApi.put(SharedPrefsKey.KEY_AUTH, authContext);
-                    return loginResponse.getUser();
-                }
-            });
+    public Observable<RegisterUserResponse> registerUser(RegisterUserRequest registerUserRequest) {
+        Log.d(TAG, registerUserRequest.getPhoneNumber());
+        return mVendorApi.registerUser(registerUserRequest).map(new Function<RegisterUserResponse, RegisterUserResponse>() {
+            @Override
+            public RegisterUserResponse apply(@NonNull RegisterUserResponse registerUserResponse) throws Exception {
+                return registerUserResponse;
+            }
+        });
     }
+
+//    @Override
+//    public Observable<String> login(final String phoneNumber, String password) {
+//        LoginRequest loginRequest = new LoginRequest();
+//        loginRequest.setPhoneNumber(phoneNumber);
+//        loginRequest.setPassWord(password);
+//        return null;
+//        return mVendorApi.login(loginRequest).map(new Function<String, String>() {
+//            @Override
+//            public String apply(@NonNull String s) throws Exception {
+//                return s;
+//            }
+//        });
+//            .map(new Function<LoginResponse, User>() {
+//                @Override
+//                public User apply(@NonNull LoginResponse loginResponse) throws Exception {
+//                    // save auth into SharedPreference
+//                    SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
+//                    String authContext = new Gson().toJson(loginResponse.getAuth());
+//                    prefsApi.put(SharedPrefsKey.TOKEN_KEY, authContext);
+//                    return loginResponse.getUser();
+//                }
+//            });
+//    }
 
 //    @Override
 //    public Observable<UpdateProfileResponse> updateProfile(

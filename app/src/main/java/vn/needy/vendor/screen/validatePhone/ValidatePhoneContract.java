@@ -11,7 +11,7 @@ public class ValidatePhoneContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void onVerificationSuccess(String accessToken);
+        void onVerificationSuccess(String firebaseUid, String firebaseToken);
 
         void onVerificationError(String errorMsg);
 

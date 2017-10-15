@@ -31,7 +31,9 @@ public class ValidatePhoneActivity extends BaseActivity {
 
     private static final String TAG = ValidatePhoneActivity.class.getName();
 
-    public static final String KEY_ACCESS_TOKEN = "access_token";
+    public static final String KEY_PHONE_NUMBER = "phone_number";
+    public static final String KEY_FIREBASE_TOKEN = "firebase_token";
+    public static final String KEY_FIREBASE_UID = "firebase_uid";
 
     private ValidatePhoneContract.ViewModel mViewModel;
 

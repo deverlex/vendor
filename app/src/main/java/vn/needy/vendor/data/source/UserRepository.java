@@ -1,10 +1,9 @@
 package vn.needy.vendor.data.source;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.data.model.Auth;
-import vn.needy.vendor.data.model.Company;
 import vn.needy.vendor.data.model.User;
-import vn.needy.vendor.data.source.remote.api.response.LoginResponse;
+import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
+import vn.needy.vendor.data.source.remote.api.response.RegisterUserResponse;
 
 /**
  * Created by lion on 05/10/2017.
@@ -21,14 +20,9 @@ public class UserRepository {
         mUserLocalDataSource = userLocalDataSource;
     }
 
-    public Observable<User> login(String userName, String passWord, String deviceToken) {
-        return mUserRemoteDataSource.login(userName, passWord, deviceToken);
+    public Observable<RegisterUserResponse> registerUser(RegisterUserRequest registerUserRequest) {
+        return mUserRemoteDataSource.registerUser(registerUserRequest);
     }
-
-//    public Observable<UpdateProfileResponse> updateProfile(
-//            UpdateProfileRequest updateProfileRequest) {
-//        return mUserRemoteDataSource.updateProfile(updateProfileRequest);
-//    }
 
     public void saveUser(User user) {
         mUserLocalDataSource.saveUser(user);

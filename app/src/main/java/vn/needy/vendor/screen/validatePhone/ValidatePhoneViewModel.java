@@ -57,9 +57,11 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
     }
 
     @Override
-    public void onVerificationSuccess(String accessToken) {
+    public void onVerificationSuccess(String firebaseUid, String firebaseToken) {
         Bundle extras = new Bundle();
-        extras.putString(ValidatePhoneActivity.KEY_ACCESS_TOKEN, accessToken);
+        extras.putString(ValidatePhoneActivity.KEY_PHONE_NUMBER, mPhoneNumber);
+        extras.putString(ValidatePhoneActivity.KEY_FIREBASE_UID, firebaseUid);
+        extras.putString(ValidatePhoneActivity.KEY_FIREBASE_TOKEN, firebaseToken);
         mNavigator.startActivity(RegisterUserActivity.class, extras);
         mNavigator.finishActivity();
     }
