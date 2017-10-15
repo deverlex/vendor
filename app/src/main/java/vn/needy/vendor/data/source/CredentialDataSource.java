@@ -2,7 +2,7 @@ package vn.needy.vendor.data.source;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.data.model.Credential;
-import vn.needy.vendor.data.source.remote.api.security.Certification;
+import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 
 /**
  * Created by lion on 13/10/2017.
@@ -11,7 +11,7 @@ import vn.needy.vendor.data.source.remote.api.security.Certification;
 public interface CredentialDataSource {
 
     interface RemoteDataSource {
-        Observable<Certification> login(String phoneNumber, String passWord);
+        Observable<CertificationResponse> login(String phoneNumber, String passWord);
     }
 
     interface LocalDataSource {

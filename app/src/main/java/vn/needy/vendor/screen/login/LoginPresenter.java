@@ -21,7 +21,7 @@ import vn.needy.vendor.data.source.remote.CredentialRemoteDataSource;
 import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
-import vn.needy.vendor.data.source.remote.api.security.Certification;
+import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.utils.Utils;
 
@@ -70,9 +70,9 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void accept(Disposable disposable) throws Exception {
                         mViewModel.onShowProgressBar();
                     }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Certification>() {
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<CertificationResponse>() {
                     @Override
-                    public void accept(Certification certification) throws Exception {
+                    public void accept(CertificationResponse certification) throws Exception {
                         String token = certification.getToken();
                         // Save token into storage
                         if (TextUtils.isEmpty(token)) {

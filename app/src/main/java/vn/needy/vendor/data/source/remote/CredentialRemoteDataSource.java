@@ -2,8 +2,8 @@ package vn.needy.vendor.data.source.remote;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.data.source.CredentialDataSource;
-import vn.needy.vendor.data.source.remote.api.security.Credentials;
-import vn.needy.vendor.data.source.remote.api.security.Certification;
+import vn.needy.vendor.data.source.remote.api.request.CredentialsRequest;
+import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorApi;
 
 /**
@@ -20,7 +20,7 @@ public class CredentialRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<Certification> login(String phoneNumber, String passWord) {
-        return mVendorApi.login(new Credentials(phoneNumber, passWord));
+    public Observable<CertificationResponse> login(String phoneNumber, String passWord) {
+        return mVendorApi.login(new CredentialsRequest(phoneNumber, passWord));
     }
 }

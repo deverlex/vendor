@@ -2,12 +2,9 @@ package vn.needy.vendor.data.source.remote.api.service;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.util.Log;
 
-import com.google.gson.Gson;
-
-import vn.needy.vendor.data.model.Auth;
-import vn.needy.vendor.data.model.User;
-import vn.needy.vendor.data.source.local.realm.RealmApi;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
@@ -24,15 +21,12 @@ public class VendorServiceClient extends ServiceClient {
 
     public static void initialize(@NonNull Application application) {
         SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
-        Auth auth = new Gson().fromJson(prefsApi.get(SharedPrefsKey.KEY_AUTH, String.class),
-                Auth.class);
-
+        String token = prefsApi.get(SharedPrefsKey.TOKEN_KEY, String.class);
         RetrofitInterceptor interceptor = null;
-        if (auth != null) {
-            interceptor = new RetrofitInterceptor(auth);
+        if (!TextUtils.isEmpty(token)) {
+            interceptor = new RetrofitInterceptor(token);
         }
-        mVendorApiInstance =
-                createService(application, Constant.END_POINT_URL, VendorApi.class, interceptor);
+        mVendorApiInstance = createService(application, Constant.END_POINT_URL, VendorApi.class, interceptor);
     }
 
     public static VendorApi getInstance() {

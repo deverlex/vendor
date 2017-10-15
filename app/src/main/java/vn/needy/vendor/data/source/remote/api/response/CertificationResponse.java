@@ -1,4 +1,4 @@
-package vn.needy.vendor.data.source.remote.api.security;
+package vn.needy.vendor.data.source.remote.api.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,14 +7,11 @@ import com.google.gson.annotations.SerializedName;
  * Created by lion on 15/10/2017.
  */
 
-public class Certification {
+public class CertificationResponse extends BaseResponse {
 
     @Expose
     @SerializedName("token")
     private String token;
-    @Expose
-    @SerializedName("message")
-    private String message;
 
     public String getToken() {
         return token;
@@ -24,11 +21,4 @@ public class Certification {
         this.token = token;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

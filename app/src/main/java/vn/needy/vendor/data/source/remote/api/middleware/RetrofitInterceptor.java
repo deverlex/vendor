@@ -1,10 +1,13 @@
 package vn.needy.vendor.data.source.remote.api.middleware;
 
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.util.Log;
+
 import okhttp3.Interceptor;
 import java.io.IOException;
 import okhttp3.Request;
 import okhttp3.Response;
-import vn.needy.vendor.data.model.Auth;
 
 /**
  * Created by lion on 23/09/2017.
@@ -12,10 +15,10 @@ import vn.needy.vendor.data.model.Auth;
 
 public class RetrofitInterceptor implements Interceptor {
 
-    private Auth mAuth;
+    private String mToken;
 
-    public RetrofitInterceptor(Auth auth) {
-        mAuth = auth;
+    public RetrofitInterceptor(@NonNull String token) {
+        mToken = token;
     }
 
     @Override
@@ -28,16 +31,11 @@ public class RetrofitInterceptor implements Interceptor {
 
     private Request.Builder initializeHeader(Chain chain) {
         Request originRequest = chain.request();
-        Request.Builder builder = originRequest.newBuilder()
+        return originRequest.newBuilder()
                 .header("Accept", "application/json;charset=utf-8")
                 .addHeader("Cache-Control", "no-cache")
-                .addHeader("Cache-Control", "no-store");
-
-        if (mAuth != null) {
-            builder.header("X-User-Key", mAuth.getKey());
-            builder.header("X-User-Token", mAuth.getToken());
-        }
-
-        return builder.method(originRequest.method(), originRequest.body());
+                .addHeader("Cache-Control", "no-store")
+                .header("Authorization", mToken)
+                .method(originRequest.method(), originRequest.body());
     }
 }
