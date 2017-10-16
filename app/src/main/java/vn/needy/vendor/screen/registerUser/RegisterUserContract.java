@@ -20,6 +20,10 @@ interface RegisterUserContract {
 
         void onInputPasswordError(int errorMsg);
 
+        void onRegisterError(String message);
+
+        void onRegisterError(int errorMsg);
+
         void onRegisterSuccess();
 
         void onRegisterClick();

@@ -6,6 +6,8 @@ import io.realm.Realm;
 import vn.needy.vendor.data.model.User;
 import vn.needy.vendor.data.source.UserDataSource;
 import vn.needy.vendor.data.source.local.realm.RealmApi;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 
 /**
  * Created by lion on 04/10/2017.
@@ -15,8 +17,11 @@ public class UserLocalDataSource extends BaseLocalDataSource implements UserData
 
     private static final String TAG = UserLocalDataSource.class.getName();
 
-    public UserLocalDataSource(RealmApi realmApi) {
+    private SharedPrefsApi mPrefsApi;
+
+    public UserLocalDataSource(RealmApi realmApi, SharedPrefsApi prefsApi) {
         super(realmApi);
+        mPrefsApi = prefsApi;
     }
 
     @Override
@@ -41,5 +46,10 @@ public class UserLocalDataSource extends BaseLocalDataSource implements UserData
     @Override
     public void clearData() {
 
+    }
+
+    @Override
+    public void saveToken(String token) {
+        mPrefsApi.put(SharedPrefsKey.TOKEN_KEY, token);
     }
 }

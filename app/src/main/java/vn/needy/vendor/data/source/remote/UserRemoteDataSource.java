@@ -1,13 +1,9 @@
 package vn.needy.vendor.data.source.remote;
 
-import android.util.Log;
-
 import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
 import vn.needy.vendor.data.source.UserDataSource;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
-import vn.needy.vendor.data.source.remote.api.response.RegisterUserResponse;
+import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorApi;
 
 /**
@@ -24,14 +20,8 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<RegisterUserResponse> registerUser(RegisterUserRequest registerUserRequest) {
-        Log.d(TAG, registerUserRequest.getPhoneNumber());
-        return mVendorApi.registerUser(registerUserRequest).map(new Function<RegisterUserResponse, RegisterUserResponse>() {
-            @Override
-            public RegisterUserResponse apply(@NonNull RegisterUserResponse registerUserResponse) throws Exception {
-                return registerUserResponse;
-            }
-        });
+    public Observable<CertificationResponse> registerUser(RegisterUserRequest registerUserRequest) {
+        return mVendorApi.registerUser(registerUserRequest);
     }
 
 //    @Override

@@ -1,6 +1,7 @@
 package vn.needy.vendor.screen.registerUser;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -16,6 +17,7 @@ import com.android.databinding.library.baseAdapters.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.data.model.GenderType;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
+import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
 import vn.needy.vendor.screen.validatePhone.ValidatePhoneActivity;
@@ -31,6 +33,7 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     private final static String TAG = RegisterUserViewModel.class.getName();
 
     private Context mContext;
+    private final Application mApplication;
     private final Navigator mNavigator;
     private RegisterUserContract.Presenter mPresenter;
 
@@ -51,9 +54,10 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     private boolean mVisibleShowPassword;
     private TransformationMethod mTransformationMethod;
 
-    public RegisterUserViewModel(Context context, Navigator navigator) {
-        mNavigator = navigator;
+    public RegisterUserViewModel(Application application, Context context, Navigator navigator) {
+        mApplication = application;
         mContext = context;
+        mNavigator = navigator;
 
         mDrawableShowPassword = R.drawable.ic_eye_off;
         mTransformationMethod = PasswordTransformationMethod.getInstance();
@@ -61,6 +65,13 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
         Bundle extras = ((Activity) mContext).getIntent().getExtras();
         mPhoneNumber = extras.getString(ValidatePhoneActivity.KEY_PHONE_NUMBER);
+
+        mFirstName = "Nguyen";
+        mLastName = "Do";
+        mPassword = "12345678";
+        mAddress = "Le Quy Don";
+        mLat = 12.86f;
+        mLng = 13.94f;
     }
 
     @Override
@@ -97,10 +108,20 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     }
 
     @Override
+    public void onRegisterError(String message) {
+        mNavigator.showToastCenterText(message);
+    }
+
+    @Override
+    public void onRegisterError(int errorMsg) {
+        mNavigator.showToastCenterText(mContext.getString(errorMsg));
+    }
+
+    @Override
     public void onRegisterSuccess() {
         Log.w(TAG, "onRegisterSuccess");
-//        VendorServiceClient.initialize(mApplication);
-//        mPresenter.findCompanyInherent();
+        VendorServiceClient.initialize(mApplication);
+        mPresenter.findCompanyInherent();
     }
 
     @Override

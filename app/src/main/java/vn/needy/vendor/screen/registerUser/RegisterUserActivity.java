@@ -38,7 +38,7 @@ public class RegisterUserActivity extends BaseActivity
         SharedPrefsImpl.getInstance().clear();
         VendorServiceClient.initialize(getApplication());
 
-        mViewModel = new RegisterUserViewModel(this, navigator);
+        mViewModel = new RegisterUserViewModel(getApplication(), this, navigator);
 
         RegisterUserContract.Presenter presenter = new RegisterUserPresenter(mViewModel);
         mViewModel.setPresenter(presenter);

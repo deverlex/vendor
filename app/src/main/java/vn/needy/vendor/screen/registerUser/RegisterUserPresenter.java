@@ -16,12 +16,13 @@ import vn.needy.vendor.data.source.UserRepository;
 import vn.needy.vendor.data.source.local.CompanyLocalDataSource;
 import vn.needy.vendor.data.source.local.UserLocalDataSource;
 import vn.needy.vendor.data.source.local.realm.RealmApi;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
 import vn.needy.vendor.data.source.remote.UserRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
-import vn.needy.vendor.data.source.remote.api.response.RegisterUserResponse;
+import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 
 public class RegisterUserPresenter implements RegisterUserContract.Presenter {
@@ -38,7 +39,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         mViewModel = viewModel;
         mUserRepository = new UserRepository(
                 new UserRemoteDataSource(VendorServiceClient.getInstance()),
-                new UserLocalDataSource(new RealmApi())
+                new UserLocalDataSource(new RealmApi(), SharedPrefsImpl.getInstance())
         );
         mCompositeDisposable = new CompositeDisposable();
     }
@@ -65,23 +66,27 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-
+                        mViewModel.onShowProgressBar();
                     }
-                }).doAfterTerminate(new Action() {
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CertificationResponse>() {
                     @Override
-                    public void run() throws Exception {
-
-                    }
-                }).subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<RegisterUserResponse>() {
-                    @Override
-                    public void accept(RegisterUserResponse userResponse) throws Exception {
-                        mViewModel.onRegisterSuccess();
+                    public void accept(CertificationResponse certification) throws Exception {
+                        String token = certification.getToken();
+                        if (!TextUtils.isEmpty(token)) {
+                            mUserRepository.saveToken(certification.getToken());
+                            mViewModel.onRegisterSuccess();
+                        } else {
+                            mViewModel.onHideProgressBar();
+                            mViewModel.onRegisterError(certification.getMessage());
+                        }
                     }
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        Log.d(TAG, "onSafetyError");
+                        mViewModel.onHideProgressBar();
+                        mViewModel.onRegisterError(R.string.error_service);
                     }
                 });
         mCompositeDisposable.add(disposable);
