@@ -26,7 +26,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/shadow_bottom"
+                android:background="@color/colorPrimaryDark"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp">
                 <RelativeLayout
@@ -38,7 +38,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:text="@string/validate_phone"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_18"
                         />
 

@@ -45,6 +45,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
             mViewModel.onHideProgressBar();
+            mViewModel.onSendVerificationSuccess();
             signInWithPhoneAuthCredential(credential);
         }
 
@@ -54,9 +55,9 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
             if (e instanceof FirebaseAuthInvalidCredentialsException) {
                 mViewModel.onInputPhoneNumberError(R.string.is_not_phone_number);
             } else if (e instanceof FirebaseTooManyRequestsException) {
-                mViewModel.onVerificationError(mActivity.getString(R.string.resend_over_limit));
+                mViewModel.onVerificationError(R.string.resend_over_limit);
             } else {
-                mViewModel.onVerificationError(mActivity.getString(R.string.validation_error));
+                mViewModel.onVerificationError(R.string.validation_error);
             }
         }
 
@@ -94,8 +95,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
     @Override
     public void resendVerification(String phoneNumber) {
         if (mDuration > 0) {
-            String msg = String.format(mActivity.getString(R.string.waiting_otp), String.valueOf(mDuration));
-            mViewModel.onWaitingTimeForResend(msg);
+            mViewModel.onWaitingTimeForResend(mDuration);
         } else if (mResendToken != null) {
             phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
             resendVerificationCode(phoneNumber, mResendToken);
@@ -112,7 +112,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
                 signInWithPhoneAuthCredential(credential);
                 mViewModel.onShowProgressBar();
             } else {
-                mViewModel.onVerificationError(mActivity.getString(R.string.validation_error));
+                mViewModel.onVerificationError(R.string.validation_error);
             }
         } else {
             mViewModel.onInputOtpCodeError(R.string.otp_code_empty);
@@ -181,7 +181,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
                     // Send token to your backend via HTTPS
                     mViewModel.onVerificationSuccess(user.getUid(), idToken);
                 } else {
-                    mViewModel.onVerificationError(mActivity.getString(R.string.validation_error));
+                    mViewModel.onVerificationError(R.string.validation_error);
                 }
             }
         });
@@ -204,7 +204,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
                         @Override
                         public void run() {
                             mViewModel.onHideProgressBar();
-                            mViewModel.onVerificationError(mActivity.getString(R.string.validation_error));
+                            mViewModel.onVerificationError(R.string.validation_error);
                         }
                     });
                 }

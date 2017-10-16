@@ -67,13 +67,19 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
     }
 
     @Override
-    public void onVerificationError(String errorMsg) {
-        mNavigator.showToastButtom(errorMsg);
+    public void onVerificationError(String message) {
+        mNavigator.showToastCenterText(message);
     }
 
     @Override
-    public void onWaitingTimeForResend(String message) {
-        mNavigator.showToastCenterText(message);
+    public void onVerificationError(int errorMsg) {
+        mNavigator.showToastCenterText(mContext.getString(errorMsg));
+    }
+
+    @Override
+    public void onWaitingTimeForResend(int duration) {
+        String msg = String.format(mContext.getString(R.string.waiting_otp), String.valueOf(duration));
+        mNavigator.showToastCenterText(msg);
     }
 
     @Override
@@ -89,16 +95,19 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
     }
 
     @Override
+    public void onSendVerificationSuccess() {
+        // change intro content for add otp code
+        mIntroContent = mContext.getString(R.string.intro_validate_opt);
+        mVisiblePhoneNumber = false;
+        notifyPropertyChanged(BR.visiblePhoneNumber);
+        notifyPropertyChanged(BR.introContent);
+    }
+
+    @Override
     public void onSendVerificationClick() {
         // send verify number
-        if (mPresenter.validateDataInput(mPhoneNumber)) {
+        if (mPresenter.validateDataInput(mPhoneNumber))
             mPresenter.sendVerification(mPhoneNumber);
-            // change intro content for add otp code
-            mIntroContent = mContext.getString(R.string.intro_validate_opt);
-            mVisiblePhoneNumber = false;
-            notifyPropertyChanged(BR.visiblePhoneNumber);
-            notifyPropertyChanged(BR.introContent);
-        }
     }
 
     @Override

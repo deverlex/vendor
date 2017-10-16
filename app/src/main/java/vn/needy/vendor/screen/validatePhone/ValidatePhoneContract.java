@@ -13,13 +13,17 @@ public class ValidatePhoneContract {
 
         void onVerificationSuccess(String firebaseUid, String firebaseToken);
 
-        void onVerificationError(String errorMsg);
+        void onVerificationError(String message);
 
-        void onWaitingTimeForResend(String message);
+        void onVerificationError(int errorMsg);
+
+        void onWaitingTimeForResend(int duration);
 
         void onInputPhoneNumberError(int errorMsg);
 
         void onInputOtpCodeError(int errorMsg);
+
+        void onSendVerificationSuccess();
 
         // send verify
         void onSendVerificationClick();
