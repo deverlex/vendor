@@ -47,7 +47,7 @@
 
     <string name="reset_password">ĐẶT LẠI MẬT KHẨU</string>
     <string name="new_password">Mật khẩu mới</string>
-    <string name="intro_reset_password"></string>
+    <string name="intro_reset_password">Vui lòng nhập mật khẩu mới và nhấn nút hoàn tất</string>
     <string name="get_new_otp"><u>Cấp lại mã xác minh</u></string>
 
     <string name="register_company">ĐĂNG KÝ HỆ THỐNG</string>

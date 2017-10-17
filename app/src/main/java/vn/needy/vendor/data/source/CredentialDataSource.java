@@ -1,6 +1,7 @@
 package vn.needy.vendor.data.source;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import vn.needy.vendor.data.model.Credential;
 import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 
@@ -12,6 +13,10 @@ public interface CredentialDataSource {
 
     interface RemoteDataSource {
         Observable<CertificationResponse> login(String phoneNumber, String passWord);
+
+        Observable<CertificationResponse> refresh(String token);
+
+        Observable<Response<Void>> logout();
     }
 
     interface LocalDataSource {

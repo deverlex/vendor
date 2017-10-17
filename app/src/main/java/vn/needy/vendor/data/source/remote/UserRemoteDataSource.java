@@ -33,7 +33,6 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
 
     @Override
     public Observable<CertificationResponse> resetPassword(String phoneNumber, ResetPasswordRequest resetPasswordRequest) {
-        phoneNumber = phoneNumber.replaceAll("\\+", "%2B");
         return mVendorApi.resetPassword(phoneNumber, resetPasswordRequest);
     }
 

@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityResetPasswordBinding;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -24,9 +25,11 @@ public class ResetPasswordActivity extends BaseActivity {
 
 
         Navigator navigator = new Navigator(this);
-        mViewModel = new ResetPasswordViewModel(this, navigator);
+        DialogManager dialogManager = new DialogManager(this);
+        mViewModel = new ResetPasswordViewModel(this, navigator, dialogManager);
 
-
+        ResetPasswordContract.Presenter presenter = new ResetPasswordPresenter(mViewModel);
+        mViewModel.setPresenter(presenter);
 
         ActivityResetPasswordBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_reset_password);

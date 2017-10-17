@@ -27,13 +27,13 @@ public interface VendorApi {
     @GET("api/company")
     Observable<CompanyResponse> findCompanyInherent();
 
-    @POST("api/register")
+    @POST("api/user/register")
     Observable<CertificationResponse> registerUser(@Body RegisterUserRequest registerUserRequest);
 
-    @GET("api/find")
+    @GET("api/user/find")
     Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
 
-    @POST
+    @POST("api/user/password/reset")
     Observable<CertificationResponse> resetPassword(@Query("username") String phoneNumber,
                                                     @Body ResetPasswordRequest resetPasswordRequest);
 

@@ -15,6 +15,10 @@ public class ResetPasswordContract {
 
         void onClickResetPassword();
 
+        void onResetPasswordError(String message);
+
+        void onResetPasswordSuccess();
+
         void onShowProgressBar();
 
         void onHideProgressBar();
@@ -24,6 +28,6 @@ public class ResetPasswordContract {
 
         void resetPassword(String phoneNumber, String firebaseToken, String password);
 
-        void validateDataInput(String password);
+        boolean validateDataInput(String password);
     }
 }
