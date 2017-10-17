@@ -106,8 +106,7 @@ public class ValidatePhoneViewModel extends BaseObservable implements ValidatePh
     @Override
     public void onSendVerificationClick() {
         // send verify number
-        if (mPresenter.validateDataInput(mPhoneNumber))
-            mPresenter.sendVerification(mPhoneNumber);
+        mPresenter.sendVerification(mPhoneNumber);
     }
 
     @Override

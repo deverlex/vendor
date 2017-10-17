@@ -3,6 +3,8 @@ package vn.needy.vendor.data.source;
 import io.reactivex.Observable;
 import vn.needy.vendor.data.model.User;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
+import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
+import vn.needy.vendor.data.source.remote.api.response.BaseResponse;
 import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 
 /**
@@ -22,5 +24,9 @@ public interface UserDataSource {
 
     interface RemoteDataSource {
         Observable<CertificationResponse> registerUser(RegisterUserRequest registerUserRequest);
+
+        Observable<BaseResponse> findUserExist(String phoneNumber);
+
+        Observable<CertificationResponse> resetPassword(String phoneNumber, ResetPasswordRequest resetPasswordRequest);
     }
 }

@@ -86,6 +86,9 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
 
     @Override
     public void sendVerification(String phoneNumber) {
+        if (!validateDataInput(phoneNumber)) {
+            return;
+        }
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
         sendVerificationPhone(phoneNumber);
         mViewModel.onShowProgressBar();

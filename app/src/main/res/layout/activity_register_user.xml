@@ -27,7 +27,9 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/colorPrimaryDark"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -35,9 +37,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:text="@string/create_new_account"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_18"
+                        />
+                    <ImageButton
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        app:srcCompat="@drawable/ic_backleft"
+                        android:background="@color/transparent"
                         />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>

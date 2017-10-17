@@ -11,6 +11,7 @@
     </data>
     <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background_login"
         android:fillViewport="true">
 
         <RelativeLayout
@@ -24,7 +25,9 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary">
+                android:background="@color/colorPrimaryDark"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -32,9 +35,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:text="@string/register_company"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_18"
+                        />
+                    <ImageButton
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        app:srcCompat="@drawable/ic_backleft"
+                        android:background="@color/transparent"
                         />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
@@ -49,7 +59,7 @@
                 android:paddingTop="@dimen/dp_10"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
-                android:background="@color/color_white">
+                android:background="@color/color_white" >
                 <EditText
                     android:id="@+id/text_company_name"
                     android:layout_width="match_parent"
@@ -228,16 +238,11 @@
                 android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_register_company"
                 android:layout_centerHorizontal="true"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
-                android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_40"
+                android:layout_alignParentBottom="true"
                 android:background="@color/colorPrimaryDark"
                 android:fontFamily="@string/font_serif"
-                android:text="Tiếp theo"
+                android:text="@string/done"
                 android:onClick="@{() -> viewModel.onNextClick()}"
                 android:textColor="@color/color_white"
                 android:textStyle="bold"

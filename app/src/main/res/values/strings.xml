@@ -43,7 +43,7 @@
     <string name="intro_get_new_password">Vui lòng nhập số điện thoại đã đăng ký để thiết lập mật khẩu mới</string>
     <string name="not_have_account">Chưa đăng ký tài khoản?</string>
 
-
+    <string name="find_user_exist_error">Số điện thoại chưa đăng ký</string>
 
     <string name="reset_password">ĐẶT LẠI MẬT KHẨU</string>
     <string name="new_password">Mật khẩu mới</string>

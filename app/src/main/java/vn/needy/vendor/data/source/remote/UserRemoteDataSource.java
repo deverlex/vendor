@@ -3,6 +3,8 @@ package vn.needy.vendor.data.source.remote;
 import io.reactivex.Observable;
 import vn.needy.vendor.data.source.UserDataSource;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
+import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
+import vn.needy.vendor.data.source.remote.api.response.BaseResponse;
 import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorApi;
 
@@ -22,6 +24,17 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
     @Override
     public Observable<CertificationResponse> registerUser(RegisterUserRequest registerUserRequest) {
         return mVendorApi.registerUser(registerUserRequest);
+    }
+
+    @Override
+    public Observable<BaseResponse> findUserExist(String phoneNumber) {
+        return mVendorApi.findUserExist(phoneNumber);
+    }
+
+    @Override
+    public Observable<CertificationResponse> resetPassword(String phoneNumber, ResetPasswordRequest resetPasswordRequest) {
+        phoneNumber = phoneNumber.replaceAll("\\+", "%2B");
+        return mVendorApi.resetPassword(phoneNumber, resetPasswordRequest);
     }
 
 //    @Override
