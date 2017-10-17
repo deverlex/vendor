@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityForgotPasswordBinding;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -16,14 +17,20 @@ import vn.needy.vendor.utils.navigator.Navigator;
 public class ForgotPasswordActivity extends BaseActivity {
 
     private ForgotPasswordContract.ViewModel mViewModel;
+    public static final String KEY_PHONE_NUMBER = "phone_number";
+    public static final String KEY_FIREBASE_TOKEN = "firebase_token";
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_login));
 
         Navigator navigator = new Navigator(this);
+        DialogManager dialogManager = new DialogManager(this);
 
-        mViewModel = new ForgotPasswordViewModel(this, navigator);
+        mViewModel = new ForgotPasswordViewModel(this, navigator, dialogManager);
+
+        ForgotPasswordContract.Presenter presenter = new ForgotPasswordPresenter(mViewModel, this);
+        mViewModel.setPresenter(presenter);
 
         ActivityForgotPasswordBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_forgot_password);
