@@ -119,7 +119,6 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
     @Override
     public void onRegisterSuccess() {
-        Log.w(TAG, "onRegisterSuccess");
         VendorServiceClient.initialize(mApplication);
         mPresenter.findCompanyInherent();
     }

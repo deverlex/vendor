@@ -47,6 +47,7 @@ public class ValidatePhonePresenter implements ValidatePhoneContract.Presenter {
             mViewModel.onHideProgressBar();
             mViewModel.onSendVerificationSuccess();
             signInWithPhoneAuthCredential(credential);
+            mDuration = -1;
         }
 
         @Override

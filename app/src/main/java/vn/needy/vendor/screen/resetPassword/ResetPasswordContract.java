@@ -22,6 +22,10 @@ public class ResetPasswordContract {
         void onShowProgressBar();
 
         void onHideProgressBar();
+
+        void onRedirectToMain();
+
+        void onRedirectToRegisterCompany();
     }
 
     interface Presenter extends BasePresenter {
@@ -29,5 +33,7 @@ public class ResetPasswordContract {
         void resetPassword(String phoneNumber, String firebaseToken, String password);
 
         boolean validateDataInput(String password);
+
+        void findCompanyInherent();
     }
 }

@@ -6,13 +6,18 @@ import android.util.Log;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
+import vn.needy.vendor.data.model.Company;
+import vn.needy.vendor.data.source.CompanyRepository;
 import vn.needy.vendor.data.source.UserRepository;
+import vn.needy.vendor.data.source.local.CompanyLocalDataSource;
 import vn.needy.vendor.data.source.local.UserLocalDataSource;
 import vn.needy.vendor.data.source.local.realm.RealmApi;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
 import vn.needy.vendor.data.source.remote.UserRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
@@ -31,6 +36,7 @@ public class ResetPasswordPresenter implements ResetPasswordContract.Presenter {
 
     private final CompositeDisposable mCompositeDisposable;
     private final ResetPasswordContract.ViewModel mViewModel;
+    private CompanyRepository mCompanyRepository;
 
     private UserRepository mUserRepository;
 
@@ -69,9 +75,9 @@ public class ResetPasswordPresenter implements ResetPasswordContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<CertificationResponse>() {
                     @Override
-                    public void accept(CertificationResponse certificationResponse) throws Exception {
+                    public void accept(CertificationResponse certification) throws Exception {
+                        mUserRepository.saveToken(certification.getToken());
                         mViewModel.onResetPasswordSuccess();
-                        Log.w(TAG, certificationResponse.getToken());
                     }
                 }, new SafetyError() {
                     @Override
@@ -98,5 +104,34 @@ public class ResetPasswordPresenter implements ResetPasswordContract.Presenter {
             mViewModel.onInputPasswordError(R.string.password_miss_length);
         }
         return isValidate;
+    }
+
+    @Override
+    public void findCompanyInherent() {
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
+                new CompanyLocalDataSource(new RealmApi()));
+        Disposable disposable = mCompanyRepository.findCompanyInherent()
+                .subscribeOn(Schedulers.io())
+                .doAfterTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mViewModel.onHideProgressBar();
+                    }
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Company>() {
+                    @Override
+                    public void accept(Company company) throws Exception {
+                        ///save company and redirect to main
+                        mCompanyRepository.saveCompany(company);
+                        mViewModel.onRedirectToMain();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        // redirect to register company
+                        mViewModel.onRedirectToRegisterCompany();
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 }

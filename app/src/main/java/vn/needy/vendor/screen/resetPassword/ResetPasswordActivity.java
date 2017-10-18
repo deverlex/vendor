@@ -18,7 +18,6 @@ public class ResetPasswordActivity extends BaseActivity {
 
     private ResetPasswordContract.ViewModel mViewModel;
 
-
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_login));
@@ -26,7 +25,7 @@ public class ResetPasswordActivity extends BaseActivity {
 
         Navigator navigator = new Navigator(this);
         DialogManager dialogManager = new DialogManager(this);
-        mViewModel = new ResetPasswordViewModel(this, navigator, dialogManager);
+        mViewModel = new ResetPasswordViewModel(this, getApplication(), navigator, dialogManager);
 
         ResetPasswordContract.Presenter presenter = new ResetPasswordPresenter(mViewModel);
         mViewModel.setPresenter(presenter);

@@ -1,6 +1,7 @@
 package vn.needy.vendor.screen.resetPassword;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -9,7 +10,10 @@ import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
+import vn.needy.vendor.screen.main.MainActivity;
+import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -22,6 +26,7 @@ public class ResetPasswordViewModel extends BaseObservable implements ResetPassw
     private static final String TAG = ResetPasswordViewModel.class.getName();
 
     private final Context mContext;
+    private final Application mApplication;
     private final Navigator mNavigator;
     private final DialogManager mDialogManager;
 
@@ -30,8 +35,9 @@ public class ResetPasswordViewModel extends BaseObservable implements ResetPassw
     private String mPasswordError;
     private String mPassword;
 
-    public ResetPasswordViewModel(Context context, Navigator navigator, DialogManager dialogManager) {
+    public ResetPasswordViewModel(Context context, Application application, Navigator navigator, DialogManager dialogManager) {
         mContext = context;
+        mApplication = application;
         mNavigator = navigator;
         mDialogManager = dialogManager;
     }
@@ -72,7 +78,8 @@ public class ResetPasswordViewModel extends BaseObservable implements ResetPassw
 
     @Override
     public void onResetPasswordSuccess() {
-
+        VendorServiceClient.initialize(mApplication);
+        mPresenter.findCompanyInherent();
     }
 
     @Override
@@ -83,6 +90,18 @@ public class ResetPasswordViewModel extends BaseObservable implements ResetPassw
     @Override
     public void onHideProgressBar() {
         mDialogManager.dismissProgressDialog();
+    }
+
+    @Override
+    public void onRedirectToMain() {
+        mNavigator.startActivity(MainActivity.class);
+        mNavigator.finishActivity();
+    }
+
+    @Override
+    public void onRedirectToRegisterCompany() {
+        mNavigator.startActivity(RegisterCompanyActivity.class);
+        mNavigator.finishActivity();
     }
 
     @Bindable

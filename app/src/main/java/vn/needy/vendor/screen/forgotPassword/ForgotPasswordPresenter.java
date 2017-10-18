@@ -64,6 +64,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
             mViewModel.onHideProgressBar();
             mViewModel.onSendVerificationSuccess();
             signInWithPhoneAuthCredential(credential);
+            mDuration = -1;
         }
 
         @Override
