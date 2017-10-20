@@ -1,6 +1,7 @@
 package vn.needy.vendor.screen.login;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -80,7 +81,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                             mViewModel.onLoginError(certification.getMessage());
                         }  else {
                             mCredentialRepository.saveToken(token);
-                            mCredentialRepository.saveCredential(new Credential(phoneNumber, passWord));
+//                            mCredentialRepository.saveCredential(new Credential(phoneNumber, passWord));
                             mViewModel.onLoginSuccess();
                         }
                     }
@@ -88,6 +89,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onHideProgressBar();
+                        Log.d(TAG, error.getMessage());
                         mViewModel.onLoginError(R.string.error_credential);
                     }
                 });
