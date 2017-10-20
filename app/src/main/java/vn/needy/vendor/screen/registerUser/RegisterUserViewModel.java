@@ -65,13 +65,6 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
         Bundle extras = ((Activity) mContext).getIntent().getExtras();
         mPhoneNumber = extras.getString(ValidatePhoneActivity.KEY_PHONE_NUMBER);
-
-        mFirstName = "Nguyen";
-        mLastName = "Do";
-        mPassword = "12345678";
-        mAddress = "Le Quy Don";
-        mLat = 12.86f;
-        mLng = 13.94f;
     }
 
     @Override
@@ -200,6 +193,11 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     @Override
     public void onRedirectToRegisterCompany() {
         mNavigator.startActivity(RegisterCompanyActivity.class);
+        mNavigator.finishActivity();
+    }
+
+    @Override
+    public void onBackPressed() {
         mNavigator.finishActivity();
     }
 

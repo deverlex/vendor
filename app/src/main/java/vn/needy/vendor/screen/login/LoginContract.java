@@ -17,8 +17,6 @@ public interface LoginContract {
 
         void onInputPasswordError(int errorMsg);
 
-
-
         void onLoginClick();
 
         void onSignUpClick();

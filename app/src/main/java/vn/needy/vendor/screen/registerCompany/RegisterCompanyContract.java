@@ -1,5 +1,7 @@
 package vn.needy.vendor.screen.registerCompany;
 
+import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
+import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -10,17 +12,38 @@ import vn.needy.vendor.screen.BaseViewModel;
 interface RegisterCompanyContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onNextClick();
+
+        void onInputCompanyError(int errorMsg);
+
+        void onInputOfficeAddressError(int errorMsg);
+
+        void onInputStoreNameError(int errorMsg);
+
+        void onInputStoreAddressError(int errorMsg);
+
+        void onRegisterError(int errorMsg);
+
+        void onRegisterError(String message);
+
+        void onRegisterSuccess();
+
+        void onRegisterClick();
 
         void onPositionClick();
 
         void onSupportClick();
+
+        void onShowProgressBar();
+
+        void onHideProgressBar();
+
+        void onBackPressed();
     }
 
     interface Presenter extends BasePresenter {
-        void registerCompany(String nameCompany, String officeAddress,
-                             String nameStore, String addressStore,
-                             float lat, float lng);
 
+        void registerCompany(RegisterCompanyRequest request);
+
+        boolean validateDataInput(RegisterCompanyRequest request);
     }
 }

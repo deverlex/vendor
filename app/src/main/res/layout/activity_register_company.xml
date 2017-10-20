@@ -11,9 +11,7 @@
     </data>
     <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_login"
         android:fillViewport="true">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -45,6 +43,7 @@
                         android:layout_height="?attr/actionBarSize"
                         app:srcCompat="@drawable/ic_backleft"
                         android:background="@color/transparent"
+                        android:onClick="@{() -> viewModel.onBackPressed()}"
                         />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
@@ -74,6 +73,7 @@
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_company"
                     android:fontFamily="@string/font_serif"
+                    android:text="@={viewModel.companyName}"
                     android:hint="@string/company_name"
                     android:inputType="textCapWords"
                     android:textAllCaps="false"
@@ -83,6 +83,7 @@
                     android:paddingStart="@dimen/dp_10"
                     android:textColor="@color/color_black"
                     android:textColorHint="@color/gray70"
+                    app:errorText="@{viewModel.companyNameError}"
                     tools:ignore="UnusedAttribute"
                     />
                 <View
@@ -108,6 +109,7 @@
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_home_map"
                     android:fontFamily="@string/font_serif"
+                    android:text="@={viewModel.officeAddress}"
                     android:hint="@string/office_address"
                     android:inputType="textCapWords"
                     android:textAllCaps="false"
@@ -117,6 +119,7 @@
                     android:paddingStart="@dimen/dp_10"
                     android:textColor="@color/color_black"
                     android:textColorHint="@color/gray70"
+                    app:errorText="@{viewModel.officeAddressError}"
                     tools:ignore="UnusedAttribute"
                     />
                 <View
@@ -141,8 +144,9 @@
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_store"
                     android:fontFamily="@string/font_serif"
+                    android:text="@={viewModel.storeName}"
                     android:hint="@string/store_name"
-                    android:inputType="phone"
+                    android:inputType="textCapWords"
                     android:textAllCaps="false"
                     android:paddingEnd="@dimen/dp_5"
                     android:paddingLeft="@dimen/dp_10"
@@ -150,6 +154,7 @@
                     android:paddingStart="@dimen/dp_10"
                     android:textColor="@color/color_black"
                     android:textColorHint="@color/gray70"
+                    app:errorText="@{viewModel.storeNameError}"
                     tools:ignore="UnusedAttribute"
                     />
                 <View
@@ -190,6 +195,7 @@
                         android:drawablePadding="@dimen/dp_10"
                         android:drawableStart="@drawable/ic_home_map"
                         android:fontFamily="@string/font_serif"
+                        android:text="@={viewModel.storeAddress}"
                         android:hint="@string/store_address"
                         android:inputType="textCapWords"
                         android:textAllCaps="false"
@@ -200,6 +206,7 @@
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray70"
                         android:textSize="@dimen/sp_16"
+                        app:errorText="@{viewModel.storeAddressError}"
                         tools:ignore="UnusedAttribute"
                         />
 
@@ -243,7 +250,7 @@
                 android:background="@color/colorPrimaryDark"
                 android:fontFamily="@string/font_serif"
                 android:text="@string/done"
-                android:onClick="@{() -> viewModel.onNextClick()}"
+                android:onClick="@{() -> viewModel.onRegisterClick()}"
                 android:textColor="@color/color_white"
                 android:textStyle="bold"
                 tools:ignore="UnusedAttribute"

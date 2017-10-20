@@ -104,6 +104,11 @@ public class ResetPasswordViewModel extends BaseObservable implements ResetPassw
         mNavigator.finishActivity();
     }
 
+    @Override
+    public void onBackPressed() {
+        mNavigator.finishActivity();
+    }
+
     @Bindable
     public String getPasswordError() {
         return mPasswordError;

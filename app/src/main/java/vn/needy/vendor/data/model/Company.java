@@ -14,9 +14,9 @@ public class Company extends RealmObject implements Parcelable {
     @SerializedName("id")
     @Expose
     private long mId;
-    @SerializedName("authId")
+    @SerializedName("companyNumber")
     @Expose
-    private String mAuthId;
+    private String mCompanyNumber;
     @SerializedName("state")
     @Expose
     private int mState;
@@ -38,12 +38,12 @@ public class Company extends RealmObject implements Parcelable {
     @SerializedName("closingTime")
     @Expose
     private String mClosingTime;
-    @SerializedName("urlImage")
+    @SerializedName("avatar")
     @Expose
-    private String mUrlImage;
-    @SerializedName("collectionImage")
+    private String mAvatar;
+    @SerializedName("pictures")
     @Expose
-    private String mCollectionImage;
+    private String mPictures;
     @SerializedName("description")
     @Expose
     private String mDescription;
@@ -56,6 +56,9 @@ public class Company extends RealmObject implements Parcelable {
     @SerializedName("lastUpdatedTime")
     @Expose
     private String mLastUpdatedTime;
+    @SerializedName("reputation")
+    @Expose
+    private boolean mIsReputation;
 
     public Company() {
         super();
@@ -63,7 +66,7 @@ public class Company extends RealmObject implements Parcelable {
 
     protected Company(Parcel in) {
         mId = in.readLong();
-        mAuthId = in.readString();
+        mCompanyNumber = in.readString();
         mState = in.readInt();
         mName = in.readString();
         mNumberEmployee = in.readInt();
@@ -71,8 +74,8 @@ public class Company extends RealmObject implements Parcelable {
         mFoundedDate = in.readString();
         mOpeningTime = in.readString();
         mClosingTime = in.readString();
-        mUrlImage = in.readString();
-        mCollectionImage = in.readString();
+        mAvatar = in.readString();
+        mPictures = in.readString();
         mDescription = in.readString();
         mWebsite = in.readString();
         mCreatedTime = in.readString();
@@ -82,7 +85,7 @@ public class Company extends RealmObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(mId);
-        dest.writeString(mAuthId);
+        dest.writeString(mCompanyNumber);
         dest.writeInt(mState);
         dest.writeString(mName);
         dest.writeInt(mNumberEmployee);
@@ -90,7 +93,7 @@ public class Company extends RealmObject implements Parcelable {
         dest.writeString(mFoundedDate);
         dest.writeString(mOpeningTime);
         dest.writeString(mClosingTime);
-        dest.writeString(mUrlImage);
+        dest.writeString(mAvatar);
         dest.writeString(mDescription);
         dest.writeString(mWebsite);
         dest.writeString(mCreatedTime);
@@ -122,12 +125,12 @@ public class Company extends RealmObject implements Parcelable {
         this.mId = mId;
     }
 
-    public String getAuthId() {
-        return mAuthId;
+    public String getCompanyNumber() {
+        return mCompanyNumber;
     }
 
-    public void setAuthId(String mAuthId) {
-        this.mAuthId = mAuthId;
+    public void setCompanyNumber(String mAuthId) {
+        this.mCompanyNumber = mAuthId;
     }
 
     public int getState() {
@@ -187,19 +190,19 @@ public class Company extends RealmObject implements Parcelable {
     }
 
     public String getUrlImage() {
-        return mUrlImage;
+        return mAvatar;
     }
 
     public void setUrlImage(String mUrlImage) {
-        this.mUrlImage = mUrlImage;
+        this.mAvatar = mUrlImage;
     }
 
     public String getCollectionImage() {
-        return mCollectionImage;
+        return mPictures;
     }
 
     public void setCollectionImage(String mCollectionImage) {
-        this.mCollectionImage = mCollectionImage;
+        this.mPictures = mCollectionImage;
     }
 
     public String getDescription() {
@@ -232,5 +235,13 @@ public class Company extends RealmObject implements Parcelable {
 
     public void setLastUpdatedTime(String mLastUpdatedTime) {
         this.mLastUpdatedTime = mLastUpdatedTime;
+    }
+
+    public boolean isIsReputation() {
+        return mIsReputation;
+    }
+
+    public void setIsReputation(boolean isReputation) {
+        this.mIsReputation = isReputation;
     }
 }

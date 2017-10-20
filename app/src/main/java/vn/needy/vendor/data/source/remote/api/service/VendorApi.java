@@ -24,9 +24,6 @@ public interface VendorApi {
     @POST("api/login")
     Observable<CertificationResponse> login(@Body CredentialsRequest credentialsRequest);
 
-    @GET("api/company")
-    Observable<CompanyResponse> findCompanyInherent();
-
     @POST("api/user/register")
     Observable<CertificationResponse> registerUser(@Body RegisterUserRequest registerUserRequest);
 
@@ -37,6 +34,9 @@ public interface VendorApi {
     Observable<CertificationResponse> resetPassword(@Query("username") String phoneNumber,
                                                     @Body ResetPasswordRequest resetPasswordRequest);
 
-    @POST("api/v1/companies/register")
+    @GET("api/company/find")
+    Observable<CompanyResponse> findCompanyInherent();
+
+    @POST("api/company/register")
     Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest registerCompanyRequest);
 }

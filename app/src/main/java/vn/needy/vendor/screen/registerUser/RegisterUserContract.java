@@ -45,6 +45,8 @@ interface RegisterUserContract {
         void onRedirectToMain();
 
         void onRedirectToRegisterCompany();
+
+        void onBackPressed();
     }
 
     interface Presenter extends BasePresenter {

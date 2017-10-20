@@ -51,12 +51,17 @@
     <string name="get_new_otp"><u>Cấp lại mã xác minh</u></string>
 
     <string name="register_company">ĐĂNG KÝ HỆ THỐNG</string>
-    <string name="intro_register_company">Hỗ trợ đăng ký</string>
+    <string name="intro_register_company"><b>Hỗ trợ đăng ký</b></string>
     <string name="company_name">Tên công ty/tổ chức</string>
     <string name="office_address">Địa chỉ công ty/tổ chức</string>
     <string name="store_name">Tên cửa hàng</string>
     <string name="store_address">Địa chỉ cửa hàng</string>
     <string name="policies"><u>Điều khoản</u></string>
+
+    <string name="company_name_empty">Tên công ty rỗng</string>
+    <string name="office_address_empty">Địa chỉ công ty rỗng</string>
+    <string name="store_name_empty">Tên cửa hàng rỗng</string>
+    <string name="store_address_empty">Địa chỉ cửa hàng rỗng</string>
 
     <string name="store_tab">Cửa hàng</string>
     <string name="cart_tab">Đơn hàng</string>

@@ -26,6 +26,8 @@ public class ResetPasswordContract {
         void onRedirectToMain();
 
         void onRedirectToRegisterCompany();
+
+        void onBackPressed();
     }
 
     interface Presenter extends BasePresenter {

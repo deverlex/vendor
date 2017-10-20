@@ -12,7 +12,12 @@ import com.android.databinding.library.baseAdapters.BR;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.iid.FirebaseInstanceId;
 
+import vn.needy.vendor.R;
+import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
+import vn.needy.vendor.screen.main.MainActivity;
+import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -26,6 +31,7 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     private final Context mContext;
     private final Navigator mNavigator;
+    private final DialogManager mDialogManager;
     private RegisterCompanyContract.Presenter mPresenter;
     private GoogleApiClient googleApiClient;
 
@@ -39,9 +45,13 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
     private String mStoreName;
     private String mStoreAddress;
 
-    public RegisterCompanyViewModel(Context context, Navigator navigator) {
+    private float mLat;
+    private float mLng;
+
+    public RegisterCompanyViewModel(Context context, Navigator navigator, DialogManager dialogManager) {
         mContext = context;
         mNavigator = navigator;
+        mDialogManager = dialogManager;
         googleApiClient = new GoogleApiClient.Builder(mContext, this, this).addApi(LocationServices.API).build();
     }
 
@@ -88,22 +98,34 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     @Override
     public void onRegisterError(int errorMsg) {
-        
+        mNavigator.showToastCenterText(mContext.getString(errorMsg));
     }
 
     @Override
     public void onRegisterError(String message) {
-
+        mNavigator.showToastCenterText(message);
     }
 
     @Override
     public void onRegisterSuccess() {
-
+        mNavigator.startActivity(MainActivity.class);
+        mNavigator.finishActivity();
     }
 
     @Override
-    public void onNextClick() {
+    public void onRegisterClick() {
+        String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
+        RegisterCompanyRequest request = new RegisterCompanyRequest();
+        request.setCompanyName(mCompanyName);
+        request.setOfficeAddress(mOfficeAddress);
+        request.setStoreName(mStoreName);
+        request.setStoreAddress(mStoreAddress);
+        request.setFcmToken(deviceToken);
+        request.setLat(mLat);
+        request.setLng(mLng);
+
+        mPresenter.registerCompany(request);
     }
 
     @Override
@@ -118,18 +140,24 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     @Override
     public void onShowProgressBar() {
-
+        mDialogManager.showProgressDialog();
     }
 
     @Override
     public void onHideProgressBar() {
+        mDialogManager.dismissProgressDialog();
+    }
 
+    @Override
+    public void onBackPressed() {
+        mNavigator.finishActivity();
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-
+        mLat = (float) lastLocation.getLatitude();
+        mLng = (float) lastLocation.getLongitude();
     }
 
     @Override

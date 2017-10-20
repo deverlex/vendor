@@ -1,11 +1,41 @@
 package vn.needy.vendor.screen.registerCompany;
 
+import android.text.TextUtils;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import vn.needy.vendor.R;
+import vn.needy.vendor.data.model.Company;
+import vn.needy.vendor.data.source.CompanyRepository;
+import vn.needy.vendor.data.source.local.CompanyLocalDataSource;
+import vn.needy.vendor.data.source.local.realm.RealmApi;
+import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
+import vn.needy.vendor.data.source.remote.api.error.BaseException;
+import vn.needy.vendor.data.source.remote.api.error.SafetyError;
+import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
+import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
+import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+
 /**
  * Created by lion on 07/10/2017.
  */
 
 public class RegisterCompanyPresenter implements RegisterCompanyContract.Presenter {
 
+    private RegisterCompanyContract.ViewModel mViewModel;
+    private CompanyRepository mCompanyRepository;
+    private final CompositeDisposable mCompositeDisposable;
+
+    public RegisterCompanyPresenter(RegisterCompanyContract.ViewModel viewModel) {
+        mViewModel = viewModel;
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
+                new CompanyLocalDataSource(new RealmApi()));
+        mCompositeDisposable = new CompositeDisposable();
+    }
 
     @Override
     public void onStart() {
@@ -18,9 +48,49 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
     }
 
     @Override
-    public void registerCompany(String nameCompany, String officeAddress,
-                                String nameStore, String addressStore,
-                                float lat, float lng) {
+    public void registerCompany(RegisterCompanyRequest request) {
+        if (!validateDataInput(request)) return;
+        Disposable disposable = mCompanyRepository.registerCompany(request)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Company>() {
+                    @Override
+                    public void accept(Company company) throws Exception {
+                        mViewModel.onRegisterSuccess();
+                        mViewModel.onHideProgressBar();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onHideProgressBar();
+                        mViewModel.onRegisterError(R.string.error_service);
+                    }
+                });
+        mCompositeDisposable.add(disposable);
+    }
 
+    @Override
+    public boolean validateDataInput(RegisterCompanyRequest request) {
+        boolean isValidate = true;
+        if (TextUtils.isEmpty(request.getCompanyName())) {
+            isValidate = false;
+            mViewModel.onInputCompanyError(R.string.company_name_empty);
+        } else if (TextUtils.isEmpty(request.getOfficeAddress())) {
+            isValidate = false;
+            mViewModel.onInputOfficeAddressError(R.string.office_address_empty);
+        } else if (TextUtils.isEmpty(request.getStoreName())) {
+            isValidate = false;
+            mViewModel.onInputStoreNameError(R.string.store_name_empty);
+        } else if (TextUtils.isEmpty(request.getStoreAddress())) {
+            isValidate = false;
+            mViewModel.onInputStoreAddressError(R.string.store_address_empty);
+        }
+        return isValidate;
     }
 }
