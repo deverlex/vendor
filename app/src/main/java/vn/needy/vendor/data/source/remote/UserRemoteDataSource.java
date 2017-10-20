@@ -23,7 +23,7 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
 
     @Override
     public Observable<CertificationResponse> registerUser(RegisterUserRequest registerUserRequest) {
-        return mVendorApi.registerUser(registerUserRequest);
+        return mVendorApi.newUser(registerUserRequest);
     }
 
     @Override

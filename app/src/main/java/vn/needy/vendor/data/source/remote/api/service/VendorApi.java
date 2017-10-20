@@ -6,6 +6,7 @@ import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import vn.needy.vendor.data.source.remote.api.request.CredentialsRequest;
 import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
@@ -21,22 +22,22 @@ import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 
 public interface VendorApi {
 
-    @POST("api/login")
+    @POST("v1/authentications")
     Observable<CertificationResponse> login(@Body CredentialsRequest credentialsRequest);
 
-    @POST("api/user/register")
-    Observable<CertificationResponse> registerUser(@Body RegisterUserRequest registerUserRequest);
+    @POST("v1/users/registers")
+    Observable<CertificationResponse> newUser(@Body RegisterUserRequest registerUserRequest);
 
-    @GET("api/user/find")
+    @GET("v1/users/existences")
     Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
 
-    @POST("api/user/password/reset")
-    Observable<CertificationResponse> resetPassword(@Query("username") String phoneNumber,
+    @POST("v1/users/{username}/passwords")
+    Observable<CertificationResponse> resetPassword(@Path("username") String phoneNumber,
                                                     @Body ResetPasswordRequest resetPasswordRequest);
 
-    @GET("api/company/find")
+    @GET("v1/companies/dependencies")
     Observable<CompanyResponse> findCompanyInherent();
 
-    @POST("api/company/register")
+    @POST("v1/companies/registers")
     Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest registerCompanyRequest);
 }
