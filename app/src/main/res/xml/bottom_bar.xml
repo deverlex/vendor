@@ -4,12 +4,12 @@
     <tab
         id="@+id/store"
         icon="@drawable/ic_store_24dp"
-        title="@string/store_tab"/>
+        title="@string/main_page_tab"/>
 
     <tab
         id="@+id/cart"
         icon="@drawable/ic_cart_24dp"
-        title="@string/cart_tab" />
+        title="@string/order_tab" />
 
     <tab
         id="@+id/notification"
@@ -19,5 +19,5 @@
     <tab
         id="@+id/account"
         icon="@drawable/ic_account_24dp"
-        title="@string/account_tab" />
+        title="@string/personal_tab" />
 </tabs>

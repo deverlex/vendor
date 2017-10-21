@@ -63,10 +63,10 @@
     <string name="store_name_empty">Tên cửa hàng rỗng</string>
     <string name="store_address_empty">Địa chỉ cửa hàng rỗng</string>
 
-    <string name="store_tab">Cửa hàng</string>
-    <string name="cart_tab">Đơn hàng</string>
+    <string name="main_page_tab">Cửa hàng</string>
+    <string name="order_tab">Đơn hàng</string>
     <string name="notification_tab">Thông báo</string>
-    <string name="account_tab">Tôi</string>
+    <string name="personal_tab">Tôi</string>
 
     <string name="enable_location">Bật vị trí</string>
     <string name="alert_location">Cài đặt vị trí của bạn bị tắt, vui lòng bật để tiếp tục.</string>
@@ -81,4 +81,8 @@
 
     <string name="first_name_empty">Họ và tên đệm rỗng</string>
     <string name="last_name_empty">Tên rỗng</string>
+
+    <string name="categories">Danh mục</string>
+    <string name="top_product_sale">Tốp bán chạy</string>
+    <string name="store_manager">Quản lý cửa hàng</string>
 </resources>
