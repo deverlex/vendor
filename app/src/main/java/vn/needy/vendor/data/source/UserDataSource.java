@@ -27,6 +27,6 @@ public interface UserDataSource {
 
         Observable<BaseResponse> findUserExist(String phoneNumber);
 
-        Observable<CertificationResponse> resetPassword(ResetPasswordRequest resetPasswordRequest);
+        Observable<CertificationResponse> resetPassword(String phoneNumber, ResetPasswordRequest resetPasswordRequest);
     }
 }

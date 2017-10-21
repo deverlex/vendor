@@ -32,8 +32,8 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<CertificationResponse> resetPassword(ResetPasswordRequest resetPasswordRequest) {
-        return mVendorApi.resetPassword(resetPasswordRequest);
+    public Observable<CertificationResponse> resetPassword(String phoneNumber, ResetPasswordRequest resetPasswordRequest) {
+        return mVendorApi.resetPassword(phoneNumber, resetPasswordRequest);
     }
 
 //    @Override

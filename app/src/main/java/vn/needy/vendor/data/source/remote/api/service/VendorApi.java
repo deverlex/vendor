@@ -33,7 +33,8 @@ public interface VendorApi {
     Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
 
     @POST("v1/users/reset")
-    Observable<CertificationResponse> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
+    Observable<CertificationResponse> resetPassword(@Query("username") String phoneNumber,
+                                                @Body ResetPasswordRequest resetPasswordRequest);
 
     @GET("v1/companies/dependencies")
     Observable<CompanyResponse> findCompanyDependence();
