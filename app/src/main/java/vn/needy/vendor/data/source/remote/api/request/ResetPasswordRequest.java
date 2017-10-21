@@ -13,6 +13,9 @@ public class ResetPasswordRequest {
     @SerializedName("firebaseToken")
     private String mFirebaseToken;
     @Expose
+    @SerializedName("username")
+    private String mPhoneNumber;
+    @Expose
     @SerializedName(("password"))
     private String mPassword;
 
@@ -22,6 +25,14 @@ public class ResetPasswordRequest {
 
     public void setFirebaseToken(String firebaseToken) {
         mFirebaseToken = firebaseToken;
+    }
+
+    public String getPhoneNumber() {
+        return mPhoneNumber;
+    }
+
+    public void setPhoneNumber(String username) {
+        mPhoneNumber = username;
     }
 
     public String getPassword() {

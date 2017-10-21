@@ -30,9 +30,8 @@ public class UserRepository {
         return mUserRemoteDataSource.findUserExist(phoneNumber);
     }
 
-    public Observable<CertificationResponse> resetPassword(String phoneNumber,
-                                                           ResetPasswordRequest resetPasswordRequest) {
-        return mUserRemoteDataSource.resetPassword(phoneNumber, resetPasswordRequest);
+    public Observable<CertificationResponse> resetPassword(ResetPasswordRequest resetPasswordRequest) {
+        return mUserRemoteDataSource.resetPassword(resetPasswordRequest);
     }
 
     public void saveToken(String token) {

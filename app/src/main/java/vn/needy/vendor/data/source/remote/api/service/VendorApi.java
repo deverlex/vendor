@@ -6,6 +6,7 @@ import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import vn.needy.vendor.data.source.remote.api.request.CredentialsRequest;
@@ -26,18 +27,22 @@ public interface VendorApi {
     Observable<CertificationResponse> login(@Body CredentialsRequest credentialsRequest);
 
     @POST("v1/users/registers")
-    Observable<CertificationResponse> newUser(@Body RegisterUserRequest registerUserRequest);
+    Observable<CertificationResponse> registerUser(@Body RegisterUserRequest registerUserRequest);
 
     @GET("v1/users/existences")
     Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
 
-    @POST("v1/users/{username}/passwords")
-    Observable<CertificationResponse> resetPassword(@Path("username") String phoneNumber,
-                                                    @Body ResetPasswordRequest resetPasswordRequest);
+    @POST("v1/users/reset")
+    Observable<CertificationResponse> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
 
     @GET("v1/companies/dependencies")
-    Observable<CompanyResponse> findCompanyInherent();
+    Observable<CompanyResponse> findCompanyDependence();
 
     @POST("v1/companies/registers")
     Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest registerCompanyRequest);
+
+    @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
+    Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
+                                                      @Query("token") String token);
+
 }

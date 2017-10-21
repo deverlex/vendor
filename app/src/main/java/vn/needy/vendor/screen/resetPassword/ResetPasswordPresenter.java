@@ -63,8 +63,9 @@ public class ResetPasswordPresenter implements ResetPasswordContract.Presenter {
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
         ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest();
         resetPasswordRequest.setFirebaseToken(firebaseToken);
+        resetPasswordRequest.setPhoneNumber(phoneNumber);
         resetPasswordRequest.setPassword(password);
-        Disposable disposable = mUserRepository.resetPassword(phoneNumber, resetPasswordRequest)
+        Disposable disposable = mUserRepository.resetPassword(resetPasswordRequest)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
