@@ -1,103 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screen.main.MainActivity"
-    tools:ignore="ScrollViewSize">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.personal.PersonalViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_56"
-            android:background="@color/transparent"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:theme="@style/CustomActionBar">
-
-        </android.support.v7.widget.Toolbar>
-
-        <android.support.design.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_150"
-            android:layout_marginTop="@dimen/dp_56_ne">
-
-            <vn.needy.vendor.widget.CircleImageView
-                android:layout_width="@dimen/dp_70"
-                android:layout_height="@dimen/dp_70"
-                android:layout_gravity="bottom|left"
-                android:layout_margin="@dimen/dp_10"
-                android:src="@drawable/ic_placeholder"/>
+            android:layout_height="@dimen/dp_170"
+            android:background="@color/colorPrimary">
 
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
 
-        </android.support.design.widget.CoordinatorLayout>
-    </android.support.design.widget.AppBarLayout>
+            <vn.needy.vendor.widget.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:src="@drawable/ic_placeholder" />
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/avatar"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_35"
+                android:textColor="@color/color_white"
+                android:text="Nguyen Van Do"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                android:fontFamily="@string/font_serif" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+            android:background="@color/color_white"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp_10">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_white"
-                    android:drawableLeft="@drawable/ic_account"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_account"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/account"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/color_white"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@drawable/ic_next_right"
+                    android:drawableLeft="@{@drawable/ic_account}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableEnd="@drawable/ic_next_right"
+                    android:drawableStart="@{@drawable/ic_account}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/account"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/color_white"
+                    android:drawableEnd="@{@drawable/ic_next_right}"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:drawableRight="@{@drawable/ic_next_right}"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/account"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1"
-                android:layout_alignParentTop="true"
-                android:background="@color/color_orange_mos"
-                />
+                android:layout_height="@dimen/dp_0_mid"
+                android:background="@color/color_gray_white" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -107,42 +108,79 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/color_white"
-                    android:drawableLeft="@drawable/ic_credit_card"
+                    android:drawableLeft="@{@drawable/ic_history_order}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_credit_card"
+                    android:drawableStart="@{@drawable/ic_history_order}"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/order_history"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/color_white"
+                    android:drawableEnd="@{@drawable/ic_next_right}"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:drawableRight="@{@drawable/ic_next_right}"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/view_order_history"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_mid"
+                android:background="@color/color_gray_white" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:drawableLeft="@{@drawable/ic_credit_card}"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:drawableStart="@{@drawable/ic_credit_card}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/budget"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_white"
                     android:layout_alignParentRight="true"
-                    android:drawableRight="@drawable/ic_next_right"
+                    android:background="@color/color_white"
+                    android:drawableEnd="@{@drawable/ic_next_right}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableEnd="@drawable/ic_next_right"
+                    android:drawableRight="@{@drawable/ic_next_right}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/view_budget"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    tools:ignore="UnusedAttribute" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1"
-                android:layout_alignParentTop="true"
-                android:background="@color/color_orange_mos"
-                />
+                android:layout_height="@dimen/dp_0_mid"
+                android:background="@color/color_gray_white" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -152,42 +190,38 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/color_white"
-                    android:drawableLeft="@drawable/ic_company"
+                    android:drawableLeft="@{@drawable/ic_company}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_company"
+                    android:drawableStart="@{@drawable/ic_company}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/company"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_white"
                     android:layout_alignParentRight="true"
-                    android:drawableRight="@drawable/ic_next_right"
+                    android:background="@color/color_white"
+                    android:drawableEnd="@{@drawable/ic_next_right}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableEnd="@drawable/ic_next_right"
+                    android:drawableRight="@{@drawable/ic_next_right}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/view_company"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    tools:ignore="UnusedAttribute" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1"
-                android:layout_alignParentTop="true"
-                android:background="@color/color_orange_mos"
-                />
+                android:layout_height="@dimen/dp_0_mid"
+                android:background="@color/color_gray_white" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -197,42 +231,38 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/color_white"
-                    android:drawableLeft="@drawable/ic_store"
+                    android:drawableLeft="@{@drawable/ic_store}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_store"
+                    android:drawableStart="@{@drawable/ic_store}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/store"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_white"
                     android:layout_alignParentRight="true"
-                    android:drawableRight="@drawable/ic_next_right"
+                    android:background="@color/color_white"
+                    android:drawableEnd="@{@drawable/ic_next_right}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableEnd="@drawable/ic_next_right"
+                    android:drawableRight="@{@drawable/ic_next_right}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/view_store"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    tools:ignore="UnusedAttribute" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1"
-                android:layout_alignParentTop="true"
-                android:background="@color/color_orange_mos"
-                />
+                android:layout_height="@dimen/dp_0_mid"
+                android:background="@color/color_gray_white" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -242,36 +272,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/color_white"
-                    android:drawableLeft="@drawable/ic_help_circle"
+                    android:drawableLeft="@{@drawable/ic_help_circle}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_help_circle"
+                    android:drawableStart="@{@drawable/ic_help_circle}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/support"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_white"
                     android:layout_alignParentRight="true"
-                    android:drawableRight="@drawable/ic_next_right"
+                    android:background="@color/color_white"
+                    android:drawableEnd="@{@drawable/ic_next_right}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableEnd="@drawable/ic_next_right"
+                    android:drawableRight="@{@drawable/ic_next_right}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/view_support"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute"
-                    />
-
+                    tools:ignore="UnusedAttribute" />
             </RelativeLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-</android.support.design.widget.CoordinatorLayout>
+    </RelativeLayout>
+</layout>

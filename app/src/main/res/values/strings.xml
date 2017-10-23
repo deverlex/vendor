@@ -90,6 +90,8 @@
     <string name="view_budget">Xem ví của tôi</string>
     <string name="account">Tài khoản</string>
     <string name="view_account">Xem tài khoản của tôi</string>
+    <string name="order_history">Đơn hàng</string>
+    <string name="view_order_history">Xem lịch sử đơn hàng</string>
     <string name="support">Trợ giúp</string>
     <string name="view_support">Xem trợ giúp</string>
     <string name="company">Công ty</string>
