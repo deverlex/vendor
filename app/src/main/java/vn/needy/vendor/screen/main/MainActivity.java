@@ -1,16 +1,23 @@
 package vn.needy.vendor.screen.main;
 
+import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.databinding.ActivityMainBinding;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.screen.listorder.ListOrderFragment;
+import vn.needy.vendor.screen.mainPage.MainPageFragment;
+import vn.needy.vendor.screen.notification.NotificationFragment;
+import vn.needy.vendor.screen.personal.PersonalFragment;
 import vn.needy.vendor.utils.ViewUtil;
 
 public class MainActivity extends BaseActivity {
@@ -19,10 +26,13 @@ public class MainActivity extends BaseActivity {
 
     private BottomBar mBottomBar;
 
+    private MainConstract.ViewModel mViewModel;
+
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
-
+        mViewModel = new MainViewModel();
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setViewModel((MainViewModel) mViewModel);
         mBottomBar = ViewUtil.findById(this, R.id.bottomBar);
         mBottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
@@ -31,12 +41,16 @@ public class MainActivity extends BaseActivity {
 
                 switch (tabId) {
                     case R.id.store:
+                        initFragment(R.id.contentContainer, MainPageFragment.getInstance());
                         break;
-                    case R.id.cart:
+                    case R.id.order:
+                        initFragment(R.id.contentContainer, ListOrderFragment.getInstance());
                         break;
                     case R.id.notification:
+                        initFragment(R.id.contentContainer, NotificationFragment.getInstance());
                         break;
-                    case R.id.account:
+                    case R.id.personal:
+                        initFragment(R.id.contentContainer, PersonalFragment.getInstance());
                         break;
                     default:
 

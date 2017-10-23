@@ -7,7 +7,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 04/10/2017.
  */
 
-public class MainConstract {
+public interface MainConstract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 

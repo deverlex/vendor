@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -37,6 +38,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
 
         mRealmApi = new RealmApi();
@@ -48,9 +50,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                if (TextUtils.isEmpty(token)) {
-                    loginPage();
+//                    loginPage();
 //                } else {
-//                    mainPage();
+                    mainPage();
 //                }
                 new Navigator(SplashActivity.this).startActivity(mIntent);
                 finish();

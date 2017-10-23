@@ -7,7 +7,7 @@
         title="@string/main_page_tab"/>
 
     <tab
-        id="@+id/cart"
+        id="@+id/order"
         icon="@drawable/ic_cart_24dp"
         title="@string/order_tab" />
 
@@ -17,7 +17,7 @@
         title="@string/notification_tab" />
 
     <tab
-        id="@+id/account"
+        id="@+id/personal"
         icon="@drawable/ic_account_24dp"
         title="@string/personal_tab" />
 </tabs>

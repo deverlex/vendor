@@ -1,27 +1,35 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- This could be your fragment container, or something -->
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/myScrollingContent"
+    <data>
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.main.MainViewModel"
+            />
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <!-- This could be your fragment container, or something -->
         <FrameLayout
             android:id="@+id/contentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/bottomBar"/>
+
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            app:bb_tabXmlResource="@xml/bottom_bar"
+            app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"
             />
-    </android.support.v4.widget.NestedScrollView>
 
-    <com.roughike.bottombar.BottomBar
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        app:bb_tabXmlResource="@xml/bottom_bar"
-        app:bb_behavior="shy"
-        />
-
-</android.support.design.widget.CoordinatorLayout>
+    </RelativeLayout>
+</layout>

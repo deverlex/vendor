@@ -1,10 +1,12 @@
 package vn.needy.vendor.screen.main;
 
+import android.databinding.BaseObservable;
+
 /**
  * Created by lion on 04/10/2017.
  */
 
-public class MainViewModel implements MainConstract.ViewModel {
+public class MainViewModel extends BaseObservable implements MainConstract.ViewModel {
 
     @Override
     public void onStart() {
