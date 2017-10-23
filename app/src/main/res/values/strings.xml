@@ -85,4 +85,17 @@
     <string name="categories">Danh mục</string>
     <string name="top_product_sale">Tốp bán chạy</string>
     <string name="store_manager">Quản lý cửa hàng</string>
+
+    <string name="budget">Ví Needy</string>
+    <string name="view_budget">Xem ví của tôi</string>
+    <string name="account">Tài khoản</string>
+    <string name="view_account">Xem tài khoản của tôi</string>
+    <string name="support">Trợ giúp</string>
+    <string name="view_support">Xem trợ giúp</string>
+    <string name="company">Công ty</string>
+    <string name="view_company">Xem công ty của tôi</string>
+    <string name="store">Cửa hàng</string>
+    <string name="view_store">Xem cửa hàng của tôi</string>
+
+    <string name="view_more">Xem thêm</string>
 </resources>
