@@ -1,7 +1,9 @@
 package vn.needy.vendor.utils.binding;
 
 import android.databinding.BindingAdapter;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.text.Html;
 import android.text.method.TransformationMethod;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,6 +27,15 @@ public class BindingAdapters {
     @BindingAdapter("errorText")
     public static void setErrorText(EditText editText, String text) {
         editText.setError(text);
+    }
+
+    @BindingAdapter("htmlText")
+    public static void setHtmlText(TextView textView, String text) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            textView.setText(Html.fromHtml(text,Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            textView.setText(Html.fromHtml(text));
+        }
     }
 
     @BindingAdapter("srcVector")
