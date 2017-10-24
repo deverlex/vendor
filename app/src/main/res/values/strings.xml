@@ -100,4 +100,35 @@
     <string name="view_store">Xem cửa hàng của tôi</string>
 
     <string name="view_more">Xem thêm</string>
+
+    <!--Add new product-->
+    <string name="name_product">Tên sản phẩm</string>
+    <string name="limit_length_name_product">120</string>
+    <string name="product_describe">Mô tả sản phẩm</string>
+    <string name="product_promotion">Khuyến mại</string>
+    <string name="product_promotion_input">Thêm khuyến mại</string>
+    <string name="category_choose">Chọn danh mục</string>
+    <string name="product_price">Giá</string>
+    <string name="product_price_input">Đặt giá</string>
+    <string name="quantity_stock">Kho hàng</string>
+    <string name="quantity">Số lượng</string>
+    <string name="producer">Nhà sản xuất</string>
+    <string name="fee_transport">Phí vận chuyển</string>
+    <string name="fee_transport_expand">Nhập phí vận chuyển cho khoảng cách mỗi Kilômét. Bạn có thể thay đổi phí này trên mỗi đơn hàng của khách.</string>
+    <string name="add_hashtag">Thêm hashtags</string>
+    <string name="add_attrs">Thuộc tính</string>
+    <string name="add_attrs_input">Thiết lập thuộc tính mô tả</string>
+    <string name="add_product">Thêm sản phẩm</string>
+
+    <string name="add_service">Thêm dịch vụ</string>
+    <string name="name_service">Tên dịch vụ</string>
+    <string name="service_describe">Mô tả dịch vụ</string>
+    <string name="fee_move">Phí di chuyển</string>
+    <string name="fee_move_expand">Phí di chuyên có thể áp dụng đối với các dịch vụ tại nhà khách hàng.
+        \nNhập phí di chuyển cho khoảng cách mỗi Kilômét.
+        Bạn có thể thay đổi phí này trên mỗi đơn hàng của khách.</string>
+    <string name="time_service">Thời gian</string>
+    <string name="time_service_input">Đặt thời gian (phút)</string>
+    <string name="product_dependency">Sản phẩm</string>
+    <string name="product_dependency_input">Thêm sản phẩm kèm theo</string>
 </resources>
