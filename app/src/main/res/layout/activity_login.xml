@@ -146,7 +146,7 @@
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_30"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorPrimary"
                 android:fontFamily="@string/font_serif"
                 android:onClick="@{() -> viewModel.onLoginClick()}"
                 android:text="@string/login"

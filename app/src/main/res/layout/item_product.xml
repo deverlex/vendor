@@ -47,7 +47,7 @@
                 android:layout_alignParentRight="true"
                 android:padding="@dimen/dp_8"
                 android:src="@drawable/ic_edits"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@color/colorPrimary"
                 tools:ignore="ContentDescription,VectorDrawableCompat"
                 />
         </RelativeLayout>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.FragmentPesonalBinding;
+import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by lion on 21/10/2017.
@@ -26,7 +27,8 @@ public class PersonalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new PersonalViewModel();
+        Navigator navigator = new Navigator(this);
+        mViewModel = new PersonalViewModel(navigator);
 
         FragmentPesonalBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pesonal, container, false);
         binding.setViewModel((PersonalViewModel) mViewModel);

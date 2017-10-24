@@ -61,45 +61,25 @@
                 app:layoutManager="LinearLayoutManager" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <TextView
             android:id="@+id/top_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
             android:layout_below="@+id/categories_container"
-            android:background="@color/color_white">
-
-            <TextView
-                android:layout_width="@dimen/dp_250"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_30"
-                android:layout_marginRight="@dimen/dp_30"
-                android:drawableLeft="@{@drawable/ic_cart}"
-                android:drawablePadding="@dimen/dp_5"
-                android:drawableStart="@{@drawable/ic_cart}"
-                android:fontFamily="@string/font_serif"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_5"
-                android:paddingTop="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_10"
-                android:text="@string/top_product_sale"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/sp_17"
-                tools:ignore="UnusedAttribute" />
-
-            <ImageButton
-                android:layout_width="@dimen/dp_55"
-                android:layout_height="@dimen/dp_35"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@color/transparent"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:paddingLeft="@dimen/dp_20"
-                app:srcCompat="@drawable/ic_next_right"
-                tools:ignore="ContentDescription" />
-
-        </RelativeLayout>
+            android:background="@color/color_white"
+            android:drawableLeft="@{@drawable/ic_cart}"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableStart="@{@drawable/ic_cart}"
+            android:fontFamily="@string/font_serif"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="@string/top_product_sale"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/sp_17"
+            tools:ignore="UnusedAttribute" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -135,6 +115,6 @@
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/dp_15"
             app:fabSize="normal"
-            app:srcCompat="@drawable/ic_add_product" />
+            app:srcCompat="@drawable/ic_plus_white" />
     </RelativeLayout>
 </layout>
