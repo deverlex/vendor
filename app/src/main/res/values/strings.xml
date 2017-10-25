@@ -134,4 +134,19 @@
 
     <!--Thong tin don hang-->
     <string name="order_detail">Thông tin đơn hàng</string>
+
+    <string name="info_transport">Thông tin vận chuyển</string>
+    <string name="schedule_receive_params">Nhận hàng lúc %1$s</string>
+    <string name="fee_transport_params">Phí vận chuyển <u>đ</u>%1$s</string>
+    <string name="pay_method">Phương thức thanh toán</string>
+    <string name="direct_payment">Thanh toán trực tiếp</string>
+    <string name="transfer_payment">Thanh toán chuyển khoản</string>
+    <string name="get_tax">Lấy hóa đơn VAT</string>
+    <string name="get_bill">Lấy hóa đơn thường</string>
+    <string name="user_review">Đánh giá người mua %1$s (%2$s đánh giá)</string>
+    <string name="order_note">Xem ghi chú của đơn hàng</string>
+    <string name="time_create_order">Đặt hàng lúc</string>
+    <string name="order_confirm">Xác nhận và xử lý</string>
+    <string name="order_cancel">Hủy đơn hàng</string>
+
 </resources>

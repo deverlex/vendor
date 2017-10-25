@@ -50,14 +50,8 @@
                 android:tint="@color/colorPrimary"
                 tools:ignore="ContentDescription,VectorDrawableCompat"
                 />
+
         </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/dp_5"
-            tools:ignore="UselessLeaf"
-            >
 
             <TextView
                 android:layout_width="match_parent"
@@ -71,32 +65,71 @@
                 android:textSize="@dimen/sp_16"
                 />
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RatingBar
-                    android:id="@+id/rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:numStars="5"
-                    android:stepSize="0.5"
-                    android:isIndicator="true"
-                    android:rating="5"
-                    android:layout_centerVertical="true"/>
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_5"
+                android:text="đ 209.000"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/sp_17"
+                tools:ignore="UnusedAttribute" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="marquee"
-                    android:maxLines="1"
-                    android:text="Đã bán 60"
-                    android:textColor="@color/gray70"
-                    android:textSize="@dimen/sp_14"
-                    android:layout_alignParentRight="true"
-                    android:padding="@dimen/dp_5"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:drawableLeft="@drawable/ic_trunk_mini"
+                android:drawablePadding="@dimen/dp_5"
+                android:drawableStart="@drawable/ic_trunk_mini"
+                android:text="miễn phí"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_14"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp_5"/>
+        </RelativeLayout>
 
-            </RelativeLayout>
-        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:isIndicator="true"
+                android:rating="4.5"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:text="(200)"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_14"
+                android:layout_toRightOf="@+id/rating"
+                android:padding="@dimen/dp_5"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:text="Đã bán 60"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_14"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp_5"/>
+        </RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

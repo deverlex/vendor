@@ -112,6 +112,7 @@ dependencies {
     compile dependencies.firebaseAuth
     compile dependencies.location
     compile dependencies.bottomBar
+    compile dependencies.bannerSlider
     compile dependencies.phoneNumber
 
     testCompile dependencies.junit

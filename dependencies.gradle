@@ -29,5 +29,6 @@ ext {
 
                   location              : 'com.google.android.gms:play-services-location:11.0.4',
                   bottomBar          : 'com.roughike:bottom-bar:2.3.1',
+                  bannerSlider       : 'com.ss.bannerslider:bannerslider:1.8.0',
                   phoneNumber        : 'com.googlecode.libphonenumber:libphonenumber:8.8.3',]
 }
