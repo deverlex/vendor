@@ -159,7 +159,7 @@
             android:drawablePadding="@dimen/dp_10"
             android:drawableStart="@drawable/ic_cash"
             android:fontFamily="@string/font_serif"
-            android:text="@string/product_price"
+            android:text="@string/price"
             android:textSize="@dimen/sp_14"
             android:textAllCaps="false"
             android:textColor="@color/color_black"

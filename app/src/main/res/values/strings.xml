@@ -83,7 +83,7 @@
     <string name="last_name_empty">Tên rỗng</string>
 
     <string name="categories">Danh mục</string>
-    <string name="order_by">Sắp xếp theo</string>
+    <string name="order_by">Sắp xếp th</string>
     <string name="store_manager">Quản lý cửa hàng</string>
 
     <string name="budget">Ví Needy</string>
@@ -108,7 +108,6 @@
     <string name="product_promotion">Khuyến mại</string>
     <string name="product_promotion_input">Thêm khuyến mại</string>
     <string name="category_choose">Chọn danh mục</string>
-    <string name="product_price">Giá</string>
     <string name="product_price_input">Đặt giá</string>
     <string name="quantity_stock">Kho hàng</string>
     <string name="quantity">Số lượng</string>
@@ -124,11 +123,15 @@
     <string name="name_service">Tên dịch vụ</string>
     <string name="service_describe">Mô tả dịch vụ</string>
     <string name="fee_move">Phí di chuyển</string>
+    <string name="price">Đơn giá</string>
     <string name="fee_move_expand">Phí di chuyên có thể áp dụng đối với các dịch vụ tại nhà khách hàng.
         \nNhập phí di chuyển cho khoảng cách mỗi Kilômét.
         Bạn có thể thay đổi phí này trên mỗi đơn hàng của khách.</string>
-    <string name="time_service">Thời gian</string>
+    <string name="time_service">Thời gian ước tính</string>
     <string name="time_service_input">Đặt thời gian (phút)</string>
     <string name="product_dependency">Sản phẩm</string>
     <string name="product_dependency_input">Thêm sản phẩm kèm theo</string>
+
+    <!--Thong tin don hang-->
+    <string name="order_detail">Thông tin đơn hàng</string>
 </resources>

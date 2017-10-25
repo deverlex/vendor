@@ -49,13 +49,15 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_clock_mini"
+                android:background="@color/color_white"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableStart="@drawable/ic_clock_mini"
                 android:fontFamily="@string/font_serif"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_13"
                 android:text="Times schedule"
-                android:paddingLeft="@dimen/dp_5"
-                android:paddingRight="@dimen/dp_5"
-                android:paddingBottom="@dimen/dp_5"/>
+                android:paddingLeft="@dimen/dp_5" />
         </LinearLayout>
 
         <TextView
