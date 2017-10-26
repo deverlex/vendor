@@ -1,15 +1,20 @@
 package vn.needy.vendor.screen.forgotPassword;
 
+import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.TransformationMethod;
 import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.screen.resetPassword.ResetPasswordActivity;
+import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
+import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -22,6 +27,7 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     private static final String TAG = ForgotPasswordViewModel.class.getName();
 
     private final Context mContext;
+    private final Application mApplication;
     private final Navigator mNavigator;
     private final DialogManager mDialogManager;
 
@@ -30,20 +36,35 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     private String mIntroContent;
 
     private String mPhoneNumberError;
-    private String mOptCodeError;
+    private String mPasswordError;
+    private String mOtpCodeError;
+
     private String mPhoneNumber;
+    private String mPassword;
     private String mOtpCode;
 
-    private boolean mVisiblePhoneNumber;
+    private String mFirebaseToken;
 
+    private int mDrawableShowPassword;
+    private boolean mVisibleShowPassword;
+    private TransformationMethod mTransformationMethod;
 
-    public ForgotPasswordViewModel(Context context, Navigator navigator, DialogManager dialogManager) {
+    private boolean mVisibleOtpCode;
+    private boolean mVisiblePassword;
+
+    public ForgotPasswordViewModel(Context context, Application application, Navigator navigator, DialogManager dialogManager) {
         mContext = context;
+        mApplication = application;
         mNavigator = navigator;
         mDialogManager = dialogManager;
 
         mIntroContent = mContext.getString(R.string.intro_get_new_password);
-        mVisiblePhoneNumber = true;
+
+        mVisibleOtpCode = false;
+        mVisiblePassword = false;
+
+        mDrawableShowPassword = R.drawable.ic_eye_off;
+        mTransformationMethod = PasswordTransformationMethod.getInstance();
     }
 
     @Override
@@ -69,13 +90,19 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
 
     @Override
     public void onInputOtpCodeError(int errorMsg) {
-        mOptCodeError = mContext.getString(errorMsg);
+        mOtpCodeError = mContext.getString(errorMsg);
         notifyPropertyChanged(BR.otpCodeError);
     }
 
     @Override
+    public void onInputPasswordError(int errorMsg) {
+        mPasswordError = mContext.getString(errorMsg);
+        notifyPropertyChanged(BR.passwordError);
+    }
+
+    @Override
     public void onFindPhoneNumberExistSuccess() {
-        mPresenter.sendVerification(mPhoneNumber);
+        mPresenter.sendVerifyPhoneNumber(mPhoneNumber);
     }
 
     @Override
@@ -85,21 +112,35 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
 
     @Override
     public void onVerificationSuccess(String firebaseToken) {
-        Bundle extras = new Bundle();
-        extras.putString(ForgotPasswordActivity.KEY_PHONE_NUMBER, mPhoneNumber);
-        extras.putString(ForgotPasswordActivity.KEY_FIREBASE_TOKEN, firebaseToken);
-        mNavigator.startActivity(ResetPasswordActivity.class, extras);
-        mNavigator.finishActivity();
+        mVisiblePassword = true;
+        mVisibleOtpCode = false;
+        notifyPropertyChanged(BR.visiblePassword);
+        notifyPropertyChanged(BR.visibleOtpCode);
+
+        mFirebaseToken = firebaseToken;
+        notifyPropertyChanged(BR.focusPhoneNumber);
     }
 
     @Override
     public void onVerificationError(String message) {
         mNavigator.showToastCenterText(message);
+
+        mVisibleOtpCode = true;
+        mIntroContent = mContext.getString(R.string.intro_reset_password);
+        notifyPropertyChanged(BR.visibleOtpCode);
+        notifyPropertyChanged(BR.introContent);
+        notifyPropertyChanged(BR.focusPhoneNumber);
     }
 
     @Override
     public void onVerificationError(int errorMsg) {
         mNavigator.showToastCenterText(mContext.getString(errorMsg));
+
+        mVisibleOtpCode = true;
+        mIntroContent = mContext.getString(R.string.intro_reset_password);
+        notifyPropertyChanged(BR.visibleOtpCode);
+        notifyPropertyChanged(BR.introContent);
+        notifyPropertyChanged(BR.focusPhoneNumber);
     }
 
     @Override
@@ -112,40 +153,55 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     public void onSendVerificationSuccess() {
         // change intro content for add otp code
         mIntroContent = mContext.getString(R.string.intro_validate_opt);
-        mVisiblePhoneNumber = false;
-        notifyPropertyChanged(BR.visiblePhoneNumber);
+        mVisibleOtpCode = true;
+        notifyPropertyChanged(BR.visibleOtpCode);
         notifyPropertyChanged(BR.introContent);
+        notifyPropertyChanged(BR.focusPhoneNumber);
     }
 
     @Override
-    public void onSendVerificationClick() {
+    public void onVerifyPhoneNumberClick() {
         Log.d(TAG, "phoneNumber: " + mPhoneNumber);
         mPresenter.checkUserExist(mPhoneNumber);
     }
 
     @Override
-    public void onResendVerificationClick() {
+    public void onResendVerifyPhoneNumberClick() {
         // resend verify number
-        mPresenter.resendVerification(mPhoneNumber);
+        mPresenter.resendVerifyPhoneNumber(mPhoneNumber);
     }
 
     @Override
     public void onValidateClick() {
         // verify using code
-        mPresenter.validateUser(mOtpCode);
+        mPresenter.validateOtpCode(mOtpCode);
+    }
+
+    @Override
+    public void onResetPasswordClick() {
+
+        Log.d(TAG, "password? " + mPassword);
+        Log.d(TAG, "TOKEN? " + mFirebaseToken);
+
+        ResetPasswordRequest request = new ResetPasswordRequest();
+        request.setFirebaseToken(mFirebaseToken);
+        request.setPassword(mPassword);
+        mPresenter.resetPassword(mPhoneNumber, request);
+
+        Log.d(TAG, "onResetPasswordClick");
     }
 
     @Override
     public void onBackPressed() {
-        if (mVisiblePhoneNumber) {
-            mNavigator.onBackPressed();
-        } else onResetUI();
+        if (mVisibleOtpCode) {
+            reset();
+        } else mNavigator.onBackPressed();
     }
 
-    private void onResetUI() {
+    private void reset() {
         mIntroContent = mContext.getString(R.string.intro_validate_phone);
-        mVisiblePhoneNumber = true;
-        notifyPropertyChanged(BR.visiblePhoneNumber);
+        mVisibleOtpCode = false;
+        notifyPropertyChanged(BR.visibleOptCode);
         notifyPropertyChanged(BR.introContent);
     }
 
@@ -159,9 +215,60 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
         mDialogManager.dismissProgressDialog();
     }
 
+    @Override
+    @Bindable
+    public boolean isFocusPhoneNumber() {
+        return !mVisibleOtpCode && !mVisiblePassword;
+    }
+
+    @Override
+    public void onResetPasswordError(String message) {
+
+    }
+
+    @Override
+    public void onResetPasswordSuccess() {
+        mDialogManager.dismissProgressDialog();
+        VendorServiceClient.initialize(mApplication);
+        mNavigator.startActivity(MainActivity.class);
+        mNavigator.finishActivity();
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (s.length() > 0) {
+            mVisibleShowPassword = true;
+        } else mVisibleShowPassword = false;
+        notifyPropertyChanged(BR.visibleShowPassword);
+    }
+
+    @Override
+    public void onViewPasswordClick() {
+        notifyPropertyChanged(BR.visibleShowPassword);
+        if (mDrawableShowPassword == R.drawable.ic_eye) {
+            mDrawableShowPassword = R.drawable.ic_eye_off;
+            mTransformationMethod = PasswordTransformationMethod.getInstance();
+        } else {
+            mDrawableShowPassword = R.drawable.ic_eye;
+            mTransformationMethod = HideReturnsTransformationMethod.getInstance();
+        }
+        notifyPropertyChanged(BR.drawableShowPassword);
+        notifyPropertyChanged(BR.transformationMethod);
+    }
+
     @Bindable
     public String getPhoneNumberError() {
         return mPhoneNumberError;
+    }
+
+    @Bindable
+    public String getPasswordError() {
+        return mPasswordError;
+    }
+
+    @Bindable
+    public String getOtpCodeError() {
+        return mOtpCodeError;
     }
 
     @Bindable
@@ -174,8 +281,12 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     }
 
     @Bindable
-    public String getOptCodeError() {
-        return mOptCodeError;
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public void setPassword(String password) {
+        mPassword = password;
     }
 
     @Bindable
@@ -197,11 +308,35 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     }
 
     @Bindable
-    public boolean isVisiblePhoneNumber() {
-        return mVisiblePhoneNumber;
+    public boolean isVisibleOtpCode() {
+        return mVisibleOtpCode;
     }
 
-    public void setVisiblePhoneNumber(boolean visiblePhoneNumber) {
-        mVisiblePhoneNumber = visiblePhoneNumber;
+    public void setVisibleOtpCode(boolean visibleOptCode) {
+        mVisibleOtpCode = visibleOptCode;
+    }
+
+    @Bindable
+    public boolean isVisiblePassword() {
+        return mVisiblePassword;
+    }
+
+    public void setVisiblePassword(boolean visiblePassword) {
+        this.mVisiblePassword = visiblePassword;
+    }
+
+    @Bindable
+    public int getDrawableShowPassword() {
+        return mDrawableShowPassword;
+    }
+
+    @Bindable
+    public TransformationMethod getTransformationMethod() {
+        return mTransformationMethod;
+    }
+
+    @Bindable
+    public boolean isVisibleShowPassword() {
+        return mVisibleShowPassword;
     }
 }

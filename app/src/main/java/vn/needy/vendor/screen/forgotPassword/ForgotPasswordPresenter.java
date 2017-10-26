@@ -32,7 +32,9 @@ import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.data.source.remote.UserRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
+import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
 import vn.needy.vendor.data.source.remote.api.response.BaseResponse;
+import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.utils.Utils;
 
@@ -42,7 +44,7 @@ import vn.needy.vendor.utils.Utils;
 
 public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter {
 
-    private static final int TIME_DURATION = 60;
+    private static final int TIME_DURATION = 15;
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String mVerificationId;
@@ -111,7 +113,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
 
     @Override
     public void checkUserExist(String phoneNumber) {
-        if (!validateDataInput(phoneNumber)) return;
+        if (TextUtils.isEmpty(phoneNumber)) return;
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
         Disposable mDisposable = mUserRepository.findUserExist(phoneNumber)
                 .subscribeOn(Schedulers.io())
@@ -137,7 +139,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     }
 
     @Override
-    public void sendVerification(String phoneNumber) {
+    public void sendVerifyPhoneNumber(String phoneNumber) {
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
         sendVerificationPhone(phoneNumber);
         mViewModel.onShowProgressBar();
@@ -145,7 +147,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     }
 
     @Override
-    public void resendVerification(String phoneNumber) {
+    public void resendVerifyPhoneNumber(String phoneNumber) {
         if (mDuration > 0) {
             mViewModel.onWaitingTimeForResend(mDuration);
         } else if (mResendToken != null) {
@@ -157,7 +159,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     }
 
     @Override
-    public void validateUser(String otpCode) {
+    public void validateOtpCode(String otpCode) {
         if (!TextUtils.isEmpty(otpCode)) {
             if (!TextUtils.isEmpty(mVerificationId)) {
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, otpCode);
@@ -172,7 +174,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     }
 
     @Override
-    public boolean validateDataInput(String phoneNumber) {
+    public boolean validateDataInput(String phoneNumber, String password) {
         boolean isValidate = true;
         if (!Utils.PhoneNumberUtils.isValidPhoneNumber(phoneNumber)) {
             isValidate = false;
@@ -182,7 +184,48 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
             isValidate = false;
             mViewModel.onInputPhoneNumberError(R.string.phone_number_empty);
         }
+        if (TextUtils.isEmpty(password)) {
+            isValidate = false;
+            mViewModel.onInputPasswordError(R.string.password_empty);
+        }
+        if (!TextUtils.isEmpty(password) && password.length() > 32) {
+            isValidate = false;
+            mViewModel.onInputPasswordError(R.string.password_over_limit);
+        }
+        if (!TextUtils.isEmpty(password) && password.length() < 8) {
+            isValidate = false;
+            mViewModel.onInputPasswordError(R.string.password_miss_length);
+        }
         return isValidate;
+    }
+
+    @Override
+    public void resetPassword(String phoneNumber, ResetPasswordRequest request) {
+        if (!validateDataInput(phoneNumber, request.getPassword())) return;
+
+        phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
+        Disposable disposable = mUserRepository.resetPassword(phoneNumber, request)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CertificationResponse>() {
+                    @Override
+                    public void accept(CertificationResponse certification) throws Exception {
+                        mUserRepository.saveToken(certification.getToken());
+                        mViewModel.onResetPasswordSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onHideProgressBar();
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 
     private void sendVerificationPhone(String phoneNumber) {

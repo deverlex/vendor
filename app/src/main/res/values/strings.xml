@@ -20,7 +20,7 @@
     <string name="error_credential">Số điện thoại hoặc mật khẩu không chính xác</string>
 
     <string name="validate_phone">XÁC MINH SỐ ĐIỆN THOẠI</string>
-    <string name="intro_validate_phone">Vui lòng nhập vào số điện thoại và nhấn nút <b>tiếp theo</b>.</string>
+    <string name="intro_validate_phone">Vui lòng nhập vào số điện thoại và mật khẩu.</string>
     <string name="intro_validate_opt">Vui lòng nhập vào mã xác minh và nhấn <b>hoàn tất</b></string>
     <string name="otp_code">Mã xác minh</string>
     <string name="otp_code_invalid">Mã xác minh không đúng</string>

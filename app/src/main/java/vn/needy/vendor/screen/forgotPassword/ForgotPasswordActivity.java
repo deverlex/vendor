@@ -27,7 +27,7 @@ public class ForgotPasswordActivity extends BaseActivity {
         Navigator navigator = new Navigator(this);
         DialogManager dialogManager = new DialogManager(this);
 
-        mViewModel = new ForgotPasswordViewModel(this, navigator, dialogManager);
+        mViewModel = new ForgotPasswordViewModel(this, getApplication(), navigator, dialogManager);
 
         ForgotPasswordContract.Presenter presenter = new ForgotPasswordPresenter(mViewModel, this);
         mViewModel.setPresenter(presenter);
