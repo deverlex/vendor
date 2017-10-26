@@ -67,7 +67,9 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onLoginSuccess() {
         VendorServiceClient.initialize(mApplication);
-        mPresenter.findCompanyInherent();
+//        mPresenter.findCompanyInherent();
+        mNavigator.startActivity(MainActivity.class);
+        mNavigator.finishActivity();
     }
 
     @Override
