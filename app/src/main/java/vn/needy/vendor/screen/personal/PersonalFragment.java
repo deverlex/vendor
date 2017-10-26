@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.databinding.FragmentPesonalBinding;
+import vn.needy.vendor.databinding.FragmentPersonalBinding;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -30,7 +30,7 @@ public class PersonalFragment extends Fragment {
         Navigator navigator = new Navigator(this);
         mViewModel = new PersonalViewModel(navigator);
 
-        FragmentPesonalBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pesonal, container, false);
+        FragmentPersonalBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_personal, container, false);
         binding.setViewModel((PersonalViewModel) mViewModel);
 //        binding.setMainPage(this);
         return binding.getRoot();

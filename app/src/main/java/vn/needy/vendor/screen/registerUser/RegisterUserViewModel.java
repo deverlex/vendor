@@ -1,70 +1,58 @@
 package vn.needy.vendor.screen.registerUser;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.TransformationMethod;
 import android.util.Log;
-import android.widget.RadioGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.GenderType;
-import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
-import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
-import vn.needy.vendor.screen.main.MainActivity;
-import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
-import vn.needy.vendor.screen.validatePhone.ValidatePhoneActivity;
-import vn.needy.vendor.utils.Utils;
+import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
- * Created by lion on 02/10/2017.
+ * Created by lion on 03/10/2017.
  */
 
 public class RegisterUserViewModel extends BaseObservable implements RegisterUserContract.ViewModel {
 
-    private final static String TAG = RegisterUserViewModel.class.getName();
+    private static final String TAG = RegisterUserViewModel.class.getName();
 
-    private Context mContext;
-    private final Application mApplication;
+    private final Context mContext;
     private final Navigator mNavigator;
+    private final DialogManager mDialogManager;
     private RegisterUserContract.Presenter mPresenter;
 
+    private String mIntroContent;
+
+    private String mPhoneNumberError;
     private String mPasswordError;
-    private String mFirstNameError;
-    private String mLastNameError;
+    private String mOtpCodeError;
 
     private String mPhoneNumber;
     private String mPassword;
-    private String mFirstName;
-    private String mLastName;
-    private String mAddress;
-    private String mGender;
-    private float mLat;
-    private float mLng;
+    private String mOtpCode;
 
     private int mDrawableShowPassword;
     private boolean mVisibleShowPassword;
     private TransformationMethod mTransformationMethod;
 
-    public RegisterUserViewModel(Application application, Context context, Navigator navigator) {
-        mApplication = application;
+    private boolean mVisibleOptCode;
+
+    public RegisterUserViewModel(Context context, Navigator navigator, DialogManager dialogManager) {
         mContext = context;
         mNavigator = navigator;
+        mDialogManager = dialogManager;
+        mIntroContent = context.getString(R.string.intro_validate_phone);
+
+        mVisibleOptCode = false;
 
         mDrawableShowPassword = R.drawable.ic_eye_off;
         mTransformationMethod = PasswordTransformationMethod.getInstance();
-        mGender = GenderType.FEMALE;
-
-        Bundle extras = ((Activity) mContext).getIntent().getExtras();
-        mPhoneNumber = extras.getString(ValidatePhoneActivity.KEY_PHONE_NUMBER);
     }
 
     @Override
@@ -83,15 +71,33 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     }
 
     @Override
-    public void onInputFirstNameError(int errorMsg) {
-        mFirstNameError = mContext.getString(errorMsg);
-        notifyPropertyChanged(BR.firstNameError);
+    public void onVerificationSuccess(String firebaseUid, String firebaseToken) {
+//        Bundle extras = new Bundle();
+//        extras.putString(RegisterUserActivity.KEY_PHONE_NUMBER, mPhoneNumber);
+//        extras.putString(RegisterUserActivity.KEY_FIREBASE_UID, firebaseUid);
+//        extras.putString(RegisterUserActivity.KEY_FIREBASE_TOKEN, firebaseToken);
     }
 
     @Override
-    public void onInputLastNameError(int errorMsg) {
-        mLastNameError = mContext.getString(errorMsg);
-        notifyPropertyChanged(BR.lastNameError);
+    public void onVerificationError(String message) {
+        mNavigator.showToastCenterText(message);
+    }
+
+    @Override
+    public void onVerificationError(int errorMsg) {
+        mNavigator.showToastCenterText(mContext.getString(errorMsg));
+    }
+
+    @Override
+    public void onWaitingTimeForResend(int duration) {
+        String msg = String.format(mContext.getString(R.string.waiting_otp), String.valueOf(duration));
+        mNavigator.showToastCenterText(msg);
+    }
+
+    @Override
+    public void onInputPhoneNumberError(int errorMsg) {
+        mPhoneNumberError = mContext.getString(errorMsg);
+        notifyPropertyChanged(BR.phoneNumberError);
     }
 
     @Override
@@ -101,46 +107,52 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     }
 
     @Override
-    public void onRegisterError(String message) {
-        mNavigator.showToastCenterText(message);
+    public void onInputOtpCodeError(int errorMsg) {
+        mOtpCodeError = mContext.getString(errorMsg);
+        notifyPropertyChanged(BR.otpCodeError);
     }
 
     @Override
-    public void onRegisterError(int errorMsg) {
-        mNavigator.showToastCenterText(mContext.getString(errorMsg));
+    public void onSendVerificationSuccess() {
+        // change intro content for add otp code
+        mIntroContent = mContext.getString(R.string.intro_validate_opt);
+        mVisibleOptCode = true;
+//        notifyPropertyChanged(BR.v);
+        notifyPropertyChanged(BR.introContent);
     }
 
     @Override
-    public void onRegisterSuccess() {
-        VendorServiceClient.initialize(mApplication);
-        mPresenter.findCompanyInherent();
+    public void onSendVerificationClick() {
+        // send verify number
+        Log.d(TAG, mPhoneNumber + " - " + mPassword);
+        mPresenter.sendVerification(mPhoneNumber, mPassword);
     }
 
     @Override
-    public void onRegisterClick() {
-        Bundle extras = ((Activity) mContext).getIntent().getExtras();
-        String uid = extras.getString(ValidatePhoneActivity.KEY_FIREBASE_UID);
-        String accessToken = extras.getString(ValidatePhoneActivity.KEY_FIREBASE_TOKEN);
-
-        RegisterUserRequest registerUserRequest = new RegisterUserRequest();
-        registerUserRequest.setFirebaseUid(uid);
-        registerUserRequest.setFirebaseToken(accessToken);
-        registerUserRequest.setPhoneNumber(Utils.PhoneNumberUtils.formatPhoneNumber(getPhoneNumber()));
-        registerUserRequest.setPassword(mPassword);
-        registerUserRequest.setFirstName(mFirstName);
-        registerUserRequest.setLastName(mLastName);
-        registerUserRequest.setGender(mGender);
-        registerUserRequest.setAddress(mAddress);
-        registerUserRequest.setLat(mLat);
-        registerUserRequest.setLng(mLng);
-
-        mPresenter.registerUser(registerUserRequest);
+    public void onResendVerificationClick() {
+        // resend verify number
+        mPresenter.resendVerification(mPhoneNumber);
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int id) {
-        if (id == R.id.rbMale) mGender = GenderType.MALE;
-        else if (id == R.id.rbFemale) mGender = GenderType.FEMALE;
+    public void onValidateClick() {
+        // verify using code
+        mPresenter.validateUser(mOtpCode);
+    }
+
+    @Override
+    public void onShowProgressBar() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressBar() {
+        mDialogManager.dismissProgressDialog();
+    }
+
+    @Override
+    public void onBackPressed() {
+        mNavigator.onBackPressed();
     }
 
     @Override
@@ -153,6 +165,7 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
     @Override
     public void onViewPasswordClick() {
+        notifyPropertyChanged(BR.visibleShowPassword);
         if (mDrawableShowPassword == R.drawable.ic_eye) {
             mDrawableShowPassword = R.drawable.ic_eye_off;
             mTransformationMethod = PasswordTransformationMethod.getInstance();
@@ -164,56 +177,28 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
         notifyPropertyChanged(BR.transformationMethod);
     }
 
-    @Override
-    public void onShowProgressBar() {
-
+    @Bindable
+    public String getIntroContent() {
+        return mIntroContent;
     }
 
-    @Override
-    public void onHideProgressBar() {
-
-    }
-
-    @Override
-    public void setLat(float lat) {
-        mLat = lat;
-    }
-
-    @Override
-    public void setLng(float lng) {
-        mLng = lng;
-    }
-
-    @Override
-    public void onRedirectToMain() {
-        mNavigator.startActivity(MainActivity.class);
-        mNavigator.finishActivity();
-    }
-
-    @Override
-    public void onRedirectToRegisterCompany() {
-        mNavigator.startActivity(RegisterCompanyActivity.class);
-        mNavigator.finishActivity();
-    }
-
-    @Override
-    public void onBackPressed() {
-        mNavigator.finishActivity();
+    public void setIntroContent(String mIntroContent) {
+        this.mIntroContent = mIntroContent;
     }
 
     @Bindable
-    public boolean isVisibleShowPassword() {
-        return mVisibleShowPassword;
+    public String getPhoneNumberError() {
+        return mPhoneNumberError;
     }
 
     @Bindable
-    public int getDrawableShowPassword() {
-        return mDrawableShowPassword;
+    public String getPasswordError() {
+        return mPasswordError;
     }
 
     @Bindable
-    public TransformationMethod getTransformationMethod() {
-        return mTransformationMethod;
+    public String getOtpCodeError() {
+        return mOtpCodeError;
     }
 
     @Bindable
@@ -230,49 +215,40 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
         return mPassword;
     }
 
-    public void setPassword(String mPassword) {
-        this.mPassword = mPassword;
+    public void setPassword(String password) {
+        this.mPassword = password;
     }
 
     @Bindable
-    public String getFirstName() {
-        return mFirstName;
+    public String getOptCode() {
+        return mOtpCode;
     }
 
-    public void setFirstName(String mFirstName) {
-        this.mFirstName = mFirstName;
-    }
-
-    @Bindable
-    public String getLastName() {
-        return mLastName;
-    }
-
-    public void setLastName(String mLastName) {
-        this.mLastName = mLastName;
+    public void setOptCode(String optCode) {
+        this.mOtpCode = optCode;
     }
 
     @Bindable
-    public String getAddress() {
-        return mAddress;
+    public boolean isVisibleOptCode() {
+        return mVisibleOptCode;
     }
 
-    public void setAddress(String mAddress) {
-        this.mAddress = mAddress;
-    }
-
-    @Bindable
-    public String getPasswordError() {
-        return mPasswordError;
+    public void setVisibleOptCode(boolean visibleOptCode) {
+        mVisibleOptCode = visibleOptCode;
     }
 
     @Bindable
-    public String getFirstNameError() {
-        return mFirstNameError;
+    public int getDrawableShowPassword() {
+        return mDrawableShowPassword;
     }
 
     @Bindable
-    public String getLastNameError() {
-        return mLastNameError;
+    public TransformationMethod getTransformationMethod() {
+        return mTransformationMethod;
+    }
+
+    @Bindable
+    public boolean isVisibleShowPassword() {
+        return mVisibleShowPassword;
     }
 }

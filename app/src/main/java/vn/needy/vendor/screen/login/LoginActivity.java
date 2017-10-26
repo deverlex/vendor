@@ -23,7 +23,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_login));
 
         //Clear data

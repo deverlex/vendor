@@ -21,24 +21,6 @@ public class RegisterUserRequest {
     @Expose
     @SerializedName("password")
     private String mPassword;
-    @Expose
-    @SerializedName("firstName")
-    private String firstName;
-    @Expose
-    @SerializedName("lastName")
-    private String lastName;
-    @Expose
-    @SerializedName("gender")
-    private String gender;
-    @Expose
-    @SerializedName("address")
-    private String address;
-    @Expose
-    @SerializedName("lat")
-    private float lat;
-    @Expose
-    @SerializedName("lng")
-    private float lng;
 
     public RegisterUserRequest() {
         super();
@@ -76,51 +58,4 @@ public class RegisterUserRequest {
         this.mPassword = password;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public float getLat() {
-        return lat;
-    }
-
-    public void setLat(float lat) {
-        this.lat = lat;
-    }
-
-    public float getLng() {
-        return lng;
-    }
-
-    public void setLng(float lng) {
-        this.lng = lng;
-    }
 }
