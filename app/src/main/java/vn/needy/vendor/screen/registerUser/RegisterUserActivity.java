@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import com.google.firebase.auth.FirebaseAuth;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.data.source.local.realm.RealmApi;
 import vn.needy.vendor.databinding.ActivityRegisterUserBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
@@ -24,6 +25,7 @@ public class RegisterUserActivity extends BaseActivity {
     private static final String TAG = RegisterUserActivity.class.getName();
 
     private RegisterUserContract.ViewModel mViewModel;
+    private RealmApi mRealmApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -34,8 +36,10 @@ public class RegisterUserActivity extends BaseActivity {
         Navigator navigator = new Navigator(this);
         DialogManager dialogManager = new DialogManager(this);
 
-        mViewModel = new RegisterUserViewModel(this, navigator, dialogManager);
-        RegisterUserContract.Presenter presenter = new RegisterUserPresenter(this, mViewModel);
+        mRealmApi = new RealmApi();
+
+        mViewModel = new RegisterUserViewModel(this, getApplication(), navigator, dialogManager);
+        RegisterUserContract.Presenter presenter = new RegisterUserPresenter(this, mViewModel, mRealmApi);
 
         mViewModel.setPresenter(presenter);
         ActivityRegisterUserBinding binding =
@@ -50,6 +54,12 @@ public class RegisterUserActivity extends BaseActivity {
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mRealmApi.closeRealmOnMainThread();
     }
 
 }

@@ -1,5 +1,6 @@
 package vn.needy.vendor.screen.registerUser;
 
+import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -11,6 +12,10 @@ import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
+import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.screen.main.MainActivity;
+import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -23,6 +28,7 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     private static final String TAG = RegisterUserViewModel.class.getName();
 
     private final Context mContext;
+    private final Application mApplication;
     private final Navigator mNavigator;
     private final DialogManager mDialogManager;
     private RegisterUserContract.Presenter mPresenter;
@@ -43,8 +49,9 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
     private boolean mVisibleOptCode;
 
-    public RegisterUserViewModel(Context context, Navigator navigator, DialogManager dialogManager) {
+    public RegisterUserViewModel(Context context, Application application, Navigator navigator, DialogManager dialogManager) {
         mContext = context;
+        mApplication = application;
         mNavigator = navigator;
         mDialogManager = dialogManager;
         mIntroContent = context.getString(R.string.intro_validate_phone);
@@ -71,21 +78,52 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     }
 
     @Override
+    public void onRegisterError(String message) {
+        mDialogManager.dismissProgressDialog();
+        mNavigator.showToastCenterText(message);
+    }
+
+    @Override
+    public void onRegisterError(int errorMsg) {
+        mDialogManager.dismissProgressDialog();
+        mNavigator.showToastCenterText(mContext.getString(errorMsg));
+    }
+
+    @Override
+    public void onRegisterSuccess() {
+        mDialogManager.dismissProgressDialog();
+        VendorServiceClient.initialize(mApplication);
+        mNavigator.startActivity(MainActivity.class);
+        mNavigator.finishActivity();
+    }
+
+    @Override
     public void onVerificationSuccess(String firebaseUid, String firebaseToken) {
-//        Bundle extras = new Bundle();
-//        extras.putString(RegisterUserActivity.KEY_PHONE_NUMBER, mPhoneNumber);
-//        extras.putString(RegisterUserActivity.KEY_FIREBASE_UID, firebaseUid);
-//        extras.putString(RegisterUserActivity.KEY_FIREBASE_TOKEN, firebaseToken);
+        mDialogManager.dismissProgressDialog();
+        RegisterUserRequest request = new RegisterUserRequest();
+        request.setPhoneNumber(Utils.PhoneNumberUtils.formatPhoneNumber(mPhoneNumber));
+        request.setPassword(mPassword);
+        request.setFirebaseUid(firebaseUid);
+        request.setFirebaseToken(firebaseToken);
+        mPresenter.registerUser(request);
     }
 
     @Override
     public void onVerificationError(String message) {
+        mDialogManager.dismissProgressDialog();
         mNavigator.showToastCenterText(message);
     }
 
     @Override
     public void onVerificationError(int errorMsg) {
+        mDialogManager.dismissProgressDialog();
+
         mNavigator.showToastCenterText(mContext.getString(errorMsg));
+
+        mIntroContent = mContext.getString(R.string.intro_validate_opt);
+        mVisibleOptCode = true;
+        notifyPropertyChanged(BR.visibleOptCode);
+        notifyPropertyChanged(BR.introContent);
     }
 
     @Override
@@ -114,10 +152,12 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
     @Override
     public void onSendVerificationSuccess() {
+        mDialogManager.dismissProgressDialog();
         // change intro content for add otp code
         mIntroContent = mContext.getString(R.string.intro_validate_opt);
         mVisibleOptCode = true;
-//        notifyPropertyChanged(BR.v);
+
+        notifyPropertyChanged(BR.visibleOptCode);
         notifyPropertyChanged(BR.introContent);
     }
 
@@ -137,7 +177,7 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     @Override
     public void onValidateClick() {
         // verify using code
-        mPresenter.validateUser(mOtpCode);
+        mPresenter.validateVerification(mOtpCode);
     }
 
     @Override
@@ -152,7 +192,16 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
     @Override
     public void onBackPressed() {
-        mNavigator.onBackPressed();
+        if (mVisibleOptCode) {
+            reset();
+        } else mNavigator.onBackPressed();
+    }
+
+    private void reset() {
+        mIntroContent = mContext.getString(R.string.intro_validate_phone);
+        mVisibleOptCode = false;
+        notifyPropertyChanged(BR.introContent);
+        notifyPropertyChanged(BR.visibleOptCode);
     }
 
     @Override

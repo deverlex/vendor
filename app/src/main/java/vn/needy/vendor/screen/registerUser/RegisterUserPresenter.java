@@ -19,7 +19,22 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
+import vn.needy.vendor.data.source.UserRepository;
+import vn.needy.vendor.data.source.local.UserLocalDataSource;
+import vn.needy.vendor.data.source.local.realm.RealmApi;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.data.source.remote.UserRemoteDataSource;
+import vn.needy.vendor.data.source.remote.api.error.BaseException;
+import vn.needy.vendor.data.source.remote.api.error.SafetyError;
+import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
+import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
+import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.utils.Utils;
 
 /**
@@ -28,7 +43,7 @@ import vn.needy.vendor.utils.Utils;
 
 public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
-    private static final int TIME_DURATION = 60;
+    private static final int TIME_DURATION = 15;
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String mVerificationId;
@@ -38,12 +53,14 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
     private int mDuration;
 
+    private final CompositeDisposable mCompositeDisposable;
+    private final UserRepository mUserRepository;
+
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks
             = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
-            mViewModel.onHideProgressBar();
             mViewModel.onSendVerificationSuccess();
             signInWithPhoneAuthCredential(credential);
             mDuration = -1;
@@ -51,7 +68,6 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
-            mViewModel.onHideProgressBar();
             if (e instanceof FirebaseAuthInvalidCredentialsException) {
                 mViewModel.onInputPhoneNumberError(R.string.is_not_phone_number);
             } else if (e instanceof FirebaseTooManyRequestsException) {
@@ -69,11 +85,16 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         }
     };
 
-    public RegisterUserPresenter(Activity activity, RegisterUserContract.ViewModel viewModel) {
+    public RegisterUserPresenter(Activity activity, RegisterUserContract.ViewModel viewModel, RealmApi realmApi) {
         mViewModel = viewModel;
         mActivity = activity;
         mAuth = FirebaseAuth.getInstance();
         mDuration = 0;
+        mUserRepository = new UserRepository(
+                new UserRemoteDataSource(VendorServiceClient.getInstance()),
+                new UserLocalDataSource(realmApi, SharedPrefsImpl.getInstance())
+        );
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -91,7 +112,6 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         }
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
         sendVerificationPhone(phoneNumber);
-        mViewModel.onShowProgressBar();
         waitingForResend();
     }
 
@@ -102,24 +122,53 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         } else if (mResendToken != null) {
             phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
             resendVerificationCode(phoneNumber, mResendToken);
-            mViewModel.onShowProgressBar();
             waitingForResend();
         }
     }
 
     @Override
-    public void validateUser(String otpCode) {
+    public void validateVerification(String otpCode) {
         if (!TextUtils.isEmpty(otpCode)) {
             if (!TextUtils.isEmpty(mVerificationId)) {
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, otpCode);
                 signInWithPhoneAuthCredential(credential);
-                mViewModel.onShowProgressBar();
             } else {
                 mViewModel.onVerificationError(R.string.validation_error);
             }
         } else {
             mViewModel.onInputOtpCodeError(R.string.otp_code_empty);
         }
+    }
+
+    @Override
+    public void registerUser(RegisterUserRequest request) {
+        Disposable disposable = mUserRepository.registerUser(request)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                       mViewModel.onShowProgressBar();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CertificationResponse>() {
+                    @Override
+                    public void accept(CertificationResponse certification) throws Exception {
+                        String token = certification.getToken();
+                        if (!TextUtils.isEmpty(token)) {
+                            mUserRepository.saveToken(certification.getToken());
+                            mViewModel.onRegisterSuccess();
+                        } else {
+                            mViewModel.onRegisterError(certification.getMessage());
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onRegisterError(R.string.error_service);
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 
     @Override
@@ -149,6 +198,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
     }
 
     private void sendVerificationPhone(String phoneNumber) {
+        mViewModel.onShowProgressBar();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 TIME_DURATION,                 // Timeout duration
@@ -159,6 +209,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
     private void resendVerificationCode(String phoneNumber,
                                         PhoneAuthProvider.ForceResendingToken token) {
+        mViewModel.onShowProgressBar();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 TIME_DURATION,                 // Timeout duration
@@ -177,7 +228,6 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                             // get token access of user
                             getUserTokenId(task.getResult().getUser());
                         } else {
-                            mViewModel.onHideProgressBar();
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 mViewModel.onInputOtpCodeError(R.string.otp_code_invalid);
                             }
@@ -190,7 +240,6 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         user.getIdToken(true).addOnCompleteListener(mActivity, new OnCompleteListener<GetTokenResult>() {
             @Override
             public void onComplete(@NonNull Task<GetTokenResult> task) {
-                mViewModel.onHideProgressBar();
                 if (task.isSuccessful()) {
                     String idToken = task.getResult().getToken();
                     // Send token to your backend via HTTPS
@@ -218,7 +267,6 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mViewModel.onHideProgressBar();
                             mViewModel.onVerificationError(R.string.validation_error);
                         }
                     });
