@@ -10,7 +10,7 @@ def APP_ID = "vn.needy.vendor";
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "${APP_ID}"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -71,7 +71,7 @@ android {
 
 @SuppressWarnings("GroovyAssignabilityCheck")
 def appendVersionNameVersionCode(variant) {
-    variant.outputs.each { output ->
+    variant.outputs.all { output ->
         def applicationId = variant.mergedFlavor.applicationId + (variant.buildType.applicationIdSuffix ==
                 null ? "" : variant.buildType.applicationIdSuffix)
         if (variant.buildType.name == android.buildTypes.debug.name ||
@@ -80,8 +80,7 @@ def appendVersionNameVersionCode(variant) {
                 variant.buildType.name ==
                 android.buildTypes.staging.name) {
             if (output.zipAlign) {
-                def file = output.outputFile
-                output.outputFile = new File(file.parentFile,
+                outputFileName = new File("${project.projectDir}/build/outputs/apks/" + variant.name,
                         "${variant.buildType.name}_${applicationId}_v${variant.versionName}-${variant.versionCode}.apk")
             }
         }
