@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray_white" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="ScrollViewSize">
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_170"
+            android:background="@color/color_gray_mos">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
+
+            <vn.needy.vendor.widget.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:src="@drawable/ic_placeholder" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/avatar"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_35"
+                android:textColor="@color/color_white"
+                android:text="Cty TNHH Needy"
+                android:textSize="@dimen/sp_16"
+                android:fontFamily="@string/font_serif" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white">
+            <TextView
+                android:id="@+id/headerNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_1"
+                android:fontFamily="@string/font_serif"
+                android:text="Mã số công ty"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/companyNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:drawableEnd="@drawable/ic_credit_card_mini"
+                android:drawablePadding="@dimen/dp_15"
+                android:drawableRight="@drawable/ic_credit_card_mini"
+                android:layout_below="@+id/headerNumber"
+                android:fontFamily="@string/font_serif"
+                android:text="Tự động sinh sau khi đăng ký"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
+                android:layout_below="@+id/companyNumber"
+                android:background="@color/color_white"
+                android:fontFamily="@string/font_serif"
+                android:text="https://needy.vn/shopmini"
+                android:textColor="@color/color_orange_mos"
+                android:textSize="@dimen/sp_10"
+                tools:ignore="UnusedAttribute" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@string/font_serif"
+                android:text="Tên hiển thị"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="UnusedAttribute" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_text"
+                android:drawableEnd="@drawable/ic_check_circle_mini"
+                android:drawablePadding="@dimen/dp_15"
+                android:drawableRight="@drawable/ic_check_circle_mini"
+                android:fontFamily="@string/font_serif"
+                android:hint="Chưa thiết lập"
+                android:inputType="textCapWords"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_10"
+                android:textAllCaps="false"
+                android:textColor="@color/color_black"
+                android:textColorHint="@color/gray70"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="UnusedAttribute" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:layout_marginTop="@dimen/dp_1">
+            <TextView
+                android:id="@+id/headerFoundedDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:fontFamily="@string/font_serif"
+                android:text="Ngày thành lập"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:fontFamily="@string/font_serif"
+                android:text="Chưa thiết lập"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_13"
+                android:layout_below="@+id/headerFoundedDate"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_next_right"
+                android:background="@color/transparent"
+                android:padding="@dimen/dp_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:layout_marginTop="@dimen/dp_1">
+            <TextView
+                android:id="@+id/headerNumberStaff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:fontFamily="@string/font_serif"
+                android:text="Số nhân viên"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:fontFamily="@string/font_serif"
+                android:text="0001"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_14"
+                android:layout_below="@+id/headerNumberStaff"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageButton
+                android:id="@+id/plus_staff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_plus"
+                android:background="@color/transparent"
+                android:padding="@dimen/dp_5"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_minus"
+                android:background="@color/transparent"
+                android:padding="@dimen/dp_5"
+                android:layout_toLeftOf="@+id/plus_staff"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:layout_marginTop="@dimen/dp_1">
+            <TextView
+                android:id="@+id/headerOpenTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:fontFamily="@string/font_serif"
+                android:text="Thời gian mở cửa"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:layout_below="@+id/headerOpenTime"
+                android:fontFamily="@string/font_serif"
+                android:text="08:00 AM - 17:00 PM"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_next_right"
+                android:background="@color/transparent"
+                android:padding="@dimen/dp_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:layout_marginTop="@dimen/dp_1">
+            <TextView
+                android:id="@+id/headerFreeTransport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:fontFamily="@string/font_serif"
+                android:text="Miễn phí vận chuyển với đơn hàng từ"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:layout_below="@+id/headerFreeTransport"
+                android:fontFamily="@string/font_serif"
+                android:text="đ200.000"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_next_right"
+                android:background="@color/transparent"
+                android:padding="@dimen/dp_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_1"
+            android:drawableEnd="@drawable/ic_expand"
+            android:drawablePadding="@dimen/dp_15"
+            android:drawableRight="@drawable/ic_expand"
+            android:fontFamily="@string/font_serif"
+            android:text="Mô tả công ty"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14"
+            android:background="@color/color_white"
+            tools:ignore="UnusedAttribute" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_white">
+            <TextView
+                android:id="@+id/headerAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_1"
+                android:fontFamily="@string/font_serif"
+                android:text="Địa chỉ"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:drawableEnd="@drawable/ic_alert_circle_mini"
+                android:drawablePadding="@dimen/dp_15"
+                android:drawableRight="@drawable/ic_alert_circle_mini"
+                android:layout_below="@+id/headerAddress"
+                android:fontFamily="@string/font_serif"
+                android:text="Chưa thiết lập"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <fragment
+                android:id="@+id/map"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_250" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_get_location"
+                android:background="@color/transparent"
+                android:padding="@dimen/dp_10"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/transparent"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_back_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/back"
+                android:text="@string/profile_company"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_18" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+</RelativeLayout>

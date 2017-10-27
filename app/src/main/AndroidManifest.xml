@@ -30,6 +30,10 @@
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyB9wj6vjyohBMxuvv3083rP6OTGsfBzlrE"/>
+
         <activity android:name=".screen.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

@@ -12,14 +12,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_170"
-            android:background="@color/colorPrimary">
+            android:background="@color/color_gray_mos">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -46,7 +45,6 @@
                 android:textColor="@color/color_white"
                 android:text="Nguyen Van Do"
                 android:textSize="@dimen/sp_18"
-                android:textStyle="bold"
                 android:fontFamily="@string/font_serif" />
 
         </RelativeLayout>
@@ -98,7 +96,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_0_mid"
-                android:background="@color/color_gray_white" />
+                android:background="@color/color_gray_mos" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -139,7 +137,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_0_mid"
-                android:background="@color/color_gray_white" />
+                android:background="@color/color_gray_mos" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -180,7 +178,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_0_mid"
-                android:background="@color/color_gray_white" />
+                android:background="@color/color_gray_mos" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -221,7 +219,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_0_mid"
-                android:background="@color/color_gray_white" />
+                android:background="@color/color_gray_mos" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -262,7 +260,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_0_mid"
-                android:background="@color/color_gray_white" />
+                android:background="@color/color_gray_mos" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

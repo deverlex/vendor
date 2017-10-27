@@ -89,6 +89,9 @@
     <string name="budget">Ví Needy</string>
     <string name="view_budget">Xem ví của tôi</string>
     <string name="account">Tài khoản</string>
+    <string name="info_personal">Thông tin cá nhân</string>
+    <string name="info_new_company">Công ty mới</string>
+    <string name="register">Đăng ký</string>
     <string name="view_account">Xem tài khoản của tôi</string>
     <string name="order_history">Đơn hàng</string>
     <string name="view_order_history">Xem lịch sử đơn hàng</string>
@@ -149,4 +152,7 @@
     <string name="order_confirm">Xác nhận và xử lý</string>
     <string name="order_cancel">Hủy đơn hàng</string>
 
+    <string name="complete">Hoàn thiện</string>
+    <string name="profile_personal">Hồ sơ cá nhân</string>
+    <string name="profile_company">Hồ sơ công ty</string>
 </resources>

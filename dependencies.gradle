@@ -26,6 +26,7 @@ ext {
                   expandablerecyclerview: 'com.bignerdranch.android:expandablerecyclerview:2.1.1',
                   firebaseMessage       : 'com.google.firebase:firebase-messaging:11.0.4',
                   firebaseAuth          : 'com.google.firebase:firebase-auth:11.0.4',
+                  map                   : 'com.google.android.gms:play-services-maps:11.0.4',
 
                   location              : 'com.google.android.gms:play-services-location:11.0.4',
                   bottomBar          : 'com.roughike:bottom-bar:2.3.1',

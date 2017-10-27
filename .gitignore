@@ -11,3 +11,5 @@
 \.idea/
 
 *.apk
+
+gradle/wrapper/gradle-wrapper\.properties
