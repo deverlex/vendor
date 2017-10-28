@@ -168,4 +168,7 @@
     <string name="auto_generate_after_register">Tự động sinh sau khi đăng ký</string>
     <string name="company_description">Mô tả công ty</string>
     <string name="store_description">Mô tả cửa hàng</string>
+
+    <string name="update_order">Cập nhật đơn hàng</string>
+    <string name="read_all">Đọc tất cả</string>
 </resources>

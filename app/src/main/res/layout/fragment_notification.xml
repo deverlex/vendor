@@ -12,14 +12,86 @@
         <import type="android.view.View" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/color_gray_white"
         tools:ignore="ScrollViewSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:paddingLeft="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_signal"
+                android:background="@drawable/circle_button_blue"
+                android:layout_gravity="center"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:text="Cập nhật Needy"
+                    android:textSize="@dimen/sp_16"
+                    android:textColor="@color/color_black"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:text="Tài khoản công ty sắp hết, vui lòng nạp thêm để sử dụng"
+                    android:maxLines="1"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/gray70"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update_order"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/gray78"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableEnd="@drawable/ic_check_all"
+                android:drawablePadding="@dimen/dp_15"
+                android:drawableRight="@drawable/ic_check_all"
+                android:fontFamily="@string/font_serif"
+                android:text="@string/read_all"
+                android:textAllCaps="false"
+                android:textColor="@color/color_gray_mos"
+                android:textColorHint="@color/gray70"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="UnusedAttribute" />
+        </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/notifications"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:background="@color/color_white"/>
+    </LinearLayout>
 </layout>
