@@ -50,9 +50,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                if (TextUtils.isEmpty(token)) {
-                    loginPage();
+//                    loginPage();
 //                } else {
-//                    mainPage();
+                    mainPage();
 //                }
                 new Navigator(SplashActivity.this).startActivity(mIntent);
                 finish();

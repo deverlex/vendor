@@ -45,7 +45,7 @@
 
     <string name="find_user_exist_error">Số điện thoại chưa đăng ký</string>
 
-    <string name="reset_password">ĐẶT LẠI MẬT KHẨU</string>
+    <string name="reset_password">Đặt lại mật khẩu</string>
     <string name="new_password">Mật khẩu mới</string>
     <string name="intro_reset_password">Vui lòng nhập mật khẩu mới và nhấn nút hoàn tất</string>
     <string name="get_new_otp"><u>Cấp lại mã xác minh</u></string>
@@ -155,4 +155,17 @@
     <string name="complete">Hoàn thiện</string>
     <string name="profile_personal">Hồ sơ cá nhân</string>
     <string name="profile_company">Hồ sơ công ty</string>
+    <string name="profile_store">Hồ sơ cửa hàng</string>
+    <string name="company_number">Mã số công ty</string>
+    <string name="store_number">Mã số cửa hàng</string>
+
+    <string name="busy_state">Trạng thái bận</string>
+    <string name="busy_state_expand">Trạng thái bận cho phép tạm thời ngăn chặn khách hàng đặt đơn hàng mới.</string>
+    <string name="staff_empty">Chưa có nhân viên nào</string>
+    <string name="number_of_staff">Số nhân viên</string>
+    <string name="founded_date">Ngày thành lập</string>
+    <string name="not_set">Chưa thiết lập</string>
+    <string name="auto_generate_after_register">Tự động sinh sau khi đăng ký</string>
+    <string name="company_description">Mô tả công ty</string>
+    <string name="store_description">Mô tả cửa hàng</string>
 </resources>
