@@ -16,6 +16,7 @@ import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
 import vn.needy.vendor.data.source.remote.api.response.BaseResponse;
 import vn.needy.vendor.data.source.remote.api.response.CompanyResponse;
 import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
+import vn.needy.vendor.data.source.remote.api.response.UserResponse;
 
 /**
  * Created by lion on 04/10/2017.
@@ -36,8 +37,14 @@ public interface VendorApi {
     Observable<CertificationResponse> resetPassword(@Query("username") String phoneNumber,
                                                 @Body ResetPasswordRequest resetPasswordRequest);
 
+    @GET("v1/users")
+    Observable<UserResponse> getUserInformation();
+
+    @GET("v1/companies")
+    Observable<CompanyResponse> getCompanyInformation();
+
     @GET("v1/companies/dependencies")
-    Observable<CompanyResponse> findCompanyDependence();
+    Observable<CompanyResponse> findCompanyInformation();
 
     @POST("v1/companies/registers")
     Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest registerCompanyRequest);
@@ -45,5 +52,4 @@ public interface VendorApi {
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
                                                       @Query("token") String token);
-
 }

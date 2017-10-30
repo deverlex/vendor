@@ -50,7 +50,7 @@
     <string name="intro_reset_password">Vui lòng nhập mật khẩu mới và nhấn nút hoàn tất</string>
     <string name="get_new_otp"><u>Cấp lại mã xác minh</u></string>
 
-    <string name="register_company">ĐĂNG KÝ HỆ THỐNG</string>
+    <string name="register_company">Đăng ký công ty</string>
     <string name="intro_register_company"><b>Hỗ trợ đăng ký</b></string>
     <string name="company_name">Tên công ty/tổ chức</string>
     <string name="office_address">Địa chỉ công ty/tổ chức</string>
@@ -171,4 +171,8 @@
 
     <string name="update_order">Cập nhật đơn hàng</string>
     <string name="read_all">Đọc tất cả</string>
+
+    <string name="complete_user_company_info">Tài khoản chưa kích hoạt, vui lòng hoàn thiện thông tin cá nhân và đăng ký công ty.</string>
+    <string name="complete_user_info">Tài khoản chưa kích hoạt, vui lòng hoàn thiện thông tin cá nhân.</string>
+    <string name="complete_company_info">Chưa có công ty, vui lòng đăng ký công ty.</string>
 </resources>

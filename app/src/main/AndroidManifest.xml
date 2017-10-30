@@ -58,19 +58,7 @@
             android:windowSoftInputMode="stateHidden"
             />
 
-        <!--<activity android:name=".screen.validatePhone.ValidatePhoneActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/AppTheme"-->
-            <!--android:windowSoftInputMode="stateHidden"-->
-            <!--/>-->
-
         <activity android:name=".screen.forgotPassword.ForgotPasswordActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden"
-            />
-
-        <activity android:name=".screen.resetPassword.ResetPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"

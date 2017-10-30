@@ -23,9 +23,6 @@ public class Company extends RealmObject implements Parcelable {
     @SerializedName("name")
     @Expose
     private String mName;
-    @SerializedName("nameEmployee")
-    @Expose
-    private int mNumberEmployee;
     @SerializedName("officeAddress")
     @Expose
     private String mOfficeAddress;
@@ -69,7 +66,6 @@ public class Company extends RealmObject implements Parcelable {
         mCompanyNumber = in.readString();
         mState = in.readInt();
         mName = in.readString();
-        mNumberEmployee = in.readInt();
         mOfficeAddress = in.readString();
         mFoundedDate = in.readString();
         mOpeningTime = in.readString();
@@ -88,7 +84,6 @@ public class Company extends RealmObject implements Parcelable {
         dest.writeString(mCompanyNumber);
         dest.writeInt(mState);
         dest.writeString(mName);
-        dest.writeInt(mNumberEmployee);
         dest.writeString(mOfficeAddress);
         dest.writeString(mFoundedDate);
         dest.writeString(mOpeningTime);
@@ -147,14 +142,6 @@ public class Company extends RealmObject implements Parcelable {
 
     public void setName(String mName) {
         this.mName = mName;
-    }
-
-    public int getNumberEmployee() {
-        return mNumberEmployee;
-    }
-
-    public void setNumberEmployee(int mNumberEmployee) {
-        this.mNumberEmployee = mNumberEmployee;
     }
 
     public String getOfficeAddress() {

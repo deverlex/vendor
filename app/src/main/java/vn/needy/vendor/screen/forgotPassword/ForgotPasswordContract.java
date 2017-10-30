@@ -3,7 +3,6 @@ package vn.needy.vendor.screen.forgotPassword;
 import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
-import vn.needy.vendor.screen.resetPassword.ResetPasswordContract;
 
 /**
  * Created by lion on 03/10/2017.

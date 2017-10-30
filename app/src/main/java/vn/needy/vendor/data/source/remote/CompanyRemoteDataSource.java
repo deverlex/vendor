@@ -18,8 +18,13 @@ public class CompanyRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
+    public Observable<CompanyResponse> getCompanyInformation() {
+        return mVendorApi.getCompanyInformation();
+    }
+
+    @Override
     public Observable<Company> findCompanyInherent() {
-        return mVendorApi.findCompanyDependence().map(new Function<CompanyResponse, Company>() {
+        return mVendorApi.findCompanyInformation().map(new Function<CompanyResponse, Company>() {
             @Override
             public Company apply(@NonNull CompanyResponse companyResponse) throws Exception {
                 return companyResponse.getCompany();

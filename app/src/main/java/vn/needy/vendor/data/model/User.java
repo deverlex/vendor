@@ -15,15 +15,12 @@ import io.realm.annotations.PrimaryKey;
 
 public class User extends RealmObject implements Parcelable {
     @PrimaryKey
-    @SerializedName("username")
+    @SerializedName("state")
     @Expose
-    private String mPhoneNumber;
-    @SerializedName("firstName")
+    private int mState;
+    @SerializedName("fullName")
     @Expose
-    private String mFirstName;
-    @SerializedName("lastName")
-    @Expose
-    private String mLastName;
+    private String mFullName;
     @SerializedName("gender")
     @Expose
     private String mGender;
@@ -59,9 +56,8 @@ public class User extends RealmObject implements Parcelable {
     private String mLastResetPassword;
 
     protected User(Parcel in) {
-        mPhoneNumber = in.readString();
-        mFirstName = in.readString();
-        mLastName = in.readString();
+        mState = in.readInt();
+        mFullName = in.readString();
         mGender = in.readString();
         mAddress = in.readString();
         mAvatar = in.readString();
@@ -81,9 +77,8 @@ public class User extends RealmObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mPhoneNumber);
-        dest.writeString(mFirstName);
-        dest.writeString(mLastName);
+        dest.writeInt(mState);
+        dest.writeString(mFullName);
         dest.writeString(mGender);
         dest.writeString(mAddress);
         dest.writeString(mAvatar);
@@ -114,28 +109,20 @@ public class User extends RealmObject implements Parcelable {
         }
     };
 
-    public String getPhoneNumber() {
-        return mPhoneNumber;
+    public int getState() {
+        return mState;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.mPhoneNumber = phoneNumber;
+    public void setState(int state) {
+        this.mState = state;
     }
 
-    public String getFirstName() {
-        return mFirstName;
+    public String getFullName() {
+        return mFullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.mFirstName = firstName;
-    }
-
-    public String getLastName() {
-        return mLastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.mLastName = lastName;
+    public void setFullName(String fullName) {
+        this.mFullName = fullName;
     }
 
     public String getGender() {

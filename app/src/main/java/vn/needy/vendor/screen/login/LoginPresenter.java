@@ -74,10 +74,10 @@ public class LoginPresenter implements LoginContract.Presenter {
                 }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<CertificationResponse>() {
                     @Override
                     public void accept(CertificationResponse certification) throws Exception {
+                        mViewModel.onHideProgressBar();
                         String token = certification.getToken();
                         // Save token into storage
                         if (TextUtils.isEmpty(token)) {
-                            mViewModel.onHideProgressBar();
                             mViewModel.onLoginError(certification.getMessage());
                         }  else {
                             mCredentialRepository.saveToken(token);
