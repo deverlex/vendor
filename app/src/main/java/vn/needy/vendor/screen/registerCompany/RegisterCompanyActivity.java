@@ -1,23 +1,22 @@
 package vn.needy.vendor.screen.registerCompany;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.widget.ScrollView;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityRegisterCompanyBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
+import vn.needy.vendor.widget.WorkaroundMapFragment;
 
 public class RegisterCompanyActivity extends BaseActivity {
 
     private static final String TAG = RegisterCompanyActivity.class.getName();
+
+    private ScrollView mScrollView;
 
     private RegisterCompanyContract.ViewModel mViewModel;
     private DialogManager mDialogManager;
@@ -37,6 +36,17 @@ public class RegisterCompanyActivity extends BaseActivity {
         ActivityRegisterCompanyBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_register_company);
         binding.setViewModel((RegisterCompanyViewModel) mViewModel);
+
+        mScrollView = (ScrollView) findViewById(R.id.sv_container);
+        ((WorkaroundMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_map))
+                .setListener(new WorkaroundMapFragment.OnTouchListener() {
+                    @Override
+                    public void onTouch() {
+                        mScrollView.requestDisallowInterceptTouchEvent(true);
+                    }
+                });
+
     }
 
 //    private void showAlert() {
