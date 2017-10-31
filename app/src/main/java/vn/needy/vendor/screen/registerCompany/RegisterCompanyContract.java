@@ -1,5 +1,7 @@
 package vn.needy.vendor.screen.registerCompany;
 
+import com.google.android.gms.maps.MapFragment;
+
 import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
 import vn.needy.vendor.screen.BasePresenter;
@@ -30,8 +32,6 @@ interface RegisterCompanyContract {
         void onRegisterClick();
 
         void onPositionClick();
-
-        void onSupportClick();
 
         void onShowProgressBar();
 

@@ -3,15 +3,27 @@ package vn.needy.vendor.screen.registerCompany;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import vn.needy.vendor.R;
@@ -25,7 +37,8 @@ import vn.needy.vendor.utils.navigator.Navigator;
  */
 
 public class RegisterCompanyViewModel extends BaseObservable implements RegisterCompanyContract.ViewModel,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        OnMapReadyCallback, LocationListener {
 
     private static final String TAG = RegisterCompanyViewModel.class.getName();
 
@@ -33,7 +46,8 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
     private final Navigator mNavigator;
     private final DialogManager mDialogManager;
     private RegisterCompanyContract.Presenter mPresenter;
-    private GoogleApiClient googleApiClient;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
 
     private String mCompanyNameError;
     private String mOfficeAddressError;
@@ -48,23 +62,38 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
     private float mLat;
     private float mLng;
 
-    public RegisterCompanyViewModel(Context context, Navigator navigator, DialogManager dialogManager) {
+    private Drawable mCompanyNameDrawable;
+    private Drawable mOfficeAddressDrawable;
+    private Drawable mStoreNameDrawable;
+    private Drawable mStoreAddressDrawable;
+
+    private MapFragment mMapFragment;
+    private Marker mCurrLocationMarker;
+
+    public RegisterCompanyViewModel(Context context, Navigator navigator,
+                                    DialogManager dialogManager, MapFragment mapFragment) {
         mContext = context;
         mNavigator = navigator;
         mDialogManager = dialogManager;
-        googleApiClient = new GoogleApiClient.Builder(mContext, this, this).addApi(LocationServices.API).build();
+        mMapFragment = mapFragment;
+        mGoogleApiClient = new GoogleApiClient.Builder(mContext, this, this).addApi(LocationServices.API).build();
+
+        mCompanyNameDrawable = ContextCompat.getDrawable(context, R.drawable.ic_alert_circle_mini);
+        mOfficeAddressDrawable = ContextCompat.getDrawable(context, R.drawable.ic_alert_circle_mini);
+        mStoreNameDrawable = ContextCompat.getDrawable(context, R.drawable.ic_alert_circle_mini);
+        mStoreAddressDrawable = ContextCompat.getDrawable(context, R.drawable.ic_alert_circle_mini);
     }
 
     @Override
     public void onStart() {
-        if (googleApiClient != null) {
-            googleApiClient.connect();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
         }
     }
 
     @Override
     public void onStop() {
-        googleApiClient.disconnect();
+        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -130,12 +159,13 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     @Override
     public void onPositionClick() {
-
-    }
-
-    @Override
-    public void onSupportClick() {
-
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(3000); //5 seconds
+        mLocationRequest.setFastestInterval(2000); //3 seconds
+        mLocationRequest.setNumUpdates(1);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        //mLocationRequest.setSmallestDisplacement(0.1F); //1/10 meter
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
     @Override
@@ -155,19 +185,41 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-        mLat = (float) lastLocation.getLatitude();
-        mLng = (float) lastLocation.getLongitude();
+        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (lastLocation != null) {
+            mLat = (float) lastLocation.getLatitude();
+            mLng = (float) lastLocation.getLongitude();
+            mMapFragment.getMapAsync(this);
+        }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        Log.w(TAG, "onConnectionSuspended");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.w(TAG, "onConnectionFailed");
+    }
 
+    @Override
+    public void onMapReady(GoogleMap map) {
+        LatLng mapCenter = new LatLng(mLat, mLng);
+        mCurrLocationMarker = map.addMarker(new MarkerOptions().position(mapCenter));
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 16));
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mLat = (float) location.getLatitude();
+        mLng = (float) location.getLongitude();
+        if (mCurrLocationMarker != null) {
+            mCurrLocationMarker.remove();
+        }
+        mMapFragment.getMapAsync(this);
     }
 
     @Bindable
@@ -224,5 +276,41 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     public void setStoreAddress(String storeAddress) {
         mStoreAddress = storeAddress;
+    }
+
+    @Bindable
+    public Drawable getCompanyNameDrawable() {
+        return mCompanyNameDrawable;
+    }
+
+    public void setCompanyNameDrawable(Drawable companyNameDrawable) {
+        this.mCompanyNameDrawable = companyNameDrawable;
+    }
+
+    @Bindable
+    public Drawable getOfficeAddressDrawable() {
+        return mOfficeAddressDrawable;
+    }
+
+    public void setOfficeAddressDrawable(Drawable officeAddressDrawable) {
+        this.mOfficeAddressDrawable = officeAddressDrawable;
+    }
+
+    @Bindable
+    public Drawable getStoreNameDrawable() {
+        return mStoreNameDrawable;
+    }
+
+    public void setStoreNameDrawable(Drawable storeNameDrawable) {
+        this.mStoreNameDrawable = storeNameDrawable;
+    }
+
+    @Bindable
+    public Drawable getStoreAddressDrawable() {
+        return mStoreAddressDrawable;
+    }
+
+    public void setStoreAddressDrawable(Drawable storeAddressDrawable) {
+        this.mStoreAddressDrawable = storeAddressDrawable;
     }
 }

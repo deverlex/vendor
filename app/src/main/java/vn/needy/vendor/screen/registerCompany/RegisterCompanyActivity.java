@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.widget.ScrollView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityRegisterCompanyBinding;
 import vn.needy.vendor.screen.BaseActivity;
@@ -25,47 +30,39 @@ public class RegisterCompanyActivity extends BaseActivity {
     protected void onCreateActivity(Bundle savedInstanceState) {
         getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_login));
 
+        ActivityRegisterCompanyBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_register_company);
+
+        mScrollView = (ScrollView) findViewById(R.id.sv_container);
+
         Navigator navigator = new Navigator(this);
         mDialogManager = new DialogManager(this);
 
-        mViewModel = new RegisterCompanyViewModel(this, navigator, mDialogManager);
+        WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getFragmentManager()
+                .findFragmentById(R.id.fragment_map);
+        mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
+            @Override
+            public void onTouch() {
+                mScrollView.requestDisallowInterceptTouchEvent(true);
+            }
+        });
 
+        mViewModel = new RegisterCompanyViewModel(this, navigator, mDialogManager, mapFragment);
         RegisterCompanyContract.Presenter presenter = new RegisterCompanyPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
 
-        ActivityRegisterCompanyBinding binding =
-                DataBindingUtil.setContentView(this, R.layout.activity_register_company);
         binding.setViewModel((RegisterCompanyViewModel) mViewModel);
-
-        mScrollView = (ScrollView) findViewById(R.id.sv_container);
-        ((WorkaroundMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_map))
-                .setListener(new WorkaroundMapFragment.OnTouchListener() {
-                    @Override
-                    public void onTouch() {
-                        mScrollView.requestDisallowInterceptTouchEvent(true);
-                    }
-                });
-
     }
 
-//    private void showAlert() {
-//        final Dialog dialog = new AlertDialog.Builder(this)
-//            .setTitle(R.string.enable_location)
-//            .setMessage(R.string.alert_location)
-//            .setPositiveButton(R.string.goto_location_setting, new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    Intent settingLocation = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                    startActivity(settingLocation);
-//                }
-//            })
-//            .setNegativeButton(R.string.cancel_open_location, new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    finish();
-//                }
-//            }).show();
-//        dialog.setCanceledOnTouchOutside(false);
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mViewModel.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        mViewModel.onStop();
+        super.onStop();
+    }
 }

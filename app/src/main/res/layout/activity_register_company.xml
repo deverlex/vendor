@@ -20,11 +20,11 @@
             android:background="@color/colorPrimary"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp">
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
                 <ImageButton
+                    android:id="@+id/back"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     app:srcCompat="@drawable/ic_back_left"
@@ -32,14 +32,26 @@
                     android:onClick="@{() -> viewModel.onBackPressed()}"
                     />
                 <TextView
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_toRightOf="@+id/back"
+                    android:layout_centerVertical="true"
                     android:text="@string/register_company"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/sp_18"
                     />
-            </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/done"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentRight="true"
+                    app:srcCompat="@drawable/ic_check"
+                    android:background="@color/transparent"
+                    android:onClick="@{() -> viewModel.onRegisterClick()}"
+                    />
+            </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
         <ScrollView
@@ -79,10 +91,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
-                        android:drawableEnd="@drawable/ic_alert_circle_mini"
+                        android:drawableEnd="@{viewModel.companyNameDrawable}"
                         android:drawablePadding="@dimen/dp_15"
-                        android:drawableRight="@drawable/ic_alert_circle_mini"
+                        android:drawableRight="@{viewModel.companyNameDrawable}"
                         android:fontFamily="@string/font_serif"
+                        android:text="@{viewModel.companyName}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -127,10 +140,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
-                        android:drawableEnd="@drawable/ic_alert_circle_mini"
+                        android:drawableEnd="@{viewModel.officeAddressDrawable}"
                         android:drawablePadding="@dimen/dp_15"
-                        android:drawableRight="@drawable/ic_alert_circle_mini"
+                        android:drawableRight="@{viewModel.officeAddressDrawable}"
                         android:fontFamily="@string/font_serif"
+                        android:text="@{viewModel.officeAddress}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -175,10 +189,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
-                        android:drawableEnd="@drawable/ic_alert_circle_mini"
+                        android:drawableEnd="@{viewModel.storeNameDrawable}"
                         android:drawablePadding="@dimen/dp_15"
-                        android:drawableRight="@drawable/ic_alert_circle_mini"
+                        android:drawableRight="@{viewModel.storeNameDrawable}"
                         android:fontFamily="@string/font_serif"
+                        android:text="@{viewModel.storeName}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -214,10 +229,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
-                        android:drawableEnd="@drawable/ic_alert_circle_mini"
+                        android:drawableEnd="@{viewModel.storeAddressDrawable}"
                         android:drawablePadding="@dimen/dp_15"
-                        android:drawableRight="@drawable/ic_alert_circle_mini"
+                        android:drawableRight="@{viewModel.storeAddressDrawable}"
                         android:fontFamily="@string/font_serif"
+                        android:text="@{viewModel.storeAddress}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -246,7 +262,8 @@
                         android:background="@drawable/border_transparent"
                         android:padding="@dimen/dp_10"
                         android:layout_margin="@dimen/dp_10"
-                        android:layout_alignParentRight="true" />
+                        android:layout_alignParentRight="true"
+                        android:onClick="@{() -> viewModel.onPositionClick()}"/>
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>

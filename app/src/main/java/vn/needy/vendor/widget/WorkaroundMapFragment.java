@@ -9,12 +9,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapFragment;
 
 /**
  * https://stackoverflow.com/questions/30525066/how-to-set-google-map-fragment-inside-scroll-view
  */
-public class WorkaroundMapFragment extends SupportMapFragment {
+public class WorkaroundMapFragment extends MapFragment {
     private OnTouchListener mListener;
 
     @Override
