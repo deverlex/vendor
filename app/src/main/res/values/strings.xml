@@ -175,4 +175,7 @@
     <string name="complete_user_company_info">Tài khoản chưa kích hoạt, vui lòng hoàn thiện thông tin cá nhân và đăng ký công ty.</string>
     <string name="complete_user_info">Tài khoản chưa kích hoạt, vui lòng hoàn thiện thông tin cá nhân.</string>
     <string name="complete_company_info">Chưa có công ty, vui lòng đăng ký công ty.</string>
+
+    <string name="intro_company_name">Vui lòng để trùng tên cửa hàng nếu không có công ty</string>
+    <string name="intro_company_address">Vui lòng để trùng địa chỉ cửa hàng nếu không có công ty</string>
 </resources>

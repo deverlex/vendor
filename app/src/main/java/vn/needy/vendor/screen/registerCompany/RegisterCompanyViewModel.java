@@ -62,11 +62,6 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
     private float mLat;
     private float mLng;
 
-    private Drawable mCompanyNameDrawable;
-    private Drawable mOfficeAddressDrawable;
-    private Drawable mStoreNameDrawable;
-    private Drawable mStoreAddressDrawable;
-
     private MapFragment mMapFragment;
     private Marker mCurrLocationMarker;
 
@@ -77,11 +72,6 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
         mDialogManager = dialogManager;
         mMapFragment = mapFragment;
         mGoogleApiClient = new GoogleApiClient.Builder(mContext, this, this).addApi(LocationServices.API).build();
-
-        mCompanyNameDrawable = ContextCompat.getDrawable(context, R.drawable.ic_alert_circle_mini);
-        mOfficeAddressDrawable = ContextCompat.getDrawable(context, R.drawable.ic_alert_circle_mini);
-        mStoreNameDrawable = ContextCompat.getDrawable(context, R.drawable.ic_alert_circle_mini);
-        mStoreAddressDrawable = ContextCompat.getDrawable(context, R.drawable.ic_alert_circle_mini);
     }
 
     @Override
@@ -278,39 +268,4 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
         mStoreAddress = storeAddress;
     }
 
-    @Bindable
-    public Drawable getCompanyNameDrawable() {
-        return mCompanyNameDrawable;
-    }
-
-    public void setCompanyNameDrawable(Drawable companyNameDrawable) {
-        this.mCompanyNameDrawable = companyNameDrawable;
-    }
-
-    @Bindable
-    public Drawable getOfficeAddressDrawable() {
-        return mOfficeAddressDrawable;
-    }
-
-    public void setOfficeAddressDrawable(Drawable officeAddressDrawable) {
-        this.mOfficeAddressDrawable = officeAddressDrawable;
-    }
-
-    @Bindable
-    public Drawable getStoreNameDrawable() {
-        return mStoreNameDrawable;
-    }
-
-    public void setStoreNameDrawable(Drawable storeNameDrawable) {
-        this.mStoreNameDrawable = storeNameDrawable;
-    }
-
-    @Bindable
-    public Drawable getStoreAddressDrawable() {
-        return mStoreAddressDrawable;
-    }
-
-    public void setStoreAddressDrawable(Drawable storeAddressDrawable) {
-        this.mStoreAddressDrawable = storeAddressDrawable;
-    }
 }

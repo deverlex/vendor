@@ -91,11 +91,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
-                        android:drawableEnd="@{viewModel.companyNameDrawable}"
-                        android:drawablePadding="@dimen/dp_15"
-                        android:drawableRight="@{viewModel.companyNameDrawable}"
                         android:fontFamily="@string/font_serif"
-                        android:text="@{viewModel.companyName}"
+                        android:text="@={viewModel.companyName}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -104,6 +101,7 @@
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray65"
                         android:textSize="@dimen/sp_16"
+                        app:errorText="@{viewModel.companyNameError}"
                         tools:ignore="UnusedAttribute" />
                 </LinearLayout>
 
@@ -112,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
                     android:layout_centerVertical="true"
-                    android:text="Vui lòng để trùng tên cửa hàng nếu không có công ty"
+                    android:text="@string/intro_company_name"
                     android:fontFamily="@string/font_serif"
                     android:textColor="@color/gray70"
                     android:textSize="@dimen/sp_14"/>
@@ -140,11 +138,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
-                        android:drawableEnd="@{viewModel.officeAddressDrawable}"
-                        android:drawablePadding="@dimen/dp_15"
-                        android:drawableRight="@{viewModel.officeAddressDrawable}"
                         android:fontFamily="@string/font_serif"
-                        android:text="@{viewModel.officeAddress}"
+                        android:text="@={viewModel.officeAddress}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -153,6 +148,7 @@
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray65"
                         android:textSize="@dimen/sp_16"
+                        app:errorText="@{viewModel.officeAddressError}"
                         tools:ignore="UnusedAttribute" />
                 </LinearLayout>
 
@@ -161,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
                     android:layout_centerVertical="true"
-                    android:text="Vui lòng để trùng địa chỉ cửa hàng nếu không có công ty"
+                    android:text="@string/intro_company_address"
                     android:fontFamily="@string/font_serif"
                     android:textColor="@color/gray70"
                     android:textSize="@dimen/sp_14"/>
@@ -189,11 +185,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
-                        android:drawableEnd="@{viewModel.storeNameDrawable}"
-                        android:drawablePadding="@dimen/dp_15"
-                        android:drawableRight="@{viewModel.storeNameDrawable}"
                         android:fontFamily="@string/font_serif"
-                        android:text="@{viewModel.storeName}"
+                        android:text="@={viewModel.storeName}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -202,6 +195,7 @@
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray65"
                         android:textSize="@dimen/sp_16"
+                        app:errorText="@{viewModel.storeNameError}"
                         tools:ignore="UnusedAttribute" />
                 </LinearLayout>
 
@@ -229,11 +223,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
-                        android:drawableEnd="@{viewModel.storeAddressDrawable}"
-                        android:drawablePadding="@dimen/dp_15"
-                        android:drawableRight="@{viewModel.storeAddressDrawable}"
                         android:fontFamily="@string/font_serif"
-                        android:text="@{viewModel.storeAddress}"
+                        android:text="@={viewModel.storeAddress}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -242,6 +233,7 @@
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray65"
                         android:textSize="@dimen/sp_16"
+                        app:errorText="@{viewModel.storeAddressError}"
                         tools:ignore="UnusedAttribute" />
                 </LinearLayout>
 

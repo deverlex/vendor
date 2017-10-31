@@ -5,11 +5,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.widget.ScrollView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
-
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityRegisterCompanyBinding;
 import vn.needy.vendor.screen.BaseActivity;
