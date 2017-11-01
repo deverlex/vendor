@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.screen.activeAccount.ActiveAccountActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
 import vn.needy.vendor.utils.ViewUtil;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -79,7 +80,8 @@ public class CompleteInfoDialog extends DialogFragment {
         mButtonCompleteUserProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                CompleteInfoDialog.this.dismiss();;
+                mNavigator.startActivity(ActiveAccountActivity.class);
             }
         });
 

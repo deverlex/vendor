@@ -1,30 +1,35 @@
-package vn.needy.vendor.screen.registerCompany;
+package vn.needy.vendor.screen.activeAccount;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.widget.ScrollView;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.databinding.ActivityRegisterCompanyBinding;
+import vn.needy.vendor.data.source.local.realm.RealmApi;
+import vn.needy.vendor.databinding.ActivityActiveAccountBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 import vn.needy.vendor.widget.WorkaroundMapFragment;
 
-public class RegisterCompanyActivity extends BaseActivity {
+/**
+ * Created by lion on 31/10/2017.
+ */
 
-    private static final String TAG = RegisterCompanyActivity.class.getName();
+public class ActiveAccountActivity extends BaseActivity {
+
+    private ActiveAccountContract.ViewModel mViewModel;
 
     private ScrollView mScrollView;
-
-    private RegisterCompanyContract.ViewModel mViewModel;
     private DialogManager mDialogManager;
+    private RealmApi mRealmApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
-        ActivityRegisterCompanyBinding binding =
-                DataBindingUtil.setContentView(this, R.layout.activity_register_company);
+        ActivityActiveAccountBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_active_account);
 
+        mRealmApi = new RealmApi();
         mScrollView = (ScrollView) findViewById(R.id.sv_container);
 
         Navigator navigator = new Navigator(this);
@@ -39,11 +44,11 @@ public class RegisterCompanyActivity extends BaseActivity {
             }
         });
 
-        mViewModel = new RegisterCompanyViewModel(this, navigator, mDialogManager, mapFragment);
-        RegisterCompanyContract.Presenter presenter = new RegisterCompanyPresenter(mViewModel);
+        mViewModel = new ActiveAccountViewModel(this, navigator, mDialogManager, mapFragment);
+        ActiveAccountContract.Presenter presenter = new ActiveAccountPresenter(mViewModel, mRealmApi);
         mViewModel.setPresenter(presenter);
 
-        binding.setViewModel((RegisterCompanyViewModel) mViewModel);
+        binding.setViewModel((ActiveAccountViewModel) mViewModel);
     }
 
     @Override
@@ -55,6 +60,7 @@ public class RegisterCompanyActivity extends BaseActivity {
     @Override
     protected void onStop() {
         mViewModel.onStop();
+        mRealmApi.closeRealmOnMainThread();
         super.onStop();
     }
 }

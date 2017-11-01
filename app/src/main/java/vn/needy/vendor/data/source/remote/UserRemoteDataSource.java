@@ -1,7 +1,11 @@
 package vn.needy.vendor.data.source.remote;
 
+import android.util.Log;
+
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 import vn.needy.vendor.data.source.UserDataSource;
+import vn.needy.vendor.data.source.remote.api.request.ActiveAccountRequest;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
 import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
 import vn.needy.vendor.data.source.remote.api.response.BaseResponse;
@@ -40,6 +44,17 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
     @Override
     public Observable<UserResponse> getUserInformation() {
         return mVendorApi.getUserInformation();
+    }
+
+    @Override
+    public Observable<BaseResponse> activeAccount(ActiveAccountRequest request) {
+        return mVendorApi.activeAccount(request).map(new Function<BaseResponse, BaseResponse>() {
+            @Override
+            public BaseResponse apply(BaseResponse baseResponse) throws Exception {
+                Log.w(TAG, "baseResponse? " + baseResponse.getMessage());
+                return baseResponse;
+            }
+        });
     }
 
 //    @Override

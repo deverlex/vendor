@@ -58,6 +58,12 @@
             android:windowSoftInputMode="stateHidden"
             />
 
+        <activity android:name=".screen.activeAccount.ActiveAccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
         <activity android:name=".screen.forgotPassword.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

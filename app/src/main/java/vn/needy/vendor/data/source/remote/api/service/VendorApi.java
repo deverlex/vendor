@@ -9,6 +9,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import vn.needy.vendor.data.source.remote.api.request.ActiveAccountRequest;
 import vn.needy.vendor.data.source.remote.api.request.CredentialsRequest;
 import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
@@ -25,20 +26,23 @@ import vn.needy.vendor.data.source.remote.api.response.UserResponse;
 public interface VendorApi {
 
     @POST("v1/authentications")
-    Observable<CertificationResponse> login(@Body CredentialsRequest credentialsRequest);
+    Observable<CertificationResponse> login(@Body CredentialsRequest request);
 
     @POST("v1/users/registers")
-    Observable<CertificationResponse> registerUser(@Body RegisterUserRequest registerUserRequest);
+    Observable<CertificationResponse> registerUser(@Body RegisterUserRequest request);
 
     @GET("v1/users/existences")
     Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
 
     @POST("v1/users/reset")
     Observable<CertificationResponse> resetPassword(@Query("username") String phoneNumber,
-                                                @Body ResetPasswordRequest resetPasswordRequest);
+                                                @Body ResetPasswordRequest request);
 
     @GET("v1/users")
     Observable<UserResponse> getUserInformation();
+
+    @POST("v1/users/activeness")
+    Observable<BaseResponse> activeAccount(@Body ActiveAccountRequest request);
 
     @GET("v1/companies")
     Observable<CompanyResponse> getCompanyInformation();
@@ -47,7 +51,7 @@ public interface VendorApi {
     Observable<CompanyResponse> findCompanyInformation();
 
     @POST("v1/companies/registers")
-    Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest registerCompanyRequest);
+    Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest request);
 
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,

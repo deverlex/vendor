@@ -123,7 +123,8 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                         mViewModel.onShowProgressBar();
                     }
                 })
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<BaseResponse>() {
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseResponse>() {
                     @Override
                     public void accept(BaseResponse baseResponse) throws Exception {
                         mViewModel.onFindPhoneNumberExistSuccess();

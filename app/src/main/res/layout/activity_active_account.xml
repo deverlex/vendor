@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.registerCompany.RegisterCompanyViewModel"
+            type="vn.needy.vendor.screen.activeAccount.ActiveAccountViewModel"
             />
     </data>
 
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/back"
                     android:layout_centerVertical="true"
-                    android:text="@string/quick_register_company"
+                    android:text="@string/quick_active_user"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/sp_18"
                     />
@@ -49,7 +49,7 @@
                     android:layout_alignParentRight="true"
                     app:srcCompat="@drawable/ic_check"
                     android:background="@color/transparent"
-                    android:onClick="@{() -> viewModel.onRegisterClick()}"
+                    android:onClick="@{() -> viewModel.onActiveClick()}"
                     />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
@@ -82,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@string/font_serif"
-                        android:text="@string/company_name"
+                        android:text="@string/full_name"
                         android:textColor="@color/black"
                         android:textSize="@dimen/sp_14"
                         tools:ignore="UnusedAttribute" />
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
                         android:fontFamily="@string/font_serif"
-                        android:text="@={viewModel.companyName}"
+                        android:text="@={viewModel.fullName}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -101,19 +101,9 @@
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray65"
                         android:textSize="@dimen/sp_16"
-                        app:errorText="@{viewModel.companyNameError}"
+                        app:errorText="@{viewModel.fullNameError}"
                         tools:ignore="UnusedAttribute" />
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:layout_centerVertical="true"
-                    android:text="@string/intro_company_name"
-                    android:fontFamily="@string/font_serif"
-                    android:textColor="@color/gray70"
-                    android:textSize="@dimen/sp_14"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -129,7 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@string/font_serif"
-                        android:text="@string/office_address"
+                        android:text="@string/home_address"
                         android:textColor="@color/black"
                         android:textSize="@dimen/sp_14"
                         tools:ignore="UnusedAttribute" />
@@ -139,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
                         android:fontFamily="@string/font_serif"
-                        android:text="@={viewModel.officeAddress}"
+                        android:text="@={viewModel.address}"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
@@ -148,92 +138,7 @@
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray65"
                         android:textSize="@dimen/sp_16"
-                        app:errorText="@{viewModel.officeAddressError}"
-                        tools:ignore="UnusedAttribute" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:layout_centerVertical="true"
-                    android:text="@string/intro_company_address"
-                    android:fontFamily="@string/font_serif"
-                    android:textColor="@color/gray70"
-                    android:textSize="@dimen/sp_14"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_5"
-                    android:background="@color/color_white">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@string/font_serif"
-                        android:text="@string/store_name"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sp_14"
-                        tools:ignore="UnusedAttribute" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_text"
-                        android:fontFamily="@string/font_serif"
-                        android:text="@={viewModel.storeName}"
-                        android:hint="@string/not_set"
-                        android:inputType="textCapWords"
-                        android:paddingBottom="@dimen/dp_10"
-                        android:paddingTop="@dimen/dp_10"
-                        android:textAllCaps="false"
-                        android:textColor="@color/color_black"
-                        android:textColorHint="@color/gray65"
-                        android:textSize="@dimen/sp_16"
-                        app:errorText="@{viewModel.storeNameError}"
-                        tools:ignore="UnusedAttribute" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_5"
-                    android:layout_marginTop="@dimen/dp_1"
-                    android:background="@color/color_white">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@string/font_serif"
-                        android:text="@string/store_address"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sp_14"
-                        tools:ignore="UnusedAttribute" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_text"
-                        android:fontFamily="@string/font_serif"
-                        android:text="@={viewModel.storeAddress}"
-                        android:hint="@string/not_set"
-                        android:inputType="textCapWords"
-                        android:paddingBottom="@dimen/dp_10"
-                        android:paddingTop="@dimen/dp_10"
-                        android:textAllCaps="false"
-                        android:textColor="@color/color_black"
-                        android:textColorHint="@color/gray65"
-                        android:textSize="@dimen/sp_16"
-                        app:errorText="@{viewModel.storeAddressError}"
+                        app:errorText="@{viewModel.addressError}"
                         tools:ignore="UnusedAttribute" />
                 </LinearLayout>
 

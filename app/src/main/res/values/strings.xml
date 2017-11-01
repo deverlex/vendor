@@ -32,12 +32,11 @@
 
     <!--For activity_register_user -->
     <string name="create_new_account">TẠO TÀI KHOẢN</string>
-    <string name="first_name">Họ và tên đệm</string>
-    <string name="last_name">Tên</string>
     <string name="gender">Giới tính</string>
     <string name="male">Nam</string>
     <string name="female">Nữ</string>
     <string name="home_address">Địa chỉ nhà riêng</string>
+    <string name="home_address_empty">Địa chỉ nhà riêng rỗng</string>
 
     <string name="get_new_password">LẤY MẬT KHẨU MỚI</string>
     <string name="intro_get_new_password">Vui lòng nhập số điện thoại đã đăng ký để thiết lập mật khẩu mới</string>
@@ -50,7 +49,7 @@
     <string name="intro_reset_password">Vui lòng nhập mật khẩu mới và nhấn nút hoàn tất</string>
     <string name="get_new_otp"><u>Cấp lại mã xác minh</u></string>
 
-    <string name="register_company">Đăng ký công ty</string>
+    <string name="quick_register_company">Đăng ký công ty nhanh</string>
     <string name="intro_register_company"><b>Hỗ trợ đăng ký</b></string>
     <string name="company_name">Tên công ty</string>
     <string name="office_address">Địa chỉ công ty</string>
@@ -178,4 +177,9 @@
 
     <string name="intro_company_name">Vui lòng để trùng tên cửa hàng nếu không có công ty</string>
     <string name="intro_company_address">Vui lòng để trùng địa chỉ cửa hàng nếu không có công ty</string>
+
+    <string name="quick_active_user">Kích hoạt nhanh tài khoản</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="full_name_empty">Họ và tên rỗng</string>
+
 </resources>

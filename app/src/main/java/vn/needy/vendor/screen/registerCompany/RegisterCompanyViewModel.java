@@ -71,7 +71,10 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
         mNavigator = navigator;
         mDialogManager = dialogManager;
         mMapFragment = mapFragment;
-        mGoogleApiClient = new GoogleApiClient.Builder(mContext, this, this).addApi(LocationServices.API).build();
+
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(mContext, this, this)
+                .addApi(LocationServices.API).build();
     }
 
     @Override
@@ -127,8 +130,7 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     @Override
     public void onRegisterSuccess() {
-        mNavigator.startActivity(MainActivity.class);
-        mNavigator.finishActivity();
+        mNavigator.onBackPressed();
     }
 
     @Override
@@ -170,7 +172,7 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     @Override
     public void onBackPressed() {
-        mNavigator.finishActivity();
+        mNavigator.onBackPressed();
     }
 
     @Override
