@@ -3,22 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:stretchColumns="1">
-    <TableRow>
-        <TextView
-            android:text="aaaaa"
-            android:padding="3dip" />
-        <TextView
-            android:text="bbbbbb"
-            android:gravity="right"
-            android:padding="3dip" />
-    </TableRow>
 
     <TableRow>
         <TextView
-            android:text="cccccc"
+            android:text="Nha san xuat"
             android:padding="3dip" />
         <TextView
-            android:text="ddddd"
+            android:text="Hong Ha"
             android:gravity="right"
             android:padding="3dip" />
     </TableRow>
