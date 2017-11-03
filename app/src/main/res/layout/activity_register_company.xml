@@ -76,6 +76,7 @@
                     android:paddingRight="@dimen/dp_10"
                     android:paddingTop="@dimen/dp_10"
                     android:paddingBottom="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_1"
                     android:background="@color/color_white">
 
                     <TextView

@@ -11,19 +11,8 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadUserInformation();
-
-        void loadCompanyInformation();
-
         void loadCartList();
 
         void loadNotifications();
-    }
-
-    interface RequireComplete {
-
-        void onLoadUserInfoComplete(boolean isActive);
-
-        void onRequireCompleteInfo(boolean hasCompany);
     }
 }

@@ -14,14 +14,13 @@ import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.BaseActivity;
-import vn.needy.vendor.screen.main.completeInfo.CompleteInfoDialog;
 import vn.needy.vendor.screen.listorder.ListOrderFragment;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.screen.notification.NotificationFragment;
 import vn.needy.vendor.screen.personal.PersonalFragment;
 import vn.needy.vendor.utils.ViewUtil;
 
-public class MainActivity extends BaseActivity implements MainContract.RequireComplete {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -30,7 +29,6 @@ public class MainActivity extends BaseActivity implements MainContract.RequireCo
     private SharedPrefsApi mPrefsApi;
 
     private BottomBar mBottomBar;
-    private boolean isUserActive;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -39,7 +37,7 @@ public class MainActivity extends BaseActivity implements MainContract.RequireCo
         mRealmApi = new RealmApi();
         mPrefsApi = SharedPrefsImpl.getInstance();
 
-        mPresenter = new MainPresenter(this, mRealmApi);
+        mPresenter = new MainPresenter(mRealmApi);
         initializeBottomBar();
 
     }
@@ -72,31 +70,6 @@ public class MainActivity extends BaseActivity implements MainContract.RequireCo
     @Override
     public void onResume() {
         super.onResume();
-        findInformation();
     }
 
-    private void findInformation() {
-        int userState = mPrefsApi.get(SharedPrefsKey.USER_STATE, Integer.class);
-        if (userState != UserState.ACTIVE) {
-            mPresenter.loadUserInformation();
-        }
-    }
-
-    @Override
-    public void onLoadUserInfoComplete(boolean isActive) {
-        isUserActive = isActive;
-        String companyInfo = mPrefsApi.get(SharedPrefsKey.COMPANY_NUMBER, String.class);
-        if (TextUtils.isEmpty(companyInfo)) {
-            mPresenter.loadCompanyInformation();
-        }
-    }
-
-    @Override
-    public void onRequireCompleteInfo(boolean hasCompany) {
-        if (!isUserActive || !hasCompany) {
-            CompleteInfoDialog dialog = CompleteInfoDialog.getInstance();
-            dialog.setRequireComplete(!isUserActive, !hasCompany);
-            dialog.show(getFragmentManager(), "TAG");
-        }
-    }
 }

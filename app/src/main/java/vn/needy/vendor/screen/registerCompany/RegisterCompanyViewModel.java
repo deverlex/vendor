@@ -130,7 +130,8 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     @Override
     public void onRegisterSuccess() {
-        mNavigator.onBackPressed();
+        mNavigator.startActivity(MainActivity.class);
+        mNavigator.finishActivity();
     }
 
     @Override

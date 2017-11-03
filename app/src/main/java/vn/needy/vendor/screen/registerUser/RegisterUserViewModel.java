@@ -15,6 +15,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.main.MainActivity;
+import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
 import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -93,7 +94,7 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     public void onRegisterSuccess() {
         mDialogManager.dismissProgressDialog();
         VendorServiceClient.initialize(mApplication);
-        mNavigator.startActivity(MainActivity.class);
+        mNavigator.startActivity(RegisterCompanyActivity.class);
         mNavigator.finishActivity();
     }
 
