@@ -10,7 +10,7 @@ import vn.needy.vendor.screen.BaseViewModel;
 
 public class ForgotPasswordContract {
 
-    interface ViewModel extends BaseViewModel<ForgotPasswordContract.Presenter> {
+    interface ViewModel extends BaseViewModel<Presenter> {
 
         /**For reset password*/
         void onResetPasswordError(String message);

@@ -16,49 +16,43 @@
         tools:ignore="ScrollViewSize"
         android:background="@color/color_gray_white">
 
-        <TextView
-            android:id="@+id/text_categories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_white"
-            android:drawableLeft="@{@drawable/ic_label}"
-            android:drawablePadding="@dimen/dp_5"
-            android:drawableStart="@{@drawable/ic_label}"
-            android:fontFamily="@string/font_serif"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/dp_5"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
-            android:text="@string/categories"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/sp_17"
-            tools:ignore="UnusedAttribute" />
-
         <RelativeLayout
             android:id="@+id/categories_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_categories"
-            android:background="@color/color_white">
+            android:background="@color/color_white"
+            android:onClick="@{() -> viewModel.onClickCategories()}">
 
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true" />
-
-            <android.support.v7.widget.RecyclerView
+            <TextView
+                android:id="@+id/text_categories"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_80"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/dp_10"
-                app:layoutManager="LinearLayoutManager" />
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:drawableLeft="@{@drawable/ic_label}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableStart="@{@drawable/ic_label}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_5"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/categories"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
+                android:layout_below="@+id/text_categories"
+                android:background="@color/color_white"
+                android:fontFamily="@string/font_serif"
+                android:text="Gas &amp; Nuoc > Gas"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/sp_16"/>
         </RelativeLayout>
 
         <LinearLayout

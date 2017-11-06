@@ -8,8 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
+import java.util.List;
+import java.util.Map;
+
 import vn.needy.vendor.R;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
+import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by lion on 21/10/2017.
@@ -22,15 +31,21 @@ public class MainPageFragment extends Fragment {
     }
 
     private MainPageConstract.ViewModel mViewModel;
+    private Map<String, String> categories;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new MainPageViewModel();
 
-        FragmentMainPageBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_page, container, false);
+        categories = new Gson().fromJson(SharedPrefsImpl.getInstance().get(SharedPrefsKey.CURRENT_CATEGORY,
+                String.class), Map.class);
+
+        Navigator navigator = new Navigator(this);
+        mViewModel = new MainPageViewModel(getContext(), navigator);
+
+        FragmentMainPageBinding binding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_main_page, container, false);
         binding.setViewModel((MainPageViewModel) mViewModel);
-//        binding.setMainPage(this);
         return binding.getRoot();
     }
 }

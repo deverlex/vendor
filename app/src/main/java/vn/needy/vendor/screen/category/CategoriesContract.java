@@ -1,17 +1,16 @@
-package vn.needy.vendor.screen.mainPage;
+package vn.needy.vendor.screen.category;
 
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
 /**
- * Created by lion on 21/10/2017.
+ * Created by lion on 03/11/2017.
  */
 
-public interface MainPageConstract {
+public interface CategoriesContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void onClickCategories();
     }
 
     interface Presenter extends BasePresenter {
