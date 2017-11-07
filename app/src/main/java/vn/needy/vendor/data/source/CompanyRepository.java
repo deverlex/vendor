@@ -25,11 +25,11 @@ public class CompanyRepository {
         return mCompanyRemoteDataSource.getCompanyInformation();
     }
 
-    public Observable<Company> findCompanyInherent() {
+    public Observable<CompanyResponse> findCompanyInherent() {
         return mCompanyRemoteDataSource.findCompanyInherent();
     }
 
-    public Observable<Company> registerCompany(RegisterCompanyRequest request) {
+    public Observable<CompanyResponse> registerCompany(RegisterCompanyRequest request) {
         return mCompanyRemoteDataSource.registerCompany(request);
     }
 

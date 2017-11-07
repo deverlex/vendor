@@ -18,9 +18,9 @@ public interface CompanyDataSource {
     }
 
     interface RemoteDataSource {
-        Observable<Company> findCompanyInherent();
+        Observable<CompanyResponse> findCompanyInherent();
 
-        Observable<Company> registerCompany(RegisterCompanyRequest registerCompanyRequest);
+        Observable<CompanyResponse> registerCompany(RegisterCompanyRequest registerCompanyRequest);
 
         Observable<BaseResponse> updateStaffFcmToken(String companyId, String fcmToken);
 

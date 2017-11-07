@@ -23,23 +23,13 @@ public class CompanyRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<Company> findCompanyInherent() {
-        return mVendorApi.findCompanyInformation().map(new Function<CompanyResponse, Company>() {
-            @Override
-            public Company apply(@NonNull CompanyResponse companyResponse) throws Exception {
-                return companyResponse.getCompany();
-            }
-        });
+    public Observable<CompanyResponse> findCompanyInherent() {
+        return mVendorApi.findCompanyInformation();
     }
 
     @Override
-    public Observable<Company> registerCompany(RegisterCompanyRequest registerCompanyRequest) {
-        return mVendorApi.registerCompany(registerCompanyRequest).map(new Function<CompanyResponse, Company>() {
-            @Override
-            public Company apply(@NonNull CompanyResponse companyResponse) throws Exception {
-                return companyResponse.getCompany();
-            }
-        });
+    public Observable<CompanyResponse> registerCompany(RegisterCompanyRequest registerCompanyRequest) {
+        return mVendorApi.registerCompany(registerCompanyRequest);
     }
 
     @Override

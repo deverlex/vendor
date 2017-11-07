@@ -217,8 +217,12 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                 .subscribe(new Consumer<CertificationResponse>() {
                     @Override
                     public void accept(CertificationResponse certification) throws Exception {
-                        mUserRepository.saveToken(certification.getToken());
-                        mViewModel.onResetPasswordSuccess();
+                        if (!TextUtils.isEmpty(certification.getToken())) {
+                            mUserRepository.saveToken(certification.getToken());
+                            mViewModel.onResetPasswordSuccess();
+                        } else {
+                            mViewModel.onResetPasswordError(certification.getMessage());
+                        }
                     }
                 }, new SafetyError() {
                     @Override

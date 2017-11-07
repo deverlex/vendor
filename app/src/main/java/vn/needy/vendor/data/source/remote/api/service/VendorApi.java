@@ -32,10 +32,10 @@ public interface VendorApi {
     @POST("v1/authentications")
     Observable<CertificationResponse> login(@Body CredentialsRequest request);
 
-    @POST("v1/users/registers")
+    @POST("v1/users/news")
     Observable<CertificationResponse> registerUser(@Body RegisterUserRequest request);
 
-    @GET("v1/users/existences")
+    @GET("v1/users/find")
     Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
 
     @POST("v1/users/reset")
@@ -54,17 +54,17 @@ public interface VendorApi {
     @GET("v1/companies/dependencies")
     Observable<CompanyResponse> findCompanyInformation();
 
-    @POST("v1/companies/registers")
+    @POST("v1/companies")
     Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest request);
 
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
                                                       @Query("token") String token);
 
-    @GET("v1/categories/products/companies")
+    @GET("v1/pn/categories")
     Observable<CategoryResponse> getCategories(@Query("company_id") String companyId);
 
-    @GET("v1/categories/{category}/products/companies")
+    @GET("v1/pn/categories/{category}")
     Observable<CategoryResponse> getSubCategories(@Path("category") String category,
                                                   @Query("company_id") String companyId);
 }

@@ -17,6 +17,7 @@ import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
 import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
 import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
+import vn.needy.vendor.data.source.remote.api.response.CompanyResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 
 /**
@@ -59,11 +60,16 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Company>() {
+                .subscribe(new Consumer<CompanyResponse>() {
                     @Override
-                    public void accept(Company company) throws Exception {
-                        mViewModel.onRegisterSuccess();
-                        mViewModel.onHideProgressBar();
+                    public void accept(CompanyResponse companyResponse) throws Exception {
+                        if (companyResponse.getCompany() != null) {
+                            mViewModel.onRegisterSuccess();
+                            mViewModel.onHideProgressBar();
+                            mCompanyRepository.saveCompany(companyResponse.getCompany());
+                        } else {
+                            mViewModel.onRegisterError(companyResponse.getMessage());
+                        }
                     }
                 }, new SafetyError() {
                     @Override

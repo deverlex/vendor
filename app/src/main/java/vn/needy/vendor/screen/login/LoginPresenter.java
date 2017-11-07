@@ -23,6 +23,7 @@ import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
 import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
+import vn.needy.vendor.data.source.remote.api.response.CompanyResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.utils.Utils;
 
@@ -166,18 +167,20 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void run() throws Exception {
                         mViewModel.onHideProgressBar();
                     }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Company>() {
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<CompanyResponse>() {
                     @Override
-                    public void accept(Company company) throws Exception {
-                        ///save company and redirect to main
-                        mCompanyRepository.saveCompany(company);
-                        mViewModel.onRedirectToMain();
+                    public void accept(CompanyResponse companyResponse) throws Exception {
+                        if (companyResponse.getCompany() != null) {
+                            mCompanyRepository.saveCompany(companyResponse.getCompany());
+                            mViewModel.onRedirectToMain();
+                        } else {
+                            mViewModel.onRedirectToRegisterCompany();
+                        }
                     }
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        // redirect to register company
-                        mViewModel.onRedirectToRegisterCompany();
+                        mViewModel.onLoginError(error.getMessage());
                     }
                 });
         mCompositeDisposable.add(disposable);
