@@ -49,7 +49,7 @@ public class RealmApi {
                 });
             }
         });
-        //observable.subscribe();
+        observable.subscribe();
         return observable;
     }
 
