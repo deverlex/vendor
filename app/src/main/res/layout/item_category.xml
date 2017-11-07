@@ -12,10 +12,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_1"
+        android:background="@color/color_white"
         android:text="@{viewModel.titleCategory}"
         android:textColor="@color/gray78"
-        android:textSize="@dimen/sp_16"
+        android:textSize="@dimen/sp_18"
         android:drawableEnd="@drawable/ic_next_right"
         android:drawablePadding="@dimen/dp_15"
-        android:drawableRight="@drawable/ic_next_right" />
+        android:drawableRight="@drawable/ic_next_right"
+        android:onClick="@{() -> viewModel.onItemClicked()}"/>
 </layout>

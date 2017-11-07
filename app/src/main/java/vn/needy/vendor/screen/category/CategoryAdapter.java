@@ -5,10 +5,8 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
@@ -22,16 +20,14 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.ItemViewHolder> {
 
+    private static final String TAG = CategoryAdapter.class.getName();
+
     private final List<Category> mCategories;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
     protected CategoryAdapter(@NonNull Context context, List<Category> categories) {
         super(context);
-        mCategories = new ArrayList<>();
-        if (categories == null) {
-            return;
-        }
-        mCategories.addAll(categories);
+        mCategories = categories;
     }
 
     @Override

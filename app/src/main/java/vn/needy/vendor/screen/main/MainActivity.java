@@ -3,6 +3,7 @@ package vn.needy.vendor.screen.main;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -14,6 +15,7 @@ import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.screen.listorder.ListOrderFragment;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.screen.notification.NotificationFragment;
@@ -38,18 +40,18 @@ public class MainActivity extends BaseActivity {
         mPrefsApi = SharedPrefsImpl.getInstance();
 
         mPresenter = new MainPresenter(mRealmApi);
-        initializeBottomBar();
+        initializeBottomBar(getIntent().getExtras());
 
     }
 
-    private void initializeBottomBar() {
+    private void initializeBottomBar(final Bundle bundle) {
         mBottomBar = ViewUtil.findById(this, R.id.bottomBar);
         mBottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
                     case R.id.store:
-                        initFragment(R.id.contentContainer, MainPageFragment.getInstance());
+                        initFragment(R.id.contentContainer, MainPageFragment.getInstance(), null, bundle);
                         break;
                     case R.id.order:
                         initFragment(R.id.contentContainer, ListOrderFragment.getInstance());

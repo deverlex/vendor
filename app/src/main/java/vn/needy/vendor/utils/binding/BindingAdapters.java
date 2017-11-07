@@ -3,12 +3,12 @@ package vn.needy.vendor.utils.binding;
 import android.databinding.BindingAdapter;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.TransformationMethod;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 
 /**
  * Created by lion on 02/10/2017.
@@ -17,6 +17,15 @@ import android.widget.TextView;
 public class BindingAdapters {
     private BindingAdapters() {
         // No-op
+    }
+
+    /**
+     * setAdapter For RecyclerView
+     */
+    @BindingAdapter({ "recyclerAdapter" })
+    public static void setAdapterForRecyclerView(RecyclerView recyclerView,
+                                                 RecyclerView.Adapter adapter) {
+        recyclerView.setAdapter(adapter);
     }
 
     @BindingAdapter("text")

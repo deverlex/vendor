@@ -13,7 +13,7 @@ public class Company extends RealmObject implements Parcelable {
     @PrimaryKey
     @SerializedName("id")
     @Expose
-    private long mId;
+    private String mId;
     @SerializedName("companyNumber")
     @Expose
     private String mCompanyNumber;
@@ -44,9 +44,9 @@ public class Company extends RealmObject implements Parcelable {
     @SerializedName("description")
     @Expose
     private String mDescription;
-    @SerializedName("website")
+    @SerializedName("siteUrl")
     @Expose
-    private String mWebsite;
+    private String mSiteUrl;
     @SerializedName("createdTime")
     @Expose
     private String mCreatedTime;
@@ -62,7 +62,7 @@ public class Company extends RealmObject implements Parcelable {
     }
 
     protected Company(Parcel in) {
-        mId = in.readLong();
+        mId = in.readString();
         mCompanyNumber = in.readString();
         mState = in.readInt();
         mName = in.readString();
@@ -73,14 +73,14 @@ public class Company extends RealmObject implements Parcelable {
         mAvatar = in.readString();
         mPictures = in.readString();
         mDescription = in.readString();
-        mWebsite = in.readString();
+        mSiteUrl = in.readString();
         mCreatedTime = in.readString();
         mLastUpdatedTime = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
+        dest.writeString(mId);
         dest.writeString(mCompanyNumber);
         dest.writeInt(mState);
         dest.writeString(mName);
@@ -90,7 +90,7 @@ public class Company extends RealmObject implements Parcelable {
         dest.writeString(mClosingTime);
         dest.writeString(mAvatar);
         dest.writeString(mDescription);
-        dest.writeString(mWebsite);
+        dest.writeString(mSiteUrl);
         dest.writeString(mCreatedTime);
         dest.writeString(mLastUpdatedTime);
     }
@@ -112,11 +112,11 @@ public class Company extends RealmObject implements Parcelable {
         return 0;
     }
 
-    public long getId() {
+    public String getId() {
         return mId;
     }
 
-    public void setId(long mId) {
+    public void setId(String mId) {
         this.mId = mId;
     }
 
@@ -196,24 +196,24 @@ public class Company extends RealmObject implements Parcelable {
         return mDescription;
     }
 
-    public void setDescription(String mDescription) {
-        this.mDescription = mDescription;
+    public void setDescription(String description) {
+        mDescription = description;
     }
 
-    public String getWebsite() {
-        return mWebsite;
+    public String getSiteUrl() {
+        return mSiteUrl;
     }
 
-    public void setWebsite(String mWebsite) {
-        this.mWebsite = mWebsite;
+    public void setSiteUrl(String siteUrl) {
+        mSiteUrl = siteUrl;
     }
 
     public String getCreatedTime() {
         return mCreatedTime;
     }
 
-    public void setCreatedTime(String mCreatedTime) {
-        this.mCreatedTime = mCreatedTime;
+    public void setCreatedTime(String createdTime) {
+        mCreatedTime = createdTime;
     }
 
     public String getLastUpdatedTime() {
@@ -229,6 +229,6 @@ public class Company extends RealmObject implements Parcelable {
     }
 
     public void setIsReputation(boolean isReputation) {
-        this.mIsReputation = isReputation;
+        mIsReputation = isReputation;
     }
 }

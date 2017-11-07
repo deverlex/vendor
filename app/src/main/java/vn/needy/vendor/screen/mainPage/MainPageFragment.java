@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.data.model.Category;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
+import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -26,22 +29,23 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class MainPageFragment extends Fragment {
 
+    private static final String TAG = MainPageFragment.class.getName();
+
     public static MainPageFragment getInstance() {
         return new MainPageFragment();
     }
 
     private MainPageConstract.ViewModel mViewModel;
-    private Map<String, String> categories;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        categories = new Gson().fromJson(SharedPrefsImpl.getInstance().get(SharedPrefsKey.CURRENT_CATEGORY,
-                String.class), Map.class);
+        Bundle extras = getArguments();
+        Category category = extras.getParcelable(CategoriesActivity.CATEGORY);
 
         Navigator navigator = new Navigator(this);
-        mViewModel = new MainPageViewModel(getContext(), navigator);
+        mViewModel = new MainPageViewModel(getContext(), navigator, category);
 
         FragmentMainPageBinding binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_main_page, container, false);

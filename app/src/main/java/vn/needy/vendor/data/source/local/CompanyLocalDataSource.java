@@ -1,5 +1,8 @@
 package vn.needy.vendor.data.source.local;
 
+import android.util.Log;
+
+import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.functions.BiConsumer;
 import io.realm.Realm;
@@ -13,20 +16,35 @@ import vn.needy.vendor.data.source.local.realm.RealmApi;
 
 public class CompanyLocalDataSource extends BaseLocalDataSource implements CompanyDataSource.LocalDataSource {
 
+    private final static String TAG = CompanyLocalDataSource.class.getName();
+
     public CompanyLocalDataSource(RealmApi realmApi) {
         super(realmApi);
     }
 
     @Override
-    public void saveCompany(final Company company) {
-        mRealmApi.realmTransactionAsync(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
+    public Observable<Void> saveCompany(final Company company) {
+        return mRealmApi.realmTransactionAsync(new BiConsumer<ObservableEmitter<? super Void>, Realm>() {
             @Override
-            public void accept(ObservableEmitter<? super Object> observableEmitter, Realm realm) throws Exception {
+            public void accept(ObservableEmitter<? super Void> observableEmitter, Realm realm) throws Exception {
                 try {
                     realm.insertOrUpdate(company);
+                    Log.w(TAG, "saveCompany()");
                 } catch (IllegalStateException e) {
                     observableEmitter.tryOnError(e);
                 }
+            }
+        });
+    }
+
+    @Override
+    public Observable<Company> getCompany() {
+        return mRealmApi.realmGet(new BiConsumer<ObservableEmitter<? super Company>, Realm>() {
+            @Override
+            public void accept(ObservableEmitter<? super Company> observableEmitter, Realm realm) throws Exception {
+                Company company = realm.where(Company.class).findFirst();
+                Log.w(TAG, "getCompany()? " + company.getName());
+                observableEmitter.onNext(company);
             }
         });
     }

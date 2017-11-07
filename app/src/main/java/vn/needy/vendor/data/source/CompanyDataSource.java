@@ -12,7 +12,9 @@ import vn.needy.vendor.data.source.remote.api.response.CompanyResponse;
 
 public interface CompanyDataSource {
     interface LocalDataSource {
-        void saveCompany(Company company);
+        Observable<Void> saveCompany(Company company);
+
+        Observable<Company> getCompany();
     }
 
     interface RemoteDataSource {

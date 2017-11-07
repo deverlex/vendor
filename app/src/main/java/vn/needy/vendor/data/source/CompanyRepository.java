@@ -41,4 +41,8 @@ public class CompanyRepository {
     public void saveCompany(Company company) {
         mCompanyLocalDataSource.saveCompany(company);
     }
+
+    public Observable<Company> getCompany() {
+        return mCompanyLocalDataSource.getCompany();
+    }
 }

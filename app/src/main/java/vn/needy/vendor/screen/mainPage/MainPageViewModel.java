@@ -2,7 +2,10 @@ package vn.needy.vendor.screen.mainPage;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
+import vn.needy.vendor.R;
+import vn.needy.vendor.data.model.Category;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -16,10 +19,18 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     private final Navigator mNavigator;
 
     private MainPageConstract.Presenter mPresenter;
+    private String mCategoryTitle;
+    private String mCategory;
 
-    public MainPageViewModel(Context context, Navigator navigator) {
+    public MainPageViewModel(Context context, Navigator navigator, Category category) {
         mContext = context;
         mNavigator = navigator;
+        if (category != null) {
+            mCategory = category.getCategory();
+            mCategoryTitle = category.getCategory();
+        } else {
+            mCategoryTitle = mContext.getString(R.string.all_category);
+        }
     }
 
     @Override
@@ -40,5 +51,10 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     @Override
     public void onClickCategories() {
         mNavigator.startActivity(CategoriesActivity.class);
+    }
+
+    @Bindable
+    public String getCategoryTitle() {
+        return mCategoryTitle;
     }
 }

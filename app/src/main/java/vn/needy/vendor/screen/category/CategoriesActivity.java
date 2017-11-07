@@ -8,6 +8,7 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.data.model.Category;
+import vn.needy.vendor.data.source.local.realm.RealmApi;
 import vn.needy.vendor.databinding.ActivityCategoriesBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -18,24 +19,30 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class CategoriesActivity extends BaseActivity {
 
+    public static final String CATEGORY = "_category";
+
     private CategoriesContract.ViewModel mViewModel;
 
     private Navigator mNavigator;
+    private RealmApi mRealmApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         mNavigator = new Navigator(this);
+        mRealmApi = new RealmApi();
 
         List<Category> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
         mViewModel = new CategoriesViewModel(this, mNavigator, categoryAdapter);
 
-        ActivityCategoriesBinding
+        CategoriesContract.Presenter presenter = new CategoriesPresenter(mViewModel, mRealmApi);
+        mViewModel.setPresenter(presenter);
+        presenter.onStart();
 
+        ActivityCategoriesBinding
           binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_categories);
         binding.setViewModel((CategoriesViewModel) mViewModel);
-
     }
 
     @Override
