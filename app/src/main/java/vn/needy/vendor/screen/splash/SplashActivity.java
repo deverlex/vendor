@@ -108,17 +108,22 @@ public class SplashActivity extends AppCompatActivity {
 
     public void loginPage() {
         mIntent = new Intent(SplashActivity.this, LoginActivity.class);
-        mNavigator.startActivity(mIntent);
+        startActivityWithAnim(mIntent);
     }
 
     private void registerCompany() {
         mIntent = new Intent(SplashActivity.this, RegisterCompanyActivity.class);
-        mNavigator.startActivity(mIntent);
+        startActivityWithAnim(mIntent);
     }
 
     public void mainPage() {
         mIntent = new Intent(SplashActivity.this, MainActivity.class);
-        mNavigator.startActivity(mIntent);
+        startActivityWithAnim(mIntent);
+    }
+
+    private void startActivityWithAnim(Intent intent) {
+        mNavigator.startActivity(intent);
+        //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private void saveCompany(Company company) {

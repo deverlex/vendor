@@ -18,7 +18,7 @@ import vn.needy.vendor.utils.navigator.Navigator;
  */
 
 public class CategoriesViewModel extends BaseObservable implements CategoriesContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>{
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
     private static final String TAG = CategoriesViewModel.class.getName();
 

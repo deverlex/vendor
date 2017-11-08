@@ -11,7 +11,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Category implements Parcelable {
-
     @Expose
     @SerializedName("category")
     private String mCategory;

@@ -1,5 +1,7 @@
 package vn.needy.vendor.screen.mainPage;
 
+import android.widget.RadioGroup;
+
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -10,6 +12,10 @@ import vn.needy.vendor.screen.BaseViewModel;
 public interface MainPageConstract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
+
+        void onCheckedChanged(RadioGroup radioGroup, int id);
+
+        void onClickAddProduct();
 
         void onClickCategories();
     }

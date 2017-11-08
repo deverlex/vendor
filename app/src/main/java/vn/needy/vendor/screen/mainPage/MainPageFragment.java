@@ -2,6 +2,7 @@ package vn.needy.vendor.screen.mainPage;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -35,6 +36,8 @@ public class MainPageFragment extends Fragment {
         return new MainPageFragment();
     }
 
+    public static final String PRODUCT_TYPE = "_product_type";
+
     private MainPageConstract.ViewModel mViewModel;
 
     @Override
@@ -52,5 +55,11 @@ public class MainPageFragment extends Fragment {
         binding.setViewModel((MainPageViewModel) mViewModel);
 
         return binding.getRoot();
+    }
+
+    @IntDef({ProductType.PRICE_NOW, ProductType.PRICE_LATER})
+    @interface ProductType {
+        int PRICE_NOW = 1;
+        int PRICE_LATER = 2;
     }
 }
