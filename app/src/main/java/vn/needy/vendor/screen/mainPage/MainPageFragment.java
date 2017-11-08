@@ -50,6 +50,7 @@ public class MainPageFragment extends Fragment {
         FragmentMainPageBinding binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_main_page, container, false);
         binding.setViewModel((MainPageViewModel) mViewModel);
+
         return binding.getRoot();
     }
 }

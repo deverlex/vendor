@@ -23,10 +23,13 @@ import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
+import vn.needy.vendor.data.source.remote.api.error.BaseException;
+import vn.needy.vendor.data.source.remote.api.error.SafetyError;
 import vn.needy.vendor.data.source.remote.api.response.CompanyResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.screen.login.LoginActivity;
 import vn.needy.vendor.screen.main.MainActivity;
+import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 public class SplashActivity extends AppCompatActivity {
@@ -42,6 +45,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private CompositeDisposable mCompositeDisposable;
     private CompanyRepository mCompanyRepository;
+    private Navigator mNavigator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class SplashActivity extends AppCompatActivity {
 
         final String token = getToken(prefsApi);
 
+        mNavigator = new Navigator(this);
         mHandler = new Handler();
         mRunnable = new Runnable() {
             @Override
@@ -65,32 +70,55 @@ public class SplashActivity extends AppCompatActivity {
 //                if (TextUtils.isEmpty(token)) {
 //                    loginPage();
 //                } else {
-                    mainPage();
+                    gatewaySigned();
 //                }
-                new Navigator(SplashActivity.this).startActivity(mIntent);
+//                new Navigator(SplashActivity.this).startActivity(mIntent);
                 finish();
             }
         };
         mHandler.postDelayed(mRunnable, SECOND_DELAYED);
     }
 
-    public void loginPage() {
-        mIntent = new Intent(SplashActivity.this, LoginActivity.class);
-    }
-
-    public void mainPage() {
+    // If app is signed then check user has company
+    // -> save company info and redirect to main
+    // -> go to register company
+    private void gatewaySigned() {
         Disposable disposable = mCompanyRepository.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<CompanyResponse>() {
                     @Override
                     public void accept(CompanyResponse companyResponse) throws Exception {
-                        Log.w(TAG, companyResponse.getCompany().getName());
-                        saveCompany(companyResponse.getCompany());
+                        if (companyResponse.getCompany() != null) {
+                            saveCompany(companyResponse.getCompany());
+                            mainPage();
+                        } else {
+                            registerCompany();
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mNavigator.showToastCenterText(error.getMessage());
+                        mainPage();
                     }
                 });
         mCompositeDisposable.add(disposable);
+    }
+
+    public void loginPage() {
+        mIntent = new Intent(SplashActivity.this, LoginActivity.class);
+        mNavigator.startActivity(mIntent);
+    }
+
+    private void registerCompany() {
+        mIntent = new Intent(SplashActivity.this, RegisterCompanyActivity.class);
+        mNavigator.startActivity(mIntent);
+    }
+
+    public void mainPage() {
         mIntent = new Intent(SplashActivity.this, MainActivity.class);
+        mNavigator.startActivity(mIntent);
     }
 
     private void saveCompany(Company company) {
@@ -100,16 +128,6 @@ public class SplashActivity extends AppCompatActivity {
     // We will get it and refresh, if fail -> relogin
     private String getToken(SharedPrefsApi prefsApi) {
         return prefsApi.get(SharedPrefsKey.TOKEN_KEY, String.class);
-    }
-
-    private boolean getCompany() {
-        mRealmApi.realmGet(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
-            @Override
-            public void accept(ObservableEmitter<? super Object> observableEmitter, Realm realm) throws Exception {
-
-            }
-        });
-        return true;
     }
 
     public void onDestroy() {
