@@ -114,6 +114,7 @@ dependencies {
     compile dependencies.bannerSlider
     compile dependencies.phoneNumber
     compile dependencies.map
+    compile dependencies.imagePicker
 
     testCompile dependencies.junit
     testCompile dependencies.mockito
