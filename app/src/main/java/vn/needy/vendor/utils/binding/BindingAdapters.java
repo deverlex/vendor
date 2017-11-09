@@ -76,10 +76,11 @@ public class BindingAdapters {
             Bitmap bmp = BitmapFactory.decodeFile(path);
             // scale file size, fix out of memory when load more image
             Matrix matrix = new Matrix();
+            float ratio = bmp.getHeight() / bmp.getWidth();
             matrix.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()),
                     new RectF(0, 0,
                                 ViewUtil.dpToPx(imageView.getContext(), 100),
-                                ViewUtil.dpToPx(imageView.getContext(), 100)),
+                                ViewUtil.dpToPx(imageView.getContext(), 100) * ratio),
                                 Matrix.ScaleToFit.CENTER);
             bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
             imageView.setImageBitmap(bmp);

@@ -57,7 +57,6 @@ public class ImageAdapter extends BaseRecyclerViewAdapter<ImageAdapter.ItemViewH
         if (images == null) {
             return;
         }
-        mImages.clear();
         Log.d(TAG, "image size? " + images.size());
         mImages.addAll(images);
         notifyDataSetChanged();

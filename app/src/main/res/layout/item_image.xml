@@ -21,7 +21,7 @@
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_100"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:onClick="@{() -> viewModel.onItemClicked()}"
             app:srcPath="@{viewModel.imagePath}"
             />

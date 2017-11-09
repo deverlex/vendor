@@ -18,6 +18,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.data.model.Category;
 import vn.needy.vendor.data.model.Image;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
+import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.widget.GifSizeFilter;
 
 import static vn.needy.vendor.screen.addProduct.AddProductActivity.REQUEST_CODE_CHOOSE;
@@ -39,7 +40,6 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
     private float price;
     private String promotion;
     private Category category;
-    private List<Image> images;
 
     private ImageAdapter mImageAdapter;
 
@@ -49,6 +49,7 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
         mContext = context;
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
+
 
         mVisibleImages = false;
     }
@@ -115,10 +116,14 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     @Override
     public void onClickAddImage() {
+        int limitSelectable = 1;
+        if (mImageAdapter.getItemCount() > 0) {
+            limitSelectable = Constant.MAX_IMAGES_PUSH - mImageAdapter.getItemCount();
+        }
         Matisse.from((AddProductActivity) mContext)
                 .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))
                 .countable(true)
-                .maxSelectable(9)
+                .maxSelectable(limitSelectable)
                 .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                 .gridExpectedSize(
                         mContext.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
