@@ -3,6 +3,8 @@ package vn.needy.vendor.utils.binding;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
@@ -21,6 +23,7 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.utils.ViewUtil;
 
 /**
  * Created by lion on 02/10/2017.
@@ -71,6 +74,14 @@ public class BindingAdapters {
     public static void loadImagePath(ImageView imageView, String path) {
         if (!TextUtils.isEmpty(path)) {
             Bitmap bmp = BitmapFactory.decodeFile(path);
+            // scale file size, fix out of memory when load more image
+            Matrix matrix = new Matrix();
+            matrix.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()),
+                    new RectF(0, 0,
+                                ViewUtil.dpToPx(imageView.getContext(), 100),
+                                ViewUtil.dpToPx(imageView.getContext(), 100)),
+                                Matrix.ScaleToFit.CENTER);
+            bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
             imageView.setImageBitmap(bmp);
         }
     }
