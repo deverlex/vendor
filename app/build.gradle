@@ -115,6 +115,7 @@ dependencies {
     compile dependencies.phoneNumber
     compile dependencies.map
     compile dependencies.imagePicker
+    compile dependencies.imageCrop
 
     testCompile dependencies.junit
     testCompile dependencies.mockito
