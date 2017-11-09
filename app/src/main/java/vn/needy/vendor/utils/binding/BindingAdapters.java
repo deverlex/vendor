@@ -1,20 +1,35 @@
 package vn.needy.vendor.utils.binding;
 
 import android.databinding.BindingAdapter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.text.method.TransformationMethod;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import java.io.File;
+
+import vn.needy.vendor.R;
 
 /**
  * Created by lion on 02/10/2017.
  */
 
 public class BindingAdapters {
+
+    private static final String TAG = BindingAdapters.class.getName();
+
     private BindingAdapters() {
         // No-op
     }
@@ -52,8 +67,22 @@ public class BindingAdapters {
         view.setImageResource(drawable);
     }
 
+    @BindingAdapter("srcPath")
+    public static void loadImagePath(ImageView imageView, String path) {
+        if (!TextUtils.isEmpty(path)) {
+            Bitmap bmp = BitmapFactory.decodeFile(path);
+            imageView.setImageBitmap(bmp);
+        }
+    }
+
     @BindingAdapter("transformationMethod")
     public static void setTransformationMethod(EditText editText, TransformationMethod method) {
         editText.setTransformationMethod(method);
+    }
+
+    @BindingAdapter("layoutManager")
+    public static void setLayoutManager(RecyclerView recyclerView,
+                                        LayoutManagers.LayoutManagerFactory layoutManagerFactory) {
+        recyclerView.setLayoutManager(layoutManagerFactory.create(recyclerView));
     }
 }

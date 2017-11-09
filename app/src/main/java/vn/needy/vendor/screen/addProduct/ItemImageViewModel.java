@@ -23,8 +23,8 @@ public class ItemImageViewModel extends BaseObservable {
         mItemClickListener = listener;
     }
 
-    public String getImageUrl() {
-        Log.w(TAG, "getImageUrl()");
+    public String getImagePath() {
+        Log.w(TAG, "getImagePath()");
         if (mImage != null) {
             return mImage.getUrl();
         }

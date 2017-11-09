@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -12,6 +13,7 @@ import com.zhihu.matisse.filter.Filter;
 
 import java.util.List;
 
+import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.data.model.Category;
 import vn.needy.vendor.data.model.Image;
@@ -26,6 +28,7 @@ import static vn.needy.vendor.screen.addProduct.AddProductActivity.REQUEST_CODE_
 public class AddProductViewModel extends BaseObservable implements AddProductContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
+    private static final String TAG = AddProductViewModel.class.getName();
     private final Context mContext;
 
     private AddProductContract.Presenter mPresenter;
@@ -40,10 +43,14 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     private ImageAdapter mImageAdapter;
 
+    private boolean mVisibleImages;
+
     public AddProductViewModel(Context context, ImageAdapter imageAdapter) {
         mContext = context;
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
+
+        mVisibleImages = false;
     }
 
     @Override
@@ -138,11 +145,29 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     @Override
     public void onSelectedListImages(List<Image> images) {
+        Log.d(TAG, "onSelectedListImages: " + images.size());
+        if (images.size() > 0) {
+            mVisibleImages = true;
+        } else mVisibleImages = false;
+        notifyPropertyChanged(BR.visibleImages);
         mImageAdapter.updateData(images);
     }
 
     @Override
     public void onItemRecyclerViewClick(Object item) {
 
+    }
+
+    @Bindable
+    public boolean isVisibleImages() {
+        return mVisibleImages;
+    }
+
+    public void setVisibleImages(boolean visibleImages) {
+        this.mVisibleImages = visibleImages;
+    }
+
+    public ImageAdapter getImageAdapter() {
+        return mImageAdapter;
     }
 }

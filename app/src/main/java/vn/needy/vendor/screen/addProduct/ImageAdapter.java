@@ -4,26 +4,24 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.Category;
 import vn.needy.vendor.data.model.Image;
 import vn.needy.vendor.databinding.ItemImageBinding;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
-import vn.needy.vendor.screen.category.CategoryAdapter;
-import vn.needy.vendor.utils.ViewUtil;
 
 /**
  * Created by lion on 08/11/2017.
  */
 
 public class ImageAdapter extends BaseRecyclerViewAdapter<ImageAdapter.ItemViewHolder> {
+
+    private static final String TAG = ImageAdapter.class.getName();
 
     private final List<Image> mImages;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
@@ -43,9 +41,9 @@ public class ImageAdapter extends BaseRecyclerViewAdapter<ImageAdapter.ItemViewH
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder? " + mImages.get(position).getUrl());
         holder.bind(mImages.get(position));
     }
-
     @Override
     public int getItemCount() {
         return mImages.size();
@@ -60,6 +58,7 @@ public class ImageAdapter extends BaseRecyclerViewAdapter<ImageAdapter.ItemViewH
             return;
         }
         mImages.clear();
+        Log.d(TAG, "image size? " + images.size());
         mImages.addAll(images);
         notifyDataSetChanged();
     }

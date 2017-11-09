@@ -8,6 +8,9 @@
             name="viewModel"
             type="vn.needy.vendor.screen.addProduct.AddProductViewModel"
             />
+
+        <import type="vn.needy.vendor.utils.binding.LayoutManagers" />
+        <import type="android.support.v7.widget.LinearLayoutManager"/>
         <import type="android.view.View" />
     </data>
 
@@ -68,24 +71,23 @@
                     android:orientation="horizontal">
                     <android.support.v7.widget.RecyclerView
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_90"
+                        android:layout_height="@dimen/dp_100"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingLeft="@dimen/dp_3"
-                        android:paddingBottom="@dimen/dp_3"
-                        android:paddingTop="@dimen/dp_3"
                         android:background="@color/color_white"
-                        android:visibility="gone"
+                        android:layout_margin="@dimen/dp_3"
+                        android:visibility="@{viewModel.visibleImages? View.VISIBLE : View.GONE}"
                         app:layoutManager="LinearLayoutManager"
+                        app:recyclerAdapter="@{viewModel.imageAdapter}"
                         />
                     <RelativeLayout
                         android:id="@+id/add_image"
-                        android:layout_width="@dimen/dp_90"
-                        android:layout_height="@dimen/dp_90"
+                        android:layout_width="@dimen/dp_100"
+                        android:layout_height="@dimen/dp_100"
                         android:background="@drawable/border_price"
                         android:layout_margin="@dimen/dp_3"
                         android:layout_gravity="center_vertical"
