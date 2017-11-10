@@ -62,6 +62,10 @@ public class ImageAdapter extends BaseRecyclerViewAdapter<ImageAdapter.ItemViewH
         notifyDataSetChanged();
     }
 
+    public List<Image> getImages() {
+        return mImages;
+    }
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         private final ItemImageBinding mBinding;
         private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>

@@ -36,7 +36,10 @@ public class AddProductActivity extends BaseActivity {
 
         List<Image> images = new ArrayList<>();
         ImageAdapter imageAdapter = new ImageAdapter(this, images);
+
         mViewModel = new AddProductViewModel(this, imageAdapter);
+        AddProductContract.Presenter presenter = new AddProductPresenter(this, mViewModel);
+        mViewModel.setPresenter(presenter);
 
         ActivityAddProductBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_add_product);

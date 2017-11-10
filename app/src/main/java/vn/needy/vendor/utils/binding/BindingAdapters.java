@@ -24,6 +24,7 @@ import java.io.File;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.utils.ViewUtil;
+import vn.needy.vendor.utils.image.CompressImage;
 
 /**
  * Created by lion on 02/10/2017.
@@ -71,19 +72,11 @@ public class BindingAdapters {
     }
 
     @BindingAdapter("srcPath")
-    public static void loadImagePath(ImageView imageView, String path) {
+    public static void loadImagePath(final ImageView imageView, final String path) {
         if (!TextUtils.isEmpty(path)) {
             Bitmap bmp = BitmapFactory.decodeFile(path);
-            // scale file size, fix out of memory when load more image
-            Matrix matrix = new Matrix();
-            float ratio = bmp.getHeight() / bmp.getWidth();
-            matrix.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()),
-                    new RectF(0, 0,
-                                ViewUtil.dpToPx(imageView.getContext(), 100),
-                                ViewUtil.dpToPx(imageView.getContext(), 100) * ratio),
-                                Matrix.ScaleToFit.CENTER);
-            bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-            imageView.setImageBitmap(bmp);
+            imageView.setImageBitmap(CompressImage.reduceSize(bmp,
+                    ViewUtil.dpToPx(imageView.getContext(), 100)));
         }
     }
 

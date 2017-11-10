@@ -1,17 +1,15 @@
 package vn.needy.vendor.data.source.remote.api.service;
 
-
-import java.util.List;
-
 import io.reactivex.Observable;
-import retrofit2.Response;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import vn.needy.vendor.data.model.Category;
 import vn.needy.vendor.data.source.remote.api.request.ActiveAccountRequest;
 import vn.needy.vendor.data.source.remote.api.request.CredentialsRequest;
 import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
@@ -51,11 +49,9 @@ public interface VendorApi {
     @GET("v1/companies")
     Observable<CompanyResponse> getCompanyInformation();
 
-    @GET("v1/companies/dependencies")
-    Observable<CompanyResponse> findCompanyInformation();
-
     @POST("v1/companies")
     Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest request);
+
 
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
@@ -67,4 +63,10 @@ public interface VendorApi {
     @GET("v1/pn/categories/{category}")
     Observable<CategoryResponse> getSubCategories(@Path("category") String category,
                                                   @Query("company_id") String companyId);
+
+    // POST new images
+    @Multipart
+    @POST("v1/pn/products/{product_id}/images")
+    Observable<BaseResponse> uploadImageProduct(@Path("product_id") long productId,
+                                                @Part MultipartBody.Part image);
 }

@@ -23,11 +23,6 @@ public class CompanyRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<CompanyResponse> findCompanyInherent() {
-        return mVendorApi.findCompanyInformation();
-    }
-
-    @Override
     public Observable<CompanyResponse> registerCompany(RegisterCompanyRequest registerCompanyRequest) {
         return mVendorApi.registerCompany(registerCompanyRequest);
     }

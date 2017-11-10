@@ -58,13 +58,15 @@
                         app:srcCompat="@drawable/ic_check"
                         android:background="@color/transparent"
                         android:layout_alignParentRight="true"
+                        android:onClick="@{() -> viewModel.onClickCreate()}"
                         />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/color_white">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,7 +80,6 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:background="@color/color_white"
                         android:layout_margin="@dimen/dp_3"
                         android:visibility="@{viewModel.visibleImages? View.VISIBLE : View.GONE}"
                         app:layoutManager="LinearLayoutManager"
@@ -120,6 +121,7 @@
                 android:fontFamily="@string/font_serif"
                 android:hint="@string/name_product"
                 android:inputType="text"
+                android:text="@={viewModel.name}"
                 android:textSize="@dimen/sp_14"
                 android:textAllCaps="false"
                 android:textColor="@color/color_black"
@@ -136,6 +138,7 @@
                 android:fontFamily="@string/font_serif"
                 android:hint="@string/product_describe"
                 android:inputType="text"
+                android:text="@={viewModel.description}"
                 android:textSize="@dimen/sp_14"
                 android:textAllCaps="false"
                 android:textColor="@color/color_black"
@@ -231,6 +234,8 @@
                     android:fontFamily="@string/font_serif"
                     android:hint="@string/product_price_input"
                     android:gravity="end"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.price}"
                     android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
@@ -272,6 +277,8 @@
                     android:fontFamily="@string/font_serif"
                     android:hint="@string/quantity"
                     android:gravity="end"
+                    android:inputType="number"
+                    android:text="@={viewModel.quantity}"
                     android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
@@ -286,7 +293,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1">
+                android:onClick="@{() -> viewModel.onClickAddAttribute()}"
+                android:layout_marginTop="@dimen/dp_1"
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -352,6 +361,7 @@
                     android:fontFamily="@string/font_serif"
                     android:hint="@string/product_price_input"
                     android:gravity="end"
+                    android:inputType="numberDecimal"
                     android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
@@ -377,8 +387,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onClickAddPromotion()}"
                 android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1">
+                android:layout_marginTop="@dimen/dp_1"
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

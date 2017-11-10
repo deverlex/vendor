@@ -185,5 +185,9 @@
 
     <string name="all_category">Tất cả danh mục</string>
 
+    <string name="view">Xem</string>
+    <string name="delete">Xóa</string>
+    <string name="replace_image">Thay ảnh</string>
+    <string name="edit_image">Sửa ảnh</string>
 
 </resources>

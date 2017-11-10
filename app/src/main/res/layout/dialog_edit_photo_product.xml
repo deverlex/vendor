@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:fontFamily="@string/font_serif"
+        android:text="@string/view"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/gray78"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:fontFamily="@string/font_serif"
+        android:text="Sửa ảnh"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/gray78"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:fontFamily="@string/font_serif"
+        android:text="@string/replace_image"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/gray78"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:fontFamily="@string/font_serif"
+        android:text="@string/delete"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/gray78"
+        />
+</LinearLayout>

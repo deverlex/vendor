@@ -34,12 +34,12 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     private AddProductContract.Presenter mPresenter;
 
-    private String name;
-    private String description;
-    private int quantity;
-    private float price;
-    private String promotion;
-    private Category category;
+    private String mName;
+    private String mDescription;
+    private int mQuantity;
+    private float mPrice;
+    private String mPromotion;
+    private Category mCategory;
 
     private ImageAdapter mImageAdapter;
 
@@ -49,7 +49,6 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
         mContext = context;
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
-
 
         mVisibleImages = false;
     }
@@ -67,51 +66,6 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
     @Override
     public void setPresenter(AddProductContract.Presenter presenter) {
         mPresenter = presenter;
-    }
-
-    @Bindable
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Bindable
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Bindable
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    @Bindable
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    @Bindable
-    public String getCategory() {
-        return category.getTitle();
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     @Override
@@ -135,7 +89,10 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     @Override
     public void onClickCreate() {
-
+        mPresenter.uploadImage(mImageAdapter.getImages());
+//        Log.w(TAG, mName);
+//        Log.w(TAG, mDescription);
+//        Log.w(TAG, String.valueOf(mPrice));
     }
 
     @Override
@@ -174,5 +131,50 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     public ImageAdapter getImageAdapter() {
         return mImageAdapter;
+    }
+
+    @Bindable
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    @Bindable
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+    }
+
+    @Bindable
+    public String getQuantity() {
+        return String.valueOf(mQuantity);
+    }
+
+    public void setQuantity(String quantity) {
+        mQuantity = Integer.parseInt(quantity);
+    }
+
+    @Bindable
+    public String getPrice() {
+        return String.valueOf(mPrice);
+    }
+
+    public void setPrice(String price) {
+        mPrice = Float.parseFloat(price);
+    }
+
+    @Bindable
+    public String getCategory() {
+        return mCategory.getTitle();
+    }
+
+    public void setCategory(Category category) {
+        mCategory = category;
     }
 }

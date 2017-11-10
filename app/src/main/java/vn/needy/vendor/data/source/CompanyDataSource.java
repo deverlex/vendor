@@ -18,7 +18,6 @@ public interface CompanyDataSource {
     }
 
     interface RemoteDataSource {
-        Observable<CompanyResponse> findCompanyInherent();
 
         Observable<CompanyResponse> registerCompany(RegisterCompanyRequest registerCompanyRequest);
 

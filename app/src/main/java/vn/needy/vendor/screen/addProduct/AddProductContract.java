@@ -26,5 +26,8 @@ public interface AddProductContract {
 
     interface Presenter extends BasePresenter {
 
+        void uploadProduct();
+
+        void uploadImage(List<Image> images);
     }
 }

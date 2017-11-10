@@ -160,7 +160,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
                 new CompanyLocalDataSource(new RealmApi()));
-        Disposable disposable = mCompanyRepository.findCompanyInherent()
+        Disposable disposable = mCompanyRepository.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .doAfterTerminate(new Action() {
                     @Override
