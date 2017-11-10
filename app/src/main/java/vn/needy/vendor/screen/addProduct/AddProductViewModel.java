@@ -17,6 +17,7 @@ import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.data.model.Category;
 import vn.needy.vendor.data.model.Image;
+import vn.needy.vendor.data.source.remote.api.request.AddProductRequest;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.widget.GifSizeFilter;
@@ -33,6 +34,11 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
     private final Context mContext;
 
     private AddProductContract.Presenter mPresenter;
+
+    private String mNameError;
+    private String mDescriptionError;
+    private String mQuantityError;
+    private String mPriceError;
 
     private String mName;
     private String mDescription;
@@ -69,6 +75,30 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
     }
 
     @Override
+    public void onInputNameError(int msg) {
+        mNameError = mContext.getString(msg);
+        notifyPropertyChanged(BR.nameError);
+    }
+
+    @Override
+    public void onInputDescriptionError(int msg) {
+        mDescriptionError = mContext.getString(msg);
+        notifyPropertyChanged(BR.descriptionError);
+    }
+
+    @Override
+    public void onInputQuantityError(int msg) {
+        mQuantityError = mContext.getString(msg);
+        notifyPropertyChanged(BR.quantityError);
+    }
+
+    @Override
+    public void onInputPriceError(int msg) {
+        mPriceError = mContext.getString(msg);
+        notifyPropertyChanged(BR.priceError);
+    }
+
+    @Override
     public void onClickAddImage() {
         int limitSelectable = 1;
         if (mImageAdapter.getItemCount() > 0) {
@@ -89,7 +119,10 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     @Override
     public void onClickCreate() {
-        mPresenter.uploadImage(mImageAdapter.getImages());
+        AddProductRequest request = new AddProductRequest();
+        mPresenter.uploadProduct(request);
+
+        //mPresenter.uploadImage(mImageAdapter.getImages());
 //        Log.w(TAG, mName);
 //        Log.w(TAG, mDescription);
 //        Log.w(TAG, String.valueOf(mPrice));
@@ -131,6 +164,26 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     public ImageAdapter getImageAdapter() {
         return mImageAdapter;
+    }
+
+    @Bindable
+    public String getNameError() {
+        return mNameError;
+    }
+
+    @Bindable
+    public String getDescriptionError() {
+        return mDescriptionError;
+    }
+
+    @Bindable
+    public String getQuantityError() {
+        return mQuantityError;
+    }
+
+    @Bindable
+    public String getPriceError() {
+        return mPriceError;
     }
 
     @Bindable

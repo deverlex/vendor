@@ -2,6 +2,7 @@ package vn.needy.vendor.screen.addProduct;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import vn.needy.vendor.data.source.local.ProductLocalDataSource;
 import vn.needy.vendor.data.source.remote.ProductRemoteDataSource;
 import vn.needy.vendor.data.source.remote.api.error.BaseException;
 import vn.needy.vendor.data.source.remote.api.error.SafetyError;
+import vn.needy.vendor.data.source.remote.api.request.AddProductRequest;
 import vn.needy.vendor.data.source.remote.api.response.BaseResponse;
 import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
 import vn.needy.vendor.utils.image.CompressImage;
@@ -59,7 +61,7 @@ public class AddProductPresenter implements AddProductContract.Presenter {
     }
 
     @Override
-    public void uploadProduct() {
+    public void uploadProduct(AddProductRequest request) {
 
     }
 
@@ -93,5 +95,25 @@ public class AddProductPresenter implements AddProductContract.Presenter {
             });
         }
 
+    }
+
+    @Override
+    public boolean validateDataInput(AddProductRequest request) {
+        boolean isValidate = true;
+        if (TextUtils.isEmpty(request.getName())) {
+
+            isValidate = false;
+        } else if (TextUtils.isEmpty(request.getDescription())
+                && request.getDescription().length() < 120) {
+
+            isValidate = false;
+        } else if (request.getQuantity() < 1) {
+
+            isValidate = false;
+        } else if (request.getPrice() <= 0f) {
+
+            isValidate = false;
+        }
+        return isValidate;
     }
 }

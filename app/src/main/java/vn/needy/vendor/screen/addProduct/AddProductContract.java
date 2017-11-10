@@ -3,6 +3,7 @@ package vn.needy.vendor.screen.addProduct;
 import java.util.List;
 
 import vn.needy.vendor.data.model.Image;
+import vn.needy.vendor.data.source.remote.api.request.AddProductRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -13,6 +14,15 @@ import vn.needy.vendor.screen.BaseViewModel;
 public interface AddProductContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
+
+        void onInputNameError(int msg);
+
+        void onInputDescriptionError(int msg);
+
+        void onInputQuantityError(int msg);
+
+        void onInputPriceError(int msg);
+
         void onClickAddImage();
 
         void onClickCreate();
@@ -26,8 +36,10 @@ public interface AddProductContract {
 
     interface Presenter extends BasePresenter {
 
-        void uploadProduct();
+        void uploadProduct(AddProductRequest request);
 
         void uploadImage(List<Image> images);
+
+        boolean validateDataInput(AddProductRequest request);
     }
 }
