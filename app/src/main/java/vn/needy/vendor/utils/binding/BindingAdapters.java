@@ -19,10 +19,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 
 import java.io.File;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.utils.ViewUtil;
 import vn.needy.vendor.utils.image.CompressImage;
 
@@ -71,6 +75,8 @@ public class BindingAdapters {
         view.setImageResource(drawable);
     }
 
+
+    // for load image from path in device's storage
     @BindingAdapter("srcPath")
     public static void loadImagePath(final ImageView imageView, final String path) {
         if (!TextUtils.isEmpty(path)) {
@@ -78,6 +84,19 @@ public class BindingAdapters {
             imageView.setImageBitmap(CompressImage.reduceSize(bmp,
                     ViewUtil.dpToPx(imageView.getContext(), 100)));
         }
+    }
+
+    // for load image from Resource server (Python)
+    @BindingAdapter("srcUri")
+    public static void loadImageUri(ImageView imageView, String url) {
+        String token = SharedPrefsImpl.getInstance()
+                .get(SharedPrefsKey.TOKEN_KEY, String.class);
+
+        GlideUrl gUri = new GlideUrl(url, new LazyHeaders.Builder()
+                .setHeader("Authorization", token).build());
+
+        Glide.with(imageView.getContext())
+                .load(gUri).into(imageView);
     }
 
     @BindingAdapter("transformationMethod")
