@@ -1,15 +1,15 @@
 package vn.needy.vendor.screen.main;
 
 import io.reactivex.disposables.CompositeDisposable;
-import vn.needy.vendor.data.source.CompanyRepository;
-import vn.needy.vendor.data.source.UserRepository;
-import vn.needy.vendor.data.source.local.CompanyLocalDataSource;
-import vn.needy.vendor.data.source.local.UserLocalDataSource;
-import vn.needy.vendor.data.source.local.realm.RealmApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
-import vn.needy.vendor.data.source.remote.UserRemoteDataSource;
-import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.api.v1.company.CompanyRepository;
+import vn.needy.vendor.api.v1.user.UserRepository;
+import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
+import vn.needy.vendor.api.v1.user.UserLocalDataSource;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
+import vn.needy.vendor.api.v1.user.UserRemoteDataSource;
+import vn.needy.vendor.service.VendorServiceClient;
 
 /**
  * Created by lion on 30/10/2017.

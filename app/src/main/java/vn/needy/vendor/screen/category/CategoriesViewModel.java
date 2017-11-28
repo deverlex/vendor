@@ -3,12 +3,11 @@ package vn.needy.vendor.screen.category;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.List;
 
-import vn.needy.vendor.data.model.Category;
-import vn.needy.vendor.data.source.remote.api.error.BaseException;
+import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.utils.navigator.Navigator;

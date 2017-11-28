@@ -5,21 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.gson.Gson;
-
-import java.util.List;
-import java.util.Map;
-
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.Category;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;

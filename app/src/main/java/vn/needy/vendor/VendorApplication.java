@@ -4,10 +4,9 @@ import android.app.Application;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import vn.needy.vendor.data.source.local.realm.DataLocalMigration;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.database.realm.DataLocalMigration;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.service.VendorServiceClient;
 
 public class VendorApplication extends Application {
 

@@ -2,20 +2,15 @@ package vn.needy.vendor.screen.main;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.UserState;
-import vn.needy.vendor.data.source.local.realm.RealmApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.screen.BaseActivity;
-import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.screen.listorder.ListOrderFragment;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.screen.notification.NotificationFragment;

@@ -2,8 +2,8 @@ package vn.needy.vendor.screen.addProduct;
 
 import java.util.List;
 
-import vn.needy.vendor.data.model.Image;
-import vn.needy.vendor.data.source.remote.api.request.AddProductRequest;
+import vn.needy.vendor.database.model.Image;
+import vn.needy.vendor.api.v1.product.request.AddProductRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

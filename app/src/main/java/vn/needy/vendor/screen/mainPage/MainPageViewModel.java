@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.RadioGroup;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.Category;
+import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.screen.addProduct.AddProductActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;

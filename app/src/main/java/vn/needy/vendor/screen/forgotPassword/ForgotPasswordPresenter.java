@@ -25,17 +25,17 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.source.UserRepository;
-import vn.needy.vendor.data.source.local.UserLocalDataSource;
-import vn.needy.vendor.data.source.local.realm.RealmApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.remote.UserRemoteDataSource;
-import vn.needy.vendor.data.source.remote.api.error.BaseException;
-import vn.needy.vendor.data.source.remote.api.error.SafetyError;
-import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
-import vn.needy.vendor.data.source.remote.api.response.BaseResponse;
-import vn.needy.vendor.data.source.remote.api.response.CertificationResponse;
-import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.api.v1.user.UserRepository;
+import vn.needy.vendor.api.v1.user.UserLocalDataSource;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.api.v1.user.UserRemoteDataSource;
+import vn.needy.vendor.error.BaseException;
+import vn.needy.vendor.error.SafetyError;
+import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
+import vn.needy.vendor.api.base.BaseResponse;
+import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
+import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.utils.Utils;
 
 /**

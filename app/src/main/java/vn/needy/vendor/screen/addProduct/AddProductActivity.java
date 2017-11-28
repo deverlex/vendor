@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.zhihu.matisse.Matisse;
 
@@ -14,9 +13,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.Image;
+import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.databinding.ActivityAddProductBinding;
 import vn.needy.vendor.screen.BaseActivity;
 

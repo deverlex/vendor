@@ -3,12 +3,10 @@ package vn.needy.vendor.screen.login;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatDelegate;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.source.local.realm.RealmApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.databinding.ActivityLoginBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;

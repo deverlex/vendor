@@ -3,12 +3,10 @@ package vn.needy.vendor.screen.registerCompany;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
@@ -26,8 +24,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import vn.needy.vendor.R;
-import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
+import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;

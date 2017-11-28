@@ -8,17 +8,15 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.Company;
-import vn.needy.vendor.data.source.CompanyRepository;
-import vn.needy.vendor.data.source.local.CompanyLocalDataSource;
-import vn.needy.vendor.data.source.local.realm.RealmApi;
-import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
-import vn.needy.vendor.data.source.remote.api.error.BaseException;
-import vn.needy.vendor.data.source.remote.api.error.SafetyError;
-import vn.needy.vendor.data.source.remote.api.request.RegisterCompanyRequest;
-import vn.needy.vendor.data.source.remote.api.request.RegisterUserRequest;
-import vn.needy.vendor.data.source.remote.api.response.CompanyResponse;
-import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.api.v1.company.CompanyRepository;
+import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
+import vn.needy.vendor.error.BaseException;
+import vn.needy.vendor.error.SafetyError;
+import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
+import vn.needy.vendor.api.v1.company.response.CompanyResponse;
+import vn.needy.vendor.service.VendorServiceClient;
 
 /**
  * Created by lion on 07/10/2017.

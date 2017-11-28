@@ -1,6 +1,6 @@
 package vn.needy.vendor.screen.forgotPassword;
 
-import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
+import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

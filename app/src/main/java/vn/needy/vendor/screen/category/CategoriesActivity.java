@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.Category;
-import vn.needy.vendor.data.source.local.realm.RealmApi;
+import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.databinding.ActivityCategoriesBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.utils.navigator.Navigator;

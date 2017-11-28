@@ -2,8 +2,8 @@ package vn.needy.vendor.screen.category;
 
 import java.util.List;
 
-import vn.needy.vendor.data.model.Category;
-import vn.needy.vendor.data.source.remote.api.error.BaseException;
+import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

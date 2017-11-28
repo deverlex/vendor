@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.Category;
+import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.databinding.ItemCategoryBinding;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 

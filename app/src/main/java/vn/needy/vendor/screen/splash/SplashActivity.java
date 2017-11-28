@@ -5,28 +5,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 
-import io.reactivex.ObservableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import io.realm.Realm;
-import vn.needy.vendor.data.model.Company;
-import vn.needy.vendor.data.source.CompanyRepository;
-import vn.needy.vendor.data.source.local.CompanyLocalDataSource;
-import vn.needy.vendor.data.source.local.realm.RealmApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.data.source.local.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.data.source.remote.CompanyRemoteDataSource;
-import vn.needy.vendor.data.source.remote.api.error.BaseException;
-import vn.needy.vendor.data.source.remote.api.error.SafetyError;
-import vn.needy.vendor.data.source.remote.api.response.CompanyResponse;
-import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.database.model.Company;
+import vn.needy.vendor.api.v1.company.CompanyRepository;
+import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
+import vn.needy.vendor.error.BaseException;
+import vn.needy.vendor.error.SafetyError;
+import vn.needy.vendor.api.v1.company.response.CompanyResponse;
+import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.screen.login.LoginActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
@@ -68,9 +64,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                if (TextUtils.isEmpty(token)) {
-//                    loginPage();
+                    loginPage();
 //                } else {
-                    gatewaySigned();
+//                    gatewaySigned();
 //                }
 //                new Navigator(SplashActivity.this).startActivity(mIntent);
                 finish();

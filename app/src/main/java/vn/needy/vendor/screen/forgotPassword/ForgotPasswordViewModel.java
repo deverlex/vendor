@@ -12,8 +12,8 @@ import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.source.remote.api.request.ResetPasswordRequest;
-import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
+import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;

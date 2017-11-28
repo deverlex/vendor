@@ -15,9 +15,9 @@ import java.util.List;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
-import vn.needy.vendor.data.model.Category;
-import vn.needy.vendor.data.model.Image;
-import vn.needy.vendor.data.source.remote.api.request.AddProductRequest;
+import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.database.model.Image;
+import vn.needy.vendor.api.v1.product.request.AddProductRequest;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.widget.GifSizeFilter;
@@ -45,6 +45,7 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
     private int mQuantity;
     private float mPrice;
     private String mPromotion;
+    private float mFeeTransport;
     private Category mCategory;
 
     private ImageAdapter mImageAdapter;
@@ -220,6 +221,24 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     public void setPrice(String price) {
         mPrice = Float.parseFloat(price);
+    }
+
+    @Bindable
+    public float getFeeTransport() {
+        return mFeeTransport;
+    }
+
+    public void setFeeTransport(float feeTransport) {
+        mFeeTransport = feeTransport;
+    }
+
+    @Bindable
+    public String getPromotion() {
+        return mPromotion;
+    }
+
+    public void setPromotion(String promotion) {
+        mPromotion = promotion;
     }
 
     @Bindable

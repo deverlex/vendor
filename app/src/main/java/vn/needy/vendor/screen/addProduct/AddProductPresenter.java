@@ -16,15 +16,15 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import vn.needy.vendor.data.model.Image;
-import vn.needy.vendor.data.source.ProductRepository;
-import vn.needy.vendor.data.source.local.ProductLocalDataSource;
-import vn.needy.vendor.data.source.remote.ProductRemoteDataSource;
-import vn.needy.vendor.data.source.remote.api.error.BaseException;
-import vn.needy.vendor.data.source.remote.api.error.SafetyError;
-import vn.needy.vendor.data.source.remote.api.request.AddProductRequest;
-import vn.needy.vendor.data.source.remote.api.response.BaseResponse;
-import vn.needy.vendor.data.source.remote.api.service.VendorServiceClient;
+import vn.needy.vendor.database.model.Image;
+import vn.needy.vendor.api.v1.product.ProductRepository;
+import vn.needy.vendor.api.v1.product.ProductLocalDataSource;
+import vn.needy.vendor.api.v1.product.ProductRemoteDataSource;
+import vn.needy.vendor.error.BaseException;
+import vn.needy.vendor.error.SafetyError;
+import vn.needy.vendor.api.v1.product.request.AddProductRequest;
+import vn.needy.vendor.api.base.BaseResponse;
+import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.utils.image.CompressImage;
 
 /**
