@@ -190,4 +190,10 @@
     <string name="replace_image">Thay ảnh</string>
     <string name="edit_image">Sửa ảnh</string>
 
+    <string name="complain">Khiếu nại</string>
+    <string name="complain_content">Nội dung khiếu nại</string>
+    <string name="complain_choose_order">Đơn hàng</string>
+    <string name="complain_choose_order_expand">Chọn để khiếu nại</string>
+
+    <string name="complain_add_image">Thêm ảnh mô tả</string>
 </resources>

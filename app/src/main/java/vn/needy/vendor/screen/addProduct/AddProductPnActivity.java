@@ -15,7 +15,7 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Image;
-import vn.needy.vendor.databinding.ActivityAddProductBinding;
+import vn.needy.vendor.databinding.ActivityAddProductPnBinding;
 import vn.needy.vendor.screen.BaseActivity;
 
 /**
@@ -39,7 +39,7 @@ public class AddProductPnActivity extends BaseActivity {
         AddProductPnContract.Presenter presenter = new AddProductPnPresenter(this, mViewModel);
         mViewModel.setPresenter(presenter);
 
-        ActivityAddProductBinding binding =
+        ActivityAddProductPnBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_add_product_pn);
         binding.setViewModel((AddProductPnViewModel) mViewModel);
     }

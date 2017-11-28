@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="@dimen/dp_3"
+    app:cardCornerRadius="@dimen/dp_3"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:id="@+id/image_product"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:background="@drawable/ic_placeholder"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            tools:ignore="ContentDescription"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:ellipsize="marquee"
+            android:maxLines="2"
+            android:lineSpacingExtra="@dimen/dp_4"
+            android:padding="@dimen/dp_5"
+            android:text="Product name\nfffffff"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_5"
+                android:text="đ 209.000"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/sp_17"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:drawableLeft="@drawable/ic_trunk_mini"
+                android:drawablePadding="@dimen/dp_5"
+                android:drawableStart="@drawable/ic_trunk_mini"
+                android:text="miễn phí"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_14"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp_5"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:isIndicator="true"
+                android:rating="4.5"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="(200)"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_14"
+                android:layout_toRightOf="@+id/rating"
+                android:padding="@dimen/dp_5"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="Đã bán 60"
+                android:textColor="@color/gray70"
+                android:textSize="@dimen/sp_14"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp_5"/>
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
