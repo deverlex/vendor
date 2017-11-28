@@ -11,8 +11,8 @@ import vn.needy.vendor.data.model.BaseModel;
 
 public class BaseResponse extends BaseModel {
     @Expose
-    @SerializedName("status")
-    private int mStatus;
+    @SerializedName("success")
+    private boolean mSuccess;
     @Expose
     @SerializedName("message")
     private String mMessage;
@@ -21,13 +21,6 @@ public class BaseResponse extends BaseModel {
         super();
     }
 
-    public int getStatus() {
-        return mStatus;
-    }
-
-    public void setStatus(int status) {
-        mStatus = status;
-    }
 
     public String getMessage() {
         return mMessage;
