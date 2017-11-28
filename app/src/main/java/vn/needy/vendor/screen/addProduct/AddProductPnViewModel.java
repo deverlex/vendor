@@ -22,18 +22,18 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.widget.GifSizeFilter;
 
-import static vn.needy.vendor.screen.addProduct.AddProductActivity.REQUEST_CODE_CHOOSE;
+import static vn.needy.vendor.screen.addProduct.AddProductPnActivity.REQUEST_CODE_CHOOSE;
 
 /**
  * Created by lion on 08/11/2017.
  */
-public class AddProductViewModel extends BaseObservable implements AddProductContract.ViewModel,
+public class AddProductPnViewModel extends BaseObservable implements AddProductPnContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
-    private static final String TAG = AddProductViewModel.class.getName();
+    private static final String TAG = AddProductPnViewModel.class.getName();
     private final Context mContext;
 
-    private AddProductContract.Presenter mPresenter;
+    private AddProductPnContract.Presenter mPresenter;
 
     private String mNameError;
     private String mDescriptionError;
@@ -52,7 +52,7 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
 
     private boolean mVisibleImages;
 
-    public AddProductViewModel(Context context, ImageAdapter imageAdapter) {
+    public AddProductPnViewModel(Context context, ImageAdapter imageAdapter) {
         mContext = context;
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
@@ -71,7 +71,7 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
     }
 
     @Override
-    public void setPresenter(AddProductContract.Presenter presenter) {
+    public void setPresenter(AddProductPnContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
@@ -105,7 +105,7 @@ public class AddProductViewModel extends BaseObservable implements AddProductCon
         if (mImageAdapter.getItemCount() > 0) {
             limitSelectable = Constant.MAX_IMAGES_PUSH - mImageAdapter.getItemCount();
         }
-        Matisse.from((AddProductActivity) mContext)
+        Matisse.from((AddProductPnActivity) mContext)
                 .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))
                 .countable(true)
                 .maxSelectable(limitSelectable)

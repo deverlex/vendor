@@ -31,17 +31,17 @@ import vn.needy.vendor.utils.image.CompressImage;
  * Created by lion on 08/11/2017.
  */
 
-public class AddProductPresenter implements AddProductContract.Presenter {
+public class AddProductPnPresenter implements AddProductPnContract.Presenter {
 
-    private static final String TAG = AddProductPresenter.class.getName();
+    private static final String TAG = AddProductPnPresenter.class.getName();
 
     private final Context mContext;
-    private final AddProductContract.ViewModel mViewModel;
+    private final AddProductPnContract.ViewModel mViewModel;
 
     private final CompositeDisposable mCompositeDisposable;
     private final ProductRepository mProductRepository;
 
-    public AddProductPresenter(Context context, AddProductContract.ViewModel viewModel) {
+    public AddProductPnPresenter(Context context, AddProductPnContract.ViewModel viewModel) {
         mContext = context;
         mViewModel = viewModel;
 

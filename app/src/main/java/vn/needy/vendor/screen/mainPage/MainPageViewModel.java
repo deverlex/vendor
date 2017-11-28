@@ -8,7 +8,7 @@ import android.widget.RadioGroup;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.screen.addProduct.AddProductActivity;
+import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 import vn.needy.vendor.screen.mainPage.MainPageFragment.ProductType;
@@ -67,7 +67,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     public void onClickAddProduct() {
         Bundle bundle = new Bundle();
         bundle.putInt(MainPageFragment.PRODUCT_TYPE, mProductType);
-        mNavigator.startActivity(AddProductActivity.class, bundle);
+        mNavigator.startActivity(AddProductPnActivity.class, bundle);
     }
 
     @Override

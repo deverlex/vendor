@@ -22,11 +22,11 @@ import vn.needy.vendor.screen.BaseActivity;
  * Created by lion on 08/11/2017.
  */
 
-public class AddProductActivity extends BaseActivity {
+public class AddProductPnActivity extends BaseActivity {
 
-    private static final String TAG = AddProductActivity.class.getName();
+    private static final String TAG = AddProductPnActivity.class.getName();
 
-    private AddProductContract.ViewModel mViewModel;
+    private AddProductPnContract.ViewModel mViewModel;
     public static final int REQUEST_CODE_CHOOSE = 2682;
 
     @Override
@@ -35,13 +35,13 @@ public class AddProductActivity extends BaseActivity {
         List<Image> images = new ArrayList<>();
         ImageAdapter imageAdapter = new ImageAdapter(this, images);
 
-        mViewModel = new AddProductViewModel(this, imageAdapter);
-        AddProductContract.Presenter presenter = new AddProductPresenter(this, mViewModel);
+        mViewModel = new AddProductPnViewModel(this, imageAdapter);
+        AddProductPnContract.Presenter presenter = new AddProductPnPresenter(this, mViewModel);
         mViewModel.setPresenter(presenter);
 
         ActivityAddProductBinding binding =
-                DataBindingUtil.setContentView(this, R.layout.activity_add_product);
-        binding.setViewModel((AddProductViewModel) mViewModel);
+                DataBindingUtil.setContentView(this, R.layout.activity_add_product_pn);
+        binding.setViewModel((AddProductPnViewModel) mViewModel);
     }
 
     @Override
