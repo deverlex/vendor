@@ -3,6 +3,7 @@ package vn.needy.vendor.screen.personal;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import vn.needy.vendor.screen.userProfile.UserProfileActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -42,7 +43,7 @@ public class PersonalViewModel extends BaseObservable implements PersonalConstra
 
     @Override
     public void onClickViewAccount() {
-
+        mNavigator.startActivity(UserProfileActivity.class);
     }
 
     @Override

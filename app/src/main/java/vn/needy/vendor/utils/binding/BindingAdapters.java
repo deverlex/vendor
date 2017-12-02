@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.TransformationMethod;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,6 +19,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.views.BannerSlider;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.utils.ViewUtil;
@@ -38,7 +44,7 @@ public class BindingAdapters {
     /**
      * setAdapter For RecyclerView
      */
-    @BindingAdapter({ "recyclerAdapter" })
+    @BindingAdapter({"recyclerAdapter"})
     public static void setAdapterForRecyclerView(RecyclerView recyclerView,
                                                  RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
@@ -57,7 +63,7 @@ public class BindingAdapters {
     @BindingAdapter("htmlText")
     public static void setHtmlText(TextView textView, String text) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            textView.setText(Html.fromHtml(text,Html.FROM_HTML_MODE_LEGACY));
+            textView.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
         } else {
             textView.setText(Html.fromHtml(text));
         }
@@ -101,5 +107,12 @@ public class BindingAdapters {
     public static void setLayoutManager(RecyclerView recyclerView,
                                         LayoutManagers.LayoutManagerFactory layoutManagerFactory) {
         recyclerView.setLayoutManager(layoutManagerFactory.create(recyclerView));
+    }
+
+    @BindingAdapter("bannersrc")
+    public static void setBanners(BannerSlider bannerSlider, List<Banner> banners) {
+        if (banners != null) {
+            bannerSlider.setBanners(banners);
+        }
     }
 }

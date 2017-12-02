@@ -58,6 +58,7 @@
             android:paddingTop="@dimen/dp_10">
 
             <RelativeLayout
+                android:onClick="@{() -> viewModel.onClickViewAccount()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
