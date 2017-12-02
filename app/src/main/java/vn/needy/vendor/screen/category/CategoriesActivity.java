@@ -28,6 +28,9 @@ public class CategoriesActivity extends BaseActivity {
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
+
+
+
         mNavigator = new Navigator(this);
         mRealmApi = new RealmApi();
 
@@ -39,8 +42,7 @@ public class CategoriesActivity extends BaseActivity {
         mViewModel.setPresenter(presenter);
         presenter.onStart();
 
-        ActivityCategoriesBinding
-          binding =
+        ActivityCategoriesBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_categories);
         binding.setViewModel((CategoriesViewModel) mViewModel);
     }
