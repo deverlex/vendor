@@ -1,5 +1,8 @@
 package vn.needy.vendor.screen.userProfile;
 
+import java.util.List;
+
+import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -10,9 +13,11 @@ import vn.needy.vendor.screen.BaseViewModel;
 public class UserProfileContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void onClickEdit();
+
+        void setBanners(List<Banner> banners);
     }
 
     interface Presenter extends BasePresenter {
-
+        void getCoverPictures();
     }
 }

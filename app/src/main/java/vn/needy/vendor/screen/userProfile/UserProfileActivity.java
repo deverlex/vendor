@@ -17,18 +17,19 @@ import vn.needy.vendor.screen.BaseActivity;
  */
 
 public class UserProfileActivity extends BaseActivity{
+
     private UserProfileContract.ViewModel mViewModel;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         super.onCreateActivity(savedInstanceState);
+
         mViewModel = new UserProfileViewModel();
 
-        List<Banner> banners = new ArrayList<>();
-        banners.add(new RemoteBanner("https://techent.tv/wp-content/uploads/2015/11/Banner.jpg"));
-        banners.add(new RemoteBanner("https://techent.tv/wp-content/uploads/2015/11/Banner.jpg"));
-        banners.add(new RemoteBanner("https://techent.tv/wp-content/uploads/2015/11/Banner.jpg"));
-        ((UserProfileViewModel) mViewModel).setBanners(banners);
+        UserProfileContract.Presenter presenter = new UserProfilePresenter(mViewModel);
+        mViewModel.setPresenter(presenter);
+        // will active some actions
+        mViewModel.onStart();
 
         ActivityUserProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile);
         binding.setViewModel((UserProfileViewModel) mViewModel);

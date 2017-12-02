@@ -17,16 +17,22 @@ import vn.needy.vendor.R;
  */
 
 public class UserProfileViewModel extends BaseObservable implements UserProfileContract.ViewModel{
+
+    private UserProfileContract.Presenter mPresenter;
+
     private List<Banner> mBanners;
     private boolean mEnable;
     private int mDrawableEdit;
 
     public UserProfileViewModel() {
-        mDrawableEdit = R.drawable.ic_edits;
+        mDrawableEdit = R.drawable.ic_edits_white;
+
+        // load cover pictures
     }
 
     @Override
     public void onStart() {
+        mPresenter.getCoverPictures();
 
     }
 
@@ -37,7 +43,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
 
     @Override
     public void setPresenter(UserProfileContract.Presenter presenter) {
-
+        mPresenter = presenter;
     }
 
     @Override
@@ -58,8 +64,10 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
         return mBanners;
     }
 
-    public void setBanners(List<Banner> mBanners) {
-        this.mBanners = mBanners;
+    @Override
+    public void setBanners(List<Banner> banners) {
+        mBanners = banners;
+        notifyPropertyChanged(BR.banners);
     }
 
     @Bindable
