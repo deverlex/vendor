@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.ViewConfiguration;
 
@@ -56,7 +55,7 @@ public class BaseActivity  extends AppCompatActivity {
         }
     }
 
-    protected void prepareCreate(){}
+    protected void prepareCreate() {}
 
     protected void onCreateActivity(Bundle savedInstanceState) {}
 

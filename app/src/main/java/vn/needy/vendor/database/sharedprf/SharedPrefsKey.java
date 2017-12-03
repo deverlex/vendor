@@ -8,10 +8,8 @@ public final class SharedPrefsKey {
     public static final String TOKEN_KEY = "TOKEN_KEY";
     public static final String KEY_CREDENTIAL = "CREDENTIAL_KEY";
 
-    public static final String COMPANY_NUMBER = "COMPANY_NUMBER";
-    public static final String USER_STATE = "USER_STATE";
-
-    public static final String CURRENT_CATEGORY = "CURRENT_CATEGORY";
+    public static final String CURRENT_CATEGORY = "current_category";
+    public static final String PRODUCT_TYPE_CHOOSE = "product_type_choose";
 
     private SharedPrefsKey() {
         // No-op
