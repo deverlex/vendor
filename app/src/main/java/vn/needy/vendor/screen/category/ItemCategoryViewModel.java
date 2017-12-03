@@ -27,7 +27,7 @@ public class ItemCategoryViewModel extends BaseObservable {
     public String getTitleCategory() {
         Log.w(TAG, "getTitleCategory()");
         if (mCategory != null) {
-            return mCategory.getCategory();
+            return mCategory.getName();
         }
         return "";
     }

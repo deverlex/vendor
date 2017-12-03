@@ -4,11 +4,13 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.widget.RadioGroup;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -28,17 +30,28 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     private String mCategoryTitle;
     private String mCategory;
 
-    private int mProductType;
+    private SharedPrefsApi mPrefsApi;
 
-    public MainPageViewModel(Context context, Navigator navigator, Category category) {
+    private int mProductType;
+    private boolean mIsPlChecked;
+
+    public MainPageViewModel(Context context, Navigator navigator, SharedPrefsApi prefsApi, Category category) {
         mContext = context;
         mNavigator = navigator;
         // default of product type is pn - because UI set it is checked.
-        mProductType = R.id.price_now;
+        mPrefsApi = prefsApi;
+        int productType = mPrefsApi.get(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, Integer.class);
+        mProductType = productType > 0 ? productType : R.id.price_now;
+
+        if (mProductType == R.id.price_later) {
+            mIsPlChecked = true;
+        } else {
+            mIsPlChecked = false;
+        }
 
         if (category != null) {
-            mCategory = category.getCategory();
-            mCategoryTitle = category.getCategory();
+            mCategory = category.getName();
+            mCategoryTitle = category.getName();
         } else {
             mCategoryTitle = mContext.getString(R.string.all_category);
         }
@@ -62,6 +75,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
         mProductType = id;
+        mPrefsApi.put(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, mProductType);
     }
 
     @Override
@@ -82,5 +96,13 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     @Bindable
     public String getCategoryTitle() {
         return mCategoryTitle;
+    }
+
+    public boolean isPlChecked() {
+        return mIsPlChecked;
+    }
+
+    public void setPlChecked(boolean plChecked) {
+        mIsPlChecked = plChecked;
     }
 }

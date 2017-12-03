@@ -64,9 +64,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                if (TextUtils.isEmpty(token)) {
-                    loginPage();
+//                    loginPage();
 //                } else {
-//                    gatewaySigned();
+                    gatewaySigned();
 //                }
 //                new Navigator(SplashActivity.this).startActivity(mIntent);
                 finish();
@@ -79,6 +79,8 @@ public class SplashActivity extends AppCompatActivity {
     // -> save company info and redirect to main
     // -> go to register company
     private void gatewaySigned() {
+        // will check each login app because user maybe remove by ceo/manager
+        // if connect has error, redirect to main page
         Disposable disposable = mCompanyRepository.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -103,30 +105,28 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void loginPage() {
-        mIntent = new Intent(SplashActivity.this, LoginActivity.class);
-        startActivityWithAnim(mIntent);
+        mIntent = new Intent(this, LoginActivity.class);
+        mNavigator.startActivity(mIntent);
+        mNavigator.finishActivity();
     }
 
     private void registerCompany() {
-        mIntent = new Intent(SplashActivity.this, RegisterCompanyActivity.class);
-        startActivityWithAnim(mIntent);
+        mIntent = new Intent(this, RegisterCompanyActivity.class);
+        mNavigator.startActivity(mIntent);
+        mNavigator.finishActivity();
     }
 
     public void mainPage() {
-        mIntent = new Intent(SplashActivity.this, MainActivity.class);
-        startActivityWithAnim(mIntent);
-    }
-
-    private void startActivityWithAnim(Intent intent) {
-        mNavigator.startActivity(intent);
-        //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        mIntent = new Intent(this, MainActivity.class);
+        mNavigator.startActivity(mIntent);
+        mNavigator.finishActivity();
     }
 
     private void saveCompany(Company company) {
         mCompanyRepository.saveCompany(company);
     }
 
-    // We will get it and refresh, if fail -> relogin
+    // We will get it and refresh, if fail -> re-login
     private String getToken(SharedPrefsApi prefsApi) {
         return prefsApi.get(SharedPrefsKey.TOKEN_KEY, String.class);
     }

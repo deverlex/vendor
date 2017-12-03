@@ -24,7 +24,7 @@ import vn.needy.vendor.screen.BaseActivity;
 
 public class AddProductPnActivity extends BaseActivity {
 
-    private static final String TAG = AddProductPnActivity.class.getName();
+    public static final String CLASS = AddProductPnActivity.class.getName();
 
     private AddProductPnContract.ViewModel mViewModel;
     public static final int REQUEST_CODE_CHOOSE = 2682;

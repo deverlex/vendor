@@ -80,7 +80,7 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
     public void onItemRecyclerViewClick(Object item) {
         if (item instanceof Category) {
             mCategory = (Category) item;
-            mPresenter.getListSubCategories(mCategory.getCategory());
+            mPresenter.getListSubCategories(mCategory.getName());
         }
     }
 
