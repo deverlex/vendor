@@ -121,7 +121,9 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
 
     private void backActivity() {
         Intent intent = new Intent();
-        intent.getExtras().putParcelable(CategoriesActivity.CATEGORY, mCategory);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(CategoriesActivity.CATEGORY, mCategory);
+        intent.putExtras(bundle);
         mNavigator.finishActivity(CategoriesActivity.RESULT_CHANGE_OK, intent);
     }
 

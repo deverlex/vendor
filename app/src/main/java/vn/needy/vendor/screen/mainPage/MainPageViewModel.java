@@ -5,10 +5,15 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.RadioGroup;
 
+import io.reactivex.ObservableEmitter;
+import io.reactivex.functions.BiConsumer;
+import io.realm.Realm;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
@@ -35,7 +40,8 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     private int mProductType;
     private boolean mIsPlChecked;
 
-    public MainPageViewModel(Context context, Navigator navigator, SharedPrefsApi prefsApi, Category category) {
+    public MainPageViewModel(Context context, Navigator navigator, RealmApi realmApi,
+                             SharedPrefsApi prefsApi, final Category category) {
         mContext = context;
         mNavigator = navigator;
         // default of product type is pn - because UI set it is checked.
@@ -52,6 +58,13 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         if (category != null) {
             mCategory = category.getName();
             mCategoryTitle = category.getName();
+            // save category to realm db
+            realmApi.realmTransactionAsync(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
+                @Override
+                public void accept(ObservableEmitter<? super Object> observableEmitter, Realm realm) throws Exception {
+                    realm.insertOrUpdate(category);
+                }
+            });
         } else {
             mCategoryTitle = mContext.getString(R.string.all_category);
         }
