@@ -100,6 +100,11 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     }
 
     @Override
+    public void onChooseCategory() {
+        
+    }
+
+    @Override
     public void onClickAddImage() {
         int limitSelectable = 1;
         if (mImageAdapter.getItemCount() > 0) {

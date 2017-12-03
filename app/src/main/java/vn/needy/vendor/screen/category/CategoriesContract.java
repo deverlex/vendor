@@ -18,10 +18,12 @@ public interface CategoriesContract {
 
         void onGetListCategoryError(BaseException exception);
 
-        void onGetProductOfCompany();
+        void onGetProductCompany();
     }
 
     interface Presenter extends BasePresenter {
+
+        void getCategoryCompany();
 
         void getListCategory();
 

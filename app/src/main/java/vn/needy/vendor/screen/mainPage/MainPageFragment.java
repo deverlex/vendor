@@ -27,6 +27,8 @@ public class MainPageFragment extends Fragment {
         return new MainPageFragment();
     }
 
+    public static final String PRODUCT_PN = "price_now";
+    public static final String PRODUCT_PL = "price_later";
     public static final String PRODUCT_TYPE = "_product_type";
 
     private MainPageConstract.ViewModel mViewModel;

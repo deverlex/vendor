@@ -20,6 +20,8 @@ import vn.needy.vendor.utils.navigator.Navigator;
 public class CategoriesActivity extends BaseActivity {
 
     public static final String CATEGORY = "_category";
+    public static final String SOURCE_CATEGORY = "_source_category";
+    public static final String FROM_CLASS = "_from_class";
 
     private CategoriesContract.ViewModel mViewModel;
 
@@ -28,9 +30,6 @@ public class CategoriesActivity extends BaseActivity {
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
-
-
-
         mNavigator = new Navigator(this);
         mRealmApi = new RealmApi();
 
@@ -40,7 +39,7 @@ public class CategoriesActivity extends BaseActivity {
 
         CategoriesContract.Presenter presenter = new CategoriesPresenter(mViewModel, mRealmApi);
         mViewModel.setPresenter(presenter);
-        presenter.onStart();
+        mViewModel.onStart();
 
         ActivityCategoriesBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_categories);

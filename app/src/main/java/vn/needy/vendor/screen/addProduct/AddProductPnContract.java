@@ -23,6 +23,8 @@ public interface AddProductPnContract {
 
         void onInputPriceError(int msg);
 
+        void onChooseCategory();
+
         void onClickAddImage();
 
         void onClickCreate();
