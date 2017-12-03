@@ -4,8 +4,6 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.RadioGroup;
 
 import io.reactivex.ObservableEmitter;
@@ -16,6 +14,7 @@ import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -93,9 +92,11 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
     @Override
     public void onClickAddProduct() {
-        Bundle bundle = new Bundle();
-        bundle.putInt(MainPageFragment.PRODUCT_TYPE, mProductType);
-        mNavigator.startActivity(AddProductPnActivity.class, bundle);
+        if (mProductType == R.id.price_now) {
+            mNavigator.startActivity(AddProductPnActivity.class);
+        } else {
+            mNavigator.startActivity(AddProductPlActivity.class);
+        }
     }
 
     @Override

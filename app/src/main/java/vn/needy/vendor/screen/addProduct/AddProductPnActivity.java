@@ -17,6 +17,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.databinding.ActivityAddProductPnBinding;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.screen.ImageAdapter;
 
 /**
  * Created by lion on 08/11/2017.

@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.addProduct;
+package vn.needy.vendor.screen;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -13,7 +13,6 @@ import java.util.List;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.databinding.ItemImageBinding;
-import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
  * Created by lion on 08/11/2017.

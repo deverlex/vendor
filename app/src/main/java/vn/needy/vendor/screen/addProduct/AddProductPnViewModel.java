@@ -19,6 +19,7 @@ import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.api.v1.product.request.AddProductRequest;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
+import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.widget.GifSizeFilter;
 

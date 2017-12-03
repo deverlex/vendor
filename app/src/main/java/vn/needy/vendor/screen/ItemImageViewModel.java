@@ -1,10 +1,9 @@
-package vn.needy.vendor.screen.addProduct;
+package vn.needy.vendor.screen;
 
 import android.databinding.BaseObservable;
 import android.util.Log;
 
 import vn.needy.vendor.database.model.Image;
-import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
  * Created by lion on 08/11/2017.
