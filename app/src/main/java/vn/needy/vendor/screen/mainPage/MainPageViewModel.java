@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import vn.needy.vendor.R;
@@ -11,13 +12,14 @@ import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
-import vn.needy.vendor.screen.mainPage.MainPageFragment.ProductType;
 
 /**
  * Created by lion on 23/10/2017.
  */
 
 public class MainPageViewModel extends BaseObservable implements MainPageConstract.ViewModel {
+
+    private static final String TAG = MainPageViewModel.class.getName();
 
     private final Context mContext;
     private final Navigator mNavigator;
@@ -31,6 +33,9 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     public MainPageViewModel(Context context, Navigator navigator, Category category) {
         mContext = context;
         mNavigator = navigator;
+        // default of product type is pn - because UI set it is checked.
+        mProductType = R.id.price_now;
+
         if (category != null) {
             mCategory = category.getCategory();
             mCategoryTitle = category.getCategory();
@@ -56,11 +61,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
-        if (id == R.id.price_now) {
-            mProductType = ProductType.PRICE_NOW;
-        } else if (id == R.id.price_later) {
-            mProductType = ProductType.PRICE_LATER;
-        }
+        mProductType = id;
     }
 
     @Override
@@ -72,7 +73,10 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
     @Override
     public void onClickCategories() {
-        mNavigator.startActivity(CategoriesActivity.class);
+        Bundle extras = new Bundle();
+        extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.CLASS);
+        extras.putInt(CategoriesActivity.SOURCE_CATEGORY, mProductType);
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.REQUEST_CODE);
     }
 
     @Bindable

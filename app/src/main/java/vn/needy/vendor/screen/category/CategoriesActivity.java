@@ -19,6 +19,9 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class CategoriesActivity extends BaseActivity {
 
+    public static final int RESULT_CHANGE_OK = 1101;
+    public static final int RESULT_NOT_CHANGE = 1102;
+
     public static final String CATEGORY = "_category";
     public static final String SOURCE_CATEGORY = "_source_category";
     public static final String FROM_CLASS = "_from_class";
@@ -56,4 +59,9 @@ public class CategoriesActivity extends BaseActivity {
         super.onStop();
     }
 
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_NOT_CHANGE);
+        finish();
+    }
 }

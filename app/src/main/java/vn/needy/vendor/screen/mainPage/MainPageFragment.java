@@ -21,14 +21,13 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class MainPageFragment extends Fragment {
 
-    private static final String TAG = MainPageFragment.class.getName();
+    public static final String CLASS = MainPageFragment.class.getName();
 
     public static MainPageFragment getInstance() {
         return new MainPageFragment();
     }
 
-    public static final String PRODUCT_PN = "price_now";
-    public static final String PRODUCT_PL = "price_later";
+    public static final int REQUEST_CODE = 1001;
     public static final String PRODUCT_TYPE = "_product_type";
 
     private MainPageConstract.ViewModel mViewModel;
@@ -50,9 +49,4 @@ public class MainPageFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @IntDef({ProductType.PRICE_NOW, ProductType.PRICE_LATER})
-    @interface ProductType {
-        int PRICE_NOW = 1;
-        int PRICE_LATER = 2;
-    }
 }
