@@ -25,7 +25,7 @@ public class ImageAdapter extends BaseRecyclerViewAdapter<ImageAdapter.ItemViewH
     private final List<Image> mImages;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected ImageAdapter(@NonNull Context context, List<Image> images) {
+    public ImageAdapter(@NonNull Context context, List<Image> images) {
         super(context);
         mImages = images;
     }
@@ -40,7 +40,6 @@ public class ImageAdapter extends BaseRecyclerViewAdapter<ImageAdapter.ItemViewH
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder? " + mImages.get(position).getUrl());
         holder.bind(mImages.get(position));
     }
     @Override

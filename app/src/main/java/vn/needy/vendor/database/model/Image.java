@@ -1,7 +1,11 @@
 package vn.needy.vendor.database.model;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -26,22 +30,37 @@ public class Image implements Parcelable {
 
     @Expose
     @SerializedName("url")
-    private String mUrl;
+    private String mUri;
 
-    public Image(String url) {
-        mUrl = url;
+    private Context mContext;
+
+    public Image() {
+        super();
+    }
+
+    public Image(Context context, String uri) {
+        mUri = uri;
+        mContext = context;
     }
 
     protected Image(Parcel in) {
-        mUrl = in.readString();
+        mUri = in.readString();
     }
 
-    public String getUrl() {
-        return mUrl;
+    public String getUri() {
+        return mUri;
     }
 
-    public void setUrl(String url) {
-        mUrl = url;
+    public void setUri(String uri) {
+        mUri = uri;
+    }
+
+    public String getPath() {
+        Cursor cursor = mContext.getContentResolver().query(Uri.parse(mUri),
+                null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
     }
 
     @Override
@@ -51,6 +70,6 @@ public class Image implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mUrl);
+        dest.writeString(mUri);
     }
 }

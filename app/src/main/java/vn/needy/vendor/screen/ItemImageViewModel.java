@@ -25,7 +25,7 @@ public class ItemImageViewModel extends BaseObservable {
     public String getImagePath() {
         Log.w(TAG, "getImagePath()");
         if (mImage != null) {
-            return mImage.getUrl();
+            return mImage.getPath();
         }
         return "";
     }
