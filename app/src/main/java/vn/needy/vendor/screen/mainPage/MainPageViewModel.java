@@ -47,12 +47,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         mPrefsApi = prefsApi;
         int productType = mPrefsApi.get(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, Integer.class);
         mProductType = productType > 0 ? productType : R.id.price_now;
-
-        if (mProductType == R.id.price_later) {
-            mIsPlChecked = true;
-        } else {
-            mIsPlChecked = false;
-        }
+        mIsPlChecked = mProductType == R.id.price_later;
 
         if (category != null) {
             mCategory = category;
@@ -87,10 +82,16 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
     @Override
     public void onClickAddProduct() {
+        // send category to add product activity
+        Bundle extras = new Bundle();
+        if (mCategory != null) {
+            extras.putParcelable(MainPageFragment.CATEGORY, mCategory);
+        }
+
         if (mProductType == R.id.price_now) {
-            mNavigator.startActivity(AddProductPnActivity.class);
+            mNavigator.startActivity(AddProductPnActivity.class, extras);
         } else {
-            mNavigator.startActivity(AddProductPlActivity.class);
+            mNavigator.startActivity(AddProductPlActivity.class, extras);
         }
     }
 
