@@ -3,7 +3,7 @@ package vn.needy.vendor.screen.addProduct;
 import java.util.List;
 
 import vn.needy.vendor.database.model.Image;
-import vn.needy.vendor.api.v1.product.request.AddProductRequest;
+import vn.needy.vendor.api.v1.product.request.AddProductPnRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -38,10 +38,8 @@ public interface AddProductPnContract {
 
     interface Presenter extends BasePresenter {
 
-        void uploadProduct(AddProductRequest request);
+        void uploadProduct(AddProductPnRequest request, List<Image> images);
 
-        void uploadImage(List<Image> images);
-
-        boolean validateDataInput(AddProductRequest request);
+        boolean validateDataInput(AddProductPnRequest request);
     }
 }

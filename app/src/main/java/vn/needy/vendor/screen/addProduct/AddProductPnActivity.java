@@ -1,11 +1,9 @@
 package vn.needy.vendor.screen.addProduct;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 
 import com.zhihu.matisse.Matisse;
 
@@ -51,17 +49,10 @@ public class AddProductPnActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             List<Image> images = new LinkedList<>();
             for (Uri uri : Matisse.obtainResult(data)) {
-                images.add(new Image(getRealPathFromURI(uri)));
+                images.add(new Image(this, uri.toString()));
             }
             // Update images view
             mViewModel.onSelectedListImages(images);
         }
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
     }
 }

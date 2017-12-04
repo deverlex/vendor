@@ -15,9 +15,9 @@ import java.util.List;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
+import vn.needy.vendor.api.v1.product.request.AddProductPnRequest;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.model.Image;
-import vn.needy.vendor.api.v1.product.request.AddProductRequest;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.utils.Constant;
@@ -126,13 +126,8 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Override
     public void onClickCreate() {
-        AddProductRequest request = new AddProductRequest();
-        mPresenter.uploadProduct(request);
-
-        //mPresenter.uploadImage(mImageAdapter.getImages());
-//        Log.w(TAG, mName);
-//        Log.w(TAG, mDescription);
-//        Log.w(TAG, String.valueOf(mPrice));
+        AddProductPnRequest request = new AddProductPnRequest();
+        mPresenter.uploadProduct(request, mImageAdapter.getImages());
     }
 
     @Override
