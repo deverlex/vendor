@@ -89,6 +89,7 @@ public class BaseActivity  extends AppCompatActivity {
                 android.R.anim.fade_in, android.R.anim.fade_out);
         transaction.replace(target, fragment)
                 .commit();
+        transaction.addToBackStack(fragment.getClass().getName());
         return fragment;
     }
 
