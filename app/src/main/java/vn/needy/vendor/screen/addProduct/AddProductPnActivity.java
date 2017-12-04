@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import com.zhihu.matisse.Matisse;
 
@@ -26,7 +29,8 @@ public class AddProductPnActivity extends BaseActivity {
     public static final String CLASS = AddProductPnActivity.class.getName();
 
     private AddProductPnContract.ViewModel mViewModel;
-    public static final int REQUEST_CODE_CHOOSE = 2682;
+    public static final int RC_CHOOSE_IMAGE = 2682;
+    public static final int RC_CHOOSE_CATEGORY = 1782;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -43,15 +47,23 @@ public class AddProductPnActivity extends BaseActivity {
     }
 
     @Override
+    public Fragment initFragment(@IdRes int target,
+                                 @NonNull Fragment fragment) {
+        return super.initFragment(target, fragment);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
+        if (requestCode == RC_CHOOSE_IMAGE && resultCode == RESULT_OK) {
             List<Image> images = new LinkedList<>();
             for (Uri uri : Matisse.obtainResult(data)) {
                 images.add(new Image(this, uri.toString()));
             }
             // Update images view
             mViewModel.onSelectedListImages(images);
+        } else if (requestCode == RC_CHOOSE_CATEGORY) {
+
         }
     }
 }

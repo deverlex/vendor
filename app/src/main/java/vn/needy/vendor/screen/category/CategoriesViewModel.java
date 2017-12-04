@@ -90,7 +90,7 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
         // if it is price_now/price_later then back to main
 
 //        Activity activity = (Activity) mContext;
-//        activity.setResult(CategoriesActivity.RESULT_CHANGE_OK);
+//        activity.setResult(CategoriesActivity.RC_OK);
 //        activity.finish();
     }
 
@@ -124,7 +124,7 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
         Bundle bundle = new Bundle();
         bundle.putParcelable(CategoriesActivity.CATEGORY, mCategory);
         intent.putExtras(bundle);
-        mNavigator.finishActivity(CategoriesActivity.RESULT_CHANGE_OK, intent);
+        mNavigator.finishActivity(CategoriesActivity.RC_OK, intent);
     }
 
     public CategoryAdapter getCategoryAdapter() {

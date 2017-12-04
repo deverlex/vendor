@@ -20,10 +20,11 @@ import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
+import vn.needy.vendor.screen.addProduct.addAttribute.AddAttributeFragment;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.widget.GifSizeFilter;
 
-import static vn.needy.vendor.screen.addProduct.AddProductPnActivity.REQUEST_CODE_CHOOSE;
+import static vn.needy.vendor.screen.addProduct.AddProductPnActivity.RC_CHOOSE_IMAGE;
 
 /**
  * Created by lion on 08/11/2017.
@@ -121,7 +122,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 .thumbnailScale(0.85f)
                 .imageEngine(new GlideEngine())
-                .forResult(REQUEST_CODE_CHOOSE);
+                .forResult(RC_CHOOSE_IMAGE);
     }
 
     @Override
@@ -132,7 +133,8 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Override
     public void onClickAddAttribute() {
-
+        ((AddProductPnActivity) mContext)
+                .initFragment(android.R.id.content, AddAttributeFragment.getInstance());
     }
 
     @Override

@@ -6,10 +6,6 @@ import android.databinding.Bindable;
 import android.os.Bundle;
 import android.widget.RadioGroup;
 
-import io.reactivex.ObservableEmitter;
-import io.reactivex.functions.BiConsumer;
-import io.realm.Realm;
-import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.realm.RealmApi;
@@ -94,7 +90,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         Bundle extras = new Bundle();
         extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.CLASS);
         extras.putInt(CategoriesActivity.SOURCE_CATEGORY, mProductType);
-        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.REQUEST_CODE);
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.RC_CHOOSE_CATEGORY);
     }
 
     @Bindable
