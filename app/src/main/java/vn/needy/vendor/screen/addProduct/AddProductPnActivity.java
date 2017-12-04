@@ -1,11 +1,9 @@
 package vn.needy.vendor.screen.addProduct;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 
 import com.zhihu.matisse.Matisse;
 
@@ -17,6 +15,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.databinding.ActivityAddProductPnBinding;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.screen.ImageAdapter;
 
 /**
  * Created by lion on 08/11/2017.
@@ -24,7 +23,7 @@ import vn.needy.vendor.screen.BaseActivity;
 
 public class AddProductPnActivity extends BaseActivity {
 
-    private static final String TAG = AddProductPnActivity.class.getName();
+    public static final String CLASS = AddProductPnActivity.class.getName();
 
     private AddProductPnContract.ViewModel mViewModel;
     public static final int REQUEST_CODE_CHOOSE = 2682;
@@ -50,17 +49,10 @@ public class AddProductPnActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             List<Image> images = new LinkedList<>();
             for (Uri uri : Matisse.obtainResult(data)) {
-                images.add(new Image(getRealPathFromURI(uri)));
+                images.add(new Image(this, uri.toString()));
             }
             // Update images view
             mViewModel.onSelectedListImages(images);
         }
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
     }
 }

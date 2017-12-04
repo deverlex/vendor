@@ -49,6 +49,16 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+
+    }
+
+    @Override
+    public void getCategoryCompany() {
         Disposable disposable = mCompanyRepository.getCompany()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Company>() {
@@ -59,11 +69,6 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
                     }
                 });
         mCompositeDisposable.add(disposable);
-    }
-
-    @Override
-    public void onStop() {
-
     }
 
     @Override
@@ -94,7 +99,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
                     @Override
                     public void accept(List<Category> categories) throws Exception {
                         if (categories.size() == 0) {
-                            mViewModel.onGetProductOfCompany();
+                            mViewModel.onGetProductCompany();
                         }
                         mViewModel.onGetListCategorySuccess(categories);
                     }

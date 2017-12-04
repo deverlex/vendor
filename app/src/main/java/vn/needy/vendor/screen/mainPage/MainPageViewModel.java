@@ -6,18 +6,26 @@ import android.databinding.Bindable;
 import android.os.Bundle;
 import android.widget.RadioGroup;
 
+import io.reactivex.ObservableEmitter;
+import io.reactivex.functions.BiConsumer;
+import io.realm.Realm;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
-import vn.needy.vendor.screen.mainPage.MainPageFragment.ProductType;
 
 /**
  * Created by lion on 23/10/2017.
  */
 
 public class MainPageViewModel extends BaseObservable implements MainPageConstract.ViewModel {
+
+    private static final String TAG = MainPageViewModel.class.getName();
 
     private final Context mContext;
     private final Navigator mNavigator;
@@ -26,14 +34,36 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     private String mCategoryTitle;
     private String mCategory;
 
-    private int mProductType;
+    private SharedPrefsApi mPrefsApi;
 
-    public MainPageViewModel(Context context, Navigator navigator, Category category) {
+    private int mProductType;
+    private boolean mIsPlChecked;
+
+    public MainPageViewModel(Context context, Navigator navigator, RealmApi realmApi,
+                             SharedPrefsApi prefsApi, final Category category) {
         mContext = context;
         mNavigator = navigator;
+        // default of product type is pn - because UI set it is checked.
+        mPrefsApi = prefsApi;
+        int productType = mPrefsApi.get(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, Integer.class);
+        mProductType = productType > 0 ? productType : R.id.price_now;
+
+        if (mProductType == R.id.price_later) {
+            mIsPlChecked = true;
+        } else {
+            mIsPlChecked = false;
+        }
+
         if (category != null) {
-            mCategory = category.getCategory();
-            mCategoryTitle = category.getCategory();
+            mCategory = category.getName();
+            mCategoryTitle = category.getName();
+            // save category to realm db
+            realmApi.realmTransactionAsync(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
+                @Override
+                public void accept(ObservableEmitter<? super Object> observableEmitter, Realm realm) throws Exception {
+                    realm.insertOrUpdate(category);
+                }
+            });
         } else {
             mCategoryTitle = mContext.getString(R.string.all_category);
         }
@@ -56,27 +86,37 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
-        if (id == R.id.price_now) {
-            mProductType = ProductType.PRICE_NOW;
-        } else if (id == R.id.price_later) {
-            mProductType = ProductType.PRICE_LATER;
-        }
+        mProductType = id;
+        mPrefsApi.put(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, mProductType);
     }
 
     @Override
     public void onClickAddProduct() {
-        Bundle bundle = new Bundle();
-        bundle.putInt(MainPageFragment.PRODUCT_TYPE, mProductType);
-        mNavigator.startActivity(AddProductPnActivity.class, bundle);
+        if (mProductType == R.id.price_now) {
+            mNavigator.startActivity(AddProductPnActivity.class);
+        } else {
+            mNavigator.startActivity(AddProductPlActivity.class);
+        }
     }
 
     @Override
     public void onClickCategories() {
-        mNavigator.startActivity(CategoriesActivity.class);
+        Bundle extras = new Bundle();
+        extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.CLASS);
+        extras.putInt(CategoriesActivity.SOURCE_CATEGORY, mProductType);
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.REQUEST_CODE);
     }
 
     @Bindable
     public String getCategoryTitle() {
         return mCategoryTitle;
+    }
+
+    public boolean isPlChecked() {
+        return mIsPlChecked;
+    }
+
+    public void setPlChecked(boolean plChecked) {
+        mIsPlChecked = plChecked;
     }
 }

@@ -14,14 +14,23 @@ import vn.needy.vendor.screen.BaseViewModel;
 public interface CategoriesContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
+
+        void onBackClicked();
+
         void onGetListCategorySuccess(List<Category> categories);
 
         void onGetListCategoryError(BaseException exception);
 
-        void onGetProductOfCompany();
+        void onGetProductCompany();
+
+        void onBackAddProductPriceNow();
+
+        void onBackAddProductPriceLater();
     }
 
     interface Presenter extends BasePresenter {
+
+        void getCategoryCompany();
 
         void getListCategory();
 

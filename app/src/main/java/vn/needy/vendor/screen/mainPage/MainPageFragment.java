@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -21,12 +25,13 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class MainPageFragment extends Fragment {
 
-    private static final String TAG = MainPageFragment.class.getName();
+    public static final String CLASS = MainPageFragment.class.getName();
 
     public static MainPageFragment getInstance() {
         return new MainPageFragment();
     }
 
+    public static final int REQUEST_CODE = 1001;
     public static final String PRODUCT_TYPE = "_product_type";
 
     private MainPageConstract.ViewModel mViewModel;
@@ -35,12 +40,16 @@ public class MainPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+        // get category from bundle - case return from category activity
         Bundle extras = getArguments();
         Category category = extras.getParcelable(CategoriesActivity.CATEGORY);
 
+        // create navigator instance for this activity
         Navigator navigator = new Navigator(this);
-        mViewModel = new MainPageViewModel(getContext(), navigator, category);
+        mViewModel = new MainPageViewModel(getContext(), navigator, new RealmApi(),
+                SharedPrefsImpl.getInstance(), category);
 
+        // data binding
         FragmentMainPageBinding binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_main_page, container, false);
         binding.setViewModel((MainPageViewModel) mViewModel);
@@ -48,9 +57,4 @@ public class MainPageFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @IntDef({ProductType.PRICE_NOW, ProductType.PRICE_LATER})
-    @interface ProductType {
-        int PRICE_NOW = 1;
-        int PRICE_LATER = 2;
-    }
 }

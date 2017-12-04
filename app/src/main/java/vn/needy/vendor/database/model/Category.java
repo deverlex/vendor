@@ -6,29 +6,34 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by lion on 03/11/2017.
  */
 
-public class Category implements Parcelable {
+public class Category extends RealmObject implements Parcelable {
+
+    @PrimaryKey
     @Expose
-    @SerializedName("category")
-    private String mCategory;
+    @SerializedName("name")
+    private String mName;
     @Expose
     @SerializedName("title")
     private String mTitle;
     @Expose
-    @SerializedName("coverPicture")
-    private String mCoverPicture;
+    @SerializedName("icon")
+    private String mIcon;
 
     public Category() {
         super();
     }
 
     protected Category(Parcel in) {
-        mCategory = in.readString();
+        mName = in.readString();
         mTitle = in.readString();
-        mCoverPicture = in.readString();
+        mIcon = in.readString();
     }
 
     public static final Creator<Category> CREATOR = new Creator<Category>() {
@@ -43,12 +48,12 @@ public class Category implements Parcelable {
         }
     };
 
-    public String getCategory() {
-        return mCategory;
+    public String getName() {
+        return mName;
     }
 
-    public void setCategory(String category) {
-        mCategory = category;
+    public void setName(String name) {
+        mName = name;
     }
 
     public String getTitle() {
@@ -59,12 +64,12 @@ public class Category implements Parcelable {
         mTitle = title;
     }
 
-    public String getCoverPicture() {
-        return mCoverPicture;
+    public String getIcon() {
+        return mIcon;
     }
 
-    public void setCoverPicture(String coverPicture) {
-        mCoverPicture = coverPicture;
+    public void setIcon(String icon) {
+        mIcon = icon;
     }
 
     @Override
@@ -74,8 +79,8 @@ public class Category implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mCategory);
+        dest.writeString(mName);
         dest.writeString(mTitle);
-        dest.writeString(mCoverPicture);
+        dest.writeString(mIcon);
     }
 }

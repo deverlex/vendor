@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="ScrollViewSize"
-        android:background="@color/color_gray_white">
+        android:background="@color/color_white">
 
         <RadioGroup
             android:checkedButton="@+id/offer"
@@ -37,7 +37,7 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center"
-                android:checked="true"
+                android:checked="@{!viewModel.plChecked}"
                 android:text="Giá trước"
                 android:textColor="@color/color_white" />
 
@@ -53,6 +53,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="Giá sau"
+                android:checked="@{viewModel.plChecked}"
                 android:textColor="@color/color_white" />
         </RadioGroup>
 
@@ -61,13 +62,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toggle"
-            android:background="@color/color_white"
             android:orientation="horizontal"
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/color_white"
                 android:layout_weight="1"
                 android:drawableLeft="@{@drawable/ic_label}"
                 android:drawablePadding="@dimen/dp_10"
@@ -97,7 +96,6 @@
                 />
         </LinearLayout>
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -113,7 +111,6 @@
                 android:layout_marginRight="@dimen/dp_1"
                 android:layout_marginStart="@dimen/dp_1"
                 android:layout_marginTop="@dimen/dp_5"
-                android:background="@color/color_white"
                 android:orientation="vertical"
                 app:layoutManager="LinearLayoutManager" />
 

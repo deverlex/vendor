@@ -196,4 +196,7 @@
     <string name="complain_choose_order_expand">Chọn để khiếu nại</string>
 
     <string name="complain_add_image">Thêm ảnh mô tả</string>
+
+    <string name="staff">Nhân viên</string>
+    <string name="staff_manager">Quản lý nhân viên</string>
 </resources>

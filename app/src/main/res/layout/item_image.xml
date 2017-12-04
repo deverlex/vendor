@@ -8,7 +8,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.addProduct.ItemImageViewModel"
+            type="vn.needy.vendor.screen.ItemImageViewModel"
             />
     </data>
 
