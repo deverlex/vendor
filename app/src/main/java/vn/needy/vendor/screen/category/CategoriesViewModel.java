@@ -2,18 +2,17 @@ package vn.needy.vendor.screen.category;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import java.util.List;
 
+import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
-import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
-import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -47,17 +46,20 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
         Bundle extras = ((Activity) mContext).getIntent().getExtras();
         if (extras != null) {
             String fromClass = extras.getString(CategoriesActivity.FROM_CLASS);
-            if (fromClass.equals(MainPageFragment.class.getName())) {
+            if (fromClass.equals(MainPageFragment.CLASS)) {
                 // check source of category
-                String source = extras.getString(CategoriesActivity.SOURCE_CATEGORY);
-                if (source.equals())
-            } else if (fromClass.equals(AddProductPnActivity.class.getName())) {
+                int productType = extras.getInt(CategoriesActivity.SOURCE_CATEGORY);
+                if (productType == R.id.price_now) {
+                    // get category from pn
+
+                } else {
+                    // get category from pl
+                }
+            } else if (fromClass.equals(AddProductPnActivity.CLASS)) {
                 // from add product pn
 
-            } else if (fromClass.equals(AddProductPlActivity.class.getName())) {
-                // from add product pl
             } else {
-                // get all category from root (have: pn & pl)
+                // from add product pl
             }
         } else {
             // get all category from root (have: pn & pl)
@@ -78,8 +80,18 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
     public void onItemRecyclerViewClick(Object item) {
         if (item instanceof Category) {
             mCategory = (Category) item;
-            mPresenter.getListSubCategories(mCategory.getCategory());
+            mPresenter.getListSubCategories(mCategory.getName());
         }
+    }
+
+    @Override
+    public void onBackClicked() {
+        // we needy get previous list categories
+        // if it is price_now/price_later then back to main
+
+//        Activity activity = (Activity) mContext;
+//        activity.setResult(CategoriesActivity.RESULT_CHANGE_OK);
+//        activity.finish();
     }
 
     @Override
@@ -94,10 +106,25 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
 
     @Override
     public void onGetProductCompany() {
+        backActivity();
+    }
+
+    @Override
+    public void onBackAddProductPriceNow() {
+        backActivity();
+    }
+
+    @Override
+    public void onBackAddProductPriceLater() {
+        backActivity();
+    }
+
+    private void backActivity() {
+        Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putParcelable(CategoriesActivity.CATEGORY, mCategory);
-        mNavigator.startActivity(MainActivity.class, bundle);
-        mNavigator.finishActivity();
+        intent.putExtras(bundle);
+        mNavigator.finishActivity(CategoriesActivity.RESULT_CHANGE_OK, intent);
     }
 
     public CategoryAdapter getCategoryAdapter() {

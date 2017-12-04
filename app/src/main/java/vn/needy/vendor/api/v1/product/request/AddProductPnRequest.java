@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by lion on 10/11/2017.
  */
 
-public class AddProductRequest {
+public class AddProductPnRequest {
 
     @Expose
     @SerializedName("category")
@@ -39,6 +39,9 @@ public class AddProductRequest {
     @Expose
     @SerializedName("hashtag")
     private List<String> mHashtag;
+    @Expose
+    @SerializedName("images")
+    private List<String> images;
 
     public String getCategory() {
         return mCategory;
@@ -110,5 +113,13 @@ public class AddProductRequest {
 
     public void setHashtag(List<String> hashtag) {
         mHashtag = hashtag;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }

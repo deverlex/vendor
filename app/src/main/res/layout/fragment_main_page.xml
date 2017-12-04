@@ -37,7 +37,7 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center"
-                android:checked="true"
+                android:checked="@{!viewModel.plChecked}"
                 android:text="Giá trước"
                 android:textColor="@color/color_white" />
 
@@ -53,6 +53,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="Giá sau"
+                android:checked="@{viewModel.plChecked}"
                 android:textColor="@color/color_white" />
         </RadioGroup>
 

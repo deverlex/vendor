@@ -1,8 +1,17 @@
 package vn.needy.vendor.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+
+import static vn.needy.vendor.utils.Constant.NUMBER_COMPRESS;
 
 /**
  * Created by lion on 08/10/2017.
@@ -36,5 +45,20 @@ public class Utils {
 
     public static class DateTimeUtils {
 
+    }
+
+    public static class ImageUtils {
+        public static String convertImageToBase64(InputStream imageStream) {
+            final Bitmap image = BitmapFactory.decodeStream(imageStream);
+            String encodedImage = encodeImage(image);
+            return encodedImage;
+        }
+
+        private static String encodeImage(Bitmap bm) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, NUMBER_COMPRESS, baos);
+            byte[] b = baos.toByteArray();
+            return Base64.encodeToString(b, Base64.DEFAULT);
+        }
     }
 }
