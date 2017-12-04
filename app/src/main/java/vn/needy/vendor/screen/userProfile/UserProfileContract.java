@@ -15,6 +15,10 @@ public class UserProfileContract {
         void onClickEdit();
 
         void setBanners(List<Banner> banners);
+
+        void onPositionClick();
+
+        void onChangePassword();
     }
 
     interface Presenter extends BasePresenter {
