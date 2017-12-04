@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.functions.BiConsumer;
 import io.realm.Realm;
+import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.realm.RealmApi;
@@ -31,8 +32,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     private final Navigator mNavigator;
 
     private MainPageConstract.Presenter mPresenter;
-    private String mCategoryTitle;
-    private String mCategory;
+    private Category mCategory;
 
     private SharedPrefsApi mPrefsApi;
 
@@ -55,17 +55,12 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         }
 
         if (category != null) {
-            mCategory = category.getName();
-            mCategoryTitle = category.getName();
-            // save category to realm db
-            realmApi.realmTransactionAsync(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
-                @Override
-                public void accept(ObservableEmitter<? super Object> observableEmitter, Realm realm) throws Exception {
-                    realm.insertOrUpdate(category);
-                }
-            });
+            mCategory = category;
+            // save category to db
+            prefsApi.putObject(SharedPrefsKey.CURRENT_CATEGORY, category);
         } else {
-            mCategoryTitle = mContext.getString(R.string.all_category);
+            // get category from db
+            mCategory = prefsApi.getObject(SharedPrefsKey.CURRENT_CATEGORY, Category.class);
         }
     }
 
@@ -109,7 +104,10 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
     @Bindable
     public String getCategoryTitle() {
-        return mCategoryTitle;
+        if (mCategory != null) {
+            return mCategory.getTitle();
+        }
+        return mContext.getString(R.string.all_category);
     }
 
     public boolean isPlChecked() {
