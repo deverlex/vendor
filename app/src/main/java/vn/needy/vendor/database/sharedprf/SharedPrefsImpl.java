@@ -3,6 +3,8 @@ package vn.needy.vendor.database.sharedprf;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 /**
  * Created by lion on 23/09/2017.
  */
@@ -60,6 +62,20 @@ public class SharedPrefsImpl implements SharedPrefsApi {
         } else if (data instanceof Long) {
             editor.putLong(key, (Long) data);
         }
+        editor.apply();
+    }
+
+    @Override
+    public <T> T getObject(String key, Class<T> clazz) {
+        String json = mSharedPreferences.getString(key, "");
+        return new Gson().fromJson(json, clazz);
+    }
+
+    @Override
+    public <T> void putObject(String key, T data) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        String json = new Gson().toJson(data);
+        editor.putString(key, json);
         editor.apply();
     }
 
