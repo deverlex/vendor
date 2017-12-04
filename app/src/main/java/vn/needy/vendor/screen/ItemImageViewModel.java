@@ -1,6 +1,7 @@
 package vn.needy.vendor.screen;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.util.Log;
 
 import vn.needy.vendor.database.model.Image;
@@ -22,6 +23,7 @@ public class ItemImageViewModel extends BaseObservable {
         mItemClickListener = listener;
     }
 
+    @Bindable
     public String getImagePath() {
         Log.w(TAG, "getImagePath()");
         if (mImage != null) {
