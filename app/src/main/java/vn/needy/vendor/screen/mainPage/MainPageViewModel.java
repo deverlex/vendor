@@ -82,16 +82,10 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
     @Override
     public void onClickAddProduct() {
-        // send category to add product activity
-        Bundle extras = new Bundle();
-        if (mCategory != null) {
-            extras.putParcelable(MainPageFragment.CATEGORY, mCategory);
-        }
-
         if (mProductType == R.id.price_now) {
-            mNavigator.startActivity(AddProductPnActivity.class, extras);
+            mNavigator.startActivity(AddProductPnActivity.class);
         } else {
-            mNavigator.startActivity(AddProductPlActivity.class, extras);
+            mNavigator.startActivity(AddProductPlActivity.class);
         }
     }
 
