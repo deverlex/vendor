@@ -2,10 +2,8 @@ package vn.needy.vendor.screen.mainPage;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,6 @@ import android.view.ViewGroup;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.realm.RealmApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;
@@ -33,6 +30,7 @@ public class MainPageFragment extends Fragment {
 
     public static final int REQUEST_CODE = 1001;
     public static final String PRODUCT_TYPE = "_product_type";
+    public static final String CATEGORY = "_category";
 
     private MainPageConstract.ViewModel mViewModel;
 

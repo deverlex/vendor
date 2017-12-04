@@ -118,7 +118,9 @@
     <string name="fee_transport">Phí vận chuyển</string>
     <string name="fee_transport_expand">Nhập phí vận chuyển cho khoảng cách mỗi Kilômét. Bạn có thể thay đổi phí này trên mỗi đơn hàng của khách.</string>
     <string name="add_hashtag">Thêm hashtags</string>
-    <string name="add_attrs">Thuộc tính</string>
+    <string name="attrs">Thuộc tính</string>
+    <string name="add_attrs">Thêm thuộc tính</string>
+    <string name="input_value_attr">Nhập vào</string>
     <string name="add_attrs_input">Thiết lập thuộc tính mô tả</string>
     <string name="add_product">Thêm sản phẩm</string>
 

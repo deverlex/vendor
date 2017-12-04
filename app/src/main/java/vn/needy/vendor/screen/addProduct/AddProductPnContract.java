@@ -11,7 +11,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 08/11/2017.
  */
 
-public interface AddProductPnContract {
+interface AddProductPnContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 

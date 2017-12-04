@@ -6,7 +6,7 @@ import android.databinding.BaseObservable;
  * Created by lion on 21/10/2017.
  */
 
-public class ListOrderViewModel extends BaseObservable implements ListOrderConstract.ViewModel {
+public class ListOrderViewModel extends BaseObservable implements ListOrderContract.ViewModel {
 
     @Override
     public void onStart() {
@@ -19,7 +19,7 @@ public class ListOrderViewModel extends BaseObservable implements ListOrderConst
     }
 
     @Override
-    public void setPresenter(ListOrderConstract.Presenter presenter) {
+    public void setPresenter(ListOrderContract.Presenter presenter) {
 
     }
 }

@@ -7,7 +7,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 21/10/2017.
  */
 
-public class ListOrderConstract {
+public class ListOrderContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 

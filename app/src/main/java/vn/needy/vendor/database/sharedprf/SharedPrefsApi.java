@@ -9,5 +9,9 @@ public interface SharedPrefsApi {
 
     <T> void put(String key, T data);
 
+    <T> T getObject(String key, Class<T> clazz);
+
+    <T> void putObject(String key, T data);
+
     void clear();
 }

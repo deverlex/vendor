@@ -30,7 +30,6 @@ public class AddProductPnActivity extends BaseActivity {
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
-
         List<Image> images = new ArrayList<>();
         ImageAdapter imageAdapter = new ImageAdapter(this, images);
 
