@@ -27,12 +27,6 @@ public class User extends RealmObject implements Parcelable {
     @SerializedName("address")
     @Expose
     private String mAddress;
-    @SerializedName("avatar")
-    @Expose
-    private String mAvatar;
-    @SerializedName("coverPicture")
-    @Expose
-    private String mCoverPicture;
     @SerializedName("email")
     @Expose
     private String mEmail;
@@ -60,8 +54,6 @@ public class User extends RealmObject implements Parcelable {
         mFullName = in.readString();
         mGender = in.readString();
         mAddress = in.readString();
-        mAvatar = in.readString();
-        mCoverPicture = in.readString();
         mEmail = in.readString();
         mBirthday = in.readString();
         mLat = in.readFloat();
@@ -81,8 +73,6 @@ public class User extends RealmObject implements Parcelable {
         dest.writeString(mFullName);
         dest.writeString(mGender);
         dest.writeString(mAddress);
-        dest.writeString(mAvatar);
-        dest.writeString(mCoverPicture);
         dest.writeString(mEmail);
         dest.writeString(mBirthday);
         dest.writeFloat(mLat);
@@ -139,22 +129,6 @@ public class User extends RealmObject implements Parcelable {
 
     public void setAddress(String address) {
         this.mAddress = address;
-    }
-
-    public String getAvatar() {
-        return mAvatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.mAvatar = avatar;
-    }
-
-    public String getCoverPicture() {
-        return mCoverPicture;
-    }
-
-    public void setCoverPicture(String coverPicture) {
-        this.mCoverPicture = coverPicture;
     }
 
     public String getEmail() {
