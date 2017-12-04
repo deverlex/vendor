@@ -35,9 +35,9 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     private boolean mEnable;
     private int mDrawableEdit;
     private MapFragment mMapFragment;
-    private BaseActivity mContext;
+    private Context mContext;
 
-    public UserProfileViewModel(BaseActivity context, MapFragment mapFragment) {
+    public UserProfileViewModel(Context context, MapFragment mapFragment) {
         this.mContext = context;
         this.mMapFragment = mapFragment;
         mDrawableEdit = R.drawable.ic_edits_white;
@@ -65,12 +65,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     public void onClickEdit() {
         mEnable = !mEnable;
         notifyPropertyChanged(BR.enable);
-
-        if (mEnable) {
-            mDrawableEdit = R.drawable.ic_check;
-        } else {
-            mDrawableEdit = R.drawable.ic_edits;
-        }
+        mDrawableEdit = mEnable ? R.drawable.ic_check : R.drawable.ic_edits_white;
         notifyPropertyChanged(BR.drawableEdit);
     }
 
@@ -116,14 +111,8 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
 
     @Override
     public void onChangePassword() {
-        ChangePasswordFragment fragment = ChangePasswordFragment.newInstance();
-        FragmentTransaction transaction = mContext.getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
-                android.R.anim.fade_in, android.R.anim.fade_out);
-        transaction.replace(android.R.id.content, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
+        ((UserProfileActivity) mContext).initFragment(android.R.id.content,
+                ChangePasswordFragment.newInstance());
     }
 
     @Bindable

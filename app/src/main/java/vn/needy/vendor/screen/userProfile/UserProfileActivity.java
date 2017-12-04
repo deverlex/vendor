@@ -2,6 +2,9 @@ package vn.needy.vendor.screen.userProfile;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.ScrollView;
 
@@ -16,13 +19,16 @@ import vn.needy.vendor.widget.WorkaroundMapFragment;
 
 public class UserProfileActivity extends BaseActivity {
 
+    private static final String CLASS = UserProfileActivity.class.getName();
+
     private UserProfileContract.ViewModel mViewModel;
     private ScrollView mScrollView;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         super.onCreateActivity(savedInstanceState);
-        ActivityUserProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile);
+        ActivityUserProfileBinding binding = DataBindingUtil
+                .setContentView(this, R.layout.activity_user_profile);
 
         mScrollView = (ScrollView) findViewById(R.id.sv_container);
 
@@ -43,6 +49,12 @@ public class UserProfileActivity extends BaseActivity {
         mViewModel.onStart();
 
         binding.setViewModel((UserProfileViewModel) mViewModel);
+    }
+
+    @Override
+    public Fragment initFragment(@IdRes int target,
+                        @NonNull Fragment fragment) {
+        return super.initFragment(target, fragment);
     }
 
     @Override

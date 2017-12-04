@@ -32,7 +32,8 @@ public class ChangePasswordFragment extends Fragment {
                              Bundle savedInstanceState) {
         mViewModel = new ChangePasswordViewModel(getActivity());
 
-        FragmentChangePasswordBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_change_password, container, false);
+        FragmentChangePasswordBinding binding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_change_password, container, false);
         binding.setViewModel((ChangePasswordViewModel) mViewModel);
         // Inflate the layout for this fragment
         return binding.getRoot();
