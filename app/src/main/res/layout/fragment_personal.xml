@@ -18,7 +18,8 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_170"
-            android:background="@color/color_gray_mos">
+            android:background="@color/color_gray_mos"
+            android:onClick="@{() -> viewModel.onClickHeader()}">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -38,14 +39,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/avatar"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginBottom="@dimen/dp_35"
-                android:textColor="@color/color_white"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_toRightOf="@+id/avatar"
+                android:fontFamily="@string/font_serif"
                 android:text="Nguyen Van Do"
-                android:textSize="@dimen/sp_18"
-                android:fontFamily="@string/font_serif" />
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_18" />
 
         </RelativeLayout>
 
@@ -60,8 +61,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.onClickViewAccount()}"
-                >
+                android:onClick="@{() -> viewModel.onClickViewAccount()}">
 
                 <TextView
                     android:layout_width="wrap_content"

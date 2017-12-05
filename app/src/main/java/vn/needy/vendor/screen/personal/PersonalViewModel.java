@@ -71,6 +71,11 @@ public class PersonalViewModel extends BaseObservable implements PersonalConstra
 
     }
 
+    @Override
+    public void onClickHeader() {
+        mNavigator.startActivity(UserProfileActivity.class);
+    }
+
     @Bindable
     public boolean isVisibleViewCompany() {
         return mVisibleViewCompany;
