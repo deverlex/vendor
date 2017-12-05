@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.databinding.FragmentAddAttributesBinding;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
-import vn.needy.vendor.screen.mainPage.MainPageViewModel;
 
 /**
  * Created by lion on 04/12/2017.
@@ -31,8 +31,8 @@ public class AddAttributeFragment extends Fragment {
 //        Category category = extras.getParcelable();
 
         // data binding
-        FragmentMainPageBinding binding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_main_page, container, false);
+        FragmentAddAttributesBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.fragment_add_attributes, container, false);
 //        binding.setViewModel((MainPageViewModel) mViewModel);
         return binding.getRoot();
     }

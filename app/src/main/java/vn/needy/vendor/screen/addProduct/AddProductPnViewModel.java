@@ -21,7 +21,9 @@ import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.addProduct.addAttribute.AddAttributeFragment;
+import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.Constant;
+import vn.needy.vendor.utils.navigator.Navigator;
 import vn.needy.vendor.widget.GifSizeFilter;
 
 import static vn.needy.vendor.screen.addProduct.AddProductPnActivity.RC_CHOOSE_IMAGE;
@@ -36,6 +38,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     private final Context mContext;
 
     private AddProductPnContract.Presenter mPresenter;
+    private Navigator mNavigator;
 
     private String mNameError;
     private String mDescriptionError;
@@ -54,8 +57,10 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     private boolean mVisibleImages;
 
-    public AddProductPnViewModel(Context context, ImageAdapter imageAdapter) {
+    public AddProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
         mContext = context;
+        mNavigator = navigator;
+
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
 
@@ -103,7 +108,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Override
     public void onChooseCategory() {
-        
+        mNavigator.startActivityForResult(CategoriesActivity.class, AddProductPnActivity.RC_CHOOSE_CATEGORY);
     }
 
     @Override
@@ -150,6 +155,11 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
         } else mVisibleImages = false;
         notifyPropertyChanged(BR.visibleImages);
         mImageAdapter.updateData(images);
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        mCategory = category;
     }
 
     @Override
@@ -246,7 +256,10 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Bindable
     public String getCategory() {
-        return mCategory.getTitle();
+        if (mCategory != null) {
+            return mCategory.getTitle();
+        }
+        return mContext.getString(R.string.choose_category);
     }
 
     public void setCategory(Category category) {

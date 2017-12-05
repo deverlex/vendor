@@ -15,10 +15,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.databinding.ActivityAddProductPnBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;
+import vn.needy.vendor.screen.category.CategoriesActivity;
+import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by lion on 08/11/2017.
@@ -32,12 +35,16 @@ public class AddProductPnActivity extends BaseActivity {
     public static final int RC_CHOOSE_IMAGE = 2682;
     public static final int RC_CHOOSE_CATEGORY = 1782;
 
+    private Navigator mNavigator;
+
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         List<Image> images = new ArrayList<>();
         ImageAdapter imageAdapter = new ImageAdapter(this, images);
 
-        mViewModel = new AddProductPnViewModel(this, imageAdapter);
+        mNavigator = new Navigator(this);
+
+        mViewModel = new AddProductPnViewModel(this, mNavigator, imageAdapter);
         AddProductPnContract.Presenter presenter = new AddProductPnPresenter(this, mViewModel);
         mViewModel.setPresenter(presenter);
 
@@ -62,8 +69,22 @@ public class AddProductPnActivity extends BaseActivity {
             }
             // Update images view
             mViewModel.onSelectedListImages(images);
+            // check for get category
         } else if (requestCode == RC_CHOOSE_CATEGORY) {
+            if (resultCode == CategoriesActivity.RC_OK) {
+                // get category and call update category in view model
+                Category category = data.getExtras().getParcelable(CategoriesActivity.CATEGORY);
+                mViewModel.updateCategory(category);
+            }
+        }
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
         }
     }
 }
