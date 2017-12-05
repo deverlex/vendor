@@ -22,8 +22,6 @@ import vn.needy.vendor.utils.ViewUtil;
 
 public class MainActivity extends BaseActivity {
 
-    private static final String CLASS = MainActivity.class.getName();
-
     private MainContract.Presenter mPresenter;
     private RealmApi mRealmApi;
     private SharedPrefsApi mPrefsApi;
@@ -44,7 +42,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == MainPageFragment.REQUEST_CODE) {
             if (resultCode == CategoriesActivity.RESULT_CHANGE_OK) {
                 // we will reload main fragment
