@@ -1,26 +1,31 @@
 package vn.needy.vendor.screen.userProfile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
-import android.support.v4.app.FragmentTransaction;
+import android.os.Bundle;
+import android.util.Log;
 
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
-import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.database.model.User;
 import vn.needy.vendor.screen.userProfile.changePassword.ChangePasswordFragment;
 
 /**
@@ -31,6 +36,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
 
     private UserProfileContract.Presenter mPresenter;
 
+    private User mUser;
     private List<Banner> mBanners;
     private boolean mEnable;
     private int mDrawableEdit;
@@ -48,7 +54,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     @Override
     public void onStart() {
         mPresenter.getCoverPictures();
-
+        mPresenter.getUserInfo();
     }
 
     @Override
@@ -85,26 +91,17 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
         mMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(final GoogleMap googleMap) {
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        googleMap.clear();
-                        googleMap.addMarker(new MarkerOptions().position(latLng));
-                    }
-                });
-
-                LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-                if (locationManager != null) {
-                    googleMap.clear();
-                    Criteria criteria = new Criteria();
-
-                    Location location = locationManager.getLastKnownLocation(locationManager
-                            .getBestProvider(criteria, false));
-
-                    LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                    googleMap.addMarker(new MarkerOptions().position(currentPosition));
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 10));
-                }
+                googleMap.clear();
+                LocationServices.getFusedLocationProviderClient(mContext)
+                        .getLastLocation().
+                        addOnSuccessListener((Activity) mContext, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
+                                googleMap.addMarker(new MarkerOptions().position(currentPosition));
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 10));
+                            }
+                        });
             }
         });
     }
@@ -113,6 +110,17 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     public void onChangePassword() {
         ((UserProfileActivity) mContext).initFragment(android.R.id.content,
                 ChangePasswordFragment.newInstance());
+    }
+
+    @Override
+    public void onBackPressed() {
+        ((UserProfileActivity) mContext).onBackPressed();
+    }
+
+    @Override
+    public void setUserInfo(User user) {
+        mUser = user;
+        notifyPropertyChanged(BR.user);
     }
 
     @Bindable
@@ -125,4 +133,8 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
         return mDrawableEdit;
     }
 
+    @Bindable
+    public User getUser() {
+        return mUser;
+    }
 }

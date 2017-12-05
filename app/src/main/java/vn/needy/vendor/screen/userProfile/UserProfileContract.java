@@ -3,6 +3,7 @@ package vn.needy.vendor.screen.userProfile;
 import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
+import vn.needy.vendor.database.model.User;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -19,9 +20,14 @@ public class UserProfileContract {
         void onPositionClick();
 
         void onChangePassword();
+
+        void onBackPressed();
+
+        void setUserInfo(User user);
     }
 
     interface Presenter extends BasePresenter {
         void getCoverPictures();
+        void getUserInfo();
     }
 }
