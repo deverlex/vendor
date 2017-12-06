@@ -18,6 +18,7 @@ import vn.needy.vendor.api.base.BaseResponse;
 import vn.needy.vendor.api.v1.category.response.CategoryResponse;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
+import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
 
 /**
@@ -41,6 +42,9 @@ public interface VendorApi {
 
     @GET("v1/users")
     Observable<UserResponse> getUserInformation();
+
+    @PUT("v1/users")
+    Observable<BaseResponse> updateUserInformation(@Body UpdateUserInfoRequest request);
 
     @GET("v1/companies")
     Observable<CompanyResponse> getCompanyInformation();

@@ -30,7 +30,7 @@
                 <RelativeLayout
                     android:id="@+id/header"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_170"
+                    android:layout_height="@dimen/dp_185"
                     android:background="@color/color_gray_mos">
 
                     <ss.com.bannerslider.views.BannerSlider
@@ -41,25 +41,25 @@
                         app:defaultIndicators="circle" />
 
                     <vn.needy.vendor.widget.CircleImageView
+                        android:layout_marginTop="@dimen/dp_40"
+                        android:layout_centerHorizontal="true"
                         android:id="@+id/avatar"
                         android:layout_width="@dimen/dp_56"
                         android:layout_height="@dimen/dp_56"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="@dimen/dp_20"
-                        android:layout_marginLeft="@dimen/dp_10"
                         android:src="@drawable/ic_placeholder" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="@dimen/dp_35"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/dp_4"
                         android:layout_marginLeft="@dimen/dp_20"
-                        android:layout_toRightOf="@+id/avatar"
+                        android:layout_marginRight="@dimen/dp_4"
                         android:fontFamily="@string/font_serif"
-                        android:text="@string/not_set"
+                        android:text="Chạm để thay đổi"
                         android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_18" />
+                        android:textSize="@dimen/sp_10" />
 
                 </RelativeLayout>
 
@@ -191,7 +191,10 @@
                         android:orientation="horizontal">
 
                         <RadioButton
+                            android:onClick="@{() -> viewModel.onClickMale()}"
+                            android:clickable="@{viewModel.enable}"
                             android:id="@+id/rbMale"
+                            android:checked='@{viewModel.user.gender.equalsIgnoreCase("male")}'
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/colorPrimary"
@@ -204,11 +207,13 @@
                             android:layout_height="@dimen/dp_0" />
 
                         <RadioButton
+                            android:onClick="@{() -> viewModel.onClickFemale()}"
+                            android:clickable="@{viewModel.enable}"
+                            android:checked='@{viewModel.user.gender.equalsIgnoreCase("female")}'
                             android:id="@+id/rbFemale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/colorPrimary"
-                            android:checked="true"
                             android:text="Nữ"
                             android:textColor="@color/gray70"
                             android:textSize="@dimen/sp_14" />
@@ -216,6 +221,8 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:clickable="@{viewModel.enable}"
+                    android:onClick="@{() -> viewModel.onClickBirthday()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_1"
@@ -283,7 +290,7 @@
                         android:enabled="@{viewModel.enable}"
                         android:fontFamily="@string/font_serif"
                         android:hint="@string/not_set"
-                        android:inputType="textCapWords"
+                        android:inputType="textEmailAddress"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
                         android:paddingRight="@dimen/dp_10"

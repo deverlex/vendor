@@ -48,19 +48,6 @@ public class UserProfileActivity extends BaseActivity {
         WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
 
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        googleMap.clear();
-                        googleMap.addMarker(new MarkerOptions().position(latLng));
-                    }
-                });
-            }
-        });
-
         mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
             @Override
             public void onTouch() {
