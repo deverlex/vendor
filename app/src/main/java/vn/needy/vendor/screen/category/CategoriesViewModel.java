@@ -64,6 +64,7 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
                 } else {
                     // get category from pl
                     Log.w(TAG, "get category from pl");
+                    mPresenter.getCompanyLinkCategoryPriceLater();
                 }
             } else if (fromClass.equals(AddProductPnActivity.CLASS)) {
                 // from add product pn

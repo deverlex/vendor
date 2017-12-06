@@ -83,7 +83,25 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCompanyLinkCategoryPriceLater() {
-
+        Disposable disposable = mCategoryRepository.getCompanyLinkCategories(Constant.PRICE_LATER)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Category>>() {
+                    @Override
+                    public void accept(List<Category> categories) throws Exception {
+                        if (categories != null && categories.size() > 0) {
+                            mViewModel.onUpdateListCategory(categories);
+                        } else if (categories == null) {
+                            mViewModel.backActivity();
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onUpdateListCategoryError(error);
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 
     @Override
