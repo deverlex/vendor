@@ -1,6 +1,7 @@
 package vn.needy.vendor.api.v1.user;
 
 import io.reactivex.Observable;
+import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.database.model.User;
 import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
 import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
@@ -37,6 +38,10 @@ public class UserRepository {
 
     public Observable<UserResponse> getUserInformation() {
         return mUserRemoteDataSource.getUserInformation();
+    }
+
+    public Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request) {
+        return mUserRemoteDataSource.updateUserInformation(request);
     }
 
     public void saveToken(String token) {
