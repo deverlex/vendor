@@ -41,6 +41,6 @@ public interface LoginContract {
 
         boolean validateDataInput(String phoneNumber, String passWord);
 
-        void findCompanyInherent();
+        void findCompanyReference();
     }
 }

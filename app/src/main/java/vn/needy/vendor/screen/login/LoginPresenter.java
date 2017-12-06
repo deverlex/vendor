@@ -155,7 +155,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void findCompanyInherent() {
+    public void findCompanyReference() {
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
                 new CompanyLocalDataSource(SharedPrefsImpl.getInstance()));
@@ -166,7 +166,8 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void run() throws Exception {
                         mViewModel.onHideProgressBar();
                     }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<CompanyResponse>() {
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CompanyResponse>() {
                     @Override
                     public void accept(CompanyResponse companyResponse) throws Exception {
                         if (companyResponse.getCompany() != null) {

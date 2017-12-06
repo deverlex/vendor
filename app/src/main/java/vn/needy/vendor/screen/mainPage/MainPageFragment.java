@@ -22,7 +22,7 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class MainPageFragment extends Fragment {
 
-    public static final String CLASS = MainPageFragment.class.getName();
+    private static final String TAG = MainPageFragment.class.getName();
 
     public static MainPageFragment getInstance() {
         return new MainPageFragment();
