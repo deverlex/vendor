@@ -17,11 +17,11 @@ public class CategoryRepository {
         mCategoryRemoteDataSource = categoryRemoteDataSource;
     }
 
-    public Observable<List<Category>> getCategories(String companyId) {
-        return mCategoryRemoteDataSource.getCategories(companyId);
+    public Observable<List<Category>> getCategories(String category) {
+        return mCategoryRemoteDataSource.getLinkCategories(category);
     }
 
     public Observable<List<Category>> getSubCategories(String category, String companyId) {
-        return mCategoryRemoteDataSource.getSubCategories(category, companyId);
+        return mCategoryRemoteDataSource.getCompanyLinkCategories(category, companyId);
     }
 }
