@@ -29,7 +29,7 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class AddProductPnActivity extends BaseActivity {
 
-    public static final String CLASS = AddProductPnActivity.class.getName();
+    private static final String TAG = AddProductPnActivity.class.getName();
 
     private AddProductPnContract.ViewModel mViewModel;
     public static final int RC_CHOOSE_IMAGE = 2682;

@@ -105,7 +105,35 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     }
 
     @Override
-    public void getListSubCategories(String category) {
+    public void getLinkCategoryPriceNow() {
+        Disposable disposable = mCategoryRepository.getLinkCategories(Constant.PRICE_NOW)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Category>>() {
+                    @Override
+                    public void accept(List<Category> categories) throws Exception {
+                        if (categories != null && categories.size() > 0) {
+                            mViewModel.onUpdateListCategory(categories);
+                        } else if (categories == null) {
+                            mViewModel.backActivity();
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onUpdateListCategoryError(error);
+                    }
+                });
+        mCompositeDisposable.add(disposable);
+    }
+
+    @Override
+    public void getLinkCategoryPriceLater() {
+
+    }
+
+    @Override
+    public void getCompanyLinkCategories(String category) {
         Disposable disposable = mCategoryRepository.getCompanyLinkCategories(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -126,4 +154,28 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
                 });
         mCompositeDisposable.add(disposable);
     }
+
+    @Override
+    public void getLinkCategories(String category) {
+        Disposable disposable = mCategoryRepository.getLinkCategories(category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Category>>() {
+                    @Override
+                    public void accept(List<Category> categories) throws Exception {
+                        if (categories != null && categories.size() > 0) {
+                            mViewModel.onUpdateListCategory(categories);
+                        } else if (categories == null || categories.size() == 0) {
+                            mViewModel.backActivity();
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onUpdateListCategoryError(error);
+                    }
+                });
+        mCompositeDisposable.add(disposable);
+    }
+
 }

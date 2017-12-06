@@ -30,6 +30,12 @@ public interface CategoriesContract {
 
         void getCompanyLinkCategoryPriceLater();
 
-        void getListSubCategories(String category);
+        void getLinkCategoryPriceNow();
+
+        void getLinkCategoryPriceLater();
+
+        void getCompanyLinkCategories(String category);
+
+        void getLinkCategories(String category);
     }
 }

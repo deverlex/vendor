@@ -1,5 +1,6 @@
 package vn.needy.vendor.screen.category;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
@@ -34,11 +35,19 @@ public class CategoriesActivity extends BaseActivity {
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
+        String fromClass;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            fromClass = extras.getString(CategoriesActivity.FROM_CLASS);
+        } else {
+            fromClass = MainPageFragment.class.getSimpleName();
+        }
+
         mNavigator = new Navigator(this);
         List<Category> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
         mViewModel = new CategoriesViewModel(this, mNavigator,
-                categoryAdapter, SharedPrefsImpl.getInstance());
+                categoryAdapter, SharedPrefsImpl.getInstance(), fromClass);
 
         CategoriesContract.Presenter presenter =
                 new CategoriesPresenter(mViewModel, SharedPrefsImpl.getInstance());

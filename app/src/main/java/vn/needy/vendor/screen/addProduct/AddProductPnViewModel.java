@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.zhihu.matisse.Matisse;
@@ -108,7 +109,10 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Override
     public void onChooseCategory() {
-        mNavigator.startActivityForResult(CategoriesActivity.class, AddProductPnActivity.RC_CHOOSE_CATEGORY);
+        Bundle extras = new Bundle();
+        // put simple name thought bundle
+        extras.putString(CategoriesActivity.FROM_CLASS, AddProductPnActivity.class.getSimpleName());
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, AddProductPnActivity.RC_CHOOSE_CATEGORY);
     }
 
     @Override
@@ -160,6 +164,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     @Override
     public void updateCategory(Category category) {
         mCategory = category;
+        notifyPropertyChanged(BR.category);
     }
 
     @Override
