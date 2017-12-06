@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.List;
 
@@ -51,18 +52,21 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
                 int productType = extras.getInt(CategoriesActivity.SOURCE_CATEGORY);
                 if (productType == R.id.price_now) {
                     // get category from pn
-
+                    Log.w(TAG, "get category from pn");
                 } else {
                     // get category from pl
+                    Log.w(TAG, "get category from pl");
                 }
             } else if (fromClass.equals(AddProductPnActivity.CLASS)) {
                 // from add product pn
-
+                Log.w(TAG, "from add product pn");
             } else {
                 // from add product pl
+                Log.w(TAG, "from add product pl");
             }
         } else {
             // get all category from root (have: pn & pl)
+            Log.w(TAG, "get all category from root (have: pn & pl)");
         }
     }
 

@@ -21,6 +21,13 @@ public class BaseResponse extends BaseModel {
         super();
     }
 
+    public boolean isSuccess() {
+        return mSuccess;
+    }
+
+    public void setSuccess(boolean success) {
+        mSuccess = success;
+    }
 
     public String getMessage() {
         return mMessage;

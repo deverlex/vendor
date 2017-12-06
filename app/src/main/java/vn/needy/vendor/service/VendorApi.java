@@ -53,12 +53,12 @@ public interface VendorApi {
     Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
                                                       @Query("token") String token);
 
-    @GET("v1/pn/categories")
-    Observable<CategoryResponse> getCategories(@Query("company_id") String companyId);
+    @GET("v1/categories/{category}")
+    Observable<CategoryResponse> getLinkCategories(@Query("category") String category);
 
-    @GET("v1/pn/categories/{category}")
-    Observable<CategoryResponse> getSubCategories(@Path("category") String category,
-                                                  @Query("company_id") String companyId);
+    @GET("v1/categories/{category}")
+    Observable<CategoryResponse> getCompanyLinkCategories(@Path("category") String category,
+                                                          @Query("company_id") String companyId);
 
     // POST new images
     @Multipart

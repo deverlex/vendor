@@ -6,7 +6,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.api.v1.category.CategoryRepository;
@@ -54,12 +56,26 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void onStop() {
-
+        mCompositeDisposable.dispose();
     }
 
     @Override
     public void getCategoryCompany() {
-        Disposable disposable = mCompanyRepository.getCompany()
+        mCompanyRepository.getCompanyInformation()
+                .subscribeOn(Schedulers.io())
+                .map(new Function<CompanyResponse, Company>() {
+                    @Override
+                    public Company apply(CompanyResponse companyResponse) throws Exception {
+
+                        return companyResponse.getCompany();
+                    }
+                })
+                .doOnError(new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Company>() {
                     @Override
@@ -68,7 +84,6 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
                         getListCategory();
                     }
                 });
-        mCompositeDisposable.add(disposable);
     }
 
     @Override
