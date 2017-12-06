@@ -53,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
         mRealmApi = new RealmApi();
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(mRealmApi)
+                new CompanyLocalDataSource(SharedPrefsImpl.getInstance())
         );
 
         final String token = getToken(prefsApi);
