@@ -29,7 +29,6 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.database.model.User;
 import vn.needy.vendor.screen.userProfile.changePassword.ChangePasswordFragment;
-import vn.needy.vendor.widget.WorkaroundMapFragment;
 
 /**
  * Created by lion on 09/11/2017.
