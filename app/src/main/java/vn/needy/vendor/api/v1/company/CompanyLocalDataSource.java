@@ -1,51 +1,37 @@
 package vn.needy.vendor.api.v1.company;
 
-import android.util.Log;
+import android.os.AsyncTask;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.functions.BiConsumer;
-import io.realm.Realm;
-import vn.needy.vendor.api.base.BaseLocalDataSource;
 import vn.needy.vendor.database.model.Company;
-import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 
 /**
  * Created by lion on 07/10/2017.
  */
 
-public class CompanyLocalDataSource extends BaseLocalDataSource implements CompanyDataSource.LocalDataSource {
+public class CompanyLocalDataSource implements CompanyDataSource.LocalDataSource {
 
     private final static String TAG = CompanyLocalDataSource.class.getName();
 
-    public CompanyLocalDataSource(RealmApi realmApi) {
-        super(realmApi);
+    private SharedPrefsApi mPrefsApi;
+
+    public CompanyLocalDataSource(SharedPrefsApi prefsApi) {
+        mPrefsApi = prefsApi;
     }
 
     @Override
-    public Observable<Void> saveCompany(final Company company) {
-        return mRealmApi.realmTransactionAsync(new BiConsumer<ObservableEmitter<? super Void>, Realm>() {
+    public void saveCompany(final Company company) {
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void accept(ObservableEmitter<? super Void> observableEmitter, Realm realm) throws Exception {
-                try {
-                    realm.insertOrUpdate(company);
-                    Log.w(TAG, "saveCompany()");
-                } catch (IllegalStateException e) {
-                    observableEmitter.tryOnError(e);
-                }
+            public void run() {
+                mPrefsApi.putObject(SharedPrefsKey.COMPANY, company);
             }
         });
     }
 
     @Override
-    public Observable<Company> getCompany() {
-        return mRealmApi.realmGet(new BiConsumer<ObservableEmitter<? super Company>, Realm>() {
-            @Override
-            public void accept(ObservableEmitter<? super Company> observableEmitter, Realm realm) throws Exception {
-                Company company = realm.where(Company.class).findFirst();
-                Log.w(TAG, "getCompany()? " + company.getName());
-                observableEmitter.onNext(company);
-            }
-        });
+    public Company getCompany() {
+        return mPrefsApi.getObject(SharedPrefsKey.COMPANY, Company.class);
     }
 }

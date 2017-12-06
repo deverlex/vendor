@@ -9,8 +9,11 @@ import java.util.List;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCategoriesBinding;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.screen.mainPage.MainPageFragment;
+import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -29,18 +32,17 @@ public class CategoriesActivity extends BaseActivity {
     private CategoriesContract.ViewModel mViewModel;
 
     private Navigator mNavigator;
-    private RealmApi mRealmApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         mNavigator = new Navigator(this);
-        mRealmApi = new RealmApi();
-
         List<Category> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
         mViewModel = new CategoriesViewModel(this, mNavigator, categoryAdapter);
 
-        CategoriesContract.Presenter presenter = new CategoriesPresenter(mViewModel, mRealmApi);
+        CategoriesContract.Presenter presenter =
+                new CategoriesPresenter(mViewModel, SharedPrefsImpl.getInstance());
+
         mViewModel.setPresenter(presenter);
         mViewModel.onStart();
 

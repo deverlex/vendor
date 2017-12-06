@@ -6,7 +6,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 import vn.needy.vendor.database.model.Category;
@@ -14,9 +13,9 @@ import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.api.v1.category.CategoryRepository;
 import vn.needy.vendor.api.v1.company.CompanyRepository;
 import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.api.v1.category.CategoryRemoteDataSource;
 import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.service.VendorServiceClient;
@@ -36,22 +35,45 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     private final CategoryRepository mCategoryRepository;
     private final CompanyRepository mCompanyRepository;
 
+    private SharedPrefsApi mPrefsApi;
     private String mCompanyId;
 
-    public CategoriesPresenter(CategoriesContract.ViewModel viewModel, RealmApi realmApi) {
+    public CategoriesPresenter(CategoriesContract.ViewModel viewModel, SharedPrefsApi prefsApi) {
+        mPrefsApi = prefsApi;
         mViewModel = viewModel;
         mCategoryRepository = new CategoryRepository(
                 new CategoryRemoteDataSource(VendorServiceClient.getInstance())
         );
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(realmApi));
+                new CompanyLocalDataSource(prefsApi));
         mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
     public void onStart() {
+        mCompanyRepository.getCompanyInformation()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CompanyResponse>() {
+                    @Override
+                    public void accept(CompanyResponse companyResponse) throws Exception {
+                        Company company = companyResponse.getCompany();
+                        if (company != null) {
+                            mCompanyId = company.getId();
 
+                            // get category of company
+                            getCategoryCompany();
+                        } else {
+                            // notify an error
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        /// notify an error
+                    }
+                });
     }
 
     @Override
@@ -59,36 +81,9 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
         mCompositeDisposable.dispose();
     }
 
-    @Override
-    public void getCategoryCompany() {
-        mCompanyRepository.getCompanyInformation()
-                .subscribeOn(Schedulers.io())
-                .map(new Function<CompanyResponse, Company>() {
-                    @Override
-                    public Company apply(CompanyResponse companyResponse) throws Exception {
-
-                        return companyResponse.getCompany();
-                    }
-                })
-                .doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Company>() {
-                    @Override
-                    public void accept(Company company) throws Exception {
-                        mCompanyId = company.getId();
-                        getListCategory();
-                    }
-                });
-    }
-
-    @Override
-    public void getListCategory() {
-        Disposable disposable = mCategoryRepository.getCategories(mCompanyId)
+    private void getCategoryCompany() {
+        // check price now or price later
+        Disposable disposable = mCategoryRepository.getLinkCategories(mCompanyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
@@ -107,14 +102,14 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getListSubCategories(String category) {
-        Disposable disposable = mCategoryRepository.getSubCategories(category, mCompanyId)
+        Disposable disposable = mCategoryRepository.getCompanyLinkCategories(category, mCompanyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
                     @Override
                     public void accept(List<Category> categories) throws Exception {
                         if (categories.size() == 0) {
-                            mViewModel.onGetProductCompany();
+                            mViewModel.backActivity();
                         }
                         mViewModel.onGetListCategorySuccess(categories);
                     }

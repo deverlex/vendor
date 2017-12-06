@@ -31,7 +31,7 @@ public class MainPresenter implements MainContract.Presenter {
         );
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(realmApi)
+                new CompanyLocalDataSource(SharedPrefsImpl.getInstance())
         );
         mCompositeDisposable = new CompositeDisposable();
     }

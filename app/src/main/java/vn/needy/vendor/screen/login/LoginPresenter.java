@@ -15,6 +15,7 @@ import vn.needy.vendor.api.v1.company.CompanyRepository;
 import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
 import vn.needy.vendor.api.v1.auth.CredentialLocalDataSource;
 import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.api.v1.auth.CredentialRemoteDataSource;
 import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
@@ -157,7 +158,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void findCompanyInherent() {
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(new RealmApi()));
+                new CompanyLocalDataSource(SharedPrefsImpl.getInstance()));
         Disposable disposable = mCompanyRepository.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .doAfterTerminate(new Action() {
