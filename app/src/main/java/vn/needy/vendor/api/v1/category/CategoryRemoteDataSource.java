@@ -24,7 +24,9 @@ public class CategoryRemoteDataSource extends BaseRemoteDataSource
 
     @Override
     public Observable<List<Category>> getLinkCategories(String category) {
-        return mVendorApi.getLinkCategories(category).map(new Function<CategoryResponse, List<Category>>() {
+        return mVendorApi.getLinkCategories(category)
+                .map(new Function<CategoryResponse, List<Category>>() {
+
             @Override
             public List<Category> apply(CategoryResponse categoryResponse) throws Exception {
                 return categoryResponse.getCategories();
@@ -34,7 +36,8 @@ public class CategoryRemoteDataSource extends BaseRemoteDataSource
 
     @Override
     public Observable<List<Category>> getCompanyLinkCategories(String category, String companyId) {
-        return mVendorApi.getCompanyLinkCategories(category, companyId).map(new Function<CategoryResponse, List<Category>>() {
+        return mVendorApi.getCompanyLinkCategories(category, companyId)
+                .map(new Function<CategoryResponse, List<Category>>() {
             @Override
             public List<Category> apply(CategoryResponse categoryResponse) throws Exception {
                 return categoryResponse.getCategories();

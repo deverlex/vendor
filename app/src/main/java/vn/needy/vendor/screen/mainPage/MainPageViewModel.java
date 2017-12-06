@@ -14,6 +14,7 @@ import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
+import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -43,8 +44,12 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         mPrefsApi = prefsApi;
         int productType = mPrefsApi.get(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, Integer.class);
         mProductType = productType > 0 ? productType : R.id.price_now;
+        // save it into db
+        prefsApi.put(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, mProductType);
+
         mIsPlChecked = mProductType == R.id.price_later;
 
+        // when get category from result activity
         if (category != null) {
             mCategory = category;
             // save category to db
@@ -73,6 +78,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
         mProductType = id;
+        // save setting product type into db
         mPrefsApi.put(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, mProductType);
     }
 
@@ -88,9 +94,10 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     @Override
     public void onClickCategories() {
         Bundle extras = new Bundle();
-        extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.CLASS);
-        extras.putInt(CategoriesActivity.SOURCE_CATEGORY, mProductType);
-        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.RC_CHOOSE_CATEGORY);
+        // put simple name thought bundle
+        extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.class.getSimpleName());
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.RC_CHOOSE_CATEGORY
+        );
     }
 
     @Bindable

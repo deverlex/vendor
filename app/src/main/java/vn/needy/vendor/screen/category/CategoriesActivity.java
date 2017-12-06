@@ -26,7 +26,6 @@ public class CategoriesActivity extends BaseActivity {
     public static final int RC_NOT_OK = 1102;
 
     public static final String CATEGORY = "_category";
-    public static final String SOURCE_CATEGORY = "_source_category";
     public static final String FROM_CLASS = "_from_class";
 
     private CategoriesContract.ViewModel mViewModel;
@@ -38,7 +37,8 @@ public class CategoriesActivity extends BaseActivity {
         mNavigator = new Navigator(this);
         List<Category> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
-        mViewModel = new CategoriesViewModel(this, mNavigator, categoryAdapter);
+        mViewModel = new CategoriesViewModel(this, mNavigator,
+                categoryAdapter, SharedPrefsImpl.getInstance());
 
         CategoriesContract.Presenter presenter =
                 new CategoriesPresenter(mViewModel, SharedPrefsImpl.getInstance());

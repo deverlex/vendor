@@ -48,13 +48,12 @@ public interface VendorApi {
     @POST("v1/companies")
     Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest request);
 
-
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
                                                       @Query("token") String token);
 
     @GET("v1/categories/{category}")
-    Observable<CategoryResponse> getLinkCategories(@Query("category") String category);
+    Observable<CategoryResponse> getLinkCategories(@Path("category") String category);
 
     @GET("v1/categories/{category}")
     Observable<CategoryResponse> getCompanyLinkCategories(@Path("category") String category,
