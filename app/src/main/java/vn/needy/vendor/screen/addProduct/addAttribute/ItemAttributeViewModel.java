@@ -21,7 +21,7 @@ public class ItemAttributeViewModel extends BaseObservable {
     @Bindable
     public String getAttributeTitle() {
         if (mAttribute != null) {
-            return mAttribute.getTitle();
+            return mAttribute.getName();
         }
         return "";
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.zhihu.matisse.Matisse;
@@ -20,10 +21,13 @@ import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
+import vn.needy.vendor.screen.addProduct.addAttribute.AddAttributeFragment;
+import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.Constant;
+import vn.needy.vendor.utils.navigator.Navigator;
 import vn.needy.vendor.widget.GifSizeFilter;
 
-import static vn.needy.vendor.screen.addProduct.AddProductPnActivity.REQUEST_CODE_CHOOSE;
+import static vn.needy.vendor.screen.addProduct.AddProductPnActivity.RC_CHOOSE_IMAGE;
 
 /**
  * Created by lion on 08/11/2017.
@@ -35,6 +39,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     private final Context mContext;
 
     private AddProductPnContract.Presenter mPresenter;
+    private Navigator mNavigator;
 
     private String mNameError;
     private String mDescriptionError;
@@ -53,8 +58,10 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     private boolean mVisibleImages;
 
-    public AddProductPnViewModel(Context context, ImageAdapter imageAdapter) {
+    public AddProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
         mContext = context;
+        mNavigator = navigator;
+
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
 
@@ -102,7 +109,10 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Override
     public void onChooseCategory() {
-        
+        Bundle extras = new Bundle();
+        // put simple name thought bundle
+        extras.putString(CategoriesActivity.FROM_CLASS, AddProductPnActivity.class.getSimpleName());
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, AddProductPnActivity.RC_CHOOSE_CATEGORY);
     }
 
     @Override
@@ -121,7 +131,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 .thumbnailScale(0.85f)
                 .imageEngine(new GlideEngine())
-                .forResult(REQUEST_CODE_CHOOSE);
+                .forResult(RC_CHOOSE_IMAGE);
     }
 
     @Override
@@ -132,7 +142,15 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Override
     public void onClickAddAttribute() {
+        if (mCategory != null) {
+            Bundle extras = new Bundle();
+            extras.putParcelable(CategoriesActivity.CATEGORY, mCategory);
+            ((AddProductPnActivity) mContext)
+                    .initFragment(android.R.id.content, AddAttributeFragment.getInstance(), extras);
+        } else {
+            // notify require choose category before add attribute
 
+        }
     }
 
     @Override
@@ -148,6 +166,12 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
         } else mVisibleImages = false;
         notifyPropertyChanged(BR.visibleImages);
         mImageAdapter.updateData(images);
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        mCategory = category;
+        notifyPropertyChanged(BR.category);
     }
 
     @Override
@@ -225,12 +249,12 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     }
 
     @Bindable
-    public float getFeeTransport() {
-        return mFeeTransport;
+    public String getFeeTransport() {
+        return String.valueOf(mFeeTransport);
     }
 
-    public void setFeeTransport(float feeTransport) {
-        mFeeTransport = feeTransport;
+    public void setFeeTransport(String feeTransport) {
+        mFeeTransport = Float.parseFloat(feeTransport);
     }
 
     @Bindable
@@ -244,7 +268,10 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Bindable
     public String getCategory() {
-        return mCategory.getTitle();
+        if (mCategory != null) {
+            return mCategory.getTitle();
+        }
+        return mContext.getString(R.string.choose_category);
     }
 
     public void setCategory(Category category) {

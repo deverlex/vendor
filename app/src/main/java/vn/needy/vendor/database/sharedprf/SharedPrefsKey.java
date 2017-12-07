@@ -11,6 +11,8 @@ public final class SharedPrefsKey {
     public static final String CURRENT_CATEGORY = "current_category";
     public static final String PRODUCT_TYPE_CHOOSE = "product_type_choose";
 
+    public static final String COMPANY = "company";
+
     private SharedPrefsKey() {
         // No-op
     }

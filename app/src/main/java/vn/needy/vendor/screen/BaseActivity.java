@@ -63,13 +63,19 @@ public class BaseActivity  extends AppCompatActivity {
 
     protected <T extends Fragment> T initFragment(@IdRes int target,
                                                   @NonNull T fragment) {
-        return initFragment(target, fragment, null);
+        return initFragment(target, fragment, null, null);
     }
 
     protected <T extends Fragment> T initFragment(@IdRes int target,
                                                   @NonNull T fragment,
                                                   @Nullable Locale locale) {
         return initFragment(target, fragment, locale, null);
+    }
+
+    protected <T extends Fragment> T initFragment(@IdRes int target,
+                                                  @NonNull T fragment,
+                                                  @Nullable Bundle extras) {
+        return initFragment(target, fragment, null, extras);
     }
 
     protected <T extends Fragment> T initFragment(@IdRes int target,

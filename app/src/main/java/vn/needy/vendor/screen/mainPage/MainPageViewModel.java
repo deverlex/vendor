@@ -6,10 +6,6 @@ import android.databinding.Bindable;
 import android.os.Bundle;
 import android.widget.RadioGroup;
 
-import io.reactivex.ObservableEmitter;
-import io.reactivex.functions.BiConsumer;
-import io.realm.Realm;
-import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.realm.RealmApi;
@@ -18,6 +14,7 @@ import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
+import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -47,8 +44,12 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         mPrefsApi = prefsApi;
         int productType = mPrefsApi.get(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, Integer.class);
         mProductType = productType > 0 ? productType : R.id.price_now;
+        // save it into db
+        prefsApi.put(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, mProductType);
+
         mIsPlChecked = mProductType == R.id.price_later;
 
+        // when get category from result activity
         if (category != null) {
             mCategory = category;
             // save category to db
@@ -77,30 +78,26 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
         mProductType = id;
+        // save setting product type into db
         mPrefsApi.put(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, mProductType);
     }
 
     @Override
     public void onClickAddProduct() {
-        // send category to add product activity
-        Bundle extras = new Bundle();
-        if (mCategory != null) {
-            extras.putParcelable(MainPageFragment.CATEGORY, mCategory);
-        }
-
         if (mProductType == R.id.price_now) {
-            mNavigator.startActivity(AddProductPnActivity.class, extras);
+            mNavigator.startActivity(AddProductPnActivity.class);
         } else {
-            mNavigator.startActivity(AddProductPlActivity.class, extras);
+            mNavigator.startActivity(AddProductPlActivity.class);
         }
     }
 
     @Override
     public void onClickCategories() {
         Bundle extras = new Bundle();
-        extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.CLASS);
-        extras.putInt(CategoriesActivity.SOURCE_CATEGORY, mProductType);
-        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.REQUEST_CODE);
+        // put simple name thought bundle
+        extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.class.getSimpleName());
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.RC_CHOOSE_CATEGORY
+        );
     }
 
     @Bindable

@@ -22,13 +22,14 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class MainPageFragment extends Fragment {
 
-    public static final String CLASS = MainPageFragment.class.getName();
+    private static final String TAG = MainPageFragment.class.getName();
 
     public static MainPageFragment getInstance() {
         return new MainPageFragment();
     }
 
-    public static final int REQUEST_CODE = 1001;
+    public static final int RC_CHOOSE_CATEGORY = 1001;
+    public static final String PRODUCT_TYPE = "_product_type";
     public static final String CATEGORY = "_category";
 
     private MainPageConstract.ViewModel mViewModel;

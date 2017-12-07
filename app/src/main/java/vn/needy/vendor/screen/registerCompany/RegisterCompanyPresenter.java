@@ -12,6 +12,8 @@ import vn.needy.vendor.api.v1.company.CompanyRepository;
 import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
 import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
@@ -32,7 +34,7 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
         mViewModel = viewModel;
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(new RealmApi()));
+                new CompanyLocalDataSource(SharedPrefsImpl.getInstance()));
         mCompositeDisposable = new CompositeDisposable();
     }
 
