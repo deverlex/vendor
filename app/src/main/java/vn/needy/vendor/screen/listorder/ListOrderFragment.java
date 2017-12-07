@@ -21,7 +21,7 @@ public class ListOrderFragment extends Fragment {
         return new ListOrderFragment();
     }
 
-    private ListOrderConstract.ViewModel mViewModel;
+    private ListOrderContract.ViewModel mViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

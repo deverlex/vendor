@@ -1,10 +1,10 @@
-package vn.needy.vendor.screen.addProduct;
+package vn.needy.vendor.screen;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.util.Log;
 
 import vn.needy.vendor.database.model.Image;
-import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
  * Created by lion on 08/11/2017.
@@ -23,10 +23,11 @@ public class ItemImageViewModel extends BaseObservable {
         mItemClickListener = listener;
     }
 
+    @Bindable
     public String getImagePath() {
         Log.w(TAG, "getImagePath()");
         if (mImage != null) {
-            return mImage.getUrl();
+            return mImage.getPath();
         }
         return "";
     }

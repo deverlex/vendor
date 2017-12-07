@@ -309,7 +309,7 @@
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_plus_outline"
                     android:fontFamily="@string/font_serif"
-                    android:text="@string/add_attrs"
+                    android:text="@string/attrs"
                     android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"

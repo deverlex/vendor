@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.addProduct;
+package vn.needy.vendor.screen;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -13,7 +13,6 @@ import java.util.List;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.databinding.ItemImageBinding;
-import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
  * Created by lion on 08/11/2017.
@@ -26,7 +25,7 @@ public class ImageAdapter extends BaseRecyclerViewAdapter<ImageAdapter.ItemViewH
     private final List<Image> mImages;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected ImageAdapter(@NonNull Context context, List<Image> images) {
+    public ImageAdapter(@NonNull Context context, List<Image> images) {
         super(context);
         mImages = images;
     }
@@ -41,7 +40,6 @@ public class ImageAdapter extends BaseRecyclerViewAdapter<ImageAdapter.ItemViewH
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder? " + mImages.get(position).getUrl());
         holder.bind(mImages.get(position));
     }
     @Override
