@@ -218,4 +218,5 @@
 
     <string name="staff">Nhân viên</string>
     <string name="staff_manager">Quản lý nhân viên</string>
+    <string name="choose_category">Lựa chọn danh mục</string>
 </resources>

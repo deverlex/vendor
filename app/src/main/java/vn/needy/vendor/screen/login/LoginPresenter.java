@@ -15,6 +15,7 @@ import vn.needy.vendor.api.v1.company.CompanyRepository;
 import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
 import vn.needy.vendor.api.v1.auth.CredentialLocalDataSource;
 import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.api.v1.auth.CredentialRemoteDataSource;
 import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
@@ -154,10 +155,10 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void findCompanyInherent() {
+    public void findCompanyReference() {
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(new RealmApi()));
+                new CompanyLocalDataSource(SharedPrefsImpl.getInstance()));
         Disposable disposable = mCompanyRepository.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .doAfterTerminate(new Action() {
@@ -165,7 +166,8 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void run() throws Exception {
                         mViewModel.onHideProgressBar();
                     }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<CompanyResponse>() {
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CompanyResponse>() {
                     @Override
                     public void accept(CompanyResponse companyResponse) throws Exception {
                         if (companyResponse.getCompany() != null) {

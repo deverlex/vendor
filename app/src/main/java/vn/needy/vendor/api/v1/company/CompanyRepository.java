@@ -38,7 +38,7 @@ public class CompanyRepository {
         mCompanyLocalDataSource.saveCompany(company);
     }
 
-    public Observable<Company> getCompany() {
+    public Company getCompany() {
         return mCompanyLocalDataSource.getCompany();
     }
 }

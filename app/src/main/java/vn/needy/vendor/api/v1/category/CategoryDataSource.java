@@ -12,8 +12,8 @@ import vn.needy.vendor.database.model.Category;
 public interface CategoryDataSource {
 
     interface RemoteDataSource {
-        Observable<List<Category>> getCategories(String companyId);
+        Observable<List<Category>> getLinkCategories(String category);
 
-        Observable<List<Category>> getSubCategories(String category, String companyId);
+        Observable<List<Category>> getCompanyLinkCategories(String category, String companyId);
     }
 }

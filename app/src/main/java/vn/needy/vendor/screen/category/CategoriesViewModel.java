@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
@@ -31,11 +34,17 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
 
     private CategoriesContract.Presenter mPresenter;
     private Category mCategory;
+    private SharedPrefsApi mPrefsApi;
+    private String mFromClass;
 
-    public CategoriesViewModel(Context context, Navigator navigator, CategoryAdapter categoryAdapter) {
+    public CategoriesViewModel(Context context, Navigator navigator, CategoryAdapter categoryAdapter,
+                               SharedPrefsApi prefsApi, String fromClass) {
         mContext = context;
+        mPrefsApi = prefsApi;
         mNavigator = navigator;
         mCategoryAdapter = categoryAdapter;
+        mFromClass = fromClass;
+
         mCategoryAdapter.setItemClickListener(this);
     }
 
@@ -43,26 +52,25 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
     public void onStart() {
         // check add product or get product
         // previous activity will send an name class to bundle
-        Bundle extras = ((Activity) mContext).getIntent().getExtras();
-        if (extras != null) {
-            String fromClass = extras.getString(CategoriesActivity.FROM_CLASS);
-            if (fromClass.equals(MainPageFragment.CLASS)) {
-                // check source of category
-                int productType = extras.getInt(CategoriesActivity.SOURCE_CATEGORY);
-                if (productType == R.id.price_now) {
-                    // get category from pn
-
-                } else {
-                    // get category from pl
-                }
-            } else if (fromClass.equals(AddProductPnActivity.CLASS)) {
-                // from add product pn
-
+        if (mFromClass.equals(MainPageFragment.class.getSimpleName())) {
+            // check source of category
+            int productType = mPrefsApi.get(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, Integer.class);
+            if (productType == R.id.price_now) {
+                // get category from pn
+                Log.w(TAG, "get category from pn");
+                mPresenter.getCompanyLinkCategoryPriceNow();
             } else {
-                // from add product pl
+                // get category from pl
+                Log.w(TAG, "get category from pl");
+                mPresenter.getCompanyLinkCategoryPriceLater();
             }
+        } else if (mFromClass.equals(AddProductPnActivity.class.getSimpleName())) {
+            // from add product pn
+            Log.w(TAG, "from add product pn");
+            mPresenter.getLinkCategoryPriceNow();
         } else {
-            // get all category from root (have: pn & pl)
+            // from add product pl
+            Log.w(TAG, "from add product pl");
         }
     }
 
@@ -80,7 +88,11 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
     public void onItemRecyclerViewClick(Object item) {
         if (item instanceof Category) {
             mCategory = (Category) item;
-            mPresenter.getListSubCategories(mCategory.getName());
+            if (mFromClass.equals(MainPageFragment.class.getSimpleName())) {
+                mPresenter.getCompanyLinkCategories(mCategory.getName());
+            } else {
+                mPresenter.getLinkCategories(mCategory.getName());
+            }
         }
     }
 
@@ -90,41 +102,27 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
         // if it is price_now/price_later then back to main
 
 //        Activity activity = (Activity) mContext;
-//        activity.setResult(CategoriesActivity.RESULT_CHANGE_OK);
+//        activity.setResult(CategoriesActivity.RC_OK);
 //        activity.finish();
     }
 
     @Override
-    public void onGetListCategorySuccess(List<Category> categories) {
+    public void onUpdateListCategory(List<Category> categories) {
         mCategoryAdapter.updateData(categories);
     }
 
     @Override
-    public void onGetListCategoryError(BaseException exception) {
+    public void onUpdateListCategoryError(BaseException exception) {
 
     }
 
     @Override
-    public void onGetProductCompany() {
-        backActivity();
-    }
-
-    @Override
-    public void onBackAddProductPriceNow() {
-        backActivity();
-    }
-
-    @Override
-    public void onBackAddProductPriceLater() {
-        backActivity();
-    }
-
-    private void backActivity() {
+    public void backActivity() {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putParcelable(CategoriesActivity.CATEGORY, mCategory);
         intent.putExtras(bundle);
-        mNavigator.finishActivity(CategoriesActivity.RESULT_CHANGE_OK, intent);
+        mNavigator.finishActivity(CategoriesActivity.RC_OK, intent);
     }
 
     public CategoryAdapter getCategoryAdapter() {

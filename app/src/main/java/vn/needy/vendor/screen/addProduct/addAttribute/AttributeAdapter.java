@@ -32,6 +32,7 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.w(TAG, "onCreateViewHolder");
         ItemAddAttrsBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_add_attrs, parent, false);
@@ -51,12 +52,12 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
         if (attributes == null) {
             return;
         }
-        Log.d(TAG, "image size? " + attributes.size());
+        Log.w(TAG, "size of attributes????? " + attributes.size());
         mAttributes.addAll(attributes);
         notifyDataSetChanged();
     }
 
-    public List<Attribute> getImages() {
+    public List<Attribute> getAttributes() {
         return mAttributes;
     }
 

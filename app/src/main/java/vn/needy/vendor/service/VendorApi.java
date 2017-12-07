@@ -10,6 +10,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import vn.needy.vendor.api.v1.attrs.response.AttributeResponse;
 import vn.needy.vendor.api.v1.auth.request.CredentialsRequest;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
@@ -19,6 +20,7 @@ import vn.needy.vendor.api.v1.category.response.CategoryResponse;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
+import vn.needy.vendor.database.model.Attribute;
 
 /**
  * Created by lion on 04/10/2017.
@@ -48,17 +50,19 @@ public interface VendorApi {
     @POST("v1/companies")
     Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest request);
 
-
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
                                                       @Query("token") String token);
 
-    @GET("v1/pn/categories")
-    Observable<CategoryResponse> getCategories(@Query("company_id") String companyId);
+    @GET("v1/categories/{category}")
+    Observable<CategoryResponse> getLinkCategories(@Path("category") String category);
 
-    @GET("v1/pn/categories/{category}")
-    Observable<CategoryResponse> getSubCategories(@Path("category") String category,
-                                                  @Query("company_id") String companyId);
+    @GET("v1/categories/{category}")
+    Observable<CategoryResponse> getCompanyLinkCategories(@Path("category") String category,
+                                                          @Query("company_id") String companyId);
+
+    @GET("v1/attributes")
+    Observable<AttributeResponse> getAttributeCategory(@Query("category_name") String category);
 
     // POST new images
     @Multipart

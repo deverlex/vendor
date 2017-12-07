@@ -3,7 +3,6 @@ package vn.needy.vendor.screen.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.util.Log;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -42,8 +41,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MainPageFragment.REQUEST_CODE) {
-            if (resultCode == CategoriesActivity.RESULT_CHANGE_OK) {
+
+        if (requestCode == MainPageFragment.RC_CHOOSE_CATEGORY) {
+            if (resultCode == CategoriesActivity.RC_OK) {
                 // we will reload main fragment
                 initFragment(R.id.contentContainer, MainPageFragment.getInstance(),
                         null, data.getExtras());
