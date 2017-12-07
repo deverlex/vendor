@@ -24,6 +24,6 @@ public interface AddAttributeContract {
     interface Presenter extends BasePresenter {
         void onGetListAttributes(Category category);
 
-        void onValidateDataInput(List<Object> attrs);
+        boolean onValidateDataInput(List<Object> attrs);
     }
 }

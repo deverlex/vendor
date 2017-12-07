@@ -41,7 +41,7 @@
             android:fontFamily="@string/font_serif"
             android:hint="@string/input_value_attr"
             android:gravity="end"
-            android:inputType="number"
+            android:inputType="text"
             android:text="@={viewModel.attributeValue}"
             android:textSize="@dimen/sp_16"
             android:textAllCaps="false"

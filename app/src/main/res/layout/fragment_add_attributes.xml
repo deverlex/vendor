@@ -47,6 +47,7 @@
                     app:srcCompat="@drawable/ic_check"
                     android:background="@color/transparent"
                     android:layout_alignParentRight="true"
+                    android:onClick="@{() -> viewModel.onDoneClicked()}"
                     />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
