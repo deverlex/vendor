@@ -70,7 +70,7 @@ public class AddAttributePresenter implements AddAttributeContract.Presenter {
     }
 
     @Override
-    public void onValidateDataInput(List<Object> attrs) {
-
+    public boolean onValidateDataInput(List<Object> attrs) {
+        return false;
     }
 }
