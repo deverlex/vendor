@@ -12,10 +12,20 @@ import vn.needy.vendor.screen.BaseActivity;
  */
 
 public class CompanyActivity extends BaseActivity {
+    private CompanyContract.ViewModel mViewModel;
+
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         super.onCreateActivity(savedInstanceState);
         ActivityCompanyProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_company_profile);
 
+        mViewModel = new CompanyViewModel();
+
+        CompanyContract.Presenter presenter= new CompanyPresenter(mViewModel);
+        mViewModel.setPresenter(presenter);
+
+        mViewModel.onStart();
+
+        binding.setViewModel((CompanyViewModel) mViewModel);
     }
 }
