@@ -358,25 +358,25 @@
                     tools:ignore="UnusedAttribute"
                     />
 
-                <!--<EditText-->
-                    <!--android:layout_width="@dimen/dp_100"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:padding="@dimen/dp_10"-->
-                    <!--android:background="@color/color_white"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:fontFamily="@string/font_serif"-->
-                    <!--android:hint="@string/product_price_input"-->
-                    <!--android:gravity="end"-->
-                    <!--android:inputType="numberDecimal"-->
-                    <!--android:text="@={viewModel.feeTransport}"-->
-                    <!--android:textSize="@dimen/sp_14"-->
-                    <!--android:textAllCaps="false"-->
-                    <!--android:textColor="@color/black"-->
-                    <!--android:textColorHint="@color/gray35"-->
-                    <!--android:layout_marginRight="@dimen/dp_5"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--tools:ignore="UnusedAttribute"-->
-                    <!--/>-->
+                <EditText
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10"
+                    android:background="@color/color_white"
+                    android:layout_weight="1"
+                    android:fontFamily="@string/font_serif"
+                    android:hint="@string/product_price_input"
+                    android:gravity="end"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.feeTransport}"
+                    android:textSize="@dimen/sp_14"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray35"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_gravity="center"
+                    tools:ignore="UnusedAttribute"
+                    />
             </LinearLayout>
 
             <TextView

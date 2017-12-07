@@ -6,6 +6,8 @@
             name="viewModel"
             type="vn.needy.vendor.screen.addProduct.addAttribute.AddAttributeViewModel"
             />
+
+        <import type="android.support.v7.widget.LinearLayoutManager"/>
     </data>
 
     <LinearLayout
@@ -52,13 +54,16 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/gray12"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_margin="@dimen/dp_3"
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerAdapter="@{viewModel.attributeAdapter}"
             />
     </LinearLayout>
 </layout>

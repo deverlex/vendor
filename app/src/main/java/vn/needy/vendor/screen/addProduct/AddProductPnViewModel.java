@@ -142,8 +142,15 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Override
     public void onClickAddAttribute() {
-        ((AddProductPnActivity) mContext)
-                .initFragment(android.R.id.content, AddAttributeFragment.getInstance());
+        if (mCategory != null) {
+            Bundle extras = new Bundle();
+            extras.putParcelable(CategoriesActivity.CATEGORY, mCategory);
+            ((AddProductPnActivity) mContext)
+                    .initFragment(android.R.id.content, AddAttributeFragment.getInstance(), extras);
+        } else {
+            // notify require choose category before add attribute
+
+        }
     }
 
     @Override
@@ -242,12 +249,12 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     }
 
     @Bindable
-    public float getFeeTransport() {
-        return mFeeTransport;
+    public String getFeeTransport() {
+        return String.valueOf(mFeeTransport);
     }
 
-    public void setFeeTransport(float feeTransport) {
-        mFeeTransport = feeTransport;
+    public void setFeeTransport(String feeTransport) {
+        mFeeTransport = Float.parseFloat(feeTransport);
     }
 
     @Bindable

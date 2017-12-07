@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.zhihu.matisse.Matisse;
@@ -55,8 +56,8 @@ public class AddProductPnActivity extends BaseActivity {
 
     @Override
     public Fragment initFragment(@IdRes int target,
-                                 @NonNull Fragment fragment) {
-        return super.initFragment(target, fragment);
+                                 @NonNull Fragment fragment, @Nullable Bundle extras) {
+        return super.initFragment(target, fragment, extras);
     }
 
     @Override
