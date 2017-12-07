@@ -181,6 +181,7 @@
                 android:background="@color/color_gray_mos" />
 
             <RelativeLayout
+                android:onClick="@{() -> viewModel.onClickViewCompany()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
