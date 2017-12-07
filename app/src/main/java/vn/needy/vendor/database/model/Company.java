@@ -23,7 +23,7 @@ public class Company implements Parcelable {
     @SerializedName("name")
     @Expose
     private String mName;
-    @SerializedName("officeAddress")
+    @SerializedName("address")
     @Expose
     private String mOfficeAddress;
     @SerializedName("foundedDate")
@@ -56,6 +56,9 @@ public class Company implements Parcelable {
     @SerializedName("reputation")
     @Expose
     private boolean mIsReputation;
+    @SerializedName("email")
+    @Expose
+    private String mEmail;
 
     public Company() {
         super();
@@ -76,6 +79,7 @@ public class Company implements Parcelable {
         mSiteUrl = in.readString();
         mCreatedTime = in.readString();
         mLastUpdatedTime = in.readString();
+        mEmail = in.readString();
     }
 
     @Override
@@ -93,6 +97,7 @@ public class Company implements Parcelable {
         dest.writeString(mSiteUrl);
         dest.writeString(mCreatedTime);
         dest.writeString(mLastUpdatedTime);
+        dest.writeString(mEmail);
     }
 
     public static final Creator<Company> CREATOR = new Creator<Company>() {
@@ -230,5 +235,13 @@ public class Company implements Parcelable {
 
     public void setIsReputation(boolean isReputation) {
         mIsReputation = isReputation;
+    }
+
+    public String getEmail() {
+        return mEmail;
+    }
+
+    public void setEmail(String email) {
+        this.mEmail = email;
     }
 }

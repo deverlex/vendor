@@ -21,6 +21,7 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
     private List<Banner> mBanners;
     private boolean mEnable;
     private int mDrawableEdit;
+    private Company mCompany;
 
     public CompanyViewModel() {
         mDrawableEdit = R.drawable.ic_edits_white;
@@ -59,7 +60,8 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
 
     @Override
     public void setCompanyInfo(Company company) {
-
+        mCompany = company;
+        notifyPropertyChanged(BR.company);
     }
 
     @Bindable
@@ -75,5 +77,10 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
     @Bindable
     public int getDrawableEdit() {
         return mDrawableEdit;
+    }
+
+    @Bindable
+    public Company getCompany() {
+        return mCompany;
     }
 }
