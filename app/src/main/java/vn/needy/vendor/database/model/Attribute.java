@@ -2,6 +2,8 @@ package vn.needy.vendor.database.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IntDef;
+import android.support.annotation.StringDef;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -18,6 +20,9 @@ public class Attribute implements Parcelable {
     @Expose
     @SerializedName("title")
     private String mTitle;
+    @Expose
+    @SerializedName("dataType")
+    private int mDataType;
     private Object mValue;
 
     @Override
@@ -29,6 +34,7 @@ public class Attribute implements Parcelable {
         mName = in.readString();
         mTitle = in.readString();
         mValue = in.readValue(getClass().getClassLoader());
+        mDataType = in.readInt();
     }
 
     public String getName() {
@@ -55,6 +61,14 @@ public class Attribute implements Parcelable {
         mValue = value;
     }
 
+    public int getDataType() {
+        return mDataType;
+    }
+
+    public void setDataType(int dataType) {
+        mDataType = dataType;
+    }
+
     public static final Creator<Attribute> CREATOR = new Creator<Attribute>() {
         @Override
         public Attribute createFromParcel(Parcel in) {
@@ -72,5 +86,12 @@ public class Attribute implements Parcelable {
         dest.writeString(mName);
         dest.writeString(mTitle);
         dest.writeValue(mValue);
+        dest.writeInt(mDataType);
+    }
+
+    @IntDef({DataType.NUMBER, DataType.STRING})
+    public @interface DataType {
+        int NUMBER = 0;
+        int STRING  = 1;
     }
 }
