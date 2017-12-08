@@ -4,6 +4,7 @@ import io.reactivex.Observable;
 import vn.needy.vendor.api.base.BaseRemoteDataSource;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.api.base.BaseResponse;
+import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 import vn.needy.vendor.service.VendorApi;
 
@@ -17,6 +18,11 @@ public class CompanyRemoteDataSource extends BaseRemoteDataSource
     @Override
     public Observable<CompanyResponse> getCompanyInformation() {
         return mVendorApi.getCompanyInformation();
+    }
+
+    @Override
+    public Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest) {
+        return mVendorApi.updateCompanyInformation(companyId, infoRequest);
     }
 
     @Override

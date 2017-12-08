@@ -3,6 +3,7 @@ package vn.needy.vendor.screen.companyProfile;
 import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
+import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
@@ -18,11 +19,23 @@ public class CompanyContract {
         void onClickEdit();
 
         void setCompanyInfo(Company company);
+
+        void onInputNameError(String errorMsg);
+
+        void onInputAddressError(String msg);
+
+        void onBackPressed();
+
+        void onClickPosition();
     }
 
     interface Presenter extends BasePresenter {
         void getCoverPictures();
 
         void getCompanyInfo();
+
+        boolean validateDataInput(String name, String address);
+
+        void updateCompanyInfo(String companyId, UpdateCompanyInfoRequest infoRequest);
     }
 }

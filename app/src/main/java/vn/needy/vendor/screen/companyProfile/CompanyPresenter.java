@@ -1,19 +1,24 @@
 package vn.needy.vendor.screen.companyProfile;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
+import vn.needy.vendor.R;
+import vn.needy.vendor.api.base.BaseResponse;
 import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
 import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
 import vn.needy.vendor.api.v1.company.CompanyRepository;
+import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.database.realm.RealmApi;
@@ -94,5 +99,45 @@ public class CompanyPresenter implements CompanyContract.Presenter {
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean validateDataInput(String name, String address) {
+        boolean isValidate = true;
+        if (TextUtils.isEmpty(name)) {
+            isValidate = false;
+            mViewModel.onInputNameError("Tên hiển thị rỗng");
+        }
+
+        if (TextUtils.isEmpty(address)) {
+            isValidate = false;
+            mViewModel.onInputAddressError("Địa chỉ rỗng");
+        }
+        return isValidate;
+    }
+
+    @Override
+    public void updateCompanyInfo(String companyId, UpdateCompanyInfoRequest infoRequest) {
+        mCompanyRepository.updateCompanyInformation(companyId, infoRequest)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        // Show ProgressBar
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseResponse>() {
+                    @Override
+                    public void accept(BaseResponse baseResponse) throws Exception {
+
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+
+                    }
+                });
+
     }
 }

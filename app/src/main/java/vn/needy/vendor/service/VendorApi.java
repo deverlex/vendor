@@ -13,6 +13,7 @@ import retrofit2.http.Query;
 import vn.needy.vendor.api.v1.attrs.response.AttributeResponse;
 import vn.needy.vendor.api.v1.auth.request.CredentialsRequest;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
+import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
 import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
 import vn.needy.vendor.api.base.BaseResponse;
@@ -46,6 +47,9 @@ public interface VendorApi {
 
     @GET("v1/companies")
     Observable<CompanyResponse> getCompanyInformation();
+
+    @PUT("v1/companies/{company_id}")
+    Observable<BaseResponse> updateCompanyInformation(@Path(value = "company_id") String companyId, @Body UpdateCompanyInfoRequest infoRequest);
 
     @POST("v1/companies")
     Observable<CompanyResponse> registerCompany(@Body RegisterCompanyRequest request);

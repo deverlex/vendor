@@ -1,6 +1,7 @@
 package vn.needy.vendor.api.v1.company;
 
 import io.reactivex.Observable;
+import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.api.base.BaseResponse;
@@ -33,6 +34,9 @@ public class CompanyRepository {
         return mCompanyRemoteDataSource.updateStaffFcmToken(companyId, fcmToken);
     }
 
+    public Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest) {
+        return mCompanyRemoteDataSource.updateCompanyInformation(companyId, infoRequest);
+    }
 
     public void saveCompany(Company company) {
         mCompanyLocalDataSource.saveCompany(company);

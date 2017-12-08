@@ -6,9 +6,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 public class Company implements Parcelable {
 
     @SerializedName("id")
@@ -59,6 +56,12 @@ public class Company implements Parcelable {
     @SerializedName("email")
     @Expose
     private String mEmail;
+    @SerializedName("lat")
+    @Expose
+    private float mLat;
+    @SerializedName("lng")
+    @Expose
+    private float mLng;
 
     public Company() {
         super();
@@ -80,6 +83,9 @@ public class Company implements Parcelable {
         mCreatedTime = in.readString();
         mLastUpdatedTime = in.readString();
         mEmail = in.readString();
+        mLat = in.readFloat();
+        mLng = in.readFloat();
+
     }
 
     @Override
@@ -98,6 +104,8 @@ public class Company implements Parcelable {
         dest.writeString(mCreatedTime);
         dest.writeString(mLastUpdatedTime);
         dest.writeString(mEmail);
+        dest.writeFloat(mLat);
+        dest.writeFloat(mLng);
     }
 
     public static final Creator<Company> CREATOR = new Creator<Company>() {
@@ -243,5 +251,21 @@ public class Company implements Parcelable {
 
     public void setEmail(String email) {
         this.mEmail = email;
+    }
+
+    public float getLat() {
+        return mLat;
+    }
+
+    public void setLat(float lat) {
+        this.mLat = lat;
+    }
+
+    public float getLng() {
+        return mLng;
+    }
+
+    public void setLng(float lng) {
+        this.mLng = lng;
     }
 }

@@ -128,6 +128,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
+                        app:errorText="@{viewModel.nameError}"
                         android:text="@={viewModel.company.name}"
                         android:enabled="@{viewModel.enable}"
                         android:layout_width="match_parent"
@@ -213,7 +214,7 @@
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
-                        android:text="@{viewModel.company.foundedDate}"
+                        android:text="@={viewModel.company.foundedDate}"
                         android:textColor="@color/gray70"
                         android:textSize="@dimen/sp_13"
                         tools:ignore="UnusedAttribute" />
@@ -286,7 +287,7 @@
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
-                        android:text="@{viewModel.company.openingTime}"
+                        android:text="@={viewModel.company.openingTime}"
                         android:textColor="@color/gray70"
                         android:textSize="@dimen/sp_13"
                         tools:ignore="UnusedAttribute" />
@@ -327,7 +328,7 @@
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
-                        android:text="@{viewModel.company.closingTime}"
+                        android:text="@={viewModel.company.closingTime}"
                         android:textColor="@color/gray70"
                         android:textSize="@dimen/sp_13"
                         tools:ignore="UnusedAttribute" />
@@ -364,7 +365,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
-                        android:text="@{viewModel.company.siteUrl}"
+                        android:text="@={viewModel.company.siteUrl}"
                         android:enabled="@{viewModel.enable}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -402,7 +403,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
-                        android:text="@{viewModel.company.email}"
+                        android:text="@={viewModel.company.email}"
                         android:enabled="@{viewModel.enable}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -496,6 +497,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
+                        app:errorText="@{viewModel.addressError}"
                         android:text="@={viewModel.company.officeAddress}"
                         android:enabled="@{viewModel.enable}"
                         android:layout_width="match_parent"
@@ -520,11 +522,12 @@
 
                     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/map"
-                        class="com.google.android.gms.maps.SupportMapFragment"
+                        class="vn.needy.vendor.widget.WorkaroundMapFragment"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_250" />
 
                     <ImageButton
+                        android:onClick="@{() -> viewModel.onClickPosition()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -548,6 +551,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
+                    android:onClick="@{() -> viewModel.onBackPressed()}"
                     android:id="@+id/back"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
