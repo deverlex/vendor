@@ -2,6 +2,7 @@ package vn.needy.vendor.screen.addProduct;
 
 import java.util.List;
 
+import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.api.v1.product.request.AddProductPnRequest;
 import vn.needy.vendor.screen.BasePresenter;
@@ -34,6 +35,8 @@ interface AddProductPnContract {
         void onClickAddPromotion();
 
         void onSelectedListImages(List<Image> images);
+
+        void updateCategory(Category category);
     }
 
     interface Presenter extends BasePresenter {

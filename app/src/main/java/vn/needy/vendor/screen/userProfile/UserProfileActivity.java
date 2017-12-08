@@ -19,7 +19,7 @@ import vn.needy.vendor.widget.WorkaroundMapFragment;
 
 public class UserProfileActivity extends BaseActivity {
 
-    private static final String CLASS = UserProfileActivity.class.getName();
+    private static final String TAG = UserProfileActivity.class.getName();
 
     private UserProfileContract.ViewModel mViewModel;
     private ScrollView mScrollView;

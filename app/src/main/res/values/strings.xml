@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Needy - Quản lý</string>
+    <string name="app_version">Needy v0.0.9</string>
 
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
     <string name="font_serif">serif</string>
@@ -160,6 +161,22 @@
     <string name="profile_store">Hồ sơ cửa hàng</string>
     <string name="company_number">Mã số công ty</string>
     <string name="store_number">Mã số cửa hàng</string>
+    
+    <string name="bank_account">Tài khoản / Thẻ Ngân hàng</string>
+    <string name="setting">Cài đặt</string>
+    <string name="setting_notifications">Cài đặt thông báo</string>
+    <string name="block_user">Người dùng bị chặn</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="tips_and_tricks">Mẹo và thủ thuật</string>
+    <string name="community_standards">Tiêu chuẩn cộng đồng</string>
+    <string name="needy_rules">Điều khoản Needy</string>
+    <string name="vote_needy_app">Đánh giá dịch vụ Needy</string>
+    <string name="clear_cache">Xóa bộ nhớ đệm</string>
+    <string name="delete_account">Xóa tài khoản</string>
+    <string name="logout">Đăng xuất</string>
+
+    <string name="support_center">Trung tâm trợ giúp</string>
+    <string name="account_setting">Thiết lập tài khoản</string>
 
     <string name="busy_state">Trạng thái bận</string>
     <string name="busy_state_expand">Trạng thái bận cho phép tạm thời ngăn chặn khách hàng đặt đơn hàng mới.</string>
@@ -201,4 +218,5 @@
 
     <string name="staff">Nhân viên</string>
     <string name="staff_manager">Quản lý nhân viên</string>
+    <string name="choose_category">Lựa chọn danh mục</string>
 </resources>

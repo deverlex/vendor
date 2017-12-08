@@ -17,23 +17,25 @@ public interface CategoriesContract {
 
         void onBackClicked();
 
-        void onGetListCategorySuccess(List<Category> categories);
+        void onUpdateListCategory(List<Category> categories);
 
-        void onGetListCategoryError(BaseException exception);
+        void onUpdateListCategoryError(BaseException exception);
 
-        void onGetProductCompany();
-
-        void onBackAddProductPriceNow();
-
-        void onBackAddProductPriceLater();
+        void backActivity();
     }
 
     interface Presenter extends BasePresenter {
 
-        void getCategoryCompany();
+        void getCompanyLinkCategoryPriceNow();
 
-        void getListCategory();
+        void getCompanyLinkCategoryPriceLater();
 
-        void getListSubCategories(String category);
+        void getLinkCategoryPriceNow();
+
+        void getLinkCategoryPriceLater();
+
+        void getCompanyLinkCategories(String category);
+
+        void getLinkCategories(String category);
     }
 }

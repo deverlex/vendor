@@ -3,13 +3,20 @@ package vn.needy.vendor.database.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by lion on 04/12/2017.
  */
 
 public class Attribute implements Parcelable {
 
+    @Expose
+    @SerializedName("name")
     private String mName;
+    @Expose
+    @SerializedName("title")
     private String mTitle;
     private Object mValue;
 
