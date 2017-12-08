@@ -32,12 +32,6 @@ public class Company implements Parcelable {
     @SerializedName("closingTime")
     @Expose
     private String mClosingTime;
-    @SerializedName("avatar")
-    @Expose
-    private String mAvatar;
-    @SerializedName("pictures")
-    @Expose
-    private String mPictures;
     @SerializedName("description")
     @Expose
     private String mDescription;
@@ -76,8 +70,6 @@ public class Company implements Parcelable {
         mFoundedDate = in.readString();
         mOpeningTime = in.readString();
         mClosingTime = in.readString();
-        mAvatar = in.readString();
-        mPictures = in.readString();
         mDescription = in.readString();
         mSiteUrl = in.readString();
         mCreatedTime = in.readString();
@@ -98,7 +90,6 @@ public class Company implements Parcelable {
         dest.writeString(mFoundedDate);
         dest.writeString(mOpeningTime);
         dest.writeString(mClosingTime);
-        dest.writeString(mAvatar);
         dest.writeString(mDescription);
         dest.writeString(mSiteUrl);
         dest.writeString(mCreatedTime);
@@ -187,22 +178,6 @@ public class Company implements Parcelable {
 
     public void setClosingTime(String mClosingTime) {
         this.mClosingTime = mClosingTime;
-    }
-
-    public String getUrlImage() {
-        return mAvatar;
-    }
-
-    public void setUrlImage(String mUrlImage) {
-        this.mAvatar = mUrlImage;
-    }
-
-    public String getCollectionImage() {
-        return mPictures;
-    }
-
-    public void setCollectionImage(String mCollectionImage) {
-        this.mPictures = mCollectionImage;
     }
 
     public String getDescription() {
