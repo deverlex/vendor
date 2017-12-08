@@ -6,6 +6,7 @@ import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
 import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
 import vn.needy.vendor.api.base.BaseResponse;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
+import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
 import vn.needy.vendor.service.VendorApi;
 
@@ -40,6 +41,11 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
     @Override
     public Observable<UserResponse> getUserInformation() {
         return mVendorApi.getUserInformation();
+    }
+
+    @Override
+    public Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request) {
+        return mVendorApi.updateUserInformation(request);
     }
 
 //    @Override
