@@ -27,6 +27,14 @@ public class CompanyContract {
         void onBackPressed();
 
         void onClickPosition();
+
+        void onClickFoundedDate();
+
+        void onClickOpeningTime();
+
+        void onClickClosingTime();
+
+        void onClickDescription();
     }
 
     interface Presenter extends BasePresenter {
@@ -36,6 +44,6 @@ public class CompanyContract {
 
         boolean validateDataInput(String name, String address);
 
-        void updateCompanyInfo(String companyId, UpdateCompanyInfoRequest infoRequest);
+        void updateCompanyInfo(Company company);
     }
 }

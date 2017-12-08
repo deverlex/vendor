@@ -16,6 +16,8 @@ public class CompanyResponse extends BaseResponse {
     @SerializedName("company")
     private Company mCompany;
 
+
+
     public Company getCompany() {
         return mCompany;
     }

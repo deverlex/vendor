@@ -71,16 +71,12 @@ public class CompanyPresenter implements CompanyContract.Presenter {
                 .doOnError(new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Company company = mCompanyRepository.getCompany();
-                        if (company !=null) {
-                            mViewModel.setCompanyInfo(company);
-                        }
+
                     }
                 })
                 .map(new Function<CompanyResponse, Company>() {
                     @Override
                     public Company apply(CompanyResponse companyResponse) throws Exception {
-                        mCompanyRepository.saveCompany(companyResponse.getCompany());
                         return companyResponse.getCompany();
                     }
                 })
@@ -93,10 +89,7 @@ public class CompanyPresenter implements CompanyContract.Presenter {
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        Company company = mCompanyRepository.getCompany();
-                        if (company !=null) {
-                            mViewModel.setCompanyInfo(company);
-                        }
+                        
                     }
                 });
     }
@@ -117,8 +110,20 @@ public class CompanyPresenter implements CompanyContract.Presenter {
     }
 
     @Override
-    public void updateCompanyInfo(String companyId, UpdateCompanyInfoRequest infoRequest) {
-        mCompanyRepository.updateCompanyInformation(companyId, infoRequest)
+    public void updateCompanyInfo(Company company) {
+        UpdateCompanyInfoRequest request = new UpdateCompanyInfoRequest();
+        request.setName(company.getName());
+        request.setAddress(company.getOfficeAddress());
+        request.setDescription(company.getDescription());
+        request.setSiteURL(company.getSiteUrl());
+        request.setEmail(company.getEmail());
+        request.setFoundedDate(company.getFoundedDate());
+        request.setOpeningTime(company.getOpeningTime());
+        request.setClosingTime(company.getClosingTime());
+        request.setLat(company.getLat());
+        request.setLng(company.getLng());
+
+        mCompanyRepository.updateCompanyInformation(company.getId(), request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
