@@ -6,15 +6,11 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 /**
  * Created by lion on 03/10/2017.
  */
 
-public class User extends RealmObject implements Parcelable {
-    @PrimaryKey
+public class User implements Parcelable {
     @SerializedName("state")
     @Expose
     private int mState;

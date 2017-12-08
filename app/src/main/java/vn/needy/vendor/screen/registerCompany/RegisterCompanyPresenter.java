@@ -9,11 +9,8 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
-import vn.needy.vendor.database.realm.RealmApi;
-import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
+import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
@@ -32,9 +29,10 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
 
     public RegisterCompanyPresenter(RegisterCompanyContract.ViewModel viewModel) {
         mViewModel = viewModel;
-        mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(SharedPrefsImpl.getInstance()));
+        mCompanyRepository = new CompanyRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                SharedPrefsImpl.getInstance()
+        );
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -66,7 +64,6 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
                         if (companyResponse.getCompany() != null) {
                             mViewModel.onRegisterSuccess();
                             mViewModel.onHideProgressBar();
-                            mCompanyRepository.saveCompany(companyResponse.getCompany());
                         } else {
                             mViewModel.onRegisterError(companyResponse.getMessage());
                         }

@@ -26,10 +26,8 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.api.v1.user.UserRepository;
-import vn.needy.vendor.api.v1.user.UserLocalDataSource;
-import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.api.v1.user.UserRepositoryImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.api.v1.user.UserRemoteDataSource;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
@@ -85,14 +83,14 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         }
     };
 
-    public RegisterUserPresenter(Activity activity, RegisterUserContract.ViewModel viewModel, RealmApi realmApi) {
+    public RegisterUserPresenter(Activity activity, RegisterUserContract.ViewModel viewModel) {
         mViewModel = viewModel;
         mActivity = activity;
         mAuth = FirebaseAuth.getInstance();
         mDuration = 0;
-        mUserRepository = new UserRepository(
-                new UserRemoteDataSource(VendorServiceClient.getInstance()),
-                new UserLocalDataSource(realmApi, SharedPrefsImpl.getInstance())
+        mUserRepository = new UserRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                SharedPrefsImpl.getInstance()
         );
         mCompositeDisposable = new CompositeDisposable();
     }

@@ -1,6 +1,7 @@
 package vn.needy.vendor.api.v1.user;
 
 import io.reactivex.Observable;
+import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.database.model.User;
 import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
 import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
@@ -9,49 +10,22 @@ import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
 
 /**
- * Created by lion on 05/10/2017.
+ * Created by lion on 04/10/2017.
  */
 
-public class UserRepository {
+public interface UserRepository {
 
-    private UserDataSource.RemoteDataSource mUserRemoteDataSource;
-    private UserDataSource.LocalDataSource mUserLocalDataSource;
+    void clearData();
 
-    public UserRepository(UserDataSource.RemoteDataSource userRemoteDataSource,
-                          UserDataSource.LocalDataSource userLocalDataSource) {
-        mUserRemoteDataSource = userRemoteDataSource;
-        mUserLocalDataSource = userLocalDataSource;
-    }
+    void saveToken(String token);
 
-    public Observable<CertificationResponse> registerUser(RegisterUserRequest registerUserRequest) {
-        return mUserRemoteDataSource.registerUser(registerUserRequest);
-    }
+    Observable<CertificationResponse> registerUser(RegisterUserRequest request);
 
-    public Observable<BaseResponse> findUserExist(String phoneNumber) {
-        return mUserRemoteDataSource.findUserExist(phoneNumber);
-    }
+    Observable<BaseResponse> findUserExist(String phoneNumber);
 
-    public Observable<CertificationResponse> resetPassword(String phoneNumber, ResetPasswordRequest resetPasswordRequest) {
-        return mUserRemoteDataSource.resetPassword(phoneNumber, resetPasswordRequest);
-    }
+    Observable<CertificationResponse> resetPassword(String phoneNumber, ResetPasswordRequest request);
 
-    public Observable<UserResponse> getUserInformation() {
-        return mUserRemoteDataSource.getUserInformation();
-    }
+    Observable<UserResponse> getUserInformation();
 
-    public void saveToken(String token) {
-        mUserLocalDataSource.saveToken(token);
-    }
-
-    public void saveUser(User user) {
-        mUserLocalDataSource.saveUser(user);
-    }
-
-    public User getUser() {
-        return mUserLocalDataSource.getUser();
-    }
-
-    public void clearData() {
-        mUserLocalDataSource.clearData();
-    }
+    Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request);
 }

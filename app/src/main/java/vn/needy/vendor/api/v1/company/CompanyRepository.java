@@ -11,38 +11,12 @@ import vn.needy.vendor.api.v1.company.response.CompanyResponse;
  * Created by lion on 07/10/2017.
  */
 
-public class CompanyRepository {
+public interface CompanyRepository {
+    Observable<CompanyResponse> getCompanyInformation();
 
-    private CompanyDataSource.RemoteDataSource mCompanyRemoteDataSource;
-    private CompanyDataSource.LocalDataSource mCompanyLocalDataSource;
+    Observable<CompanyResponse> registerCompany(RegisterCompanyRequest request);
 
-    public CompanyRepository(CompanyDataSource.RemoteDataSource companyRemoteDataSource,
-                             CompanyDataSource.LocalDataSource companyLocalDataSource) {
-        mCompanyRemoteDataSource = companyRemoteDataSource;
-        mCompanyLocalDataSource = companyLocalDataSource;
-    }
+    Observable<BaseResponse> updateStaffFcmToken(String companyId, String fcmToken);
 
-    public Observable<CompanyResponse> getCompanyInformation() {
-        return mCompanyRemoteDataSource.getCompanyInformation();
-    }
-
-    public Observable<CompanyResponse> registerCompany(RegisterCompanyRequest request) {
-        return mCompanyRemoteDataSource.registerCompany(request);
-    }
-
-    public Observable<BaseResponse> updateStaffFcmToken(String companyId, String fcmToken) {
-        return mCompanyRemoteDataSource.updateStaffFcmToken(companyId, fcmToken);
-    }
-
-    public Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest) {
-        return mCompanyRemoteDataSource.updateCompanyInformation(companyId, infoRequest);
-    }
-
-    public void saveCompany(Company company) {
-        mCompanyLocalDataSource.saveCompany(company);
-    }
-
-    public Company getCompany() {
-        return mCompanyLocalDataSource.getCompany();
-    }
+    Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest);
 }

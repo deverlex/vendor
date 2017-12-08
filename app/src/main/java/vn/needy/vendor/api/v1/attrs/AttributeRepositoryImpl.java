@@ -1,7 +1,7 @@
 package vn.needy.vendor.api.v1.attrs;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.api.base.BaseRemoteDataSource;
+import vn.needy.vendor.api.base.BaseRepository;
 import vn.needy.vendor.api.v1.attrs.response.AttributeResponse;
 import vn.needy.vendor.service.VendorApi;
 
@@ -9,10 +9,10 @@ import vn.needy.vendor.service.VendorApi;
  * Created by lion on 06/12/2017.
  */
 
-public class AttributeRemoteDataSource extends BaseRemoteDataSource
-        implements AttributeDataSource.RemoteDataSource {
+public class AttributeRepositoryImpl extends BaseRepository implements AttributeRepository {
 
-    public AttributeRemoteDataSource(VendorApi vendorApi) {
+
+    public AttributeRepositoryImpl(VendorApi vendorApi) {
         super(vendorApi);
     }
 

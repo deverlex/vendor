@@ -23,6 +23,7 @@ public class PersonalConstract {
 
         void onClickViewSupport();
 
+        void onClickHeader();
     }
 
     interface Presenter extends BasePresenter {

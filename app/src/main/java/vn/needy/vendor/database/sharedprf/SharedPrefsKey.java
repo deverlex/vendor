@@ -13,6 +13,8 @@ public final class SharedPrefsKey {
 
     public static final String COMPANY = "company";
 
+    public static final String USER_INFO = "user_info";
+
     private SharedPrefsKey() {
         // No-op
     }

@@ -2,25 +2,26 @@ package vn.needy.vendor.api.v1.auth;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
-import vn.needy.vendor.api.base.BaseRemoteDataSource;
+import vn.needy.vendor.api.base.BaseRepository;
 import vn.needy.vendor.api.v1.auth.request.CredentialsRequest;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.service.VendorApi;
 
 /**
  * Created by lion on 13/10/2017.
  */
 
-public class CredentialRemoteDataSource extends BaseRemoteDataSource
-        implements CredentialDataSource.RemoteDataSource {
+public class CredentialRepositoryImpl extends BaseRepository implements CredentialRepository {
 
-    private static final String TAG = CredentialRemoteDataSource.class.getName();
+    private SharedPrefsApi mPrefsApi;
 
-    public CredentialRemoteDataSource(VendorApi vendorApi) {
+    public CredentialRepositoryImpl(VendorApi vendorApi, SharedPrefsApi prefsApi) {
         super(vendorApi);
+        mPrefsApi = prefsApi;
     }
 
-    @Override
     public Observable<CertificationResponse> login(String phoneNumber, String passWord) {
         return mVendorApi.login(new CredentialsRequest(phoneNumber, passWord));
     }
@@ -34,4 +35,16 @@ public class CredentialRemoteDataSource extends BaseRemoteDataSource
     public Observable<Response<Void>> logout() {
         return null;
     }
+
+    @Override
+    public void saveToken(String token) {
+        mPrefsApi.put(SharedPrefsKey.TOKEN_KEY, token);
+    }
+
+    @Override
+    public void clear() {
+        mPrefsApi.clear();
+    }
+
+
 }

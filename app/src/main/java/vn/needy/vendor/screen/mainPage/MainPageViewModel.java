@@ -8,13 +8,11 @@ import android.widget.RadioGroup;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
-import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -36,7 +34,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     private int mProductType;
     private boolean mIsPlChecked;
 
-    public MainPageViewModel(Context context, Navigator navigator, RealmApi realmApi,
+    public MainPageViewModel(Context context, Navigator navigator,
                              SharedPrefsApi prefsApi, final Category category) {
         mContext = context;
         mNavigator = navigator;

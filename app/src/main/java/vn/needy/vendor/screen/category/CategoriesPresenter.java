@@ -7,13 +7,13 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.api.v1.category.CategoryRepository;
 import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
-import vn.needy.vendor.api.v1.category.CategoryRemoteDataSource;
-import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
+import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.api.v1.category.CategoryRepositoryImpl;
+import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.service.VendorServiceClient;
@@ -39,12 +39,15 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     public CategoriesPresenter(CategoriesContract.ViewModel viewModel, SharedPrefsApi prefsApi) {
         mPrefsApi = prefsApi;
         mViewModel = viewModel;
-        mCategoryRepository = new CategoryRepository(
-                new CategoryRemoteDataSource(VendorServiceClient.getInstance())
+        mCategoryRepository = new CategoryRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                SharedPrefsImpl.getInstance()
         );
-        mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(prefsApi));
+        mCompanyRepository = new CompanyRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                SharedPrefsImpl.getInstance()
+        );
+
         mCompositeDisposable = new CompositeDisposable();
     }
 

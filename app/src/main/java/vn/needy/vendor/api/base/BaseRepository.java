@@ -6,10 +6,10 @@ import vn.needy.vendor.service.VendorApi;
  * Created by lion on 04/10/2017.
  */
 
-public abstract class BaseRemoteDataSource {
+public abstract class BaseRepository {
     protected VendorApi mVendorApi;
 
-    public BaseRemoteDataSource(VendorApi vendorApi) {
+    public BaseRepository(VendorApi vendorApi) {
         mVendorApi = vendorApi;
     }
 }

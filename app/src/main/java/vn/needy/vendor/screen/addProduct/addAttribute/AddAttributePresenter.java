@@ -1,7 +1,5 @@
 package vn.needy.vendor.screen.addProduct.addAttribute;
 
-import android.util.Log;
-
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -9,8 +7,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.api.v1.attrs.AttributeRemoteDataSource;
-import vn.needy.vendor.api.v1.attrs.AttributeRepository;
+import vn.needy.vendor.api.v1.attrs.AttributeRepositoryImpl;
 import vn.needy.vendor.api.v1.attrs.response.AttributeResponse;
 import vn.needy.vendor.database.model.Attribute;
 import vn.needy.vendor.database.model.Category;
@@ -25,14 +22,12 @@ public class AddAttributePresenter implements AddAttributeContract.Presenter {
     private static final String TAG = AddAttributePresenter.class.getName();
 
     private AddAttributeContract.ViewModel mViewModel;
-    private AttributeRepository mAttributeRepository;
+    private AttributeRepositoryImpl mAttributeRepository;
     private CompositeDisposable mCompositeDisposable;
 
     public AddAttributePresenter(AddAttributeContract.ViewModel viewModel) {
         mViewModel = viewModel;
-        mAttributeRepository = new AttributeRepository(
-                new AttributeRemoteDataSource(VendorServiceClient.getInstance())
-        );
+        mAttributeRepository = new AttributeRepositoryImpl(VendorServiceClient.getInstance());
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -49,7 +44,7 @@ public class AddAttributePresenter implements AddAttributeContract.Presenter {
     @Override
     public void onGetListAttributes(Category category) {
         Disposable disposable = mAttributeRepository
-                .getAttributeCategory(category.getName())
+                .getListAttributeCategory(category.getName())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<AttributeResponse>() {

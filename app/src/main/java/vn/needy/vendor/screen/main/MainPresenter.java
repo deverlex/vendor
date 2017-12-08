@@ -2,13 +2,10 @@ package vn.needy.vendor.screen.main;
 
 import io.reactivex.disposables.CompositeDisposable;
 import vn.needy.vendor.api.v1.company.CompanyRepository;
+import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
 import vn.needy.vendor.api.v1.user.UserRepository;
-import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
-import vn.needy.vendor.api.v1.user.UserLocalDataSource;
-import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.api.v1.user.UserRepositoryImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
-import vn.needy.vendor.api.v1.user.UserRemoteDataSource;
 import vn.needy.vendor.service.VendorServiceClient;
 
 /**
@@ -24,14 +21,14 @@ public class MainPresenter implements MainContract.Presenter {
     private final UserRepository mUserRepository;
     private final CompanyRepository mCompanyRepository;
 
-    public MainPresenter(RealmApi realmApi) {
-        mUserRepository = new UserRepository(
-                new UserRemoteDataSource(VendorServiceClient.getInstance()),
-                new UserLocalDataSource(realmApi, SharedPrefsImpl.getInstance())
+    public MainPresenter() {
+        mUserRepository = new UserRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                SharedPrefsImpl.getInstance()
         );
-        mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(SharedPrefsImpl.getInstance())
+        mCompanyRepository = new CompanyRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                SharedPrefsImpl.getInstance()
         );
         mCompositeDisposable = new CompositeDisposable();
     }

@@ -9,12 +9,10 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCategoriesBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
-import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**

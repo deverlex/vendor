@@ -11,14 +11,11 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
-import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
@@ -37,8 +34,6 @@ public class SplashActivity extends AppCompatActivity {
     private Runnable mRunnable;
     private Intent mIntent;
 
-    private RealmApi mRealmApi;
-
     private CompositeDisposable mCompositeDisposable;
     private CompanyRepository mCompanyRepository;
     private Navigator mNavigator;
@@ -50,10 +45,9 @@ public class SplashActivity extends AppCompatActivity {
         mCompositeDisposable = new CompositeDisposable();
         SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
 
-        mRealmApi = new RealmApi();
-        mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(SharedPrefsImpl.getInstance())
+        mCompanyRepository = new CompanyRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                SharedPrefsImpl.getInstance()
         );
 
         final String token = getToken(prefsApi);
@@ -88,7 +82,6 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void accept(CompanyResponse companyResponse) throws Exception {
                         if (companyResponse.getCompany() != null) {
-                            saveCompany(companyResponse.getCompany());
                             mainPage();
                         } else {
                             registerCompany();
@@ -122,9 +115,7 @@ public class SplashActivity extends AppCompatActivity {
         mNavigator.finishActivity();
     }
 
-    private void saveCompany(Company company) {
-        mCompanyRepository.saveCompany(company);
-    }
+
 
     // We will get it and refresh, if fail -> re-login
     private String getToken(SharedPrefsApi prefsApi) {
@@ -133,6 +124,5 @@ public class SplashActivity extends AppCompatActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        mRealmApi.closeRealmOnMainThread();
     }
 }
