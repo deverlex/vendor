@@ -8,14 +8,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.api.v1.company.CompanyDataSource;
+import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
-import vn.needy.vendor.service.VendorServiceClient;
 
 /**
  * Created by lion on 07/10/2017.
@@ -24,15 +22,12 @@ import vn.needy.vendor.service.VendorServiceClient;
 public class RegisterCompanyPresenter implements RegisterCompanyContract.Presenter {
 
     private RegisterCompanyContract.ViewModel mViewModel;
-    private CompanyRepository mCompanyRepository;
+    private CompanyDataSource mCompanyDataSource;
     private final CompositeDisposable mCompositeDisposable;
 
     public RegisterCompanyPresenter(RegisterCompanyContract.ViewModel viewModel) {
         mViewModel = viewModel;
-        mCompanyRepository = new CompanyRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance()
-        );
+        mCompanyDataSource = new CompanyDataSourceImpl();
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -49,7 +44,7 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
     @Override
     public void registerCompany(RegisterCompanyRequest request) {
         if (!validateDataInput(request)) return;
-        Disposable disposable = mCompanyRepository.registerCompany(request)
+        Disposable disposable = mCompanyDataSource.registerCompany(request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override

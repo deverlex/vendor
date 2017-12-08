@@ -10,18 +10,17 @@ import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.service.VendorApi;
 
 /**
  * Created by lion on 05/10/2017.
  */
 
-public class UserRepositoryImpl extends BaseRepository implements UserRepository {
+public class UserDataSourceImpl extends BaseRepository implements UserDataSource {
 
     private SharedPrefsApi mPrefsApi;
 
-    public UserRepositoryImpl(VendorApi vendorApi, SharedPrefsApi prefsApi) {
-        super(vendorApi);
+    public UserDataSourceImpl(SharedPrefsApi prefsApi) {
+        super();
         mPrefsApi = prefsApi;
     }
 

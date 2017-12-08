@@ -8,6 +8,6 @@ import vn.needy.vendor.api.base.BaseResponse;
  * Created by lion on 09/11/2017.
  */
 
-public interface ProductRepository {
+public interface ProductDataSource {
 
 }

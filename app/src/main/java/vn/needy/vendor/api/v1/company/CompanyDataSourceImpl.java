@@ -3,24 +3,18 @@ package vn.needy.vendor.api.v1.company;
 import io.reactivex.Observable;
 import vn.needy.vendor.api.base.BaseRepository;
 import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
-import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.api.base.BaseResponse;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.service.VendorApi;
 
 /**
  * Created by lion on 07/10/2017.
  */
 
-public class CompanyRepositoryImpl extends BaseRepository implements CompanyRepository {
+public class CompanyDataSourceImpl extends BaseRepository implements CompanyDataSource {
 
-    private SharedPrefsApi mPrefsApi;
-
-    public CompanyRepositoryImpl(VendorApi vendorApi, SharedPrefsApi prefsApi) {
-        super(vendorApi);
-        mPrefsApi = prefsApi;
+    public CompanyDataSourceImpl() {
+        super();
     }
 
     public Observable<CompanyResponse> getCompanyInformation() {

@@ -7,16 +7,14 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.api.v1.category.CategoryRepository;
-import vn.needy.vendor.api.v1.company.CompanyRepository;
+import vn.needy.vendor.api.v1.category.CategoryDataSource;
+import vn.needy.vendor.api.v1.company.CompanyDataSource;
 import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.api.v1.category.CategoryRepositoryImpl;
-import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
+import vn.needy.vendor.api.v1.category.CategoryDataSourceImpl;
+import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.utils.Constant;
 
 /**
@@ -31,22 +29,16 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     private final CompositeDisposable mCompositeDisposable;
 
-    private final CategoryRepository mCategoryRepository;
-    private final CompanyRepository mCompanyRepository;
+    private final CategoryDataSource mCategoryDataSource;
+    private final CompanyDataSource mCompanyDataSource;
 
     private SharedPrefsApi mPrefsApi;
 
     public CategoriesPresenter(CategoriesContract.ViewModel viewModel, SharedPrefsApi prefsApi) {
         mPrefsApi = prefsApi;
         mViewModel = viewModel;
-        mCategoryRepository = new CategoryRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance()
-        );
-        mCompanyRepository = new CompanyRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance()
-        );
+        mCategoryDataSource = new CategoryDataSourceImpl();
+        mCompanyDataSource = new CompanyDataSourceImpl();
 
         mCompositeDisposable = new CompositeDisposable();
     }
@@ -63,7 +55,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCompanyLinkCategoryPriceNow() {
-        Disposable disposable = mCategoryRepository.getCompanyLinkCategories(Constant.PRICE_NOW)
+        Disposable disposable = mCategoryDataSource.getCompanyLinkCategories(Constant.PRICE_NOW)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
@@ -86,7 +78,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCompanyLinkCategoryPriceLater() {
-        Disposable disposable = mCategoryRepository.getCompanyLinkCategories(Constant.PRICE_LATER)
+        Disposable disposable = mCategoryDataSource.getCompanyLinkCategories(Constant.PRICE_LATER)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
@@ -109,7 +101,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getLinkCategoryPriceNow() {
-        Disposable disposable = mCategoryRepository.getLinkCategories(Constant.PRICE_NOW)
+        Disposable disposable = mCategoryDataSource.getLinkCategories(Constant.PRICE_NOW)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
@@ -137,7 +129,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCompanyLinkCategories(String category) {
-        Disposable disposable = mCategoryRepository.getCompanyLinkCategories(category)
+        Disposable disposable = mCategoryDataSource.getCompanyLinkCategories(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
@@ -160,7 +152,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getLinkCategories(String category) {
-        Disposable disposable = mCategoryRepository.getLinkCategories(category)
+        Disposable disposable = mCategoryDataSource.getLinkCategories(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {

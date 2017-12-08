@@ -9,7 +9,7 @@ import vn.needy.vendor.database.model.Category;
  * Created by lion on 06/11/2017.
  */
 
-public interface CategoryRepository {
+public interface CategoryDataSource {
 
     Observable<List<Category>> getLinkCategories(String category);
 

@@ -9,11 +9,11 @@ import vn.needy.vendor.service.VendorApi;
  * Created by lion on 06/12/2017.
  */
 
-public class AttributeRepositoryImpl extends BaseRepository implements AttributeRepository {
+public class AttributeDataSourceImpl extends BaseRepository implements AttributeDataSource {
 
 
-    public AttributeRepositoryImpl(VendorApi vendorApi) {
-        super(vendorApi);
+    public AttributeDataSourceImpl() {
+        super();
     }
 
     @Override
