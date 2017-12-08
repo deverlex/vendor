@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import vn.needy.vendor.screen.companyProfile.CompanyActivity;
+import vn.needy.vendor.screen.userProfile.UserProfileActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**

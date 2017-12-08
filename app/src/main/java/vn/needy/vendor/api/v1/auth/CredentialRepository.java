@@ -27,14 +27,6 @@ public class CredentialRepository {
         mCredentialLocalDataSource.saveToken(token);
     }
 
-    public void saveCredential(Credential credential) {
-        mCredentialLocalDataSource.saveCredential(credential);
-    }
-
-    public Credential getCredential() {
-        return mCredentialLocalDataSource.getCredential();
-    }
-
     public void clear() {
         mCredentialLocalDataSource.clear();
     }

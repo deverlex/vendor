@@ -22,10 +22,6 @@ public interface CredentialDataSource {
     interface LocalDataSource {
         void saveToken(String token);
 
-        void saveCredential(Credential credential);
-
-        Credential getCredential();
-
         void clear();
     }
 }
