@@ -10,13 +10,10 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.api.v1.auth.CredentialRepository;
+import vn.needy.vendor.api.v1.auth.CredentialRepositoryImpl;
 import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
-import vn.needy.vendor.api.v1.auth.CredentialLocalDataSource;
+import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.api.v1.auth.CredentialRemoteDataSource;
-import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
@@ -35,14 +32,14 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final LoginContract.ViewModel mViewModel;
     private final CompositeDisposable mCompositeDisposable;
 
-    private final CredentialRepository mCredentialRepository;
+    private final CredentialRepositoryImpl mCredentialRepository;
     private CompanyRepository mCompanyRepository;
 
     LoginPresenter(LoginContract.ViewModel viewModel) {
         mViewModel = viewModel;
-        mCredentialRepository = new CredentialRepository(
-                new CredentialRemoteDataSource(VendorServiceClient.getInstance()),
-                new CredentialLocalDataSource(SharedPrefsImpl.getInstance()));
+        mCredentialRepository = new CredentialRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                SharedPrefsImpl.getInstance());
 
         mCompositeDisposable = new CompositeDisposable();
     }
@@ -154,9 +151,10 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void findCompanyReference() {
-        mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(SharedPrefsImpl.getInstance()));
+        mCompanyRepository = new CompanyRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                SharedPrefsImpl.getInstance()
+        );
         Disposable disposable = mCompanyRepository.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .doAfterTerminate(new Action() {

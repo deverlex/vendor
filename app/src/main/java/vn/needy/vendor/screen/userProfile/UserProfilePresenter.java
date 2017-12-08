@@ -13,9 +13,8 @@ import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.api.v1.user.UserLocalDataSource;
-import vn.needy.vendor.api.v1.user.UserRemoteDataSource;
 import vn.needy.vendor.api.v1.user.UserRepository;
+import vn.needy.vendor.api.v1.user.UserRepositoryImpl;
 import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
 import vn.needy.vendor.database.model.User;
@@ -36,9 +35,10 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     public UserProfilePresenter(UserProfileContract.ViewModel viewModel, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
-        mUserRepository = new UserRepository(
-                new UserRemoteDataSource(VendorServiceClient.getInstance()),
-                new UserLocalDataSource(prefsApi));
+        mUserRepository = new UserRepositoryImpl(
+                VendorServiceClient.getInstance(),
+                prefsApi
+        );
     }
 
     @Override
