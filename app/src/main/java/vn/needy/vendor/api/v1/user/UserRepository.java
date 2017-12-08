@@ -48,14 +48,6 @@ public class UserRepository {
         mUserLocalDataSource.saveToken(token);
     }
 
-    public void saveUser(User user) {
-        mUserLocalDataSource.saveUser(user);
-    }
-
-    public User getUser() {
-        return mUserLocalDataSource.getUser();
-    }
-
     public void clearData() {
         mUserLocalDataSource.clearData();
     }

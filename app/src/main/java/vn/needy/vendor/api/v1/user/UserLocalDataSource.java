@@ -25,27 +25,6 @@ public class UserLocalDataSource extends BaseLocalDataSource implements UserData
     }
 
     @Override
-    public void saveUser(final User user) {
-//        mRealmApi.realmTransactionAsync(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
-//            @Override
-//            public void accept(ObservableEmitter<? super Object> observableEmitter, Realm realm) throws Exception {
-//                try {
-//                    realm.insertOrUpdate(user);
-//                } catch (IllegalStateException e) {
-//                    observableEmitter.tryOnError(e);
-//                }
-//            }
-//        });
-
-        mPrefsApi.putObject(SharedPrefsKey.USER_INFO, user);
-    }
-
-    @Override
-    public User getUser() {
-        return mPrefsApi.getObject(SharedPrefsKey.USER_INFO, User.class);
-    }
-
-    @Override
     public void clearData() {
 
     }

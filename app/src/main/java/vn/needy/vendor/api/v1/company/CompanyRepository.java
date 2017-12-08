@@ -37,12 +37,4 @@ public class CompanyRepository {
     public Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest) {
         return mCompanyRemoteDataSource.updateCompanyInformation(companyId, infoRequest);
     }
-
-    public void saveCompany(Company company) {
-        mCompanyLocalDataSource.saveCompany(company);
-    }
-
-    public Company getCompany() {
-        return mCompanyLocalDataSource.getCompany();
-    }
 }

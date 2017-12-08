@@ -69,16 +69,12 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
                 .doOnError(new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        User user = mUserRepository.getUser();
-                        if (user != null) {
-                            mViewModel.setUserInfo(user);
-                        }
+
                     }
                 })
                 .map(new Function<UserResponse, User>() {
                     @Override
                     public User apply(UserResponse userResponse) throws Exception {
-                        mUserRepository.saveUser(userResponse.getUser());
                         return userResponse.getUser();
                     }
                 })
@@ -93,10 +89,7 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        User user = mUserRepository.getUser();
-                        if (user != null) {
-                            mViewModel.setUserInfo(user);
-                        }
+
                     }
                 });
     }

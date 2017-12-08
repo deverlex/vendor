@@ -88,7 +88,6 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void accept(CompanyResponse companyResponse) throws Exception {
                         if (companyResponse.getCompany() != null) {
-                            saveCompany(companyResponse.getCompany());
                             mainPage();
                         } else {
                             registerCompany();
@@ -122,9 +121,7 @@ public class SplashActivity extends AppCompatActivity {
         mNavigator.finishActivity();
     }
 
-    private void saveCompany(Company company) {
-        mCompanyRepository.saveCompany(company);
-    }
+
 
     // We will get it and refresh, if fail -> re-login
     private String getToken(SharedPrefsApi prefsApi) {

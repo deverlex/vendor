@@ -15,10 +15,6 @@ import vn.needy.vendor.api.v1.user.response.UserResponse;
 
 public interface UserDataSource {
     interface LocalDataSource {
-        void saveUser(User user);
-
-        User getUser();
-
         void clearData();
 
         void saveToken(String token);

@@ -71,16 +71,13 @@ public class CompanyPresenter implements CompanyContract.Presenter {
                 .doOnError(new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Company company = mCompanyRepository.getCompany();
-                        if (company !=null) {
-                            mViewModel.setCompanyInfo(company);
-                        }
+
                     }
                 })
                 .map(new Function<CompanyResponse, Company>() {
                     @Override
                     public Company apply(CompanyResponse companyResponse) throws Exception {
-                        mCompanyRepository.saveCompany(companyResponse.getCompany());
+
                         return companyResponse.getCompany();
                     }
                 })
@@ -93,10 +90,7 @@ public class CompanyPresenter implements CompanyContract.Presenter {
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        Company company = mCompanyRepository.getCompany();
-                        if (company !=null) {
-                            mViewModel.setCompanyInfo(company);
-                        }
+
                     }
                 });
     }

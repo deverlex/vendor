@@ -66,7 +66,6 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
                         if (companyResponse.getCompany() != null) {
                             mViewModel.onRegisterSuccess();
                             mViewModel.onHideProgressBar();
-                            mCompanyRepository.saveCompany(companyResponse.getCompany());
                         } else {
                             mViewModel.onRegisterError(companyResponse.getMessage());
                         }

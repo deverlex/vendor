@@ -171,7 +171,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     @Override
                     public void accept(CompanyResponse companyResponse) throws Exception {
                         if (companyResponse.getCompany() != null) {
-                            mCompanyRepository.saveCompany(companyResponse.getCompany());
+
                             mViewModel.onRedirectToMain();
                         } else {
                             mViewModel.onRedirectToRegisterCompany();

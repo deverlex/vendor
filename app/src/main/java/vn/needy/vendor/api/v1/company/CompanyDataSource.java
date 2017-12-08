@@ -13,9 +13,7 @@ import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 
 public interface CompanyDataSource {
     interface LocalDataSource {
-        void saveCompany(Company company);
 
-        Company getCompany();
     }
 
     interface RemoteDataSource {
