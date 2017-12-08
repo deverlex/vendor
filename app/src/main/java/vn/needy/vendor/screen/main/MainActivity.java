@@ -8,7 +8,6 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.screen.BaseActivity;
@@ -22,7 +21,6 @@ import vn.needy.vendor.utils.ViewUtil;
 public class MainActivity extends BaseActivity {
 
     private MainContract.Presenter mPresenter;
-    private RealmApi mRealmApi;
     private SharedPrefsApi mPrefsApi;
 
     private BottomBar mBottomBar;
@@ -31,10 +29,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreateActivity(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
 
-        mRealmApi = new RealmApi();
         mPrefsApi = SharedPrefsImpl.getInstance();
 
-        mPresenter = new MainPresenter(mRealmApi);
+        mPresenter = new MainPresenter();
         initializeBottomBar();
     }
 

@@ -7,13 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.ScrollView;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityUserProfileBinding;
@@ -31,7 +25,6 @@ public class UserProfileActivity extends BaseActivity {
     private UserProfileContract.ViewModel mViewModel;
     private ScrollView mScrollView;
 
-    private RealmApi mRealmApi;
     private SharedPrefsApi mPrefsApi;
 
     @Override
@@ -40,7 +33,6 @@ public class UserProfileActivity extends BaseActivity {
         ActivityUserProfileBinding binding = DataBindingUtil
                 .setContentView(this, R.layout.activity_user_profile);
 
-        mRealmApi = new RealmApi();
         mPrefsApi = SharedPrefsImpl.getInstance();
 
         mScrollView = (ScrollView) findViewById(R.id.sv_container);
@@ -57,7 +49,7 @@ public class UserProfileActivity extends BaseActivity {
 
         mViewModel = new UserProfileViewModel(this, mapFragment);
 
-        UserProfileContract.Presenter presenter = new UserProfilePresenter(mViewModel, mRealmApi, mPrefsApi);
+        UserProfileContract.Presenter presenter = new UserProfilePresenter(mViewModel, mPrefsApi);
         mViewModel.setPresenter(presenter);
         // will active some actions
         mViewModel.onStart();

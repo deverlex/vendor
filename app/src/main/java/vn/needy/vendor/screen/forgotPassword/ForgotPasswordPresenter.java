@@ -27,7 +27,6 @@ import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.api.v1.user.UserRepository;
 import vn.needy.vendor.api.v1.user.UserLocalDataSource;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.api.v1.user.UserRemoteDataSource;
 import vn.needy.vendor.error.BaseException;
@@ -97,7 +96,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         mDuration = 0;
 
         mUserRepository = new UserRepository(new UserRemoteDataSource(VendorServiceClient.getInstance()),
-                new UserLocalDataSource(new RealmApi(), SharedPrefsImpl.getInstance()));
+                new UserLocalDataSource(SharedPrefsImpl.getInstance()));
         mCompositeDisposable = new CompositeDisposable();
     }
 

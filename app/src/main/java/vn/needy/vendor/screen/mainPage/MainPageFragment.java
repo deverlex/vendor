@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;
@@ -44,7 +43,7 @@ public class MainPageFragment extends Fragment {
 
         // create navigator instance for this activity
         Navigator navigator = new Navigator(this);
-        mViewModel = new MainPageViewModel(getContext(), navigator, new RealmApi(),
+        mViewModel = new MainPageViewModel(getContext(), navigator,
                 SharedPrefsImpl.getInstance(), category);
 
         // data binding

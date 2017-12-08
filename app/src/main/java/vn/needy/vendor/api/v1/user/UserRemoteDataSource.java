@@ -1,7 +1,7 @@
 package vn.needy.vendor.api.v1.user;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.api.base.BaseRemoteDataSource;
+import vn.needy.vendor.api.base.BaseDataSource;
 import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
 import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
 import vn.needy.vendor.api.base.BaseResponse;
@@ -14,7 +14,7 @@ import vn.needy.vendor.service.VendorApi;
  * Created by lion on 23/09/2017.
  */
 
-public class UserRemoteDataSource extends BaseRemoteDataSource
+public class UserRemoteDataSource extends BaseDataSource
         implements UserDataSource.RemoteDataSource {
 
     private static final String TAG = UserRemoteDataSource.class.getName();

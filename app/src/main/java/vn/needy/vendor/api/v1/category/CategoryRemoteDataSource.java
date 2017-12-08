@@ -4,7 +4,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
-import vn.needy.vendor.api.base.BaseRemoteDataSource;
+import vn.needy.vendor.api.base.BaseDataSource;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.api.v1.category.response.CategoryResponse;
 import vn.needy.vendor.service.VendorApi;
@@ -13,7 +13,7 @@ import vn.needy.vendor.service.VendorApi;
  * Created by lion on 06/11/2017.
  */
 
-public class CategoryRemoteDataSource extends BaseRemoteDataSource
+public class CategoryRemoteDataSource extends BaseDataSource
         implements CategoryDataSource.RemoteDataSource {
 
     private static final String TAG = CategoryRemoteDataSource.class.getName();

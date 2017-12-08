@@ -19,7 +19,6 @@ import vn.needy.vendor.api.v1.user.UserRepository;
 import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
 import vn.needy.vendor.database.model.User;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
@@ -35,11 +34,11 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     private final UserRepository mUserRepository;
 
-    public UserProfilePresenter(UserProfileContract.ViewModel viewModel, RealmApi realmApi, SharedPrefsApi prefsApi) {
+    public UserProfilePresenter(UserProfileContract.ViewModel viewModel, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
         mUserRepository = new UserRepository(
                 new UserRemoteDataSource(VendorServiceClient.getInstance()),
-                new UserLocalDataSource(realmApi, prefsApi));
+                new UserLocalDataSource(prefsApi));
     }
 
     @Override

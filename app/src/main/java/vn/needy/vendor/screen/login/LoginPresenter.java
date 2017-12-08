@@ -14,8 +14,6 @@ import vn.needy.vendor.api.v1.auth.CredentialRepository;
 import vn.needy.vendor.api.v1.company.CompanyRepository;
 import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
 import vn.needy.vendor.api.v1.auth.CredentialLocalDataSource;
-import vn.needy.vendor.database.realm.RealmApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.api.v1.auth.CredentialRemoteDataSource;
 import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;

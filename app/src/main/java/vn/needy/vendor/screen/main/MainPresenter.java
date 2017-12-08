@@ -5,7 +5,6 @@ import vn.needy.vendor.api.v1.company.CompanyRepository;
 import vn.needy.vendor.api.v1.user.UserRepository;
 import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
 import vn.needy.vendor.api.v1.user.UserLocalDataSource;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
 import vn.needy.vendor.api.v1.user.UserRemoteDataSource;
@@ -24,10 +23,10 @@ public class MainPresenter implements MainContract.Presenter {
     private final UserRepository mUserRepository;
     private final CompanyRepository mCompanyRepository;
 
-    public MainPresenter(RealmApi realmApi) {
+    public MainPresenter() {
         mUserRepository = new UserRepository(
                 new UserRemoteDataSource(VendorServiceClient.getInstance()),
-                new UserLocalDataSource(realmApi, SharedPrefsImpl.getInstance())
+                new UserLocalDataSource(SharedPrefsImpl.getInstance())
         );
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
