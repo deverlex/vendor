@@ -16,6 +16,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.database.model.Attribute;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.databinding.FragmentAddAttributesBinding;
+import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 
 /**
@@ -56,5 +57,9 @@ public class AddAttributeFragment extends Fragment {
                 DataBindingUtil.inflate(inflater, R.layout.fragment_add_attributes, container, false);
         binding.setViewModel((AddAttributeViewModel) viewModel);
         return binding.getRoot();
+    }
+
+    public interface OnCallbackReceived {
+        void onUpdateListAttribute(List<Attribute> attributes);
     }
 }

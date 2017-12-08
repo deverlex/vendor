@@ -32,7 +32,7 @@ public class AddProductPnRequest {
     private String mDescription;
     @Expose
     @SerializedName("attributes")
-    private Map<String, String> mAttributes;
+    private Map<String, Object> mAttributes;
     @Expose
     @SerializedName("feeTransport")
     private float mFeeTransport;
@@ -91,11 +91,11 @@ public class AddProductPnRequest {
         mDescription = description;
     }
 
-    public Map<String, String> getAttributes() {
+    public Map<String, Object> getAttributes() {
         return mAttributes;
     }
 
-    public void setAttributes(Map<String, String> attributes) {
+    public void setAttributes(Map<String, Object> attributes) {
         mAttributes = attributes;
     }
 

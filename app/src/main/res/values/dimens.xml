@@ -63,6 +63,7 @@
     <dimen name="dp_34">34dp</dimen>
     <dimen name="dp_55">55dp</dimen>
     <dimen name="dp_27">27dp</dimen>
+    <dimen name="dp_320">320dp</dimen>
     <dimen name="dp_350">350dp</dimen>
 
     <dimen name="grid_expected_size">120dp</dimen>

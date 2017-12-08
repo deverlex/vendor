@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.TransformationMethod;
 import android.util.Log;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.views.BannerSlider;
+import vn.needy.vendor.database.model.Attribute.DataType;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.utils.ViewUtil;
@@ -113,6 +115,15 @@ public class BindingAdapters {
     public static void setBanners(BannerSlider bannerSlider, List<Banner> banners) {
         if (banners != null) {
             bannerSlider.setBanners(banners);
+        }
+    }
+
+    @BindingAdapter("inputType")
+    public static void setInputType(EditText editText, int inputType) {
+        if (inputType == DataType.NUMBER) {
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        } else {
+            editText.setInputType(InputType.TYPE_CLASS_TEXT);
         }
     }
 }

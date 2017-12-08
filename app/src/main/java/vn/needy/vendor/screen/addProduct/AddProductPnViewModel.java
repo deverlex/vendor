@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -12,11 +13,14 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.api.v1.product.request.AddProductPnRequest;
+import vn.needy.vendor.database.model.Attribute;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
@@ -55,12 +59,14 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     private Category mCategory;
 
     private ImageAdapter mImageAdapter;
+    private Map<String, Object> mAttributes;
 
     private boolean mVisibleImages;
 
     public AddProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
         mContext = context;
         mNavigator = navigator;
+        mAttributes = new HashMap<>();
 
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
@@ -172,6 +178,18 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     public void updateCategory(Category category) {
         mCategory = category;
         notifyPropertyChanged(BR.category);
+    }
+
+    @Override
+    public void onSelectedListAttribute(final List<Attribute> attributes) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                for (Attribute attribute : attributes) {
+                    mAttributes.put(attribute.getName(), attribute.getValue());
+                }
+            }
+        });
     }
 
     @Override

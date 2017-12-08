@@ -28,16 +28,15 @@
                 tools:ignore="ContentDescription"
                 />
 
-            <ImageView
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="@dimen/dp_40"
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/ic_circle_checkbox"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:layout_margin="@dimen/dp_5"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:padding="@dimen/dp_8"
-                android:src="@drawable/ic_edits"
-                android:tint="@color/colorPrimary"
-                tools:ignore="ContentDescription,VectorDrawableCompat"
-                />
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 
@@ -48,9 +47,9 @@
             android:layout_below="@+id/image_container"
             android:ellipsize="marquee"
             android:maxLines="2"
-            android:text="Product name"
             android:lineSpacingExtra="@dimen/dp_4"
             android:padding="@dimen/dp_5"
+            android:text="Product name"
             android:textColor="@color/black"
             android:textSize="@dimen/sp_16"
             />

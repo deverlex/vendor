@@ -41,7 +41,6 @@
             android:fontFamily="@string/font_serif"
             android:hint="@string/input_value_attr"
             android:gravity="end"
-            android:inputType="text"
             android:text="@={viewModel.attributeValue}"
             android:textSize="@dimen/sp_16"
             android:textAllCaps="false"
@@ -50,7 +49,9 @@
             android:layout_marginRight="@dimen/dp_5"
             android:layout_gravity="center"
             android:background="@drawable/background_text"
+            app:inputType="@{viewModel.inputType}"
             tools:ignore="UnusedAttribute"
             />
+
     </LinearLayout>
 </layout>
