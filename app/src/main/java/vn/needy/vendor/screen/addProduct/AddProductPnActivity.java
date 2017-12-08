@@ -3,11 +3,13 @@ package vn.needy.vendor.screen.addProduct;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.zhihu.matisse.Matisse;
 
@@ -16,11 +18,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.api.v1.product.request.AddProductPnRequest;
+import vn.needy.vendor.database.model.Attribute;
 import vn.needy.vendor.database.model.Category;
 import vn.needy.vendor.database.model.Image;
 import vn.needy.vendor.databinding.ActivityAddProductPnBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;
+import vn.needy.vendor.screen.addProduct.addAttribute.AddAttributeFragment;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -28,7 +33,8 @@ import vn.needy.vendor.utils.navigator.Navigator;
  * Created by lion on 08/11/2017.
  */
 
-public class AddProductPnActivity extends BaseActivity {
+public class AddProductPnActivity extends BaseActivity
+        implements AddAttributeFragment.OnCallbackReceived {
 
     private static final String TAG = AddProductPnActivity.class.getName();
 
@@ -87,5 +93,10 @@ public class AddProductPnActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onUpdateListAttribute(List<Attribute> attributes) {
+        mViewModel.onSelectedListAttribute(attributes);
     }
 }
