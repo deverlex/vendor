@@ -12,7 +12,10 @@ import vn.needy.vendor.database.model.BaseModel;
 public class BaseResponse extends BaseModel {
     @Expose
     @SerializedName("success")
-    private boolean mSuccess;
+    private String mStatus;
+    @Expose
+    @SerializedName("code")
+    private int mCode;
     @Expose
     @SerializedName("message")
     private String mMessage;
@@ -21,12 +24,20 @@ public class BaseResponse extends BaseModel {
         super();
     }
 
-    public boolean isSuccess() {
-        return mSuccess;
+    public String getStatus() {
+        return mStatus;
     }
 
-    public void setSuccess(boolean success) {
-        mSuccess = success;
+    public void setStatus(String status) {
+        mStatus = status;
+    }
+
+    public int getCode() {
+        return mCode;
+    }
+
+    public void setCode(int code) {
+        mCode = code;
     }
 
     public String getMessage() {
