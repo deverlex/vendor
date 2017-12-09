@@ -27,7 +27,7 @@ public class ServiceClient {
 
     private static final String TAG = ServiceClient.class.getName();
 
-    private static final int CONNECTION_TIMEOUT = 30;
+    private static final int CONNECTION_TIMEOUT = 5;
 
     static <T> T createService(Application application, String endPoint, Class<T> serviceClass) {
         return createService(application, endPoint, serviceClass, getGsonConfig(), null);

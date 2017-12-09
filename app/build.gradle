@@ -116,6 +116,8 @@ dependencies {
     compile dependencies.imagePicker
     compile dependencies.imageCrop
 
+    compile dependencies.material
+
     testCompile dependencies.junit
     testCompile dependencies.mockito
 

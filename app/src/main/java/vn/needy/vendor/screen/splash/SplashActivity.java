@@ -1,14 +1,19 @@
 package vn.needy.vendor.screen.splash;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
+import android.widget.ProgressBar;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import vn.needy.vendor.R;
 import vn.needy.vendor.api.base.BaseResponse;
 import vn.needy.vendor.api.v1.user.UserDataSource;
 import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
@@ -20,13 +25,14 @@ import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.screen.login.LoginActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
+import vn.needy.vendor.utils.ViewUtil;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 public class SplashActivity extends AppCompatActivity {
 
     private static final String TAG = SplashActivity.class.getName();
 
-    private static final int SECOND_DELAYED = 1000;
+    private static final int SECOND_DELAYED = 500;
     private Handler mHandler;
     private Runnable mRunnable;
     private Intent mIntent;
@@ -38,6 +44,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
+        setContentView(R.layout.activity_splash);
+
         SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
         // create new user data source
         mUserDataSource = new UserDataSourceImpl(prefsApi);
@@ -55,7 +64,6 @@ public class SplashActivity extends AppCompatActivity {
                     gateway();
 //                }
 //                new Navigator(SplashActivity.this).startActivity(mIntent);
-                finish();
             }
         };
         mHandler.postDelayed(mRunnable, SECOND_DELAYED);

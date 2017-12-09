@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/icon_app"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_120"
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/ear"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_centerHorizontal="true"
+        android:text="Listen, understand"
+        android:textColor="@color/color_orange_mos"
+        android:textSize="@dimen/sp_14"
+        android:textStyle="bold"
+        android:layout_below="@+id/icon_app"
+        />
+
+    <com.rey.material.widget.ProgressView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_5"
+        android:layout_marginLeft="@dimen/dp_80"
+        android:layout_marginRight="@dimen/dp_80"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_above="@id/version"
+        app:pv_autostart="true"
+        app:pv_circular="false"
+        app:pv_progressStyle="@style/Material.Drawable.LinearProgress"
+        app:pv_progressMode="indeterminate"
+        />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_centerHorizontal="true"
+        android:text="v0.9.1"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/sp_16"
+        />
+
+</RelativeLayout>
