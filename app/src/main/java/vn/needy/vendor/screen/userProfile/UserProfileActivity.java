@@ -8,8 +8,8 @@ import android.support.v4.app.Fragment;
 import android.widget.ScrollView;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityUserProfileBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.widget.WorkaroundMapFragment;

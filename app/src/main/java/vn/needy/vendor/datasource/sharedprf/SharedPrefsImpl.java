@@ -1,4 +1,4 @@
-package vn.needy.vendor.database.sharedprf;
+package vn.needy.vendor.datasource.sharedprf;
 
 import android.content.Context;
 import android.content.SharedPreferences;

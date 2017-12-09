@@ -2,7 +2,6 @@ package vn.needy.vendor.api.v1.user;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.database.model.User;
 import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
 import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
 import vn.needy.vendor.api.base.BaseResponse;

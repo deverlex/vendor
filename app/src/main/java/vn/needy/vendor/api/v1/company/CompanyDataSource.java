@@ -2,7 +2,6 @@ package vn.needy.vendor.api.v1.company;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
-import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.api.base.BaseResponse;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;

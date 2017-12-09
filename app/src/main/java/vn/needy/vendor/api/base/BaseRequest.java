@@ -1,6 +1,6 @@
 package vn.needy.vendor.api.base;
 
-import vn.needy.vendor.database.model.BaseModel;
+import vn.needy.vendor.datasource.model.BaseModel;
 
 /**
  * Created by lion on 05/10/2017.

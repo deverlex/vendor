@@ -1,6 +1,5 @@
 package vn.needy.vendor.screen.category;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
@@ -10,9 +9,9 @@ import android.util.Log;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.datasource.model.Category;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;

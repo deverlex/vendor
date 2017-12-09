@@ -8,8 +8,8 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.screen.listorder.ListOrderFragment;

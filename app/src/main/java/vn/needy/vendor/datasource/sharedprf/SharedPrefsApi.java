@@ -1,4 +1,4 @@
-package vn.needy.vendor.database.sharedprf;
+package vn.needy.vendor.datasource.sharedprf;
 
 /**
  * Created by lion on 23/09/2017.

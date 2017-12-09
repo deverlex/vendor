@@ -7,7 +7,6 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.location.Location;
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
@@ -28,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.model.Company;
+import vn.needy.vendor.datasource.model.Company;
 
 /**
  * Created by truongpq on 04/12/2017.

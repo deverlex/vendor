@@ -2,7 +2,6 @@ package vn.needy.vendor.api.v1.auth;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
-import vn.needy.vendor.database.model.Credential;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
 
 /**

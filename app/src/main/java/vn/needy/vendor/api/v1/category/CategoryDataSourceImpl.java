@@ -6,7 +6,7 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import vn.needy.vendor.api.base.BaseRepository;
 import vn.needy.vendor.api.v1.category.response.CategoryResponse;
-import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.datasource.model.Category;
 
 /**
  * Created by lion on 06/11/2017.

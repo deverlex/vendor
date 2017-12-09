@@ -1,9 +1,8 @@
-package vn.needy.vendor.database.model;
+package vn.needy.vendor.datasource.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
-import android.support.annotation.StringDef;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

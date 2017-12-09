@@ -2,16 +2,9 @@ package vn.needy.vendor.screen.addProduct.addAttribute;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.inputmethodservice.InputMethodService;
-import android.text.InputType;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 
-import java.util.Random;
-
-import vn.needy.vendor.database.model.Attribute;
-import vn.needy.vendor.database.model.Attribute.DataType;
+import vn.needy.vendor.datasource.model.Attribute;
+import vn.needy.vendor.datasource.model.Attribute.DataType;
 
 /**
  * Created by lion on 04/12/2017.

@@ -17,8 +17,8 @@ import vn.needy.vendor.api.v1.user.UserDataSource;
 import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
 import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
-import vn.needy.vendor.database.model.User;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.model.User;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 

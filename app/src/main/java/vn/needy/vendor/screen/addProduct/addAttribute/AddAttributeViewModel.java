@@ -10,8 +10,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.needy.vendor.database.model.Attribute;
-import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.datasource.model.Attribute;
+import vn.needy.vendor.datasource.model.Category;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 
 /**

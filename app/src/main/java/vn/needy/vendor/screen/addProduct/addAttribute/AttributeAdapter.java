@@ -16,7 +16,7 @@ import java.util.Random;
 import java.util.Set;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.model.Attribute;
+import vn.needy.vendor.datasource.model.Attribute;
 import vn.needy.vendor.databinding.ItemAddAttrsBinding;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 

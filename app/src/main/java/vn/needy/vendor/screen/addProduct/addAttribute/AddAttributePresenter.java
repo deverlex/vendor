@@ -10,8 +10,8 @@ import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.api.v1.attrs.AttributeDataSource;
 import vn.needy.vendor.api.v1.attrs.AttributeDataSourceImpl;
 import vn.needy.vendor.api.v1.attrs.response.AttributeResponse;
-import vn.needy.vendor.database.model.Attribute;
-import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.datasource.model.Attribute;
+import vn.needy.vendor.datasource.model.Category;
 
 /**
  * Created by lion on 04/12/2017.

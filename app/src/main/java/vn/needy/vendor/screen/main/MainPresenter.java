@@ -5,7 +5,7 @@ import vn.needy.vendor.api.v1.company.CompanyDataSource;
 import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
 import vn.needy.vendor.api.v1.user.UserDataSource;
 import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
 
 /**
  * Created by lion on 30/10/2017.

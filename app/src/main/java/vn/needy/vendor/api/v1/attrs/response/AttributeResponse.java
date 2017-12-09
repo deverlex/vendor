@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.database.model.Attribute;
+import vn.needy.vendor.datasource.model.Attribute;
 
 /**
  * Created by lion on 06/12/2017.

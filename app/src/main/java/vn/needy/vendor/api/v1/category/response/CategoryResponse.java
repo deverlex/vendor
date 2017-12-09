@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.datasource.model.Category;
 
 /**
  * Created by lion on 07/11/2017.

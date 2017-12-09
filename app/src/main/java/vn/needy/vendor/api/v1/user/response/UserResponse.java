@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.database.model.User;
+import vn.needy.vendor.datasource.model.User;
 
 /**
  * Created by lion on 30/10/2017.

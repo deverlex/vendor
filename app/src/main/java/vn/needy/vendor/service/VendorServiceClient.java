@@ -4,9 +4,9 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.service.middleware.RetrofitInterceptor;
 import vn.needy.vendor.utils.Constant;
 

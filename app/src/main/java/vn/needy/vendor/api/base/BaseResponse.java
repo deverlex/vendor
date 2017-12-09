@@ -3,7 +3,7 @@ package vn.needy.vendor.api.base;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import vn.needy.vendor.database.model.BaseModel;
+import vn.needy.vendor.datasource.model.BaseModel;
 
 /**
  * Created by lion on 23/09/2017.

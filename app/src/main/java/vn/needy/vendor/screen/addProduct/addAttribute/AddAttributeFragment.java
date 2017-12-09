@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.model.Attribute;
-import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.datasource.model.Attribute;
+import vn.needy.vendor.datasource.model.Category;
 import vn.needy.vendor.databinding.FragmentAddAttributesBinding;
-import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 
 /**

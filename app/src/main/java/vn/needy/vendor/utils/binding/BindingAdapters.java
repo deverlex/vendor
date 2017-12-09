@@ -10,7 +10,6 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.TransformationMethod;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,14 +19,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.views.BannerSlider;
-import vn.needy.vendor.database.model.Attribute.DataType;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.datasource.model.Attribute.DataType;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.utils.ViewUtil;
 import vn.needy.vendor.utils.image.CompressImage;
 

@@ -8,8 +8,8 @@ import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
 import vn.needy.vendor.api.base.BaseResponse;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsKey;
 
 /**
  * Created by lion on 05/10/2017.

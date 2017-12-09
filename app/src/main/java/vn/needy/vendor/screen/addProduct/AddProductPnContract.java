@@ -2,9 +2,9 @@ package vn.needy.vendor.screen.addProduct;
 
 import java.util.List;
 
-import vn.needy.vendor.database.model.Attribute;
-import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.database.model.Image;
+import vn.needy.vendor.datasource.model.Attribute;
+import vn.needy.vendor.datasource.model.Category;
+import vn.needy.vendor.datasource.model.Image;
 import vn.needy.vendor.api.v1.product.request.AddProductPnRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;

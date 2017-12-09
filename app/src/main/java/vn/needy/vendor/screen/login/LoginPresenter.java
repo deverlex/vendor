@@ -14,7 +14,7 @@ import vn.needy.vendor.api.v1.auth.AuthDataSource;
 import vn.needy.vendor.api.v1.auth.AuthDataSourceImpl;
 import vn.needy.vendor.api.v1.user.UserDataSource;
 import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;

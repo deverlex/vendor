@@ -22,7 +22,6 @@ import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
 import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
-import vn.needy.vendor.database.model.Attribute;
 
 /**
  * Created by lion on 04/10/2017.

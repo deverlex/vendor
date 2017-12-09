@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.widget.ScrollView;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCompanyProfileBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.widget.WorkaroundMapFragment;

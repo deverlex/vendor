@@ -1,4 +1,4 @@
-package vn.needy.vendor.database.model;
+package vn.needy.vendor.datasource.model;
 
 import com.google.gson.Gson;
 

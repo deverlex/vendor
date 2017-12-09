@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
-import vn.needy.vendor.database.model.Image;
+import vn.needy.vendor.datasource.model.Image;
 import vn.needy.vendor.api.v1.product.ProductDataSourceImpl;
 import vn.needy.vendor.api.v1.product.request.AddProductPnRequest;
 

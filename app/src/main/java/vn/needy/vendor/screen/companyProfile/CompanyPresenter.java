@@ -1,7 +1,6 @@
 package vn.needy.vendor.screen.companyProfile;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
@@ -18,8 +16,8 @@ import vn.needy.vendor.api.v1.company.CompanyDataSource;
 import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
 import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
-import vn.needy.vendor.database.model.Company;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.model.Company;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 

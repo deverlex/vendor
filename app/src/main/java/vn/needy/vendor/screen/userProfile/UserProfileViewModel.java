@@ -27,7 +27,7 @@ import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.database.model.User;
+import vn.needy.vendor.datasource.model.User;
 import vn.needy.vendor.screen.userProfile.changePassword.ChangePasswordFragment;
 
 /**

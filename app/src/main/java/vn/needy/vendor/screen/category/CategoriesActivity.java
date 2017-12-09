@@ -1,6 +1,5 @@
 package vn.needy.vendor.screen.category;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
@@ -8,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.datasource.model.Category;
+import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCategoriesBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
