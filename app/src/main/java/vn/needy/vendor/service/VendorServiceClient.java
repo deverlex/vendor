@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import vn.needy.vendor.api.VendorApi;
 import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.datasource.sharedprf.SharedPrefsKey;

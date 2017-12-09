@@ -1,4 +1,4 @@
-package vn.needy.vendor.service;
+package vn.needy.vendor.api;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;

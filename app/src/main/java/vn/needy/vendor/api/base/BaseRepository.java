@@ -1,6 +1,6 @@
 package vn.needy.vendor.api.base;
 
-import vn.needy.vendor.service.VendorApi;
+import vn.needy.vendor.api.VendorApi;
 import vn.needy.vendor.service.VendorServiceClient;
 
 /**
