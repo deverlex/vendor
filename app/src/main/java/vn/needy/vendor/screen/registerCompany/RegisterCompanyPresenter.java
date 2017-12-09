@@ -23,12 +23,10 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
 
     private RegisterCompanyContract.ViewModel mViewModel;
     private CompanyDataSource mCompanyDataSource;
-    private final CompositeDisposable mCompositeDisposable;
 
     public RegisterCompanyPresenter(RegisterCompanyContract.ViewModel viewModel) {
         mViewModel = viewModel;
         mCompanyDataSource = new CompanyDataSourceImpl();
-        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -44,33 +42,32 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
     @Override
     public void registerCompany(RegisterCompanyRequest request) {
         if (!validateDataInput(request)) return;
-        Disposable disposable = mCompanyDataSource.registerCompany(request)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        mViewModel.onShowProgressBar();
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CompanyResponse>() {
-                    @Override
-                    public void accept(CompanyResponse companyResponse) throws Exception {
-                        if (companyResponse.getCompany() != null) {
-                            mViewModel.onRegisterSuccess();
-                            mViewModel.onHideProgressBar();
-                        } else {
-                            mViewModel.onRegisterError(companyResponse.getMessage());
-                        }
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
+        mCompanyDataSource.registerCompany(request)
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe(new Consumer<Disposable>() {
+                @Override
+                public void accept(Disposable disposable) throws Exception {
+                    mViewModel.onShowProgressBar();
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<CompanyResponse>() {
+                @Override
+                public void accept(CompanyResponse companyResponse) throws Exception {
+                    if (companyResponse.getCompany() != null) {
+                        mViewModel.onRegisterSuccess();
                         mViewModel.onHideProgressBar();
-                        mViewModel.onRegisterError(R.string.error_service);
+                    } else {
+                        mViewModel.onRegisterError(companyResponse.getMessage());
                     }
-                });
-        mCompositeDisposable.add(disposable);
+                }
+            }, new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onHideProgressBar();
+                    mViewModel.onRegisterError(R.string.error_service);
+                }
+            });
     }
 
     @Override
