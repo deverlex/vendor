@@ -17,8 +17,8 @@ public class CredentialRepositoryImpl extends BaseRepository implements Credenti
 
     private SharedPrefsApi mPrefsApi;
 
-    public CredentialRepositoryImpl(VendorApi vendorApi, SharedPrefsApi prefsApi) {
-        super(vendorApi);
+    public CredentialRepositoryImpl(SharedPrefsApi prefsApi) {
+        super();
         mPrefsApi = prefsApi;
     }
 

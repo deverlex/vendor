@@ -11,14 +11,13 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.api.v1.auth.CredentialRepositoryImpl;
-import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
+import vn.needy.vendor.api.v1.company.CompanyDataSource;
+import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
-import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.utils.Utils;
 
 /**
@@ -33,14 +32,11 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final CompositeDisposable mCompositeDisposable;
 
     private final CredentialRepositoryImpl mCredentialRepository;
-    private CompanyRepository mCompanyRepository;
+    private CompanyDataSource mCompanyDataSource;
 
     LoginPresenter(LoginContract.ViewModel viewModel) {
         mViewModel = viewModel;
-        mCredentialRepository = new CredentialRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance());
-
+        mCredentialRepository = new CredentialRepositoryImpl(SharedPrefsImpl.getInstance());
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -151,11 +147,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void findCompanyReference() {
-        mCompanyRepository = new CompanyRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance()
-        );
-        Disposable disposable = mCompanyRepository.getCompanyInformation()
+        mCompanyDataSource = new CompanyDataSourceImpl();
+        Disposable disposable = mCompanyDataSource.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .doAfterTerminate(new Action() {
                     @Override

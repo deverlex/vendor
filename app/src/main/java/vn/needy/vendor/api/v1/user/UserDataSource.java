@@ -13,7 +13,7 @@ import vn.needy.vendor.api.v1.user.response.UserResponse;
  * Created by lion on 04/10/2017.
  */
 
-public interface UserRepository {
+public interface UserDataSource {
 
     void clearData();
 

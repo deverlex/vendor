@@ -1,6 +1,7 @@
 package vn.needy.vendor.api.base;
 
 import vn.needy.vendor.service.VendorApi;
+import vn.needy.vendor.service.VendorServiceClient;
 
 /**
  * Created by lion on 04/10/2017.
@@ -9,7 +10,7 @@ import vn.needy.vendor.service.VendorApi;
 public abstract class BaseRepository {
     protected VendorApi mVendorApi;
 
-    public BaseRepository(VendorApi vendorApi) {
-        mVendorApi = vendorApi;
+    public BaseRepository() {
+        mVendorApi = VendorServiceClient.getInstance();
     }
 }

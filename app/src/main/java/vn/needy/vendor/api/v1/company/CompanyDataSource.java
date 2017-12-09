@@ -11,7 +11,7 @@ import vn.needy.vendor.api.v1.company.response.CompanyResponse;
  * Created by lion on 07/10/2017.
  */
 
-public interface CompanyRepository {
+public interface CompanyDataSource {
     Observable<CompanyResponse> getCompanyInformation();
 
     Observable<CompanyResponse> registerCompany(RegisterCompanyRequest request);

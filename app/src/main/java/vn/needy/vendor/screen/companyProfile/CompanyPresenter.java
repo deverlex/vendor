@@ -13,16 +13,14 @@ import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
+import vn.needy.vendor.api.v1.company.CompanyDataSource;
+import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
 import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.service.VendorServiceClient;
 
 /**
  * Created by truongpq on 07/12/2017.
@@ -31,13 +29,11 @@ import vn.needy.vendor.service.VendorServiceClient;
 public class CompanyPresenter implements CompanyContract.Presenter {
     private CompanyContract.ViewModel mViewModel;
 
-    private CompanyRepository mCompanyRepository;
+    private CompanyDataSource mCompanyDataSource;
 
     public CompanyPresenter(CompanyContract.ViewModel mViewModel, SharedPrefsApi prefsApi) {
         this.mViewModel = mViewModel;
-        mCompanyRepository = new CompanyRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance());
+        mCompanyDataSource = new CompanyDataSourceImpl();
     }
 
     @Override
@@ -63,7 +59,7 @@ public class CompanyPresenter implements CompanyContract.Presenter {
 
     @Override
     public void getCompanyInfo() {
-        mCompanyRepository.getCompanyInformation()
+        mCompanyDataSource.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .doOnError(new Consumer<Throwable>() {
                     @Override

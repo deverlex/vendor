@@ -11,15 +11,14 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
+import vn.needy.vendor.api.v1.company.CompanyDataSource;
+import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
-import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.screen.login.LoginActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
@@ -35,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
     private Intent mIntent;
 
     private CompositeDisposable mCompositeDisposable;
-    private CompanyRepository mCompanyRepository;
+    private CompanyDataSource mCompanyDataSource;
     private Navigator mNavigator;
 
     @Override
@@ -45,10 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         mCompositeDisposable = new CompositeDisposable();
         SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
 
-        mCompanyRepository = new CompanyRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance()
-        );
+        mCompanyDataSource = new CompanyDataSourceImpl();
 
         final String token = getToken(prefsApi);
 
@@ -75,7 +71,7 @@ public class SplashActivity extends AppCompatActivity {
     private void gatewaySigned() {
         // will check each login app because user maybe remove by ceo/manager
         // if connect has error, redirect to main page
-        Disposable disposable = mCompanyRepository.getCompanyInformation()
+        Disposable disposable = mCompanyDataSource.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<CompanyResponse>() {

@@ -13,15 +13,14 @@ import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.api.v1.user.UserRepository;
-import vn.needy.vendor.api.v1.user.UserRepositoryImpl;
+import vn.needy.vendor.api.v1.user.UserDataSource;
+import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
 import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.api.v1.user.response.UserResponse;
 import vn.needy.vendor.database.model.User;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.service.VendorServiceClient;
 
 /**
  * Created by lion on 02/12/2017.
@@ -31,14 +30,11 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     private UserProfileContract.ViewModel mViewModel;
 
-    private final UserRepository mUserRepository;
+    private final UserDataSource mUserDataSource;
 
     public UserProfilePresenter(UserProfileContract.ViewModel viewModel, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
-        mUserRepository = new UserRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                prefsApi
-        );
+        mUserDataSource = new UserDataSourceImpl(prefsApi);
     }
 
     @Override
@@ -63,7 +59,7 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     @Override
     public void getUserInfo() {
-        mUserRepository.getUserInformation()
+        mUserDataSource.getUserInformation()
                 .subscribeOn(Schedulers.io())
                 .doOnError(new Consumer<Throwable>() {
                     @Override
@@ -95,7 +91,7 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     @Override
     public void updateUserInformation(UpdateUserInfoRequest request) {
-        mUserRepository.updateUserInformation(request)
+        mUserDataSource.updateUserInformation(request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override

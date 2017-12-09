@@ -1,12 +1,11 @@
 package vn.needy.vendor.screen.main;
 
 import io.reactivex.disposables.CompositeDisposable;
-import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyRepositoryImpl;
-import vn.needy.vendor.api.v1.user.UserRepository;
-import vn.needy.vendor.api.v1.user.UserRepositoryImpl;
+import vn.needy.vendor.api.v1.company.CompanyDataSource;
+import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
+import vn.needy.vendor.api.v1.user.UserDataSource;
+import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.service.VendorServiceClient;
 
 /**
  * Created by lion on 30/10/2017.
@@ -18,18 +17,12 @@ public class MainPresenter implements MainContract.Presenter {
 
     private final CompositeDisposable mCompositeDisposable;
 
-    private final UserRepository mUserRepository;
-    private final CompanyRepository mCompanyRepository;
+    private final UserDataSource mUserDataSource;
+    private final CompanyDataSource mCompanyDataSource;
 
     public MainPresenter() {
-        mUserRepository = new UserRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance()
-        );
-        mCompanyRepository = new CompanyRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance()
-        );
+        mUserDataSource = new UserDataSourceImpl(SharedPrefsImpl.getInstance());
+        mCompanyDataSource = new CompanyDataSourceImpl();
         mCompositeDisposable = new CompositeDisposable();
     }
 

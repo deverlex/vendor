@@ -7,11 +7,11 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.api.v1.attrs.AttributeRepositoryImpl;
+import vn.needy.vendor.api.v1.attrs.AttributeDataSource;
+import vn.needy.vendor.api.v1.attrs.AttributeDataSourceImpl;
 import vn.needy.vendor.api.v1.attrs.response.AttributeResponse;
 import vn.needy.vendor.database.model.Attribute;
 import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.service.VendorServiceClient;
 
 /**
  * Created by lion on 04/12/2017.
@@ -22,12 +22,12 @@ public class AddAttributePresenter implements AddAttributeContract.Presenter {
     private static final String TAG = AddAttributePresenter.class.getName();
 
     private AddAttributeContract.ViewModel mViewModel;
-    private AttributeRepositoryImpl mAttributeRepository;
+    private AttributeDataSource mAttributeDataSource;
     private CompositeDisposable mCompositeDisposable;
 
     public AddAttributePresenter(AddAttributeContract.ViewModel viewModel) {
         mViewModel = viewModel;
-        mAttributeRepository = new AttributeRepositoryImpl(VendorServiceClient.getInstance());
+        mAttributeDataSource = new AttributeDataSourceImpl();
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -43,7 +43,7 @@ public class AddAttributePresenter implements AddAttributeContract.Presenter {
 
     @Override
     public void onGetListAttributes(Category category) {
-        Disposable disposable = mAttributeRepository
+        Disposable disposable = mAttributeDataSource
                 .getListAttributeCategory(category.getName())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

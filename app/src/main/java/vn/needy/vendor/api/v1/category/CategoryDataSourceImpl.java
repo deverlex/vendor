@@ -7,23 +7,15 @@ import io.reactivex.functions.Function;
 import vn.needy.vendor.api.base.BaseRepository;
 import vn.needy.vendor.api.v1.category.response.CategoryResponse;
 import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.database.model.Company;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.service.VendorApi;
 
 /**
  * Created by lion on 06/11/2017.
  */
 
-public class CategoryRepositoryImpl extends BaseRepository implements CategoryRepository {
+public class CategoryDataSourceImpl extends BaseRepository implements CategoryDataSource {
 
-    private SharedPrefsApi mPrefsApi;
-
-    public CategoryRepositoryImpl(VendorApi vendorApi, SharedPrefsApi prefsApi) {
-        super(vendorApi);
-        mPrefsApi = prefsApi;
+    public CategoryDataSourceImpl() {
+        super();
     }
 
     public Observable<List<Category>> getLinkCategories(String category) {
@@ -38,8 +30,7 @@ public class CategoryRepositoryImpl extends BaseRepository implements CategoryRe
 
     @Override
     public Observable<List<Category>> getCompanyLinkCategories(String category) {
-        String companyId = mPrefsApi.get(SharedPrefsKey.COMPANY, String.class);
-        return mVendorApi.getCompanyLinkCategories(category, companyId)
+        return mVendorApi.getCompanyLinkCategories(category, "1")
                 .map(new Function<CategoryResponse, List<Category>>() {
                     @Override
                     public List<Category> apply(CategoryResponse categoryResponse) throws Exception {

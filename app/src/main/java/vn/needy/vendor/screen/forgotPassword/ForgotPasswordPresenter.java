@@ -25,15 +25,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.api.v1.user.UserRepository;
-import vn.needy.vendor.api.v1.user.UserRepositoryImpl;
+import vn.needy.vendor.api.v1.user.UserDataSource;
+import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
 import vn.needy.vendor.api.base.BaseResponse;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
-import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.utils.Utils;
 
 /**
@@ -48,7 +47,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     private String mVerificationId;
 
     private ForgotPasswordContract.ViewModel mViewModel;
-    private UserRepository mUserRepository;
+    private UserDataSource mUserDataSource;
 
     private final CompositeDisposable mCompositeDisposable;
 
@@ -94,10 +93,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         mAuth = FirebaseAuth.getInstance();
         mDuration = 0;
 
-        mUserRepository = new UserRepositoryImpl(
-                VendorServiceClient.getInstance(),
-                SharedPrefsImpl.getInstance()
-        );
+        mUserDataSource = new UserDataSourceImpl(SharedPrefsImpl.getInstance());
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -115,7 +111,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     public void checkUserExist(String phoneNumber) {
         if (TextUtils.isEmpty(phoneNumber)) return;
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
-        Disposable mDisposable = mUserRepository.findUserExist(phoneNumber)
+        Disposable mDisposable = mUserDataSource.findUserExist(phoneNumber)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -205,7 +201,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         if (!validateDataInput(phoneNumber, request.getPassword())) return;
 
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
-        Disposable disposable = mUserRepository.resetPassword(phoneNumber, request)
+        Disposable disposable = mUserDataSource.resetPassword(phoneNumber, request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -218,7 +214,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                     @Override
                     public void accept(CertificationResponse certification) throws Exception {
                         if (!TextUtils.isEmpty(certification.getToken())) {
-                            mUserRepository.saveToken(certification.getToken());
+                            mUserDataSource.saveToken(certification.getToken());
                             mViewModel.onResetPasswordSuccess();
                         } else {
                             mViewModel.onResetPasswordError(certification.getMessage());
