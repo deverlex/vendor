@@ -136,33 +136,37 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
     @Override
     public void registerUser(RegisterUserRequest request) {
-        Disposable disposable = mUserDataSource.registerUser(request)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                       mViewModel.onShowProgressBar();
+        mUserDataSource.registerUser(request)
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe(new Consumer<Disposable>() {
+                @Override
+                public void accept(Disposable disposable) throws Exception {
+                   mViewModel.onShowProgressBar();
+                }
+            }).doOnError(new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onRegisterError(R.string.error_service);
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<CertificationResponse>() {
+                @Override
+                public void accept(CertificationResponse certification) throws Exception {
+                    String token = certification.getToken();
+                    if (!TextUtils.isEmpty(token)) {
+                        mUserDataSource.saveToken(certification.getToken());
+                        mViewModel.onRegisterSuccess();
+                    } else {
+                        mViewModel.onRegisterError(certification.getMessage());
                     }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CertificationResponse>() {
-                    @Override
-                    public void accept(CertificationResponse certification) throws Exception {
-                        String token = certification.getToken();
-                        if (!TextUtils.isEmpty(token)) {
-                            mUserDataSource.saveToken(certification.getToken());
-                            mViewModel.onRegisterSuccess();
-                        } else {
-                            mViewModel.onRegisterError(certification.getMessage());
-                        }
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onRegisterError(R.string.error_service);
-                    }
-                });
-        mCompositeDisposable.add(disposable);
+                }
+            }, new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onRegisterError(error.getMessage());
+                }
+            });
     }
 
     @Override
