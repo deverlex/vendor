@@ -116,7 +116,7 @@ public class CompanyPresenter implements CompanyContract.Presenter {
         request.setLat(company.getLat());
         request.setLng(company.getLng());
 
-        mCompanyRepository.updateCompanyInformation(company.getId(), request)
+        mCompanyDataSource.updateCompanyInformation(company.getId(), request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override

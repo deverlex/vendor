@@ -28,4 +28,6 @@ public interface UserDataSource {
     Observable<UserResponse> getUserInformation();
 
     Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request);
+
+    Observable<BaseResponse> getCompanyInfo();
 }

@@ -44,6 +44,11 @@ public class UserDataSourceImpl extends BaseRepository implements UserDataSource
         return mVendorApi.updateUserInformation(request);
     }
 
+    @Override
+    public Observable<BaseResponse> getCompanyInfo() {
+        return mVendorApi.findUserCompany();
+    }
+
     public void saveToken(String token) {
         mPrefsApi.put(SharedPrefsKey.TOKEN_KEY, token);
     }
