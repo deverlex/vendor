@@ -49,8 +49,6 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     private ForgotPasswordContract.ViewModel mViewModel;
     private UserDataSource mUserDataSource;
 
-    private final CompositeDisposable mCompositeDisposable;
-
     private final Activity mActivity;
 
     private int mDuration;
@@ -94,7 +92,6 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         mDuration = 0;
 
         mUserDataSource = new UserDataSourceImpl(SharedPrefsImpl.getInstance());
-        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -111,28 +108,27 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     public void checkUserExist(String phoneNumber) {
         if (TextUtils.isEmpty(phoneNumber)) return;
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
-        Disposable mDisposable = mUserDataSource.findUserExist(phoneNumber)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        mViewModel.onShowProgressBar();
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseResponse>() {
-                    @Override
-                    public void accept(BaseResponse baseResponse) throws Exception {
-                        mViewModel.onFindPhoneNumberExistSuccess();
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onHideProgressBar();
-                        mViewModel.onFindPhoneNumberExistError(R.string.find_user_exist_error);
-                    }
-                });
-        mCompositeDisposable.add(mDisposable);
+        mUserDataSource.findUserExist(phoneNumber)
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe(new Consumer<Disposable>() {
+                @Override
+                public void accept(Disposable disposable) throws Exception {
+                    mViewModel.onShowProgressBar();
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<BaseResponse>() {
+                @Override
+                public void accept(BaseResponse baseResponse) throws Exception {
+                    mViewModel.onFindPhoneNumberExistSuccess();
+                }
+            }, new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onHideProgressBar();
+                    mViewModel.onFindPhoneNumberExistError(R.string.find_user_exist_error);
+                }
+            });
     }
 
     @Override
@@ -201,32 +197,31 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         if (!validateDataInput(phoneNumber, request.getPassword())) return;
 
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
-        Disposable disposable = mUserDataSource.resetPassword(phoneNumber, request)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        mViewModel.onShowProgressBar();
+        mUserDataSource.resetPassword(phoneNumber, request)
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe(new Consumer<Disposable>() {
+                @Override
+                public void accept(Disposable disposable) throws Exception {
+                    mViewModel.onShowProgressBar();
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<CertificationResponse>() {
+                @Override
+                public void accept(CertificationResponse certification) throws Exception {
+                    if (!TextUtils.isEmpty(certification.getToken())) {
+                        mUserDataSource.saveToken(certification.getToken());
+                        mViewModel.onResetPasswordSuccess();
+                    } else {
+                        mViewModel.onResetPasswordError(certification.getMessage());
                     }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CertificationResponse>() {
-                    @Override
-                    public void accept(CertificationResponse certification) throws Exception {
-                        if (!TextUtils.isEmpty(certification.getToken())) {
-                            mUserDataSource.saveToken(certification.getToken());
-                            mViewModel.onResetPasswordSuccess();
-                        } else {
-                            mViewModel.onResetPasswordError(certification.getMessage());
-                        }
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onHideProgressBar();
-                    }
-                });
-        mCompositeDisposable.add(disposable);
+                }
+            }, new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onHideProgressBar();
+                }
+            });
     }
 
     private void sendVerificationPhone(String phoneNumber) {
