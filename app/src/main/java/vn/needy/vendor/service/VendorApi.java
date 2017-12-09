@@ -49,10 +49,10 @@ public interface VendorApi {
     @PUT("v1/users")
     Observable<BaseResponse> updateUserInformation(@Body UpdateUserInfoRequest request);
 
-    @GET("v1/companies")
+    @GET("v1/users/companies")
     Observable<BaseResponse> findUserCompany();
 
-    @GET("v1/companies/{company_id}")
+    @GET("v1/companies")
     Observable<CompanyResponse> getCompanyInformation();
 
     @PUT("v1/companies/{company_id}")
