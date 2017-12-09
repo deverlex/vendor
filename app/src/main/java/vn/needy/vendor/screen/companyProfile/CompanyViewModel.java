@@ -42,6 +42,7 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
     private boolean mEnable;
     private int mDrawableEdit;
     private Company mCompany;
+    private int mStaffCount;
     private String mNameError;
     private String mAddressError;
     private boolean mVisibleDescription;
@@ -113,9 +114,11 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
     }
 
     @Override
-    public void setCompanyInfo(Company company) {
+    public void setCompanyInfo(Company company, int staffCount) {
         mCompany = company;
+        mStaffCount = staffCount;
         notifyPropertyChanged(BR.company);
+        notifyPropertyChanged(BR.staffCount);
 
         //Move to address on Map
         mMapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -263,5 +266,10 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
     @Bindable
     public int getDrawableExpandDescription() {
         return mDrawableExpandDescription;
+    }
+
+    @Bindable
+    public int getStaffCount() {
+        return mStaffCount;
     }
 }

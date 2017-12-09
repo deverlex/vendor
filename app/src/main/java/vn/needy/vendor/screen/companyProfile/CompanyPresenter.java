@@ -1,6 +1,7 @@
 package vn.needy.vendor.screen.companyProfile;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,30 +62,39 @@ public class CompanyPresenter implements CompanyContract.Presenter {
     public void getCompanyInfo() {
         mCompanyDataSource.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
-                .doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                })
-                .map(new Function<CompanyResponse, Company>() {
-                    @Override
-                    public Company apply(CompanyResponse companyResponse) throws Exception {
-                        return companyResponse.getCompany();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Company>() {
+                .subscribe(new Consumer<CompanyResponse>() {
                     @Override
-                    public void accept(Company company) throws Exception {
-                        mViewModel.setCompanyInfo(company);
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        
+                    public void accept(CompanyResponse companyResponse) throws Exception {
+                        mViewModel.setCompanyInfo(companyResponse.getCompany(), companyResponse.getStaffCount());
                     }
                 });
+
+//        mCompanyDataSource.getCompanyInformation()
+//                .subscribeOn(Schedulers.io())
+//                .doOnError(new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//
+//                    }
+//                })
+//                .map(new Function<CompanyResponse, Company>() {
+//                    @Override
+//                    public Company apply(CompanyResponse companyResponse) throws Exception {
+//                        return companyResponse.getCompany();
+//                    }
+//                })
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<Company>() {
+//                    @Override
+//                    public void accept(Company company) throws Exception {
+//                    }
+//                }, new SafetyError() {
+//                    @Override
+//                    public void onSafetyError(BaseException error) {
+//
+//                    }
+//                });
     }
 
     @Override
