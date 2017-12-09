@@ -18,6 +18,7 @@ import vn.needy.vendor.utils.navigator.Navigator;
 public class LoginActivity extends BaseActivity {
 
     private LoginContract.ViewModel mViewModel;
+    private Navigator mNavigator;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -26,11 +27,14 @@ public class LoginActivity extends BaseActivity {
         //Clear data
         SharedPrefsImpl.getInstance().clear();
         VendorServiceClient.initialize(getApplication());
+        mNavigator = new Navigator(this);
 
         DialogManager dialogManager = new DialogManager(this);
-        mViewModel = new LoginViewModel(this, getApplication(), new Navigator(this), dialogManager);
+        mViewModel = new LoginViewModel(this, getApplication(), mNavigator, dialogManager);
 
-        LoginContract.Presenter presenter = new LoginPresenter(mViewModel);
+        LoginContract.Presenter presenter = new LoginPresenter(mViewModel, mNavigator,
+                SharedPrefsImpl.getInstance());
+
         mViewModel.setPresenter(presenter);
 
         ActivityLoginBinding binding =

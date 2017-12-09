@@ -4,21 +4,22 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.api.v1.auth.CredentialRepositoryImpl;
-import vn.needy.vendor.api.v1.company.CompanyDataSource;
-import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.api.base.BaseResponse;
+import vn.needy.vendor.api.v1.auth.AuthDataSource;
+import vn.needy.vendor.api.v1.auth.AuthDataSourceImpl;
+import vn.needy.vendor.api.v1.user.UserDataSource;
+import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
-import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 import vn.needy.vendor.utils.Utils;
+import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by lion on 05/10/2017.
@@ -29,15 +30,17 @@ public class LoginPresenter implements LoginContract.Presenter {
     private static final String TAG = LoginPresenter.class.getName();
 
     private final LoginContract.ViewModel mViewModel;
-    private final CompositeDisposable mCompositeDisposable;
 
-    private final CredentialRepositoryImpl mCredentialRepository;
-    private CompanyDataSource mCompanyDataSource;
+    private Navigator mNavigator;
+    private final AuthDataSource mAuthDataSource;
+    private UserDataSource mUserDataSource;
+    private SharedPrefsApi mPrefsApi;
 
-    LoginPresenter(LoginContract.ViewModel viewModel) {
+    LoginPresenter(LoginContract.ViewModel viewModel, Navigator navigator, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
-        mCredentialRepository = new CredentialRepositoryImpl(SharedPrefsImpl.getInstance());
-        mCompositeDisposable = new CompositeDisposable();
+        mNavigator = navigator;
+        mPrefsApi = prefsApi;
+        mAuthDataSource = new AuthDataSourceImpl(prefsApi);
     }
 
     @Override
@@ -55,68 +58,42 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (!validateDataInput(phoneNumber, passWord)) {
             return;
         }
-        Disposable disposable = mCredentialRepository.login(phoneNumber, passWord)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        mViewModel.onShowProgressBar();
+        mAuthDataSource.login(phoneNumber, passWord)
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe(new Consumer<Disposable>() {
+                @Override
+                public void accept(Disposable disposable) throws Exception {
+                    mViewModel.onShowProgressBar();
+                }
+            })
+            .doOnError(new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mNavigator.showToastCenterText(error.getMessage());
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<CertificationResponse>() {
+                @Override
+                public void accept(CertificationResponse certification) throws Exception {
+                    mViewModel.onHideProgressBar();
+                    String token = certification.getToken();
+                    // Save token into storage
+                    if (TextUtils.isEmpty(token)) {
+                        mViewModel.onLoginError(certification.getMessage());
+                    }  else {
+                        mAuthDataSource.saveToken(token);
+                        mViewModel.onLoginSuccess();
                     }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<CertificationResponse>() {
-                    @Override
-                    public void accept(CertificationResponse certification) throws Exception {
-                        mViewModel.onHideProgressBar();
-                        String token = certification.getToken();
-                        // Save token into storage
-                        if (TextUtils.isEmpty(token)) {
-                            mViewModel.onLoginError(certification.getMessage());
-                        }  else {
-                            mCredentialRepository.saveToken(token);
-//                            mCredentialRepository.saveCredential(new Credential(phoneNumber, passWord));
-                            mViewModel.onLoginSuccess();
-                        }
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onHideProgressBar();
-                        Log.d(TAG, error.getMessage());
-                        mViewModel.onLoginError(R.string.error_credential);
-                    }
-                });
-        mCompositeDisposable.add(disposable);
-
-
+                }
+            }, new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onHideProgressBar();
+                    Log.d(TAG, error.getMessage());
+                    mViewModel.onLoginError(R.string.error_credential);
+                }
+            });
 //        String deviceToken = FirebaseInstanceId.getInstance().getToken();
-
-//        Disposable disposable = mUserRepository.login(phoneNumber, passWord)
-//                .subscribeOn(Schedulers.io())
-//                .doOnSubscribe(new Consumer<Disposable>() {
-//                    @Override
-//                    public void accept(Disposable disposable) throws Exception {
-//                        mViewModel.onShowProgressBar();
-//                    }
-//                }).doAfterTerminate(new Action() {
-//                    @Override
-//                    public void run() throws Exception {
-////                        mViewModel.onHideProgressBar();
-//                    }
-//                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String token) throws Exception {
-//                        // save user into app database
-////                        mUserRepository.saveUser(user);
-//
-//                        mViewModel.onLoginSuccess();
-//                    }
-//                }, new SafetyError() {
-//                    @Override
-//                    public void onSafetyError(BaseException error) {
-//                        mViewModel.onLoginError(error);
-//                        mViewModel.onHideProgressBar();
-//                    }
-//                });
-//        mCompositeDisposable.add(disposable);
     }
 
     @Override
@@ -146,32 +123,37 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void findCompanyReference() {
-        mCompanyDataSource = new CompanyDataSourceImpl();
-        Disposable disposable = mCompanyDataSource.getCompanyInformation()
-                .subscribeOn(Schedulers.io())
-                .doAfterTerminate(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        mViewModel.onHideProgressBar();
-                    }
-                }).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CompanyResponse>() {
-                    @Override
-                    public void accept(CompanyResponse companyResponse) throws Exception {
-                        if (companyResponse.getCompany() != null) {
+    public void findCompany() {
+        mUserDataSource = new UserDataSourceImpl(mPrefsApi);
+        mUserDataSource.findUserCompany()
+            .subscribeOn(Schedulers.io())
+            .doAfterTerminate(new Action() {
+                @Override
+                public void run() throws Exception {
+                    mViewModel.onHideProgressBar();
+                }
+            }).doOnError(new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
 
-                            mViewModel.onRedirectToMain();
-                        } else {
-                            mViewModel.onRedirectToRegisterCompany();
-                        }
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<BaseResponse>() {
+                @Override
+                public void accept(BaseResponse response) throws Exception {
+                    if (response.getStatus().equals("OK")) {
+                        mViewModel.onToMainPage();
+                    } else {
+                        mNavigator.showToastBottom(response.getMessage());
+                        mViewModel.onToRegisterCompany();
                     }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onLoginError(error.getMessage());
-                    }
-                });
-        mCompositeDisposable.add(disposable);
+                }
+            }, new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onLoginError(error.getMessage());
+                }
+            });
     }
 }
