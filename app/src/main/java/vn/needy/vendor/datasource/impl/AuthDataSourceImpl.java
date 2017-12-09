@@ -1,10 +1,11 @@
-package vn.needy.vendor.api.v1.auth;
+package vn.needy.vendor.datasource.impl;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
 import vn.needy.vendor.api.base.BaseRepository;
 import vn.needy.vendor.api.v1.auth.request.CredentialsRequest;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
+import vn.needy.vendor.datasource.AuthDataSource;
 import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.datasource.sharedprf.SharedPrefsKey;
 

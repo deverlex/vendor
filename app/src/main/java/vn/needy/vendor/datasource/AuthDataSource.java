@@ -1,4 +1,4 @@
-package vn.needy.vendor.api.v1.auth;
+package vn.needy.vendor.datasource;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
