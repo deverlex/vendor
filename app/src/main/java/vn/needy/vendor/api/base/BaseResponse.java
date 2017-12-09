@@ -11,7 +11,7 @@ import vn.needy.vendor.database.model.BaseModel;
 
 public class BaseResponse extends BaseModel {
     @Expose
-    @SerializedName("success")
+    @SerializedName("status")
     private String mStatus;
     @Expose
     @SerializedName("code")

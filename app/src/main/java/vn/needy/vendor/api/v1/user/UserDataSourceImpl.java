@@ -45,7 +45,7 @@ public class UserDataSourceImpl extends BaseRepository implements UserDataSource
     }
 
     @Override
-    public Observable<BaseResponse> getCompanyInfo() {
+    public Observable<BaseResponse> findUserCompany() {
         return mVendorApi.findUserCompany();
     }
 

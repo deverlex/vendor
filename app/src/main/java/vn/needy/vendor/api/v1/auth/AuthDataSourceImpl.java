@@ -7,17 +7,16 @@ import vn.needy.vendor.api.v1.auth.request.CredentialsRequest;
 import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.service.VendorApi;
 
 /**
  * Created by lion on 13/10/2017.
  */
 
-public class CredentialRepositoryImpl extends BaseRepository implements CredentialRepository {
+public class AuthDataSourceImpl extends BaseRepository implements AuthDataSource {
 
     private SharedPrefsApi mPrefsApi;
 
-    public CredentialRepositoryImpl(SharedPrefsApi prefsApi) {
+    public AuthDataSourceImpl(SharedPrefsApi prefsApi) {
         super();
         mPrefsApi = prefsApi;
     }

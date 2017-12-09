@@ -67,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
     private void gateway() {
         // will check each login app because user maybe remove by ceo/manager
         // if connect has error, redirect to main page
-        mUserDataSource.getCompanyInfo()
+        mUserDataSource.findUserCompany()
             .subscribeOn(Schedulers.io())
             .doOnError(new SafetyError() {
                 @Override

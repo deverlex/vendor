@@ -9,7 +9,7 @@ import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
  * Created by lion on 13/10/2017.
  */
 
-public interface CredentialRepository {
+public interface AuthDataSource {
 
     Observable<CertificationResponse> login(String phoneNumber, String passWord);
 
