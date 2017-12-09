@@ -16,7 +16,9 @@ public class CompanyResponse extends BaseResponse {
     @SerializedName("company")
     private Company mCompany;
 
-
+    @Expose
+    @SerializedName("staffCount")
+    private int mStaffCount;
 
     public Company getCompany() {
         return mCompany;
@@ -24,5 +26,13 @@ public class CompanyResponse extends BaseResponse {
 
     public void setCompany(Company mCompany) {
         this.mCompany = mCompany;
+    }
+
+    public int getStaffCount() {
+        return mStaffCount;
+    }
+
+    public void setStaffCount(int staffCount) {
+        this.mStaffCount = staffCount;
     }
 }

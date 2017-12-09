@@ -3,7 +3,6 @@ package vn.needy.vendor.screen.companyProfile;
 import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
-import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.database.model.Company;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
@@ -18,7 +17,7 @@ public class CompanyContract {
 
         void onClickEdit();
 
-        void setCompanyInfo(Company company);
+        void setCompanyInfo(Company company, int stafCount);
 
         void onInputNameError(String errorMsg);
 

@@ -250,13 +250,13 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
+                        android:text="@{Integer.toString(viewModel.staffCount)}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/headerNumberStaff"
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
-                        android:text="@string/staff_empty"
                         android:textColor="@color/gray70"
                         android:textSize="@dimen/sp_14"
                         tools:ignore="UnusedAttribute" />
