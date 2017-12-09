@@ -1,10 +1,10 @@
 package vn.needy.vendor.screen.main;
 
 import io.reactivex.disposables.CompositeDisposable;
-import vn.needy.vendor.api.v1.company.CompanyDataSource;
-import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
-import vn.needy.vendor.api.v1.user.UserDataSource;
-import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
+import vn.needy.vendor.datasource.CompanyDataSource;
+import vn.needy.vendor.datasource.impl.CompanyDataSourceImpl;
+import vn.needy.vendor.datasource.UserDataSource;
+import vn.needy.vendor.datasource.impl.UserDataSourceImpl;
 import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
 
 /**

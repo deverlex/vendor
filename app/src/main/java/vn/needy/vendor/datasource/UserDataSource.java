@@ -1,4 +1,4 @@
-package vn.needy.vendor.api.v1.user;
+package vn.needy.vendor.datasource;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;

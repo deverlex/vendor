@@ -1,9 +1,9 @@
-package vn.needy.vendor.api.v1.attrs;
+package vn.needy.vendor.datasource.impl;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.api.base.BaseRepository;
 import vn.needy.vendor.api.v1.attrs.response.AttributeResponse;
-import vn.needy.vendor.service.VendorApi;
+import vn.needy.vendor.datasource.AttributeDataSource;
 
 /**
  * Created by lion on 06/12/2017.

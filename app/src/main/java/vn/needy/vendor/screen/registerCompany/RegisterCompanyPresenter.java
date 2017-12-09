@@ -3,13 +3,12 @@ package vn.needy.vendor.screen.registerCompany;
 import android.text.TextUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.api.v1.company.CompanyDataSource;
-import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
+import vn.needy.vendor.datasource.CompanyDataSource;
+import vn.needy.vendor.datasource.impl.CompanyDataSourceImpl;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;

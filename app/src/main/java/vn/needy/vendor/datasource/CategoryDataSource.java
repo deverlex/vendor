@@ -1,4 +1,4 @@
-package vn.needy.vendor.api.v1.category;
+package vn.needy.vendor.datasource;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package vn.needy.vendor.api.v1.attrs;
+package vn.needy.vendor.datasource;
 
 
 import io.reactivex.Observable;

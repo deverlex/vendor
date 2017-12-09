@@ -1,4 +1,4 @@
-package vn.needy.vendor.api.v1.company;
+package vn.needy.vendor.datasource.impl;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.api.base.BaseRepository;
@@ -6,6 +6,7 @@ import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.api.base.BaseResponse;
 import vn.needy.vendor.api.v1.company.response.CompanyResponse;
+import vn.needy.vendor.datasource.CompanyDataSource;
 
 /**
  * Created by lion on 07/10/2017.
