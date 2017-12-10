@@ -19,10 +19,10 @@ import java.util.Map;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.product.request.AddProductPnRequest;
 import vn.needy.vendor.model.Attribute;
 import vn.needy.vendor.model.Category;
 import vn.needy.vendor.model.Image;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnRequest;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.addProduct.addAttribute.AddAttributeFragment;

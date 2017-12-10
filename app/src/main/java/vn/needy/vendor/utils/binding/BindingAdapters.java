@@ -24,8 +24,8 @@ import java.util.List;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.views.BannerSlider;
 import vn.needy.vendor.model.Attribute.DataType;
-import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.service.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.utils.ViewUtil;
 import vn.needy.vendor.utils.image.CompressImage;
 

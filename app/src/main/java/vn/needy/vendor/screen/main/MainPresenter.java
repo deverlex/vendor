@@ -1,12 +1,15 @@
 package vn.needy.vendor.screen.main;
 
 import io.reactivex.disposables.CompositeDisposable;
-import vn.needy.vendor.datasource.company.CompanyDataSource;
-import vn.needy.vendor.datasource.company.CompanyDataSourceImpl;
-import vn.needy.vendor.datasource.user.UserDataSource;
-import vn.needy.vendor.datasource.user.UserDataSourceImpl;
-import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.repository.UserRepository;
+import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.local.UserDataLocal;
+import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
+import vn.needy.vendor.repository.remote.user.UserDataRemote;
 
 /**
  * Created by lion on 30/10/2017.
@@ -18,12 +21,18 @@ public class MainPresenter implements MainContract.Presenter {
 
     private final CompositeDisposable mCompositeDisposable;
 
-    private final UserDataSource mUserDataSource;
-    private final CompanyDataSource mCompanyDataSource;
+    private final UserRepository mUserRepository;
+    private final CompanyRepository mCompanyRepository;
 
-    public MainPresenter(SharedPrefsApi prefsApi) {
-        mUserDataSource = new UserDataSourceImpl(prefsApi);
-        mCompanyDataSource = new CompanyDataSourceImpl(prefsApi);
+    public MainPresenter(VendorApi vendorApi, RealmApi realmApi, SharedPrefsApi prefsApi) {
+        mUserRepository = new UserRepository(
+                new UserDataRemote(vendorApi),
+                new UserDataLocal(realmApi, prefsApi)
+        );
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteData(vendorApi),
+                new CompanyDataLocal(realmApi)
+        );
         mCompositeDisposable = new CompositeDisposable();
     }
 

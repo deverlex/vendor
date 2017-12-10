@@ -25,13 +25,16 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.user.UserDataSource;
-import vn.needy.vendor.datasource.user.UserDataSourceImpl;
-import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.datasource.user.request.RegisterUserRequest;
-import vn.needy.vendor.datasource.authentication.response.TokenResponse;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.repository.UserRepository;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
+import vn.needy.vendor.repository.local.UserDataLocal;
+import vn.needy.vendor.repository.remote.user.UserDataRemote;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.utils.Utils;
 
 /**
@@ -51,7 +54,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
     private int mDuration;
 
     private final CompositeDisposable mCompositeDisposable;
-    private final UserDataSource mUserDataSource;
+    private final UserRepository mUserRepository;
 
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks
             = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -82,12 +85,16 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         }
     };
 
-    public RegisterUserPresenter(Activity activity, RegisterUserContract.ViewModel viewModel) {
+    public RegisterUserPresenter(Activity activity, RegisterUserContract.ViewModel viewModel,
+                                 VendorApi vendorApi, RealmApi realmApi, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
         mActivity = activity;
         mAuth = FirebaseAuth.getInstance();
         mDuration = 0;
-        mUserDataSource = new UserDataSourceImpl(SharedPrefsImpl.getInstance());
+        mUserRepository = new UserRepository(
+                new UserDataRemote(vendorApi),
+                new UserDataLocal(realmApi, prefsApi)
+        );
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -136,7 +143,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
     @Override
     public void registerUser(RegisterUserRequest request) {
-        mUserDataSource.registerUser(request)
+        mUserRepository.registerUser(request)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe(new Consumer<Disposable>() {
                 @Override
@@ -155,7 +162,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                 public void accept(TokenResponse certification) throws Exception {
                     String token = certification.getToken();
                     if (!TextUtils.isEmpty(token)) {
-                        mUserDataSource.saveToken(certification.getToken());
+                        mUserRepository.saveToken(certification.getToken());
                         mViewModel.onRegisterSuccess();
                     } else {
                         mViewModel.onRegisterError(certification.getMessage());
@@ -223,7 +230,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // get token access of user
+                            // getAsync token access of user
                             getUserTokenId(task.getResult().getUser());
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {

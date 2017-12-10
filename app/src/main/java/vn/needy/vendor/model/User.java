@@ -11,6 +11,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class User implements Parcelable {
+
     @SerializedName("state")
     @Expose
     private int mState;

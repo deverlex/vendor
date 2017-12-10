@@ -12,15 +12,18 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
-import vn.needy.vendor.datasource.BaseResponse;
-import vn.needy.vendor.datasource.user.UserDataSource;
-import vn.needy.vendor.datasource.user.UserDataSourceImpl;
-import vn.needy.vendor.datasource.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.datasource.user.response.UserInfoResponse;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.repository.UserRepository;
+import vn.needy.vendor.repository.local.UserDataLocal;
+import vn.needy.vendor.repository.remote.user.UserDataRemote;
+import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
+import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 import vn.needy.vendor.model.User;
-import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
 
 /**
  * Created by lion on 02/12/2017.
@@ -30,11 +33,15 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     private UserProfileContract.ViewModel mViewModel;
 
-    private final UserDataSource mUserDataSource;
+    private UserRepository mUserRepository;
 
-    public UserProfilePresenter(UserProfileContract.ViewModel viewModel, SharedPrefsApi prefsApi) {
+    public UserProfilePresenter(UserProfileContract.ViewModel viewModel,
+                                VendorApi vendorApi, RealmApi realmApi, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
-        mUserDataSource = new UserDataSourceImpl(prefsApi);
+        mUserRepository = new UserRepository(
+                new UserDataRemote(vendorApi),
+                new UserDataLocal(realmApi, prefsApi)
+        );
     }
 
     @Override
@@ -59,7 +66,7 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     @Override
     public void getUserInfo() {
-        mUserDataSource.getUserInformation()
+        mUserRepository.getUserInformation()
                 .subscribeOn(Schedulers.io())
                 .doOnError(new Consumer<Throwable>() {
                     @Override
@@ -91,7 +98,7 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     @Override
     public void updateUserInformation(UpdateUserInfoRequest request) {
-        mUserDataSource.updateUserInformation(request)
+        mUserRepository.updateUserInformation(request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override

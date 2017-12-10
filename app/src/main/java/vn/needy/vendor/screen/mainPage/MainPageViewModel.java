@@ -8,8 +8,8 @@ import android.widget.RadioGroup;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.model.Category;
-import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.service.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
@@ -47,13 +47,13 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
         mIsPlChecked = mProductType == R.id.price_later;
 
-        // when get category from result activity
+        // when getAsync category from result activity
         if (category != null) {
             mCategory = category;
             // save category to db
             prefsApi.putObject(SharedPrefsKey.CURRENT_CATEGORY, category);
         } else {
-            // get category from db
+            // getAsync category from db
             mCategory = prefsApi.getObject(SharedPrefsKey.CURRENT_CATEGORY, Category.class);
         }
     }

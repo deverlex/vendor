@@ -3,18 +3,17 @@ package vn.needy.vendor.screen.category;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.datasource.category.CategoryDataSource;
-import vn.needy.vendor.datasource.company.CompanyDataSource;
+import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.model.Category;
-import vn.needy.vendor.datasource.category.CategoryDataSourceImpl;
-import vn.needy.vendor.datasource.company.CompanyDataSourceImpl;
-import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.repository.CategoryRepository;
+import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
+import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.utils.Constant;
 
 /**
@@ -27,16 +26,16 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     private final CategoriesContract.ViewModel mViewModel;
 
-    private final CategoryDataSource mCategoryDataSource;
-    private final CompanyDataSource mCompanyDataSource;
+//    private final CategoryRepository mCategoryRepository;
+//    private final CompanyRepository mCompanyRepository;
 
-    private SharedPrefsApi mPrefsApi;
-
-    public CategoriesPresenter(CategoriesContract.ViewModel viewModel, SharedPrefsApi prefsApi) {
-        mPrefsApi = prefsApi;
+    public CategoriesPresenter(CategoriesContract.ViewModel viewModel, VendorApi vendorApi, RealmApi realmApi) {
         mViewModel = viewModel;
-        mCategoryDataSource = new CategoryDataSourceImpl();
-        mCompanyDataSource = new CompanyDataSourceImpl(prefsApi);
+//        mCategoryRepository = new CategoryRepository();
+//        mCompanyRepository = new CompanyRepository(
+//                new CompanyRemoteData(vendorApi),
+//                new CompanyDataLocal(realmApi)
+//        );
     }
 
     @Override
@@ -50,117 +49,117 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCompanyCategoryPriceNow() {
-        mCategoryDataSource.getCompanyCategories(Constant.PRICE_NOW)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<List<Category>>() {
-                @Override
-                public void accept(List<Category> categories) throws Exception {
-                    if (categories != null && categories.size() > 0) {
-                        mViewModel.onUpdateListCategory(categories);
-                    } else if (categories == null) {
-                        mViewModel.backActivity();
-                    }
-                }
-            }, new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onUpdateListCategoryError(error);
-                }
-            });
+//        mCategoryRepository.getCompanyCategories(Constant.PRICE_NOW)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(new Consumer<List<Category>>() {
+//                @Override
+//                public void accept(List<Category> categories) throws Exception {
+//                    if (categories != null && categories.size() > 0) {
+//                        mViewModel.onUpdateListCategory(categories);
+//                    } else if (categories == null) {
+//                        mViewModel.backActivity();
+//                    }
+//                }
+//            }, new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mViewModel.onUpdateListCategoryError(error);
+//                }
+//            });
     }
 
     @Override
     public void getCompanyCategoryPriceLater() {
-        mCategoryDataSource.getCompanyCategories(Constant.PRICE_LATER)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<List<Category>>() {
-                @Override
-                public void accept(List<Category> categories) throws Exception {
-                    if (categories != null && categories.size() > 0) {
-                        mViewModel.onUpdateListCategory(categories);
-                    } else if (categories == null) {
-                        mViewModel.backActivity();
-                    }
-                }
-            }, new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onUpdateListCategoryError(error);
-                }
-            });
+//        mCategoryRepository.getCompanyCategories(Constant.PRICE_LATER)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(new Consumer<List<Category>>() {
+//                @Override
+//                public void accept(List<Category> categories) throws Exception {
+//                    if (categories != null && categories.size() > 0) {
+//                        mViewModel.onUpdateListCategory(categories);
+//                    } else if (categories == null) {
+//                        mViewModel.backActivity();
+//                    }
+//                }
+//            }, new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mViewModel.onUpdateListCategoryError(error);
+//                }
+//            });
     }
 
     @Override
     public void getCategoryPriceNow() {
-        mCategoryDataSource.getCategories(Constant.PRICE_NOW)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<List<Category>>() {
-                @Override
-                public void accept(List<Category> categories) throws Exception {
-                    if (categories != null && categories.size() > 0) {
-                        mViewModel.onUpdateListCategory(categories);
-                    } else if (categories == null) {
-                        mViewModel.backActivity();
-                    }
-                }
-            }, new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onUpdateListCategoryError(error);
-                }
-            });
+//        mCategoryRepository.getCategories(Constant.PRICE_NOW)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(new Consumer<List<Category>>() {
+//                @Override
+//                public void accept(List<Category> categories) throws Exception {
+//                    if (categories != null && categories.size() > 0) {
+//                        mViewModel.onUpdateListCategory(categories);
+//                    } else if (categories == null) {
+//                        mViewModel.backActivity();
+//                    }
+//                }
+//            }, new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mViewModel.onUpdateListCategoryError(error);
+//                }
+//            });
     }
 
     @Override
-    public void getLinkCategoryPriceLater() {
+    public void getCategoryPriceLater() {
 
     }
 
     @Override
-    public void getCompanyLinkCategories(String category) {
-        mCategoryDataSource.getCompanyCategories(category)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<List<Category>>() {
-                @Override
-                public void accept(List<Category> categories) throws Exception {
-                    if (categories != null && categories.size() > 0) {
-                        mViewModel.onUpdateListCategory(categories);
-                    } else if (categories == null || categories.size() == 0) {
-                        mViewModel.backActivity();
-                    }
-                }
-            }, new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onUpdateListCategoryError(error);
-                }
-            });
+    public void getCompanyCategories(String category) {
+//        mCategoryRepository.getCompanyCategories(category)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(new Consumer<List<Category>>() {
+//                @Override
+//                public void accept(List<Category> categories) throws Exception {
+//                    if (categories != null && categories.size() > 0) {
+//                        mViewModel.onUpdateListCategory(categories);
+//                    } else if (categories == null || categories.size() == 0) {
+//                        mViewModel.backActivity();
+//                    }
+//                }
+//            }, new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mViewModel.onUpdateListCategoryError(error);
+//                }
+//            });
     }
 
     @Override
-    public void getLinkCategories(String category) {
-        mCategoryDataSource.getCategories(category)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<List<Category>>() {
-                @Override
-                public void accept(List<Category> categories) throws Exception {
-                    if (categories != null && categories.size() > 0) {
-                        mViewModel.onUpdateListCategory(categories);
-                    } else if (categories == null || categories.size() == 0) {
-                        mViewModel.backActivity();
-                    }
-                }
-            }, new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onUpdateListCategoryError(error);
-                }
-            });
+    public void getCategories(String category) {
+//        mCategoryRepository.getCategories(category)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(new Consumer<List<Category>>() {
+//                @Override
+//                public void accept(List<Category> categories) throws Exception {
+//                    if (categories != null && categories.size() > 0) {
+//                        mViewModel.onUpdateListCategory(categories);
+//                    } else if (categories == null || categories.size() == 0) {
+//                        mViewModel.backActivity();
+//                    }
+//                }
+//            }, new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mViewModel.onUpdateListCategoryError(error);
+//                }
+//            });
     }
 
 }

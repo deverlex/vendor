@@ -6,8 +6,12 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Company implements Parcelable {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
+public class Company extends RealmObject implements Parcelable {
+
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private String mId;

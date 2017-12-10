@@ -1,6 +1,6 @@
 package vn.needy.vendor.screen.registerUser;
 
-import vn.needy.vendor.datasource.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

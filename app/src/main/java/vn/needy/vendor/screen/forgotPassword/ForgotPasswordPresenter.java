@@ -24,14 +24,17 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.user.UserDataSource;
-import vn.needy.vendor.datasource.user.UserDataSourceImpl;
-import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.datasource.user.request.ResetPasswordRequest;
-import vn.needy.vendor.datasource.BaseResponse;
-import vn.needy.vendor.datasource.authentication.response.TokenResponse;
+import vn.needy.vendor.repository.local.UserDataLocal;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.repository.remote.user.UserDataRemote;
+import vn.needy.vendor.port.service.VendorServiceClient;
+import vn.needy.vendor.repository.UserRepository;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
+import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
+import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.utils.Utils;
 
 /**
@@ -46,7 +49,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     private String mVerificationId;
 
     private ForgotPasswordContract.ViewModel mViewModel;
-    private UserDataSource mUserDataSource;
+    private UserRepository mUserRepository;
 
     private final Activity mActivity;
 
@@ -83,14 +86,16 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         }
     };
 
-    public ForgotPasswordPresenter(ForgotPasswordContract.ViewModel viewModel, Activity activity) {
+    public ForgotPasswordPresenter(Activity activity, ForgotPasswordContract.ViewModel viewModel, RealmApi realmApi) {
         mViewModel = viewModel;
         mActivity = activity;
 
         mAuth = FirebaseAuth.getInstance();
         mDuration = 0;
 
-        mUserDataSource = new UserDataSourceImpl(SharedPrefsImpl.getInstance());
+        mUserRepository = new UserRepository(
+                new UserDataRemote(VendorServiceClient.getInstance()),
+                new UserDataLocal(realmApi, SharedPrefsImpl.getInstance()));
     }
 
     @Override
@@ -107,7 +112,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     public void checkUserExist(String phoneNumber) {
         if (TextUtils.isEmpty(phoneNumber)) return;
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
-        mUserDataSource.findUserExist(phoneNumber)
+        mUserRepository.findUserExist(phoneNumber)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe(new Consumer<Disposable>() {
                 @Override
@@ -196,7 +201,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         if (!validateDataInput(phoneNumber, request.getPassword())) return;
 
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
-        mUserDataSource.resetPassword(phoneNumber, request)
+        mUserRepository.resetPassword(phoneNumber, request)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe(new Consumer<Disposable>() {
                 @Override
@@ -209,7 +214,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                 @Override
                 public void accept(TokenResponse certification) throws Exception {
                     if (!TextUtils.isEmpty(certification.getToken())) {
-                        mUserDataSource.saveToken(certification.getToken());
+                        mUserRepository.saveToken(certification.getToken());
                         mViewModel.onResetPasswordSuccess();
                     } else {
                         mViewModel.onResetPasswordError(certification.getMessage());
@@ -249,7 +254,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // get token access of user
+                            // getAsync token access of user
                             getUserTokenId(task.getResult().getUser());
                         } else {
                             mViewModel.onHideProgressBar();

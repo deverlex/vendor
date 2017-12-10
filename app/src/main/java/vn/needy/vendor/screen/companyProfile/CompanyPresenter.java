@@ -5,21 +5,26 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
-import vn.needy.vendor.datasource.BaseResponse;
-import vn.needy.vendor.datasource.company.CompanyDataSource;
-import vn.needy.vendor.datasource.company.CompanyDataSourceImpl;
-import vn.needy.vendor.datasource.company.request.UpdateCompanyInfoRequest;
-import vn.needy.vendor.datasource.company.response.CompanyInfoResponse;
+import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
+import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
 import vn.needy.vendor.model.Company;
-import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
 
 /**
  * Created by truongpq on 07/12/2017.
@@ -28,11 +33,14 @@ import vn.needy.vendor.error.SafetyError;
 public class CompanyPresenter implements CompanyContract.Presenter {
     private CompanyContract.ViewModel mViewModel;
 
-    private CompanyDataSource mCompanyDataSource;
+    private CompanyRepository mCompanyRepository;
 
-    public CompanyPresenter(CompanyContract.ViewModel mViewModel, SharedPrefsApi prefsApi) {
+    public CompanyPresenter(CompanyContract.ViewModel mViewModel, VendorApi vendorApi, RealmApi realmApi) {
         this.mViewModel = mViewModel;
-        mCompanyDataSource = new CompanyDataSourceImpl(prefsApi);
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteData(vendorApi),
+                new CompanyDataLocal(realmApi)
+        );
     }
 
     @Override
@@ -58,7 +66,8 @@ public class CompanyPresenter implements CompanyContract.Presenter {
 
     @Override
     public void getCompanyInfo() {
-        mCompanyDataSource.getCompanyInformation()
+        String companyId = mCompanyRepository.getCompanyId();
+        mCompanyRepository.getCompanyInformation(companyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<CompanyInfoResponse>() {
@@ -68,7 +77,7 @@ public class CompanyPresenter implements CompanyContract.Presenter {
                     }
                 });
 
-//        mCompanyDataSource.getCompanyInformation()
+//        mCompanyRepository.getCompanyInformation()
 //                .subscribeOn(Schedulers.io())
 //                .doOnError(new Consumer<Throwable>() {
 //                    @Override
@@ -124,7 +133,7 @@ public class CompanyPresenter implements CompanyContract.Presenter {
         request.setLat(company.getLat());
         request.setLng(company.getLng());
 
-        mCompanyDataSource.updateCompanyInformation(company.getId(), request)
+        mCompanyRepository.updateCompanyInformation(company.getId(), request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override

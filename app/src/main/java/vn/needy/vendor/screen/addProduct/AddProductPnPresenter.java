@@ -10,8 +10,7 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 import vn.needy.vendor.model.Image;
-import vn.needy.vendor.datasource.product.ProductDataSourceImpl;
-import vn.needy.vendor.datasource.product.request.AddProductPnRequest;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnRequest;
 
 /**
  * Created by lion on 08/11/2017.
@@ -25,14 +24,12 @@ public class AddProductPnPresenter implements AddProductPnContract.Presenter {
     private final AddProductPnContract.ViewModel mViewModel;
 
     private final CompositeDisposable mCompositeDisposable;
-    private final ProductDataSourceImpl mProductRepository;
 
     public AddProductPnPresenter(Context context, AddProductPnContract.ViewModel viewModel) {
         mContext = context;
         mViewModel = viewModel;
 
         mCompositeDisposable = new CompositeDisposable();
-        mProductRepository = new ProductDataSourceImpl();
     }
 
     @Override

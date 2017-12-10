@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.model.Category;
-import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCategoriesBinding;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -47,7 +49,7 @@ public class CategoriesActivity extends BaseActivity {
                 categoryAdapter, SharedPrefsImpl.getInstance(), fromClass);
 
         CategoriesContract.Presenter presenter =
-                new CategoriesPresenter(mViewModel, SharedPrefsImpl.getInstance());
+                new CategoriesPresenter(mViewModel, VendorServiceClient.getInstance(), new RealmApi());
 
         mViewModel.setPresenter(presenter);
         mViewModel.onStart();

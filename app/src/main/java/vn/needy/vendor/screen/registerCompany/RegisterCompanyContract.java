@@ -1,6 +1,6 @@
 package vn.needy.vendor.screen.registerCompany;
 
-import vn.needy.vendor.datasource.company.request.RegisterCompanyRequest;
+import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

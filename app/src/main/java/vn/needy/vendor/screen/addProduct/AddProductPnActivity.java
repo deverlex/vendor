@@ -73,10 +73,10 @@ public class AddProductPnActivity extends BaseActivity
             }
             // Update images view
             mViewModel.onSelectedListImages(images);
-            // check for get category
+            // check for getAsync category
         } else if (requestCode == RC_CHOOSE_CATEGORY) {
             if (resultCode == CategoriesActivity.RC_OK) {
-                // get category and call update category in view model
+                // getAsync category and call update category in view model
                 Category category = data.getExtras().getParcelable(CategoriesActivity.CATEGORY);
                 mViewModel.updateCategory(category);
             }

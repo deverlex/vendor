@@ -10,9 +10,9 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.model.Category;
-import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.service.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.error.BaseException;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
@@ -49,18 +49,18 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
 
     @Override
     public void onStart() {
-        // check add product or get product
+        // check add product or getAsync product
         // previous activity will send an name class to bundle
         if (mFromClass.equals(MainPageFragment.class.getSimpleName())) {
             // check source of category
             int productType = mPrefsApi.get(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, Integer.class);
             if (productType == R.id.price_now) {
-                // get category from pn
-                Log.w(TAG, "get category from pn");
+                // getAsync category from pn
+                Log.w(TAG, "getAsync category from pn");
                 mPresenter.getCompanyCategoryPriceNow();
             } else {
-                // get category from pl
-                Log.w(TAG, "get category from pl");
+                // getAsync category from pl
+                Log.w(TAG, "getAsync category from pl");
                 mPresenter.getCompanyCategoryPriceLater();
             }
         } else if (mFromClass.equals(AddProductPnActivity.class.getSimpleName())) {
@@ -88,16 +88,16 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
         if (item instanceof Category) {
             mCategory = (Category) item;
             if (mFromClass.equals(MainPageFragment.class.getSimpleName())) {
-                mPresenter.getCompanyLinkCategories(mCategory.getName());
+                mPresenter.getCompanyCategories(mCategory.getName());
             } else {
-                mPresenter.getLinkCategories(mCategory.getName());
+                mPresenter.getCategories(mCategory.getName());
             }
         }
     }
 
     @Override
     public void onBackClicked() {
-        // we needy get previous list categories
+        // we needy getAsync previous list categories
         // if it is price_now/price_later then back to main
 
 //        Activity activity = (Activity) mContext;

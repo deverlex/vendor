@@ -9,16 +9,20 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.BaseResponse;
-import vn.needy.vendor.datasource.authentication.AuthenticationDataSource;
-import vn.needy.vendor.datasource.authentication.AuthenticationDataSourceImpl;
-import vn.needy.vendor.datasource.user.UserDataSource;
-import vn.needy.vendor.datasource.user.UserDataSourceImpl;
-import vn.needy.vendor.datasource.user.response.BusinessIdResponse;
-import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.datasource.authentication.response.TokenResponse;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.repository.UserRepository;
+import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.local.UserDataLocal;
+import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
+import vn.needy.vendor.repository.remote.user.UserDataRemote;
+import vn.needy.vendor.repository.remote.user.request.LoginRequest;
+import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
+import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -33,15 +37,21 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final LoginContract.ViewModel mViewModel;
 
     private Navigator mNavigator;
-    private final AuthenticationDataSource mAuthDataSource;
-    private UserDataSource mUserDataSource;
-    private SharedPrefsApi mPrefsApi;
+    private UserRepository mUserRepository;
+    private CompanyRepository mCompanyRepository;
 
-    LoginPresenter(LoginContract.ViewModel viewModel, Navigator navigator, SharedPrefsApi prefsApi) {
+    LoginPresenter(LoginContract.ViewModel viewModel, Navigator navigator,
+                   VendorApi vendorApi, RealmApi realmApi, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
         mNavigator = navigator;
-        mPrefsApi = prefsApi;
-        mAuthDataSource = new AuthenticationDataSourceImpl(prefsApi);
+        mUserRepository = new UserRepository(
+                new UserDataRemote(vendorApi),
+                new UserDataLocal(realmApi, prefsApi)
+        );
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteData(vendorApi),
+                new CompanyDataLocal(realmApi)
+        );
     }
 
     @Override
@@ -59,7 +69,8 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (!validateDataInput(phoneNumber, passWord)) {
             return;
         }
-        mAuthDataSource.login(phoneNumber, passWord)
+        LoginRequest request = new LoginRequest(phoneNumber, passWord);
+        mUserRepository.login(request)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe(new Consumer<Disposable>() {
                 @Override
@@ -82,7 +93,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     if (TextUtils.isEmpty(token)) {
                         mViewModel.onLoginError(certification.getMessage());
                     }  else {
-                        mAuthDataSource.saveToken(token);
+                        mUserRepository.saveToken(token);
                         mViewModel.onLoginSuccess();
                     }
                 }
@@ -125,8 +136,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void findCompany() {
-        mUserDataSource = new UserDataSourceImpl(mPrefsApi);
-        mUserDataSource.findUserBusinessId()
+
+        mUserRepository.findUserBusinessId()
             .subscribeOn(Schedulers.io())
             .doAfterTerminate(new Action() {
                 @Override
@@ -144,8 +155,10 @@ public class LoginPresenter implements LoginContract.Presenter {
                     // save company & store response
                     Log.w(TAG, "company_id: " + response.getCompanyId()
                             + ", store_id: " + response.getStoreId());
-                    mUserDataSource.saveCompanyId(response.getCompanyId());
-                    mUserDataSource.saveStoreId(response.getStoreId());
+
+
+//                    mUserRepository.saveCompanyId(response.getCompanyId());
+//                    mUserRepository.saveStoreId(response.getStoreId());
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())

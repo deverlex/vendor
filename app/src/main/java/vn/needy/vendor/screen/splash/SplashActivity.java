@@ -11,15 +11,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.BaseResponse;
-import vn.needy.vendor.datasource.user.UserDataSource;
-import vn.needy.vendor.datasource.user.UserDataSourceImpl;
-import vn.needy.vendor.datasource.user.response.BusinessIdResponse;
-import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.service.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.service.VendorServiceClient;
+import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.repository.UserRepository;
+import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.local.UserDataLocal;
+import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
+import vn.needy.vendor.repository.remote.user.UserDataRemote;
+import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
 import vn.needy.vendor.screen.login.LoginActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
@@ -34,10 +40,13 @@ public class SplashActivity extends AppCompatActivity {
     private Runnable mRunnable;
     private Intent mIntent;
 
-    private UserDataSource mUserDataSource;
+    private UserRepository mUserRepository;
+    private CompanyRepository mCompanyRepository;
     private Navigator mNavigator;
 
     private SharedPrefsApi mPrefsApi;
+    private VendorApi mVendorApi;
+    private RealmApi mRealmApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +56,18 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         mPrefsApi = SharedPrefsImpl.getInstance();
+        mVendorApi = VendorServiceClient.getInstance();
+        mRealmApi = new RealmApi();
+
         // create new user data source
-        mUserDataSource = new UserDataSourceImpl(mPrefsApi);
+        mUserRepository = new UserRepository(
+                new UserDataRemote(mVendorApi),
+                new UserDataLocal(new RealmApi(), mPrefsApi)
+        );
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteData(mVendorApi),
+                new CompanyDataLocal(mRealmApi)
+        );
 
         final String token = getToken(mPrefsApi);
 
@@ -74,7 +93,7 @@ public class SplashActivity extends AppCompatActivity {
     private void gateway() {
         // will check each login app because user maybe remove by ceo/manager
         // if connect has error, redirect to main page
-        mUserDataSource.findUserBusinessId()
+        mUserRepository.findUserBusinessId()
             .subscribeOn(Schedulers.io())
             .doOnError(new SafetyError() {
                 @Override
@@ -89,8 +108,9 @@ public class SplashActivity extends AppCompatActivity {
                     // save company & store response
                     Log.w(TAG, "company_id: " + response.getCompanyId()
                             + ", store_id: " + response.getStoreId());
-                    mUserDataSource.saveCompanyId(response.getCompanyId());
-                    mUserDataSource.saveStoreId(response.getStoreId());
+                    
+//                    mUserRepository.saveCompanyId(response.getCompanyId());
+//                    mUserRepository.saveStoreId(response.getStoreId());
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
@@ -131,7 +151,7 @@ public class SplashActivity extends AppCompatActivity {
         mNavigator.finishActivity();
     }
 
-    // We will get it and refresh, if fail -> re-login
+    // We will getAsync it and refresh, if fail -> re-login
     private String getToken(SharedPrefsApi prefsApi) {
         return prefsApi.get(SharedPrefsKey.TOKEN_KEY, String.class);
     }

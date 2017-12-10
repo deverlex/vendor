@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.widget.ScrollView;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCompanyProfileBinding;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.widget.WorkaroundMapFragment;
 
@@ -16,8 +19,11 @@ import vn.needy.vendor.widget.WorkaroundMapFragment;
  */
 
 public class CompanyActivity extends BaseActivity {
+
     private CompanyContract.ViewModel mViewModel;
     private SharedPrefsApi mPrefsApi;
+    private VendorApi mVendorApi;
+    private RealmApi mRealmApi;
 
     private ScrollView mScrollView;
 
@@ -26,7 +32,8 @@ public class CompanyActivity extends BaseActivity {
         super.onCreateActivity(savedInstanceState);
         ActivityCompanyProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_company_profile);
 
-        mPrefsApi = SharedPrefsImpl.getInstance();
+        mVendorApi = VendorServiceClient.getInstance();
+        mRealmApi = new RealmApi();
 
         mScrollView = (ScrollView) findViewById(R.id.sv_container);
 
@@ -43,7 +50,7 @@ public class CompanyActivity extends BaseActivity {
 
         mViewModel = new CompanyViewModel(this, mapFragment);
 
-        CompanyContract.Presenter presenter= new CompanyPresenter(mViewModel, mPrefsApi);
+        CompanyContract.Presenter presenter= new CompanyPresenter(mViewModel, mVendorApi, mRealmApi);
         mViewModel.setPresenter(presenter);
 
         mViewModel.onStart();

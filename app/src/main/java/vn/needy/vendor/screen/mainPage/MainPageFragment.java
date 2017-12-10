@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.model.Category;
-import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -37,7 +37,7 @@ public class MainPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        // get category from bundle - case return from category activity
+        // getAsync category from bundle - case return from category activity
         Bundle extras = getArguments();
         Category category = extras.getParcelable(CategoriesActivity.CATEGORY);
 
