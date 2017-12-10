@@ -3,7 +3,7 @@ package vn.needy.vendor.screen.category;
 import android.databinding.BaseObservable;
 import android.util.Log;
 
-import vn.needy.vendor.datasource.model.Category;
+import vn.needy.vendor.model.Category;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

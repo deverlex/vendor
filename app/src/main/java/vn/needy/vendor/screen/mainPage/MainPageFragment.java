@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.model.Category;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.model.Category;
+import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;

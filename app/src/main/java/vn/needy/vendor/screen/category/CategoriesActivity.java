@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.model.Category;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.model.Category;
+import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCategoriesBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;

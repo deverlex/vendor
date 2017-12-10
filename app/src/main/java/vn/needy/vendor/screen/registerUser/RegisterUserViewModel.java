@@ -12,7 +12,7 @@ import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
+import vn.needy.vendor.datasource.user.request.RegisterUserRequest;
 import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
 import vn.needy.vendor.utils.Utils;

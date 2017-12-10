@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.model.Company;
+import vn.needy.vendor.model.Company;
 
 /**
  * Created by truongpq on 04/12/2017.

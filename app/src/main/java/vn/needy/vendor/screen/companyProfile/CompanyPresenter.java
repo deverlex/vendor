@@ -11,13 +11,13 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
-import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.datasource.CompanyDataSource;
-import vn.needy.vendor.datasource.impl.CompanyDataSourceImpl;
-import vn.needy.vendor.api.v1.company.request.UpdateCompanyInfoRequest;
-import vn.needy.vendor.api.v1.company.response.CompanyResponse;
-import vn.needy.vendor.datasource.model.Company;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.BaseResponse;
+import vn.needy.vendor.datasource.company.CompanyDataSource;
+import vn.needy.vendor.datasource.company.CompanyDataSourceImpl;
+import vn.needy.vendor.datasource.company.request.UpdateCompanyInfoRequest;
+import vn.needy.vendor.datasource.company.response.CompanyInfoResponse;
+import vn.needy.vendor.model.Company;
+import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 
@@ -61,9 +61,9 @@ public class CompanyPresenter implements CompanyContract.Presenter {
         mCompanyDataSource.getCompanyInformation()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CompanyResponse>() {
+                .subscribe(new Consumer<CompanyInfoResponse>() {
                     @Override
-                    public void accept(CompanyResponse companyResponse) throws Exception {
+                    public void accept(CompanyInfoResponse companyResponse) throws Exception {
                         mViewModel.setCompanyInfo(companyResponse.getCompany(), companyResponse.getStaffCount());
                     }
                 });

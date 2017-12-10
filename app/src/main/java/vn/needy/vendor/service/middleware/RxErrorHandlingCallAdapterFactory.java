@@ -28,7 +28,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.api.base.ErrorResponse;
+import vn.needy.vendor.datasource.ErrorResponse;
 
 /**
  * Created by lion on 23/09/2017.

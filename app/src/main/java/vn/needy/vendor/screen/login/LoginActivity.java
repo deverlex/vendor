@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.service.VendorServiceClient;
 import vn.needy.vendor.databinding.ActivityLoginBinding;
 import vn.needy.vendor.screen.BaseActivity;

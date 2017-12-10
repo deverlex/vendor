@@ -7,11 +7,11 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.datasource.AttributeDataSource;
-import vn.needy.vendor.datasource.impl.AttributeDataSourceImpl;
-import vn.needy.vendor.api.v1.attrs.response.AttributeResponse;
-import vn.needy.vendor.datasource.model.Attribute;
-import vn.needy.vendor.datasource.model.Category;
+import vn.needy.vendor.datasource.attribute.AttributeDataSource;
+import vn.needy.vendor.datasource.attribute.AttributeDataSourceImpl;
+import vn.needy.vendor.datasource.attribute.response.AttributesResponse;
+import vn.needy.vendor.model.Attribute;
+import vn.needy.vendor.model.Category;
 
 /**
  * Created by lion on 04/12/2017.
@@ -47,9 +47,9 @@ public class AddAttributePresenter implements AddAttributeContract.Presenter {
                 .getListAttributeCategory(category.getName())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<AttributeResponse>() {
+                .subscribe(new Consumer<AttributesResponse>() {
                     @Override
-                    public void accept(AttributeResponse attributeResponse) throws Exception {
+                    public void accept(AttributesResponse attributeResponse) throws Exception {
                         List<Attribute> attributes = attributeResponse.getAttrs();
                         if (attributes != null) {
                             mViewModel.onListAttributeLoaded(attributes);

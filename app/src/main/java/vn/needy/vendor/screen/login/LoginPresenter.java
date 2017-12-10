@@ -9,15 +9,15 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.datasource.AuthDataSource;
-import vn.needy.vendor.datasource.impl.AuthDataSourceImpl;
-import vn.needy.vendor.datasource.UserDataSource;
-import vn.needy.vendor.datasource.impl.UserDataSourceImpl;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.BaseResponse;
+import vn.needy.vendor.datasource.authentication.AuthenticationDataSource;
+import vn.needy.vendor.datasource.authentication.AuthenticationDataSourceImpl;
+import vn.needy.vendor.datasource.user.UserDataSource;
+import vn.needy.vendor.datasource.user.UserDataSourceImpl;
+import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
+import vn.needy.vendor.datasource.authentication.response.TokenResponse;
 import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -32,7 +32,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final LoginContract.ViewModel mViewModel;
 
     private Navigator mNavigator;
-    private final AuthDataSource mAuthDataSource;
+    private final AuthenticationDataSource mAuthDataSource;
     private UserDataSource mUserDataSource;
     private SharedPrefsApi mPrefsApi;
 
@@ -40,7 +40,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         mViewModel = viewModel;
         mNavigator = navigator;
         mPrefsApi = prefsApi;
-        mAuthDataSource = new AuthDataSourceImpl(prefsApi);
+        mAuthDataSource = new AuthenticationDataSourceImpl(prefsApi);
     }
 
     @Override
@@ -72,9 +72,9 @@ public class LoginPresenter implements LoginContract.Presenter {
                     mNavigator.showToastCenterText(error.getMessage());
                 }
             })
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<CertificationResponse>() {
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<TokenResponse>() {
                 @Override
-                public void accept(CertificationResponse certification) throws Exception {
+                public void accept(TokenResponse certification) throws Exception {
                     mViewModel.onHideProgressBar();
                     String token = certification.getToken();
                     // Save token into storage

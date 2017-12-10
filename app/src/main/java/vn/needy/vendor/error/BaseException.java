@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import retrofit2.Response;
-import vn.needy.vendor.api.base.ErrorResponse;
+import vn.needy.vendor.datasource.ErrorResponse;
 
 /**
  * Created by lion on 23/09/2017.

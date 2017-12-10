@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import vn.needy.vendor.api.VendorApi;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.service.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.service.middleware.RetrofitInterceptor;
 import vn.needy.vendor.utils.Constant;
 
@@ -26,7 +26,7 @@ public class VendorServiceClient extends ServiceClient {
         if (!TextUtils.isEmpty(token)) {
             interceptor = new RetrofitInterceptor(token);
         }
-        mVendorApiInstance = createService(application, Constant.END_POINT_URL, VendorApi.class, interceptor);
+        mVendorApiInstance = createService(application, Constant.API_END_POINT_URL, VendorApi.class, interceptor);
     }
 
     public static VendorApi getInstance() {

@@ -12,13 +12,13 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
-import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.datasource.UserDataSource;
-import vn.needy.vendor.datasource.impl.UserDataSourceImpl;
-import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.api.v1.user.response.UserResponse;
-import vn.needy.vendor.datasource.model.User;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.datasource.BaseResponse;
+import vn.needy.vendor.datasource.user.UserDataSource;
+import vn.needy.vendor.datasource.user.UserDataSourceImpl;
+import vn.needy.vendor.datasource.user.request.UpdateUserInfoRequest;
+import vn.needy.vendor.datasource.user.response.UserInfoResponse;
+import vn.needy.vendor.model.User;
+import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 
@@ -67,9 +67,9 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
                     }
                 })
-                .map(new Function<UserResponse, User>() {
+                .map(new Function<UserInfoResponse, User>() {
                     @Override
-                    public User apply(UserResponse userResponse) throws Exception {
+                    public User apply(UserInfoResponse userResponse) throws Exception {
                         return userResponse.getUser();
                     }
                 })

@@ -16,9 +16,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.model.Attribute;
-import vn.needy.vendor.datasource.model.Category;
-import vn.needy.vendor.datasource.model.Image;
+import vn.needy.vendor.model.Attribute;
+import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.Image;
 import vn.needy.vendor.databinding.ActivityAddProductPnBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;

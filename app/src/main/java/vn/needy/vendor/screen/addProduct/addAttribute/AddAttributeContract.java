@@ -2,8 +2,8 @@ package vn.needy.vendor.screen.addProduct.addAttribute;
 
 import java.util.List;
 
-import vn.needy.vendor.datasource.model.Attribute;
-import vn.needy.vendor.datasource.model.Category;
+import vn.needy.vendor.model.Attribute;
+import vn.needy.vendor.model.Category;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

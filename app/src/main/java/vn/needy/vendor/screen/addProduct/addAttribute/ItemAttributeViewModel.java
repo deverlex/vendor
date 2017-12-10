@@ -3,8 +3,8 @@ package vn.needy.vendor.screen.addProduct.addAttribute;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import vn.needy.vendor.datasource.model.Attribute;
-import vn.needy.vendor.datasource.model.Attribute.DataType;
+import vn.needy.vendor.model.Attribute;
+import vn.needy.vendor.model.Attribute.DataType;
 
 /**
  * Created by lion on 04/12/2017.

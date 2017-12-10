@@ -25,13 +25,13 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.datasource.UserDataSource;
-import vn.needy.vendor.datasource.impl.UserDataSourceImpl;
-import vn.needy.vendor.datasource.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.datasource.user.UserDataSource;
+import vn.needy.vendor.datasource.user.UserDataSourceImpl;
+import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
-import vn.needy.vendor.api.v1.auth.response.CertificationResponse;
+import vn.needy.vendor.datasource.user.request.RegisterUserRequest;
+import vn.needy.vendor.datasource.authentication.response.TokenResponse;
 import vn.needy.vendor.utils.Utils;
 
 /**
@@ -150,9 +150,9 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<CertificationResponse>() {
+            .subscribe(new Consumer<TokenResponse>() {
                 @Override
-                public void accept(CertificationResponse certification) throws Exception {
+                public void accept(TokenResponse certification) throws Exception {
                     String token = certification.getToken();
                     if (!TextUtils.isEmpty(token)) {
                         mUserDataSource.saveToken(certification.getToken());

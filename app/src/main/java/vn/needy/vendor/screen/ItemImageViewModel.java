@@ -4,7 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.util.Log;
 
-import vn.needy.vendor.datasource.model.Image;
+import vn.needy.vendor.model.Image;
 
 /**
  * Created by lion on 08/11/2017.
