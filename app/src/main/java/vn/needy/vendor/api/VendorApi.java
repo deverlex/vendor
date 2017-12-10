@@ -21,6 +21,7 @@ import vn.needy.vendor.datasource.company.response.CompanyInfoResponse;
 import vn.needy.vendor.datasource.user.request.RegisterUserRequest;
 import vn.needy.vendor.datasource.user.request.ResetPasswordRequest;
 import vn.needy.vendor.datasource.user.request.UpdateUserInfoRequest;
+import vn.needy.vendor.datasource.user.response.BusinessIdResponse;
 import vn.needy.vendor.datasource.user.response.UserInfoResponse;
 
 /**
@@ -46,7 +47,7 @@ public interface VendorApi {
     Observable<BaseResponse> updateUserInformation(@Body UpdateUserInfoRequest request);
 
     @GET("v1/users/companies")
-    Observable<BaseResponse> findUserCompany();
+    Observable<BusinessIdResponse> findUserBusinessId();
 
     @GET("v1/companies")
     Observable<CompanyInfoResponse> getCompanyInformation();

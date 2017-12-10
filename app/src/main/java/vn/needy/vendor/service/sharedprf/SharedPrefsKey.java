@@ -6,12 +6,12 @@ package vn.needy.vendor.service.sharedprf;
 
 public final class SharedPrefsKey {
     public static final String TOKEN_KEY = "TOKEN_KEY";
-    public static final String KEY_CREDENTIAL = "CREDENTIAL_KEY";
 
     public static final String CURRENT_CATEGORY = "current_category";
     public static final String PRODUCT_TYPE_CHOOSE = "product_type_choose";
 
-    public static final String COMPANY_ID = "company";
+    public static final String COMPANY_ID = "company_id";
+    public static final String STORE_ID = "store_id";
 
     public static final String USER_INFO = "user_info";
 

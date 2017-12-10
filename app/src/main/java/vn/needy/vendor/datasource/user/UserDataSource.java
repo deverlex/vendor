@@ -6,6 +6,7 @@ import vn.needy.vendor.datasource.user.request.RegisterUserRequest;
 import vn.needy.vendor.datasource.user.request.ResetPasswordRequest;
 import vn.needy.vendor.datasource.BaseResponse;
 import vn.needy.vendor.datasource.authentication.response.TokenResponse;
+import vn.needy.vendor.datasource.user.response.BusinessIdResponse;
 import vn.needy.vendor.datasource.user.response.UserInfoResponse;
 
 /**
@@ -24,9 +25,13 @@ public interface UserDataSource {
 
     Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request);
 
-    Observable<BaseResponse> findUserCompany();
+    Observable<BusinessIdResponse> findUserBusinessId();
 
     void saveToken(String token);
+
+    void saveCompanyId(String companyId);
+
+    void saveStoreId(String storeId);
 
     void clearToken();
 

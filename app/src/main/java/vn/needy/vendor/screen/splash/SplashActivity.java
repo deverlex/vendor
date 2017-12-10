@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -13,6 +14,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.datasource.BaseResponse;
 import vn.needy.vendor.datasource.user.UserDataSource;
 import vn.needy.vendor.datasource.user.UserDataSourceImpl;
+import vn.needy.vendor.datasource.user.response.BusinessIdResponse;
 import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.service.sharedprf.SharedPrefsKey;
@@ -35,6 +37,8 @@ public class SplashActivity extends AppCompatActivity {
     private UserDataSource mUserDataSource;
     private Navigator mNavigator;
 
+    private SharedPrefsApi mPrefsApi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +46,11 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
-        SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
+        mPrefsApi = SharedPrefsImpl.getInstance();
         // create new user data source
-        mUserDataSource = new UserDataSourceImpl(prefsApi);
+        mUserDataSource = new UserDataSourceImpl(mPrefsApi);
 
-        final String token = getToken(prefsApi);
+        final String token = getToken(mPrefsApi);
 
         mNavigator = new Navigator(this);
         mHandler = new Handler();
@@ -70,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
     private void gateway() {
         // will check each login app because user maybe remove by ceo/manager
         // if connect has error, redirect to main page
-        mUserDataSource.findUserCompany()
+        mUserDataSource.findUserBusinessId()
             .subscribeOn(Schedulers.io())
             .doOnError(new SafetyError() {
                 @Override
@@ -79,10 +83,20 @@ public class SplashActivity extends AppCompatActivity {
                     mainPage();
                 }
             })
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<BaseResponse>() {
+            .doOnNext(new Consumer<BusinessIdResponse>() {
                 @Override
-                public void accept(BaseResponse response) throws Exception {
+                public void accept(BusinessIdResponse response) throws Exception {
+                    // save company & store response
+                    Log.w(TAG, "company_id: " + response.getCompanyId()
+                            + ", store_id: " + response.getStoreId());
+                    mUserDataSource.saveCompanyId(response.getCompanyId());
+                    mUserDataSource.saveStoreId(response.getStoreId());
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<BusinessIdResponse>() {
+                @Override
+                public void accept(BusinessIdResponse response) throws Exception {
                     if (response.getStatus().equals("OK")) {
                         mainPage();
                     } else {

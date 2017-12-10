@@ -14,6 +14,7 @@ import vn.needy.vendor.datasource.authentication.AuthenticationDataSource;
 import vn.needy.vendor.datasource.authentication.AuthenticationDataSourceImpl;
 import vn.needy.vendor.datasource.user.UserDataSource;
 import vn.needy.vendor.datasource.user.UserDataSourceImpl;
+import vn.needy.vendor.datasource.user.response.BusinessIdResponse;
 import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
@@ -125,7 +126,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void findCompany() {
         mUserDataSource = new UserDataSourceImpl(mPrefsApi);
-        mUserDataSource.findUserCompany()
+        mUserDataSource.findUserBusinessId()
             .subscribeOn(Schedulers.io())
             .doAfterTerminate(new Action() {
                 @Override
@@ -137,11 +138,20 @@ public class LoginPresenter implements LoginContract.Presenter {
                 public void onSafetyError(BaseException error) {
 
                 }
+            }).doOnNext(new Consumer<BusinessIdResponse>() {
+                @Override
+                public void accept(BusinessIdResponse response) throws Exception {
+                    // save company & store response
+                    Log.w(TAG, "company_id: " + response.getCompanyId()
+                            + ", store_id: " + response.getStoreId());
+                    mUserDataSource.saveCompanyId(response.getCompanyId());
+                    mUserDataSource.saveStoreId(response.getStoreId());
+                }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<BaseResponse>() {
+            .subscribe(new Consumer<BusinessIdResponse>() {
                 @Override
-                public void accept(BaseResponse response) throws Exception {
+                public void accept(BusinessIdResponse response) throws Exception {
                     if (response.getStatus().equals("OK")) {
                         mViewModel.onToMainPage();
                     } else {
