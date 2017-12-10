@@ -49,8 +49,8 @@ public interface VendorApi {
     @GET("v1/users/companies")
     Observable<BusinessIdResponse> findUserBusinessId();
 
-    @GET("v1/companies")
-    Observable<CompanyInfoResponse> getCompanyInformation();
+    @GET("v1/companies/{company_id}")
+    Observable<CompanyInfoResponse> getCompanyInformation(@Path(value = "company_id") String companyId);
 
     @PUT("v1/companies/{company_id}")
     Observable<BaseResponse> updateCompanyInformation(@Path(value = "company_id") String companyId,
