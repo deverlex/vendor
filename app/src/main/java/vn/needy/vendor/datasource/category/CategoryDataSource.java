@@ -11,7 +11,7 @@ import vn.needy.vendor.model.Category;
 
 public interface CategoryDataSource {
 
-    Observable<List<Category>> getLinkCategories(String category);
+    Observable<List<Category>> getCategories(String category);
 
-    Observable<List<Category>> getCompanyLinkCategories(String category);
+    Observable<List<Category>> getCompanyCategories(String category);
 }

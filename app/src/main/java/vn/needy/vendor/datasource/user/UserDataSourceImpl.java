@@ -53,7 +53,11 @@ public class UserDataSourceImpl extends BaseDataSource implements UserDataSource
         mPrefsApi.put(SharedPrefsKey.TOKEN_KEY, token);
     }
 
-    public void clearData() {
+    public void clearToken() {
+        mPrefsApi.remove(SharedPrefsKey.TOKEN_KEY);
+    }
+
+    public void clear() {
         mPrefsApi.clear();
     }
 }

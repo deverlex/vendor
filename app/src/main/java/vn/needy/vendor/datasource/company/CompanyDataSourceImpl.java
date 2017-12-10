@@ -6,6 +6,8 @@ import vn.needy.vendor.datasource.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.datasource.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.datasource.BaseResponse;
 import vn.needy.vendor.datasource.company.response.CompanyInfoResponse;
+import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.service.sharedprf.SharedPrefsKey;
 
 /**
  * Created by lion on 07/10/2017.
@@ -13,8 +15,11 @@ import vn.needy.vendor.datasource.company.response.CompanyInfoResponse;
 
 public class CompanyDataSourceImpl extends BaseDataSource implements CompanyDataSource {
 
-    public CompanyDataSourceImpl() {
+    private SharedPrefsApi mPrefsApi;
+
+    public CompanyDataSourceImpl(SharedPrefsApi prefsApi) {
         super();
+        mPrefsApi = prefsApi;
     }
 
     public Observable<CompanyInfoResponse> getCompanyInformation() {
@@ -31,5 +36,10 @@ public class CompanyDataSourceImpl extends BaseDataSource implements CompanyData
 
     public Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest) {
         return mVendorApi.updateCompanyInformation(companyId, infoRequest);
+    }
+
+    @Override
+    public void saveCompanyId(String companyId) {
+        mPrefsApi.put(SharedPrefsKey.COMPANY_ID, companyId);
     }
 }

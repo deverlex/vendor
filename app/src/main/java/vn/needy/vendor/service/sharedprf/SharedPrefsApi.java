@@ -13,5 +13,7 @@ public interface SharedPrefsApi {
 
     <T> void putObject(String key, T data);
 
+    void remove(String key);
+
     void clear();
 }

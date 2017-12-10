@@ -55,7 +55,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCompanyLinkCategoryPriceNow() {
-        Disposable disposable = mCategoryDataSource.getCompanyLinkCategories(Constant.PRICE_NOW)
+        Disposable disposable = mCategoryDataSource.getCompanyCategories(Constant.PRICE_NOW)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
@@ -78,7 +78,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCompanyLinkCategoryPriceLater() {
-        Disposable disposable = mCategoryDataSource.getCompanyLinkCategories(Constant.PRICE_LATER)
+        Disposable disposable = mCategoryDataSource.getCompanyCategories(Constant.PRICE_LATER)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
@@ -101,7 +101,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getLinkCategoryPriceNow() {
-        Disposable disposable = mCategoryDataSource.getLinkCategories(Constant.PRICE_NOW)
+        Disposable disposable = mCategoryDataSource.getCategories(Constant.PRICE_NOW)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
@@ -129,7 +129,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCompanyLinkCategories(String category) {
-        Disposable disposable = mCategoryDataSource.getCompanyLinkCategories(category)
+        Disposable disposable = mCategoryDataSource.getCompanyCategories(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {
@@ -152,7 +152,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getLinkCategories(String category) {
-        Disposable disposable = mCategoryDataSource.getLinkCategories(category)
+        Disposable disposable = mCategoryDataSource.getCategories(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Category>>() {

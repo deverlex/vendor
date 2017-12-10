@@ -14,10 +14,6 @@ import vn.needy.vendor.datasource.user.response.UserInfoResponse;
 
 public interface UserDataSource {
 
-    void clearData();
-
-    void saveToken(String token);
-
     Observable<TokenResponse> registerUser(RegisterUserRequest request);
 
     Observable<BaseResponse> findUserExist(String phoneNumber);
@@ -29,4 +25,10 @@ public interface UserDataSource {
     Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request);
 
     Observable<BaseResponse> findUserCompany();
+
+    void saveToken(String token);
+
+    void clearToken();
+
+    void clear();
 }

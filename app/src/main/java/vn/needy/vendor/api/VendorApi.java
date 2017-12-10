@@ -63,11 +63,11 @@ public interface VendorApi {
                                                  @Query("token") String token);
 
     @GET("v1/categories/{category}")
-    Observable<CategoriesResponse> getLinkCategories(@Path("category") String category);
+    Observable<CategoriesResponse> getCategories(@Path("category") String category);
 
     @GET("v1/categories/{category}")
-    Observable<CategoriesResponse> getCompanyLinkCategories(@Path("category") String category,
-                                                            @Query("company_id") String companyId);
+    Observable<CategoriesResponse> getCompanyCategories(@Path("category") String category,
+                                                        @Query("company_id") String companyId);
 
     @POST("v1/authentications")
     Observable<TokenResponse> login(@Body LoginRequest request);

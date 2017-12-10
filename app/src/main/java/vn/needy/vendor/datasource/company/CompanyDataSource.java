@@ -18,4 +18,6 @@ public interface CompanyDataSource {
     Observable<BaseResponse> updateStaffFcmToken(String companyId, String fcmToken);
 
     Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest);
+
+    void saveCompanyId(String companyId);
 }

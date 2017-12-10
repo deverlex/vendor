@@ -18,8 +18,8 @@ public class CategoryDataSourceImpl extends BaseDataSource implements CategoryDa
         super();
     }
 
-    public Observable<List<Category>> getLinkCategories(String category) {
-        return mVendorApi.getLinkCategories(category)
+    public Observable<List<Category>> getCategories(String category) {
+        return mVendorApi.getCategories(category)
                 .map(new Function<CategoriesResponse, List<Category>>() {
                     @Override
                     public List<Category> apply(CategoriesResponse categoryResponse) throws Exception {
@@ -29,8 +29,8 @@ public class CategoryDataSourceImpl extends BaseDataSource implements CategoryDa
     }
 
     @Override
-    public Observable<List<Category>> getCompanyLinkCategories(String category) {
-        return mVendorApi.getCompanyLinkCategories(category, "1")
+    public Observable<List<Category>> getCompanyCategories(String category) {
+        return mVendorApi.getCompanyCategories(category, "1")
                 .map(new Function<CategoriesResponse, List<Category>>() {
                     @Override
                     public List<Category> apply(CategoriesResponse categoryResponse) throws Exception {
