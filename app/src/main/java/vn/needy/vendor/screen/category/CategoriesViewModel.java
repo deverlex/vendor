@@ -57,16 +57,16 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
             if (productType == R.id.price_now) {
                 // get category from pn
                 Log.w(TAG, "get category from pn");
-                mPresenter.getCompanyLinkCategoryPriceNow();
+                mPresenter.getCompanyCategoryPriceNow();
             } else {
                 // get category from pl
                 Log.w(TAG, "get category from pl");
-                mPresenter.getCompanyLinkCategoryPriceLater();
+                mPresenter.getCompanyCategoryPriceLater();
             }
         } else if (mFromClass.equals(AddProductPnActivity.class.getSimpleName())) {
             // from add product pn
             Log.w(TAG, "from add product pn");
-            mPresenter.getLinkCategoryPriceNow();
+            mPresenter.getCategoryPriceNow();
         } else {
             // from add product pl
             Log.w(TAG, "from add product pl");

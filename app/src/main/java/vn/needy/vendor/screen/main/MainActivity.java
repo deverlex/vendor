@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
 
         mPrefsApi = SharedPrefsImpl.getInstance();
 
-        mPresenter = new MainPresenter();
+        mPresenter = new MainPresenter(mPrefsApi);
         initializeBottomBar();
     }
 

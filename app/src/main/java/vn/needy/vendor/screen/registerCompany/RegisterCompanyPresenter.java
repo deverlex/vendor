@@ -13,6 +13,7 @@ import vn.needy.vendor.error.BaseException;
 import vn.needy.vendor.error.SafetyError;
 import vn.needy.vendor.datasource.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.datasource.company.response.CompanyInfoResponse;
+import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
 
 /**
  * Created by lion on 07/10/2017.
@@ -25,7 +26,7 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
 
     public RegisterCompanyPresenter(RegisterCompanyContract.ViewModel viewModel) {
         mViewModel = viewModel;
-        mCompanyDataSource = new CompanyDataSourceImpl();
+        mCompanyDataSource = new CompanyDataSourceImpl(SharedPrefsImpl.getInstance());
     }
 
     @Override

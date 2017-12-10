@@ -32,7 +32,7 @@ public class CompanyPresenter implements CompanyContract.Presenter {
 
     public CompanyPresenter(CompanyContract.ViewModel mViewModel, SharedPrefsApi prefsApi) {
         this.mViewModel = mViewModel;
-        mCompanyDataSource = new CompanyDataSourceImpl();
+        mCompanyDataSource = new CompanyDataSourceImpl(prefsApi);
     }
 
     @Override

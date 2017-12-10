@@ -5,6 +5,7 @@ import vn.needy.vendor.datasource.company.CompanyDataSource;
 import vn.needy.vendor.datasource.company.CompanyDataSourceImpl;
 import vn.needy.vendor.datasource.user.UserDataSource;
 import vn.needy.vendor.datasource.user.UserDataSourceImpl;
+import vn.needy.vendor.service.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.service.sharedprf.SharedPrefsImpl;
 
 /**
@@ -20,9 +21,9 @@ public class MainPresenter implements MainContract.Presenter {
     private final UserDataSource mUserDataSource;
     private final CompanyDataSource mCompanyDataSource;
 
-    public MainPresenter() {
-        mUserDataSource = new UserDataSourceImpl(SharedPrefsImpl.getInstance());
-        mCompanyDataSource = new CompanyDataSourceImpl();
+    public MainPresenter(SharedPrefsApi prefsApi) {
+        mUserDataSource = new UserDataSourceImpl(prefsApi);
+        mCompanyDataSource = new CompanyDataSourceImpl(prefsApi);
         mCompositeDisposable = new CompositeDisposable();
     }
 

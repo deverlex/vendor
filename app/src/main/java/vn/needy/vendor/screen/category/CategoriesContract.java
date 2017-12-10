@@ -26,11 +26,11 @@ public interface CategoriesContract {
 
     interface Presenter extends BasePresenter {
 
-        void getCompanyLinkCategoryPriceNow();
+        void getCompanyCategoryPriceNow();
 
-        void getCompanyLinkCategoryPriceLater();
+        void getCompanyCategoryPriceLater();
 
-        void getLinkCategoryPriceNow();
+        void getCategoryPriceNow();
 
         void getLinkCategoryPriceLater();
 
