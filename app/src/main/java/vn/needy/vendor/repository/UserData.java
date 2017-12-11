@@ -3,9 +3,9 @@ package vn.needy.vendor.repository;
 import io.reactivex.Observable;
 import retrofit2.Response;
 import vn.needy.vendor.port.message.BaseResponse;
-import vn.needy.vendor.repository.remote.user.request.LoginRequest;
+import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
@@ -18,13 +18,13 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface UserData {
 
     interface Remote {
-        Observable<TokenResponse> login(LoginRequest request);
+        Observable<TokenResponse> login(LoginReq request);
 
         Observable<TokenResponse> refresh();
 
         Observable<Response<Void>> logout();
 
-        Observable<TokenResponse> registerUser(RegisterUserRequest request);
+        Observable<TokenResponse> registerUser(RegisterUserReq request);
 
         Observable<BaseResponse> findUserExist(String phoneNumber);
 

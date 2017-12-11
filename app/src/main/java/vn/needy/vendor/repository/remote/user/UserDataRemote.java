@@ -3,11 +3,11 @@ package vn.needy.vendor.repository.remote.user;
 import io.reactivex.Observable;
 import retrofit2.Response;
 import vn.needy.vendor.port.message.BaseResponse;
-import vn.needy.vendor.repository.remote.user.request.LoginRequest;
+import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.UserData;
 import vn.needy.vendor.port.api.VendorApi;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
@@ -25,7 +25,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<TokenResponse> login(LoginRequest request) {
+    public Observable<TokenResponse> login(LoginReq request) {
         return mApi.login(request);
     }
 
@@ -40,7 +40,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<TokenResponse> registerUser(RegisterUserRequest request) {
+    public Observable<TokenResponse> registerUser(RegisterUserReq request) {
         return mApi.registerUser(request);
     }
 

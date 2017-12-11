@@ -33,7 +33,7 @@ import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.utils.Utils;
 
@@ -142,7 +142,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
     }
 
     @Override
-    public void registerUser(RegisterUserRequest request) {
+    public void registerUser(RegisterUserReq request) {
         mUserRepository.registerUser(request)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe(new Consumer<Disposable>() {

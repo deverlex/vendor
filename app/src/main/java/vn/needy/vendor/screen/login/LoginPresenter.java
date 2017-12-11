@@ -17,7 +17,7 @@ import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
-import vn.needy.vendor.repository.remote.user.request.LoginRequest;
+import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.port.error.BaseException;
@@ -69,7 +69,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (!validateDataInput(phoneNumber, passWord)) {
             return;
         }
-        LoginRequest request = new LoginRequest(phoneNumber, passWord);
+        LoginReq request = new LoginReq(phoneNumber, passWord);
         mUserRepository.login(request)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe(new Consumer<Disposable>() {

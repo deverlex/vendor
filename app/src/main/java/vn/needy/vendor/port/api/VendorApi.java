@@ -12,13 +12,13 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.attribute.response.AttributesResponse;
-import vn.needy.vendor.repository.remote.user.request.LoginRequest;
+import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
@@ -31,7 +31,7 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface VendorApi {
 
     @POST("v1/users/news")
-    Observable<TokenResponse> registerUser(@Body RegisterUserRequest request);
+    Observable<TokenResponse> registerUser(@Body RegisterUserReq request);
 
     @GET("v1/users/find")
     Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
@@ -71,7 +71,7 @@ public interface VendorApi {
                                                         @Query("company_id") String companyId);
 
     @POST("v1/authentications")
-    Observable<TokenResponse> login(@Body LoginRequest request);
+    Observable<TokenResponse> login(@Body LoginReq request);
 
     @GET("v1/attributes")
     Observable<AttributesResponse> getAttributesCategory(@Query("category_name") String category);

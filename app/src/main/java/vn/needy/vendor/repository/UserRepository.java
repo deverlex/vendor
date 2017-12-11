@@ -2,9 +2,9 @@ package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
-import vn.needy.vendor.repository.remote.user.request.LoginRequest;
+import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
@@ -25,7 +25,7 @@ public class UserRepository {
         mLocal = local;
     }
 
-    public Observable<TokenResponse> login(LoginRequest request) {
+    public Observable<TokenResponse> login(LoginReq request) {
         return mRemote.login(request);
     }
 
@@ -37,7 +37,7 @@ public class UserRepository {
         return mRemote.logout();
     }
 
-    public Observable<TokenResponse> registerUser(RegisterUserRequest request) {
+    public Observable<TokenResponse> registerUser(RegisterUserReq request) {
         return mRemote.registerUser(request);
     }
 

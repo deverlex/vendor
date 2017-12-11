@@ -5,9 +5,6 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -73,7 +70,7 @@ public class CompanyPresenter implements CompanyContract.Presenter {
                 .subscribe(new Consumer<CompanyInfoResponse>() {
                     @Override
                     public void accept(CompanyInfoResponse companyResponse) throws Exception {
-                        mViewModel.setCompanyInfo(companyResponse.getCompany(), companyResponse.getStaffCount());
+                        mViewModel.setCompanyInfo(companyResponse.getCompany(), companyResponse.getTotalStaff());
                     }
                 });
 

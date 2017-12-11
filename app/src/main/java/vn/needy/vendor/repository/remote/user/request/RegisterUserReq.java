@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by lion on 14/10/2017.
  */
 
-public class RegisterUserRequest {
+public class RegisterUserReq {
 
     @Expose
     @SerializedName("firebaseUid")
@@ -22,7 +22,7 @@ public class RegisterUserRequest {
     @SerializedName("password")
     private String mPassword;
 
-    public RegisterUserRequest() {
+    public RegisterUserReq() {
         super();
     }
 

@@ -1,4 +1,4 @@
-package vn.needy.vendor.model;
+package vn.needy.vendor.model.wrapper;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,48 +6,94 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-import vn.needy.vendor.model.wrapper.UserWrapper;
-
 /**
- * Created by lion on 03/10/2017.
+ * Created by lion on 11/12/2017.
  */
 
-public class User extends RealmObject {
+public class UserWrapper implements Parcelable {
 
-    @PrimaryKey
+    @SerializedName("id")
+    @Expose
     private String mId;
+    @SerializedName("state")
+    @Expose
     private int mState;
+    @SerializedName("fullName")
+    @Expose
     private String mFullName;
+    @SerializedName("gender")
+    @Expose
     private String mGender;
+    @SerializedName("address")
+    @Expose
     private String mAddress;
+    @SerializedName("email")
+    @Expose
     private String mEmail;
+    @SerializedName("birthday")
+    @Expose
     private String mBirthday;
+    @SerializedName("lat")
+    @Expose
     private float mLat;
+    @SerializedName("lng")
+    @Expose
     private float mLng;
+    @SerializedName("createdTime")
+    @Expose
     private String mCreatedTime;
+    @SerializedName("lastUpdatedTime")
+    @Expose
     private String mLastUpdatedTime;
+    @SerializedName("lastResetPassword")
+    @Expose
     private String mLastResetPassword;
 
-    public User() {
-        super();
+    protected UserWrapper(Parcel in) {
+        mState = in.readInt();
+        mFullName = in.readString();
+        mGender = in.readString();
+        mAddress = in.readString();
+        mEmail = in.readString();
+        mBirthday = in.readString();
+        mLat = in.readFloat();
+        mLng = in.readFloat();
+        mCreatedTime = in.readString();
+        mLastUpdatedTime = in.readString();
+        mLastResetPassword = in.readString();
     }
 
-    public User(UserWrapper wrapper) {
-        mId = wrapper.getId();
-        mState = wrapper.getState();
-        mFullName = wrapper.getFullName();
-        mGender = wrapper.getGender();
-        mAddress = wrapper.getAddress();
-        mEmail = wrapper.getEmail();
-        mBirthday = wrapper.getBirthday();
-        mLat = wrapper.getLat();
-        mLng = wrapper.getLng();
-        mCreatedTime = wrapper.getCreatedTime();
-        mLastUpdatedTime = wrapper.getLastUpdatedTime();
-        mLastResetPassword = wrapper.getLastResetPassword();
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mState);
+        dest.writeString(mFullName);
+        dest.writeString(mGender);
+        dest.writeString(mAddress);
+        dest.writeString(mEmail);
+        dest.writeString(mBirthday);
+        dest.writeFloat(mLat);
+        dest.writeFloat(mLng);
+        dest.writeString(mCreatedTime);
+        dest.writeString(mLastUpdatedTime);
+        dest.writeString(mLastResetPassword);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<UserWrapper> CREATOR = new Parcelable.Creator<UserWrapper>() {
+        @Override
+        public UserWrapper createFromParcel(Parcel in) {
+            return new UserWrapper(in);
+        }
+
+        @Override
+        public UserWrapper[] newArray(int size) {
+            return new UserWrapper[size];
+        }
+    };
 
     public String getId() {
         return mId;
@@ -134,7 +180,7 @@ public class User extends RealmObject {
     }
 
     public void setLastUpdatedTime(String lastUpdatedTime) {
-        mLastUpdatedTime = lastUpdatedTime;
+        mLastUpdatedTime =lastUpdatedTime;
     }
 
     public String getLastResetPassword() {

@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by lion on 05/10/2017.
  */
 
-public class LoginRequest {
+public class LoginReq {
 
     @Expose
     @SerializedName("username")
@@ -17,11 +17,11 @@ public class LoginRequest {
     @SerializedName("password")
     private String mPassWord;
 
-    public LoginRequest() {
+    public LoginReq() {
         super();
     }
 
-    public LoginRequest(String phoneNumber, String passWord) {
+    public LoginReq(String phoneNumber, String passWord) {
         mPhoneNumber = phoneNumber;
         mPassWord = passWord;
     }
