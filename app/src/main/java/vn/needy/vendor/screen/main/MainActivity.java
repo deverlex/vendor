@@ -25,7 +25,6 @@ public class MainActivity extends BaseActivity {
 
     private MainContract.Presenter mPresenter;
     private VendorApi mVendorApi;
-    private RealmApi mRealmApi;
     private SharedPrefsApi mPrefsApi;
 
     private BottomBar mBottomBar;
@@ -35,10 +34,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         mVendorApi = VendorServiceClient.getInstance();
-        mRealmApi = new RealmApi();
         mPrefsApi = SharedPrefsImpl.getInstance();
 
-        mPresenter = new MainPresenter(mVendorApi, mRealmApi, mPrefsApi);
+        mPresenter = new MainPresenter(mVendorApi, mPrefsApi);
         initializeBottomBar();
     }
 

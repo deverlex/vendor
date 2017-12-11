@@ -36,11 +36,11 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
     private UserRepository mUserRepository;
 
     public UserProfilePresenter(UserProfileContract.ViewModel viewModel,
-                                VendorApi vendorApi, RealmApi realmApi, SharedPrefsApi prefsApi) {
+                                VendorApi vendorApi, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
         mUserRepository = new UserRepository(
                 new UserDataRemote(vendorApi),
-                new UserDataLocal(realmApi, prefsApi)
+                new UserDataLocal(prefsApi)
         );
     }
 

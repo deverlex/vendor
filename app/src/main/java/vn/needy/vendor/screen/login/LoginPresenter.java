@@ -7,10 +7,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.model.User;
 import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
@@ -22,7 +26,7 @@ import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
-import vn.needy.vendor.repository.remote.user.response.TokenResponse;
+import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -40,17 +44,16 @@ public class LoginPresenter implements LoginContract.Presenter {
     private UserRepository mUserRepository;
     private CompanyRepository mCompanyRepository;
 
-    LoginPresenter(LoginContract.ViewModel viewModel, Navigator navigator,
-                   VendorApi vendorApi, RealmApi realmApi, SharedPrefsApi prefsApi) {
+    LoginPresenter(LoginContract.ViewModel viewModel, Navigator navigator) {
         mViewModel = viewModel;
         mNavigator = navigator;
         mUserRepository = new UserRepository(
-                new UserDataRemote(vendorApi),
-                new UserDataLocal(realmApi, prefsApi)
+                new UserDataRemote(VendorServiceClient.getInstance()),
+                new UserDataLocal(SharedPrefsImpl.getInstance())
         );
         mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteData(vendorApi),
-                new CompanyDataLocal(realmApi)
+                new CompanyRemoteData(VendorServiceClient.getInstance()),
+                new CompanyDataLocal()
         );
     }
 
@@ -69,7 +72,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (!validateDataInput(phoneNumber, passWord)) {
             return;
         }
-        LoginReq request = new LoginReq(phoneNumber, passWord);
+        final LoginReq request = new LoginReq(phoneNumber, passWord);
         mUserRepository.login(request)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe(new Consumer<Disposable>() {
@@ -83,17 +86,28 @@ public class LoginPresenter implements LoginContract.Presenter {
                 public void onSafetyError(BaseException error) {
                     mNavigator.showToastCenterText(error.getMessage());
                 }
-            })
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<TokenResponse>() {
+            }).observeOn(Schedulers.computation())
+            .map(new Function<LoginResp, LoginResp>() {
                 @Override
-                public void accept(TokenResponse certification) throws Exception {
+                public LoginResp apply(LoginResp resp) throws Exception {
+                    if (resp.getToken() != null) {
+                        // save user info & token to database
+                        User user = new User(resp.getUser());
+                        // save user to realm
+                        mUserRepository.saveUserSync(user);
+                        mUserRepository.saveTokenSync(resp.getToken());
+                    }
+                    return resp;
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<LoginResp>() {
+                @Override
+                public void accept(LoginResp resp) throws Exception {
                     mViewModel.onHideProgressBar();
-                    String token = certification.getToken();
-                    // Save token into storage
-                    if (TextUtils.isEmpty(token)) {
-                        mViewModel.onLoginError(certification.getMessage());
+                    Log.d(TAG, resp.getStatus());
+                    if (resp.getStatus().equals("ERROR")) {
+                        mViewModel.onLoginError(resp.getMessage());
                     }  else {
-                        mUserRepository.saveToken(token);
                         mViewModel.onLoginSuccess();
                     }
                 }
@@ -136,7 +150,10 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void findCompany() {
-
+        mUserRepository = new UserRepository(
+                new UserDataRemote(VendorServiceClient.getInstance()),
+                new UserDataLocal(SharedPrefsImpl.getInstance())
+        );
         mUserRepository.findUserBusinessId()
             .subscribeOn(Schedulers.io())
             .doAfterTerminate(new Action() {

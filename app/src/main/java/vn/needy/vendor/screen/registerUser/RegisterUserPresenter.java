@@ -86,14 +86,14 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
     };
 
     public RegisterUserPresenter(Activity activity, RegisterUserContract.ViewModel viewModel,
-                                 VendorApi vendorApi, RealmApi realmApi, SharedPrefsApi prefsApi) {
+                                 VendorApi vendorApi, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
         mActivity = activity;
         mAuth = FirebaseAuth.getInstance();
         mDuration = 0;
         mUserRepository = new UserRepository(
                 new UserDataRemote(vendorApi),
-                new UserDataLocal(realmApi, prefsApi)
+                new UserDataLocal(prefsApi)
         );
         mCompositeDisposable = new CompositeDisposable();
     }
@@ -162,7 +162,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                 public void accept(TokenResponse certification) throws Exception {
                     String token = certification.getToken();
                     if (!TextUtils.isEmpty(token)) {
-                        mUserRepository.saveToken(certification.getToken());
+                        mUserRepository.saveTokenSync(certification.getToken());
                         mViewModel.onRegisterSuccess();
                     } else {
                         mViewModel.onRegisterError(certification.getMessage());

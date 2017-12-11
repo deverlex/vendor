@@ -86,7 +86,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         }
     };
 
-    public ForgotPasswordPresenter(Activity activity, ForgotPasswordContract.ViewModel viewModel, RealmApi realmApi) {
+    public ForgotPasswordPresenter(Activity activity, ForgotPasswordContract.ViewModel viewModel) {
         mViewModel = viewModel;
         mActivity = activity;
 
@@ -95,7 +95,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
 
         mUserRepository = new UserRepository(
                 new UserDataRemote(VendorServiceClient.getInstance()),
-                new UserDataLocal(realmApi, SharedPrefsImpl.getInstance()));
+                new UserDataLocal(SharedPrefsImpl.getInstance()));
     }
 
     @Override
@@ -214,7 +214,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                 @Override
                 public void accept(TokenResponse certification) throws Exception {
                     if (!TextUtils.isEmpty(certification.getToken())) {
-                        mUserRepository.saveToken(certification.getToken());
+                        mUserRepository.saveTokenSync(certification.getToken());
                         mViewModel.onResetPasswordSuccess();
                     } else {
                         mViewModel.onResetPasswordError(certification.getMessage());

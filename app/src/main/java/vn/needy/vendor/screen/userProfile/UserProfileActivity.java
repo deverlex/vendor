@@ -30,7 +30,6 @@ public class UserProfileActivity extends BaseActivity {
 
     private SharedPrefsApi mPrefsApi;
     private VendorApi mVendorApi;
-    private RealmApi mRealmApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -39,7 +38,6 @@ public class UserProfileActivity extends BaseActivity {
 
         mPrefsApi = SharedPrefsImpl.getInstance();
         mVendorApi = VendorServiceClient.getInstance();
-        mRealmApi = new RealmApi();
 
         mScrollView = (ScrollView) findViewById(R.id.sv_container);
 
@@ -56,7 +54,7 @@ public class UserProfileActivity extends BaseActivity {
         mViewModel = new UserProfileViewModel(this, mapFragment);
 
         UserProfileContract.Presenter presenter =
-                new UserProfilePresenter(mViewModel, mVendorApi, mRealmApi, mPrefsApi);
+                new UserProfilePresenter(mViewModel, mVendorApi, mPrefsApi);
         mViewModel.setPresenter(presenter);
         // will active some actions
         mViewModel.onStart();

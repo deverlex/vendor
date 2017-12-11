@@ -1,10 +1,14 @@
 package vn.needy.vendor.repository.local;
 
+import android.util.Log;
+
+import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.functions.BiConsumer;
 import io.realm.Realm;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
+import vn.needy.vendor.model.User;
 import vn.needy.vendor.repository.UserData;
 import vn.needy.vendor.database.realm.RealmApi;
 
@@ -14,16 +18,27 @@ import vn.needy.vendor.database.realm.RealmApi;
 
 public class UserDataLocal implements UserData.Local {
 
-    private RealmApi mRealmApi;
+    private static final String TAG = UserDataLocal.class.getName();
+
     private SharedPrefsApi mPrefsApi;
 
-    public UserDataLocal(RealmApi realmApi, SharedPrefsApi prefsApi) {
-        mRealmApi = realmApi;
+    public UserDataLocal(SharedPrefsApi prefsApi) {
         mPrefsApi = prefsApi;
     }
 
     @Override
-    public void saveToken(String token) {
+    public void saveUserSync(final User user) {
+        RealmApi.getInstance().getSync().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.insertOrUpdate(user);
+                Log.w(TAG, "saveUserSync....................DONE");
+            }
+        });
+    }
+
+    @Override
+    public void saveTokenSync(String token) {
         mPrefsApi.put(SharedPrefsKey.TOKEN_KEY, token);
     }
 
@@ -35,7 +50,7 @@ public class UserDataLocal implements UserData.Local {
     @Override
     public void clearAll() {
         mPrefsApi.clear();
-        mRealmApi.transactionAsync(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
+        RealmApi.getInstance().transactionAsync(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
             @Override
             public void accept(ObservableEmitter<? super Object> observableEmitter, Realm realm) throws Exception {
                 realm.deleteAll();

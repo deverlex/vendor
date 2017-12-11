@@ -29,7 +29,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 //    private final CategoryRepository mCategoryRepository;
 //    private final CompanyRepository mCompanyRepository;
 
-    public CategoriesPresenter(CategoriesContract.ViewModel viewModel, VendorApi vendorApi, RealmApi realmApi) {
+    public CategoriesPresenter(CategoriesContract.ViewModel viewModel, VendorApi vendorApi) {
         mViewModel = viewModel;
 //        mCategoryRepository = new CategoryRepository();
 //        mCompanyRepository = new CompanyRepository(

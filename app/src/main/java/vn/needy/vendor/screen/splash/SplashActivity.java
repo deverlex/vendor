@@ -46,7 +46,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private SharedPrefsApi mPrefsApi;
     private VendorApi mVendorApi;
-    private RealmApi mRealmApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +56,15 @@ public class SplashActivity extends AppCompatActivity {
 
         mPrefsApi = SharedPrefsImpl.getInstance();
         mVendorApi = VendorServiceClient.getInstance();
-        mRealmApi = new RealmApi();
 
         // create new user data source
         mUserRepository = new UserRepository(
                 new UserDataRemote(mVendorApi),
-                new UserDataLocal(new RealmApi(), mPrefsApi)
+                new UserDataLocal(mPrefsApi)
         );
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(mVendorApi),
-                new CompanyDataLocal(mRealmApi)
+                new CompanyDataLocal()
         );
 
         final String token = getToken(mPrefsApi);
@@ -77,9 +75,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                if (TextUtils.isEmpty(token)) {
-//                    loginPage();
+                    loginPage();
 //                } else {
-                    gateway();
+//                    gateway();
 //                }
 //                new Navigator(SplashActivity.this).startActivity(mIntent);
             }

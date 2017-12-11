@@ -32,11 +32,11 @@ public class CompanyPresenter implements CompanyContract.Presenter {
 
     private CompanyRepository mCompanyRepository;
 
-    public CompanyPresenter(CompanyContract.ViewModel mViewModel, VendorApi vendorApi, RealmApi realmApi) {
+    public CompanyPresenter(CompanyContract.ViewModel mViewModel, VendorApi vendorApi) {
         this.mViewModel = mViewModel;
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(vendorApi),
-                new CompanyDataLocal(realmApi)
+                new CompanyDataLocal()
         );
     }
 

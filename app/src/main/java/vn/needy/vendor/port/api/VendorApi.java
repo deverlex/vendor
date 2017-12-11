@@ -13,6 +13,7 @@ import retrofit2.http.Query;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.attribute.response.AttributesResponse;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
+import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
@@ -30,34 +31,39 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
 public interface VendorApi {
 
-    @POST("v1/users/news")
+    @POST("v1/authentications")
+    Observable<LoginResp> login(@Body LoginReq request);
+
+    @POST("v1/users")
     Observable<TokenResponse> registerUser(@Body RegisterUserReq request);
 
-    @GET("v1/users/find")
+    @GET("v1/users/finds")
     Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
 
-    @POST("v1/users/reset")
+    @POST("v1/users/resets")
     Observable<TokenResponse> resetPassword(@Query("username") String phoneNumber,
                                             @Body ResetPasswordRequest request);
 
-    @GET("v1/users")
+    @GET("v1/users/informations/details")
     Observable<UserInfoResponse> getUserInformation();
 
-    @PUT("v1/users")
+    @PUT("v1/users/informations/details")
     Observable<BaseResponse> updateUserInformation(@Body UpdateUserInfoRequest request);
 
     @GET("v1/users/companies")
     Observable<BusinessIdResponse> findUserBusinessId();
 
-    @GET("v1/companies/{company_id}")
+    @GET("v1/companies/{company_id}/informations/details")
     Observable<CompanyInfoResponse> getCompanyInformation(@Path(value = "company_id") String companyId);
 
-    @PUT("v1/companies/{company_id}")
+    @PUT("v1/companies/{company_id}/informations/details")
     Observable<BaseResponse> updateCompanyInformation(@Path(value = "company_id") String companyId,
                                                       @Body UpdateCompanyInfoRequest infoRequest);
 
     @POST("v1/companies")
     Observable<CompanyInfoResponse> registerCompany(@Body RegisterCompanyRequest request);
+
+    /**************************************************************************************/
 
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
@@ -70,12 +76,8 @@ public interface VendorApi {
     Observable<CategoriesResponse> getCompanyCategories(@Path("category") String category,
                                                         @Query("company_id") String companyId);
 
-    @POST("v1/authentications")
-    Observable<TokenResponse> login(@Body LoginReq request);
-
     @GET("v1/attributes")
     Observable<AttributesResponse> getAttributesCategory(@Query("category_name") String category);
-
 
     // POST new images
     @Multipart

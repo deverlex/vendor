@@ -24,14 +24,14 @@ public class MainPresenter implements MainContract.Presenter {
     private final UserRepository mUserRepository;
     private final CompanyRepository mCompanyRepository;
 
-    public MainPresenter(VendorApi vendorApi, RealmApi realmApi, SharedPrefsApi prefsApi) {
+    public MainPresenter(VendorApi vendorApi, SharedPrefsApi prefsApi) {
         mUserRepository = new UserRepository(
                 new UserDataRemote(vendorApi),
-                new UserDataLocal(realmApi, prefsApi)
+                new UserDataLocal(prefsApi)
         );
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(vendorApi),
-                new CompanyDataLocal(realmApi)
+                new CompanyDataLocal()
         );
         mCompositeDisposable = new CompositeDisposable();
     }

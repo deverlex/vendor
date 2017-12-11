@@ -23,7 +23,6 @@ public class CompanyActivity extends BaseActivity {
     private CompanyContract.ViewModel mViewModel;
     private SharedPrefsApi mPrefsApi;
     private VendorApi mVendorApi;
-    private RealmApi mRealmApi;
 
     private ScrollView mScrollView;
 
@@ -33,7 +32,6 @@ public class CompanyActivity extends BaseActivity {
         ActivityCompanyProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_company_profile);
 
         mVendorApi = VendorServiceClient.getInstance();
-        mRealmApi = new RealmApi();
 
         mScrollView = (ScrollView) findViewById(R.id.sv_container);
 
@@ -50,7 +48,7 @@ public class CompanyActivity extends BaseActivity {
 
         mViewModel = new CompanyViewModel(this, mapFragment);
 
-        CompanyContract.Presenter presenter= new CompanyPresenter(mViewModel, mVendorApi, mRealmApi);
+        CompanyContract.Presenter presenter= new CompanyPresenter(mViewModel, mVendorApi);
         mViewModel.setPresenter(presenter);
 
         mViewModel.onStart();

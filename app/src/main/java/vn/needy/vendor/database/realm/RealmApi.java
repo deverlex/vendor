@@ -15,10 +15,17 @@ public class RealmApi {
 
     private static final String TAG = RealmApi.class.getName();
 
+    private static RealmApi mRealmApi;
     private Realm mRealm;
 
-    public RealmApi() {
+    private RealmApi() {
         mRealm = Realm.getDefaultInstance();
+    }
+
+    public static RealmApi getInstance() {
+        if (mRealmApi == null)
+            mRealmApi = new RealmApi();
+        return mRealmApi;
     }
 
     public <T> Observable<T> transactionAsync(final BiConsumer<ObservableEmitter<? super T>, Realm> action) {

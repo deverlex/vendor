@@ -49,7 +49,7 @@ public class CategoriesActivity extends BaseActivity {
                 categoryAdapter, SharedPrefsImpl.getInstance(), fromClass);
 
         CategoriesContract.Presenter presenter =
-                new CategoriesPresenter(mViewModel, VendorServiceClient.getInstance(), new RealmApi());
+                new CategoriesPresenter(mViewModel, VendorServiceClient.getInstance());
 
         mViewModel.setPresenter(presenter);
         mViewModel.onStart();

@@ -23,7 +23,6 @@ public class RegisterCompanyActivity extends BaseActivity {
     private RegisterCompanyContract.ViewModel mViewModel;
     private DialogManager mDialogManager;
     private VendorApi mVendorApi;
-    private RealmApi mRealmApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -36,7 +35,6 @@ public class RegisterCompanyActivity extends BaseActivity {
         mDialogManager = new DialogManager(this);
 
         mVendorApi = VendorServiceClient.getInstance();
-        mRealmApi = new RealmApi();
 
         WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_map);
@@ -49,7 +47,7 @@ public class RegisterCompanyActivity extends BaseActivity {
 
         mViewModel = new RegisterCompanyViewModel(this, navigator, mDialogManager, mapFragment);
         RegisterCompanyContract.Presenter presenter =
-                new RegisterCompanyPresenter(mViewModel, mVendorApi, mRealmApi);
+                new RegisterCompanyPresenter(mViewModel, mVendorApi);
 
         mViewModel.setPresenter(presenter);
 

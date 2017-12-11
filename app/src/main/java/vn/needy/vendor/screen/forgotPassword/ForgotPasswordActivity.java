@@ -23,8 +23,6 @@ public class ForgotPasswordActivity extends BaseActivity {
     public static final String KEY_PHONE_NUMBER = "phone_number";
     public static final String KEY_FIREBASE_TOKEN = "firebase_token";
 
-    private RealmApi mRealmApi;
-
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_login));
@@ -34,9 +32,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 
         mViewModel = new ForgotPasswordViewModel(this, getApplication(), navigator, dialogManager);
 
-        mRealmApi = new RealmApi();
-
-        mPresenter = new ForgotPasswordPresenter(this, mViewModel, mRealmApi);
+        mPresenter = new ForgotPasswordPresenter(this, mViewModel);
         mViewModel.setPresenter(mPresenter);
 
         ActivityForgotPasswordBinding binding =

@@ -35,7 +35,6 @@ public class LoginActivity extends BaseActivity {
         mPrefsApi = SharedPrefsImpl.getInstance();
         mPrefsApi.clear();
         mVendorApi = VendorServiceClient.initialize(getApplication());
-        mRealmApi = new RealmApi();
 
         mNavigator = new Navigator(this);
 
@@ -43,7 +42,7 @@ public class LoginActivity extends BaseActivity {
         mViewModel = new LoginViewModel(this, getApplication(), mNavigator, dialogManager);
 
         LoginContract.Presenter presenter = new LoginPresenter(mViewModel, mNavigator,
-                mVendorApi, mRealmApi, mPrefsApi);
+                mVendorApi, mPrefsApi);
 
         mViewModel.setPresenter(presenter);
 

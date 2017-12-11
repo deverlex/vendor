@@ -16,15 +16,9 @@ import vn.needy.vendor.repository.CompanyData;
 
 public class CompanyDataLocal implements CompanyData.Local {
 
-    private RealmApi mRealmApi;
-
-    public CompanyDataLocal(RealmApi realmApi) {
-        mRealmApi = realmApi;
-    }
-
     @Override
     public Observable<Void> saveCompany(final Company company) {
-        return mRealmApi.transactionAsync(new BiConsumer<ObservableEmitter<? super Void>, Realm>() {
+        return RealmApi.getInstance().transactionAsync(new BiConsumer<ObservableEmitter<? super Void>, Realm>() {
             @Override
             public void accept(ObservableEmitter<? super Void> observableEmitter, Realm realm) throws Exception {
                 realm.insertOrUpdate(company);
@@ -34,7 +28,7 @@ public class CompanyDataLocal implements CompanyData.Local {
 
     @Override
     public String getCompanyId() {
-        return mRealmApi.getSync().where(Company.class)
+        return RealmApi.getInstance().getSync().where(Company.class)
                 .findFirst().getId();
     }
 }

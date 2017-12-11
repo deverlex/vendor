@@ -31,7 +31,6 @@ public class RegisterUserActivity extends BaseActivity {
     private RegisterUserContract.ViewModel mViewModel;
     private VendorApi mVendorApi;
     private SharedPrefsApi mPrefsApi;
-    private RealmApi mRealmApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -44,11 +43,10 @@ public class RegisterUserActivity extends BaseActivity {
 
         mVendorApi = VendorServiceClient.getInstance();
         mPrefsApi = SharedPrefsImpl.getInstance();
-        mRealmApi = new RealmApi();
 
         mViewModel = new RegisterUserViewModel(this, getApplication(), navigator, dialogManager);
         RegisterUserContract.Presenter presenter = new RegisterUserPresenter(
-                this, mViewModel, mVendorApi, mRealmApi, mPrefsApi
+                this, mViewModel, mVendorApi, mPrefsApi
         );
 
         mViewModel.setPresenter(presenter);

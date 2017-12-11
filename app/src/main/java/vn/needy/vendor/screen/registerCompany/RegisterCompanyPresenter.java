@@ -28,11 +28,11 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
     private CompanyRepository mCompanyRepository;
 
     public RegisterCompanyPresenter(RegisterCompanyContract.ViewModel viewModel,
-                                    VendorApi vendorApi, RealmApi realmApi) {
+                                    VendorApi vendorApi) {
         mViewModel = viewModel;
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(vendorApi),
-                new CompanyDataLocal(realmApi)
+                new CompanyDataLocal()
         );
     }
 
