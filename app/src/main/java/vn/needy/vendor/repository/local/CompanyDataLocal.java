@@ -18,7 +18,7 @@ public class CompanyDataLocal implements CompanyData.Local {
 
     @Override
     public void saveCompanySync(final Company company) {
-        RealmApi.getInstance().getSync().executeTransaction(new Realm.Transaction() {
+        RealmApi.getSync().executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 realm.insertOrUpdate(company);
@@ -28,7 +28,7 @@ public class CompanyDataLocal implements CompanyData.Local {
 
     @Override
     public String getCompanyIdSync() {
-        return RealmApi.getInstance().getSync().where(Company.class)
+        return RealmApi.getSync().where(Company.class)
                 .findFirst().getId();
     }
 }

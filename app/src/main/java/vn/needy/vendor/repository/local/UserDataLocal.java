@@ -28,7 +28,7 @@ public class UserDataLocal implements UserData.Local {
 
     @Override
     public void saveUserSync(final User user) {
-        RealmApi.getInstance().getSync().executeTransaction(new Realm.Transaction() {
+        RealmApi.getSync().executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 realm.insertOrUpdate(user);
@@ -50,7 +50,7 @@ public class UserDataLocal implements UserData.Local {
     @Override
     public void clearAll() {
         mPrefsApi.clear();
-        RealmApi.getInstance().transactionAsync(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
+        (new RealmApi()).transactionAsync(new BiConsumer<ObservableEmitter<? super Object>, Realm>() {
             @Override
             public void accept(ObservableEmitter<? super Object> observableEmitter, Realm realm) throws Exception {
                 realm.deleteAll();
