@@ -19,9 +19,6 @@ public class CategoryWrapper implements Parcelable {
     @Expose
     @SerializedName("title")
     private String mTitle;
-    @Expose
-    @SerializedName("icon")
-    private String mIcon;
 
     public CategoryWrapper() {
         super();
@@ -30,7 +27,6 @@ public class CategoryWrapper implements Parcelable {
     protected CategoryWrapper(Parcel in) {
         mName = in.readString();
         mTitle = in.readString();
-        mIcon = in.readString();
     }
 
     public static final Creator<CategoryWrapper> CREATOR = new Creator<CategoryWrapper>() {
@@ -61,14 +57,6 @@ public class CategoryWrapper implements Parcelable {
         mTitle = title;
     }
 
-    public String getIcon() {
-        return mIcon;
-    }
-
-    public void setIcon(String icon) {
-        mIcon = icon;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -78,6 +66,5 @@ public class CategoryWrapper implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mName);
         dest.writeString(mTitle);
-        dest.writeString(mIcon);
     }
 }

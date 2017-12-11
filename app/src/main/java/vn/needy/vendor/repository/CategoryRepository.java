@@ -1,7 +1,7 @@
 package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
+import vn.needy.vendor.repository.remote.category.response.CategoriesResp;
 
 /**
  * Created by lion on 10/12/2017.
@@ -10,18 +10,16 @@ import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 public class CategoryRepository {
 
     private CategoryData.Remote mRemote;
-    private CategoryData.Local mLocal;
 
-    public CategoryRepository(CategoryData.Remote remote, CategoryData.Local local) {
+    public CategoryRepository(CategoryData.Remote remote) {
         mRemote = remote;
-        mLocal = local;
     }
 
-    public Observable<CategoriesResponse> getCategories(String category) {
+    public Observable<CategoriesResp> getCategories(String category) {
         return mRemote.getCategories(category);
     }
 
-    public Observable<CategoriesResponse> getCompanyCategories(String category, String companyId) {
+    public Observable<CategoriesResp> getCompanyCategories(String category, String companyId) {
         return mRemote.getCompanyCategories(category, companyId);
     }
 }

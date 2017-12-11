@@ -94,8 +94,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         Bundle extras = new Bundle();
         // put simple name thought bundle
         extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.class.getSimpleName());
-        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.RC_CHOOSE_CATEGORY
-        );
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.RC_CHOOSE_CATEGORY);
     }
 
     @Bindable

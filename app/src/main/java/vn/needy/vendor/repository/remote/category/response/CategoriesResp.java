@@ -12,7 +12,7 @@ import vn.needy.vendor.model.wrapper.CategoryWrapper;
  * Created by lion on 07/11/2017.
  */
 
-public class CategoriesResponse extends BaseResponse {
+public class CategoriesResp extends BaseResponse {
     @Expose
     @SerializedName("categories")
     private List<CategoryWrapper> mCategories;

@@ -1,7 +1,7 @@
 package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
+import vn.needy.vendor.repository.remote.category.response.CategoriesResp;
 
 /**
  * Created by lion on 10/12/2017.
@@ -10,9 +10,9 @@ import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 public interface CategoryData {
 
     interface Remote {
-        Observable<CategoriesResponse> getCategories(String category);
+        Observable<CategoriesResp> getCategories(String category);
 
-        Observable<CategoriesResponse> getCompanyCategories(String category, String companyId);
+        Observable<CategoriesResp> getCompanyCategories(String category, String companyId);
     }
 
     interface Local {

@@ -15,7 +15,7 @@ import vn.needy.vendor.repository.remote.attribute.response.AttributesResponse;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
-import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
+import vn.needy.vendor.repository.remote.category.response.CategoriesResp;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
@@ -65,19 +65,22 @@ public interface VendorApi {
 
     /**************************************************************************************/
 
-    @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
-    Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
-                                                 @Query("token") String token);
+    @GET("v1/categories/{category}/childs")
+    Observable<CategoriesResp> getCategories(@Path("category") String category);
 
-    @GET("v1/categories/{category}")
-    Observable<CategoriesResponse> getCategories(@Path("category") String category);
-
-    @GET("v1/categories/{category}")
-    Observable<CategoriesResponse> getCompanyCategories(@Path("category") String category,
-                                                        @Query("company_id") String companyId);
+    @GET("v1/categories/{category}/childs")
+    Observable<CategoriesResp> getCompanyCategories(@Path("category") String category,
+                                                    @Query("company_id") String companyId);
 
     @GET("v1/attributes")
     Observable<AttributesResponse> getAttributesCategory(@Query("category_name") String category);
+
+
+
+
+    @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
+    Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
+                                                 @Query("token") String token);
 
     // POST new images
     @Multipart
