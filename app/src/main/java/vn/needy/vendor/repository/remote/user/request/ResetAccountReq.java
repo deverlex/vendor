@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by lion on 17/10/2017.
  */
 
-public class ResetPasswordRequest {
+public class ResetAccountReq {
 
     @Expose
     @SerializedName("firebaseToken")

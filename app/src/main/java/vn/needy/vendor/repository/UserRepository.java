@@ -6,11 +6,10 @@ import vn.needy.vendor.model.User;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
-import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
-import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
 /**
@@ -47,7 +46,7 @@ public class UserRepository {
         return mRemote.findUserExist(phoneNumber);
     }
 
-    public Observable<TokenResponse> resetPassword(String phoneNumber, ResetPasswordRequest request) {
+    public Observable<TokenResponse> resetPassword(String phoneNumber, ResetAccountReq request) {
         return mRemote.resetPassword(phoneNumber, request);
     }
 

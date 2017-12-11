@@ -25,14 +25,13 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.repository.local.UserDataLocal;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
-import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.utils.Utils;
@@ -197,7 +196,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     }
 
     @Override
-    public void resetPassword(String phoneNumber, ResetPasswordRequest request) {
+    public void resetPassword(String phoneNumber, ResetAccountReq request) {
         if (!validateDataInput(phoneNumber, request.getPassword())) return;
 
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);

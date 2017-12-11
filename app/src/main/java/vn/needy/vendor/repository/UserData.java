@@ -8,9 +8,8 @@ import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
-import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
 /**
@@ -30,7 +29,7 @@ public interface UserData {
 
         Observable<BaseResponse> findUserExist(String phoneNumber);
 
-        Observable<TokenResponse> resetPassword(String phoneNumber, ResetPasswordRequest request);
+        Observable<TokenResponse> resetPassword(String phoneNumber, ResetAccountReq request);
 
         Observable<UserInfoResponse> getUserInformation();
 

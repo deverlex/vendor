@@ -20,7 +20,7 @@ import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
-import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
@@ -42,7 +42,7 @@ public interface VendorApi {
 
     @POST("v1/users/resets")
     Observable<TokenResponse> resetPassword(@Query("username") String phoneNumber,
-                                            @Body ResetPasswordRequest request);
+                                            @Body ResetAccountReq request);
 
     @GET("v1/users/informations/details")
     Observable<UserInfoResponse> getUserInformation();

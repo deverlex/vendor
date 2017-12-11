@@ -9,9 +9,8 @@ import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.UserData;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
-import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 import vn.needy.vendor.repository.remote.BaseDataRemote;
 
@@ -51,7 +50,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<TokenResponse> resetPassword(String phoneNumber, ResetPasswordRequest request) {
+    public Observable<TokenResponse> resetPassword(String phoneNumber, ResetAccountReq request) {
         return mApi.resetPassword(phoneNumber, request);
     }
 
