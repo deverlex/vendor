@@ -10,8 +10,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.needy.vendor.model.Attribute;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.AttributeWrapper;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
 
 /**
@@ -26,9 +26,9 @@ public class AddAttributeViewModel extends BaseObservable implements AddAttribut
     private Context mContext;
     private AttributeAdapter mAttributeAdapter;
 
-    private Category mCategory;
+    private CategoryWrapper mCategory;
 
-    public AddAttributeViewModel(Context context, AttributeAdapter attributeAdapter, Category category) {
+    public AddAttributeViewModel(Context context, AttributeAdapter attributeAdapter, CategoryWrapper category) {
         mContext = context;
         mAttributeAdapter = attributeAdapter;
         mCategory = category;
@@ -56,8 +56,8 @@ public class AddAttributeViewModel extends BaseObservable implements AddAttribut
 
     @Override
     public void onDoneClicked() {
-        ArrayList<Attribute> attributes =  new ArrayList<>(mAttributeAdapter.getAttributes());
-        for (Attribute attribute : attributes) {
+        ArrayList<AttributeWrapper> attributes =  new ArrayList<>(mAttributeAdapter.getAttributes());
+        for (AttributeWrapper attribute : attributes) {
             if (attribute.getValue() == null) {
                 // show notify
                 Log.w(TAG, "All attributes are required complete");
@@ -74,7 +74,7 @@ public class AddAttributeViewModel extends BaseObservable implements AddAttribut
     }
 
     @Override
-    public void onListAttributeLoaded(List<Attribute> attributes) {
+    public void onListAttributeLoaded(List<AttributeWrapper> attributes) {
         mAttributeAdapter.updateData(attributes);
     }
 

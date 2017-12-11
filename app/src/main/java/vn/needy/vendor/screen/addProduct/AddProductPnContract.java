@@ -2,8 +2,8 @@ package vn.needy.vendor.screen.addProduct;
 
 import java.util.List;
 
-import vn.needy.vendor.model.Attribute;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.AttributeWrapper;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnRequest;
 import vn.needy.vendor.screen.BasePresenter;
@@ -37,9 +37,9 @@ interface AddProductPnContract {
 
         void onSelectedListImages(List<Image> images);
 
-        void updateCategory(Category category);
+        void updateCategory(CategoryWrapper category);
 
-        void onSelectedListAttribute(List<Attribute> attributes);
+        void onSelectedListAttribute(List<AttributeWrapper> attributes);
     }
 
     interface Presenter extends BasePresenter {

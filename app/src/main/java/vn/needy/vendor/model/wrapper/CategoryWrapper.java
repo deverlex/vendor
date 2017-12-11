@@ -1,4 +1,4 @@
-package vn.needy.vendor.model;
+package vn.needy.vendor.model.wrapper;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by lion on 03/11/2017.
  */
 
-public class Category implements Parcelable {
+public class CategoryWrapper implements Parcelable {
 
     @Expose
     @SerializedName("name")
@@ -23,25 +23,25 @@ public class Category implements Parcelable {
     @SerializedName("icon")
     private String mIcon;
 
-    public Category() {
+    public CategoryWrapper() {
         super();
     }
 
-    protected Category(Parcel in) {
+    protected CategoryWrapper(Parcel in) {
         mName = in.readString();
         mTitle = in.readString();
         mIcon = in.readString();
     }
 
-    public static final Creator<Category> CREATOR = new Creator<Category>() {
+    public static final Creator<CategoryWrapper> CREATOR = new Creator<CategoryWrapper>() {
         @Override
-        public Category createFromParcel(Parcel in) {
-            return new Category(in);
+        public CategoryWrapper createFromParcel(Parcel in) {
+            return new CategoryWrapper(in);
         }
 
         @Override
-        public Category[] newArray(int size) {
-            return new Category[size];
+        public CategoryWrapper[] newArray(int size) {
+            return new CategoryWrapper[size];
         }
     };
 

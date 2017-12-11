@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import vn.needy.vendor.port.message.BaseResponse;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 
 /**
  * Created by lion on 07/11/2017.
@@ -15,13 +15,13 @@ import vn.needy.vendor.model.Category;
 public class CategoriesResponse extends BaseResponse {
     @Expose
     @SerializedName("categories")
-    private List<Category> mCategories;
+    private List<CategoryWrapper> mCategories;
 
-    public List<Category> getCategories() {
+    public List<CategoryWrapper> getCategories() {
         return mCategories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(List<CategoryWrapper> categories) {
         mCategories = categories;
     }
 }

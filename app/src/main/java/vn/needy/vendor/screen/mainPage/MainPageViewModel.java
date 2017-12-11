@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.RadioGroup;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
@@ -27,7 +27,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     private final Navigator mNavigator;
 
     private MainPageConstract.Presenter mPresenter;
-    private Category mCategory;
+    private CategoryWrapper mCategory;
 
     private SharedPrefsApi mPrefsApi;
 
@@ -35,7 +35,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     private boolean mIsPlChecked;
 
     public MainPageViewModel(Context context, Navigator navigator,
-                             SharedPrefsApi prefsApi, final Category category) {
+                             SharedPrefsApi prefsApi, final CategoryWrapper category) {
         mContext = context;
         mNavigator = navigator;
         // default of product type is pn - because UI set it is checked.
@@ -54,7 +54,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
             prefsApi.putObject(SharedPrefsKey.CURRENT_CATEGORY, category);
         } else {
             // getAsync category from db
-            mCategory = prefsApi.getObject(SharedPrefsKey.CURRENT_CATEGORY, Category.class);
+            mCategory = prefsApi.getObject(SharedPrefsKey.CURRENT_CATEGORY, CategoryWrapper.class);
         }
     }
 

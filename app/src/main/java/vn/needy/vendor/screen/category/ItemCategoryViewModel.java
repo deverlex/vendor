@@ -3,7 +3,7 @@ package vn.needy.vendor.screen.category;
 import android.databinding.BaseObservable;
 import android.util.Log;
 
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
@@ -14,11 +14,11 @@ public class ItemCategoryViewModel extends BaseObservable {
 
     private static final String TAG = ItemCategoryViewModel.class.getName();
 
-    private final Category mCategory;
+    private final CategoryWrapper mCategory;
     private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
             mItemClickListener;
 
-    public ItemCategoryViewModel(Category category,
+    public ItemCategoryViewModel(CategoryWrapper category,
                                  BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
         mCategory = category;
         mItemClickListener = listener;

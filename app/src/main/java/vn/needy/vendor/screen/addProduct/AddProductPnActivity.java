@@ -16,8 +16,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.Attribute;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.AttributeWrapper;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.databinding.ActivityAddProductPnBinding;
 import vn.needy.vendor.screen.BaseActivity;
@@ -77,7 +77,7 @@ public class AddProductPnActivity extends BaseActivity
         } else if (requestCode == RC_CHOOSE_CATEGORY) {
             if (resultCode == CategoriesActivity.RC_OK) {
                 // getAsync category and call update category in view model
-                Category category = data.getExtras().getParcelable(CategoriesActivity.CATEGORY);
+                CategoryWrapper category = data.getExtras().getParcelable(CategoriesActivity.CATEGORY);
                 mViewModel.updateCategory(category);
             }
         }
@@ -93,7 +93,7 @@ public class AddProductPnActivity extends BaseActivity
     }
 
     @Override
-    public void onUpdateListAttribute(List<Attribute> attributes) {
+    public void onUpdateListAttribute(List<AttributeWrapper> attributes) {
         mViewModel.onSelectedListAttribute(attributes);
     }
 }

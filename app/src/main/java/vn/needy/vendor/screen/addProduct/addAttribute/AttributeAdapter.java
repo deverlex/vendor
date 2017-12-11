@@ -16,7 +16,7 @@ import java.util.Random;
 import java.util.Set;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.Attribute;
+import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.databinding.ItemAddAttrsBinding;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
@@ -28,10 +28,10 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
 
     private static final String TAG = AttributeAdapter.class.getName();
 
-    private final List<Attribute> mAttributes;
+    private final List<AttributeWrapper> mAttributes;
     private final Set<Integer> mIds;
 
-    public AttributeAdapter(@NonNull Context context, List<Attribute> attributes) {
+    public AttributeAdapter(@NonNull Context context, List<AttributeWrapper> attributes) {
         super(context);
         mAttributes = attributes;
         mIds = new HashSet<>();
@@ -54,7 +54,7 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
         return mAttributes.size();
     }
 
-    public void updateData(List<Attribute> attributes) {
+    public void updateData(List<AttributeWrapper> attributes) {
         if (attributes == null) {
             return;
         }
@@ -63,7 +63,7 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
         notifyDataSetChanged();
     }
 
-    public List<Attribute> getAttributes() {
+    public List<AttributeWrapper> getAttributes() {
         return mAttributes;
     }
 
@@ -81,7 +81,7 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
             mBinding = binding;
         }
 
-        void bind(Attribute attribute) {
+        void bind(AttributeWrapper attribute) {
             mBinding.setViewModel(new ItemAttributeViewModel(attribute));
             mBinding.executePendingBindings();
         }

@@ -9,7 +9,7 @@ import android.util.Log;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.port.error.BaseException;
@@ -32,7 +32,7 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
     private final CategoryAdapter mCategoryAdapter;
 
     private CategoriesContract.Presenter mPresenter;
-    private Category mCategory;
+    private CategoryWrapper mCategory;
     private SharedPrefsApi mPrefsApi;
     private String mFromClass;
 
@@ -85,8 +85,8 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
 
     @Override
     public void onItemRecyclerViewClick(Object item) {
-        if (item instanceof Category) {
-            mCategory = (Category) item;
+        if (item instanceof CategoryWrapper) {
+            mCategory = (CategoryWrapper) item;
             if (mFromClass.equals(MainPageFragment.class.getSimpleName())) {
                 mPresenter.getCompanyCategories(mCategory.getName());
             } else {
@@ -106,7 +106,7 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
     }
 
     @Override
-    public void onUpdateListCategory(List<Category> categories) {
+    public void onUpdateListCategory(List<CategoryWrapper> categories) {
         mCategoryAdapter.updateData(categories);
     }
 

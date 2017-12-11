@@ -19,8 +19,8 @@ import java.util.Map;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.Attribute;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.AttributeWrapper;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnRequest;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
@@ -56,7 +56,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     private float mPrice;
     private String mPromotion;
     private float mFeeTransport;
-    private Category mCategory;
+    private CategoryWrapper mCategory;
 
     private ImageAdapter mImageAdapter;
     private Map<String, Object> mAttributes;
@@ -175,17 +175,17 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     }
 
     @Override
-    public void updateCategory(Category category) {
+    public void updateCategory(CategoryWrapper category) {
         mCategory = category;
         notifyPropertyChanged(BR.category);
     }
 
     @Override
-    public void onSelectedListAttribute(final List<Attribute> attributes) {
+    public void onSelectedListAttribute(final List<AttributeWrapper> attributes) {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                for (Attribute attribute : attributes) {
+                for (AttributeWrapper attribute : attributes) {
                     mAttributes.put(attribute.getName(), attribute.getValue());
                 }
             }
@@ -292,7 +292,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
         return mContext.getString(R.string.choose_category);
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryWrapper category) {
         mCategory = category;
     }
 }

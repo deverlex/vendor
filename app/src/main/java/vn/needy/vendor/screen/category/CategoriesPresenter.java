@@ -1,20 +1,6 @@
 package vn.needy.vendor.screen.category;
 
-import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.database.realm.RealmApi;
-import vn.needy.vendor.model.Category;
 import vn.needy.vendor.port.api.VendorApi;
-import vn.needy.vendor.repository.CategoryRepository;
-import vn.needy.vendor.repository.CompanyRepository;
-import vn.needy.vendor.port.error.BaseException;
-import vn.needy.vendor.port.error.SafetyError;
-import vn.needy.vendor.repository.local.CompanyDataLocal;
-import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
-import vn.needy.vendor.utils.Constant;
 
 /**
  * Created by lion on 03/11/2017.

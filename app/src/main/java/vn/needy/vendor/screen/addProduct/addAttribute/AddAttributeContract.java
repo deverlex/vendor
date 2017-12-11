@@ -2,8 +2,8 @@ package vn.needy.vendor.screen.addProduct.addAttribute;
 
 import java.util.List;
 
-import vn.needy.vendor.model.Attribute;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.AttributeWrapper;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -18,11 +18,11 @@ interface AddAttributeContract {
 
         void onDoneClicked();
 
-        void onListAttributeLoaded(List<Attribute> attributes);
+        void onListAttributeLoaded(List<AttributeWrapper> attributes);
     }
 
     interface Presenter extends BasePresenter {
-        void onGetListAttributes(Category category);
+        void onGetListAttributes(CategoryWrapper category);
 
         boolean onValidateDataInput(List<Object> attrs);
     }

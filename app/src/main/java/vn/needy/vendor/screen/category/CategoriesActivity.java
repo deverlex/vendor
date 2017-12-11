@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCategoriesBinding;
 import vn.needy.vendor.port.service.VendorServiceClient;
@@ -43,7 +42,7 @@ public class CategoriesActivity extends BaseActivity {
         }
 
         mNavigator = new Navigator(this);
-        List<Category> categories = new ArrayList<>();
+        List<CategoryWrapper> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
         mViewModel = new CategoriesViewModel(this, mNavigator,
                 categoryAdapter, SharedPrefsImpl.getInstance(), fromClass);

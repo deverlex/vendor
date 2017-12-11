@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.databinding.ItemCategoryBinding;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
@@ -22,10 +22,10 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.Ite
 
     private static final String TAG = CategoryAdapter.class.getName();
 
-    private final List<Category> mCategories;
+    private final List<CategoryWrapper> mCategories;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected CategoryAdapter(@NonNull Context context, List<Category> categories) {
+    protected CategoryAdapter(@NonNull Context context, List<CategoryWrapper> categories) {
         super(context);
         mCategories = categories;
     }
@@ -52,7 +52,7 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.Ite
         mItemClickListener = itemClickListener;
     }
 
-    public void updateData(List<Category> categories) {
+    public void updateData(List<CategoryWrapper> categories) {
         if (categories == null) {
             return;
         }
@@ -74,7 +74,7 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.Ite
             mItemClickListener = listener;
         }
 
-        void bind(Category category) {
+        void bind(CategoryWrapper category) {
             mBinding.setViewModel(new ItemCategoryViewModel(category, mItemClickListener));
             mBinding.executePendingBindings();
         }

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.Attribute;
-import vn.needy.vendor.model.Category;
+import vn.needy.vendor.model.wrapper.AttributeWrapper;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.databinding.FragmentAddAttributesBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 
@@ -33,15 +33,15 @@ public class AddAttributeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        Category category;
+        CategoryWrapper category;
         Bundle extras = getArguments();
         if (extras != null) {
             category = extras.getParcelable(CategoriesActivity.CATEGORY);
         } else {
-            category = new Category();
+            category = new CategoryWrapper();
         }
 
-        List<Attribute> attributes = new ArrayList<>();
+        List<AttributeWrapper> attributes = new ArrayList<>();
         AttributeAdapter attributeAdapter = new AttributeAdapter(getContext(), attributes);
         AddAttributeContract.ViewModel viewModel =
                 new AddAttributeViewModel(getContext(), attributeAdapter, category);
@@ -58,6 +58,6 @@ public class AddAttributeFragment extends Fragment {
     }
 
     public interface OnCallbackReceived {
-        void onUpdateListAttribute(List<Attribute> attributes);
+        void onUpdateListAttribute(List<AttributeWrapper> attributes);
     }
 }

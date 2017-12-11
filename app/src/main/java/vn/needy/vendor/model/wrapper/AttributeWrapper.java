@@ -1,4 +1,4 @@
-package vn.needy.vendor.model;
+package vn.needy.vendor.model.wrapper;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by lion on 04/12/2017.
  */
 
-public class Attribute implements Parcelable {
+public class AttributeWrapper implements Parcelable {
 
     @Expose
     @SerializedName("name")
@@ -29,7 +29,7 @@ public class Attribute implements Parcelable {
         return 0;
     }
 
-    protected Attribute(Parcel in) {
+    protected AttributeWrapper(Parcel in) {
         mName = in.readString();
         mTitle = in.readString();
         mValue = in.readValue(getClass().getClassLoader());
@@ -68,15 +68,15 @@ public class Attribute implements Parcelable {
         mDataType = dataType;
     }
 
-    public static final Creator<Attribute> CREATOR = new Creator<Attribute>() {
+    public static final Creator<AttributeWrapper> CREATOR = new Creator<AttributeWrapper>() {
         @Override
-        public Attribute createFromParcel(Parcel in) {
-            return new Attribute(in);
+        public AttributeWrapper createFromParcel(Parcel in) {
+            return new AttributeWrapper(in);
         }
 
         @Override
-        public Attribute[] newArray(int size) {
-            return new Attribute[size];
+        public AttributeWrapper[] newArray(int size) {
+            return new AttributeWrapper[size];
         }
     };
 

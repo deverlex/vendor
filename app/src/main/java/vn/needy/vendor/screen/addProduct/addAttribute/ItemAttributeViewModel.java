@@ -3,8 +3,8 @@ package vn.needy.vendor.screen.addProduct.addAttribute;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import vn.needy.vendor.model.Attribute;
-import vn.needy.vendor.model.Attribute.DataType;
+import vn.needy.vendor.model.wrapper.AttributeWrapper;
+import vn.needy.vendor.model.wrapper.AttributeWrapper.DataType;
 
 /**
  * Created by lion on 04/12/2017.
@@ -14,9 +14,9 @@ public class ItemAttributeViewModel extends BaseObservable {
 
     private static final String TAG = ItemAttributeViewModel.class.getName();
 
-    private Attribute mAttribute;
+    private AttributeWrapper mAttribute;
 
-    public ItemAttributeViewModel(Attribute attribute) {
+    public ItemAttributeViewModel(AttributeWrapper attribute) {
         mAttribute = attribute;
     }
 

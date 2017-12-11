@@ -2,15 +2,7 @@ package vn.needy.vendor.screen.addProduct.addAttribute;
 
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.repository.remote.attribute.response.AttributesResponse;
-import vn.needy.vendor.model.Attribute;
-import vn.needy.vendor.model.Category;
-import vn.needy.vendor.repository.AttributeRepository;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 
 /**
  * Created by lion on 04/12/2017.
@@ -43,7 +35,7 @@ public class AddAttributePresenter implements AddAttributeContract.Presenter {
     }
 
     @Override
-    public void onGetListAttributes(Category category) {
+    public void onGetListAttributes(CategoryWrapper category) {
 //        Disposable disposable = mAttributeRepository
 //                .getAttributeCategory(category.getName())
 //                .subscribeOn(Schedulers.io())
