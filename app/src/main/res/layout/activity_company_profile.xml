@@ -546,7 +546,7 @@
                         android:fontFamily="@string/font_serif"
                         android:hint="@string/not_set"
                         android:inputType="textCapWords"
-                        android:text="@={viewModel.company.officeAddress}"
+                        android:text="@={viewModel.company.address}"
                         android:textAllCaps="false"
                         android:textColor="@color/color_black"
                         android:textColorHint="@color/gray70"

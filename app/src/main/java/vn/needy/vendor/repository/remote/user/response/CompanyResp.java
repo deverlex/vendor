@@ -3,6 +3,7 @@ package vn.needy.vendor.repository.remote.user.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import vn.needy.vendor.model.wrapper.CompanyWrapper;
 import vn.needy.vendor.port.message.BaseResponse;
 
 /**
@@ -12,26 +13,14 @@ import vn.needy.vendor.port.message.BaseResponse;
 public class CompanyResp extends BaseResponse {
 
     @Expose
-    @SerializedName("companyId")
-    private String mCompanyId;
+    @SerializedName("company")
+    private CompanyWrapper mCompany;
 
-    @Expose
-    @SerializedName("storeId")
-    private String mStoreId;
-
-    public String getCompanyId() {
-        return mCompanyId;
+    public CompanyWrapper getCompany() {
+        return mCompany;
     }
 
-    public void setCompanyId(String id) {
-        mCompanyId = id;
-    }
-
-    public String getStoreId() {
-        return mStoreId;
-    }
-
-    public void setStoreId(String storeId) {
-        mStoreId = storeId;
+    public void setCompany(CompanyWrapper company) {
+        mCompany = company;
     }
 }

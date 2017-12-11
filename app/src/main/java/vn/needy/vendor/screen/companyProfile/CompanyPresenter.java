@@ -119,7 +119,7 @@ public class CompanyPresenter implements CompanyContract.Presenter {
     public void updateCompanyInfo(Company company) {
         UpdateCompanyInfoRequest request = new UpdateCompanyInfoRequest();
         request.setName(company.getName());
-        request.setAddress(company.getOfficeAddress());
+        request.setAddress(company.getAddress());
         request.setDescription(company.getDescription());
         request.setSiteURL(company.getSiteUrl());
         request.setEmail(company.getEmail());

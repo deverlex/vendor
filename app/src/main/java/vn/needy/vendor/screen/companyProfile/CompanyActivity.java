@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.widget.ScrollView;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCompanyProfileBinding;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.service.VendorServiceClient;

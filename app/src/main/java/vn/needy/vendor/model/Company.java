@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import vn.needy.vendor.model.wrapper.CompanyWrapper;
 
 public class Company extends RealmObject implements Parcelable {
 
@@ -26,7 +27,7 @@ public class Company extends RealmObject implements Parcelable {
     private String mName;
     @SerializedName("address")
     @Expose
-    private String mOfficeAddress;
+    private String mAddress;
     @SerializedName("foundedDate")
     @Expose
     private String mFoundedDate;
@@ -65,12 +66,29 @@ public class Company extends RealmObject implements Parcelable {
         super();
     }
 
+    public Company(CompanyWrapper wrapper) {
+        mId = wrapper.getId();
+        mCompanyNumber = wrapper.getCompanyNumber();
+        mState = wrapper.getState();
+        mAddress = wrapper.getAddress();
+        mFoundedDate = wrapper.getFoundedDate();
+        mOpeningTime = wrapper.getOpeningTime();
+        mClosingTime = wrapper.getClosingTime();
+        mDescription = wrapper.getDescription();
+        mSiteUrl = wrapper.getSiteUrl();
+        mCreatedTime = wrapper.getCreatedTime();
+        mLastUpdatedTime = wrapper.getLastUpdatedTime();
+        mEmail = wrapper.getEmail();
+        mLat = wrapper.getLat();
+        mLng = wrapper.getLng();
+    }
+
     protected Company(Parcel in) {
         mId = in.readString();
         mCompanyNumber = in.readString();
         mState = in.readInt();
         mName = in.readString();
-        mOfficeAddress = in.readString();
+        mAddress = in.readString();
         mFoundedDate = in.readString();
         mOpeningTime = in.readString();
         mClosingTime = in.readString();
@@ -90,7 +108,7 @@ public class Company extends RealmObject implements Parcelable {
         dest.writeString(mCompanyNumber);
         dest.writeInt(mState);
         dest.writeString(mName);
-        dest.writeString(mOfficeAddress);
+        dest.writeString(mAddress);
         dest.writeString(mFoundedDate);
         dest.writeString(mOpeningTime);
         dest.writeString(mClosingTime);
@@ -152,12 +170,12 @@ public class Company extends RealmObject implements Parcelable {
         this.mName = mName;
     }
 
-    public String getOfficeAddress() {
-        return mOfficeAddress;
+    public String getAddress() {
+        return mAddress;
     }
 
-    public void setOfficeAddress(String mOfficeAddress) {
-        this.mOfficeAddress = mOfficeAddress;
+    public void setAddress(String address) {
+        this.mAddress = address;
     }
 
     public String getFoundedDate() {

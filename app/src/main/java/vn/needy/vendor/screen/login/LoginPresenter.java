@@ -11,6 +11,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.model.Company;
 import vn.needy.vendor.model.User;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
@@ -158,17 +159,17 @@ public class LoginPresenter implements LoginContract.Presenter {
             }).doOnError(new SafetyError() {
                 @Override
                 public void onSafetyError(BaseException error) {
-
+                    mViewModel.onLoginError(error.getMessage());
                 }
-            }).doOnNext(new Consumer<CompanyResp>() {
+            }).observeOn(Schedulers.computation())
+            .map(new Function<CompanyResp, CompanyResp>() {
                 @Override
-                public void accept(CompanyResp response) throws Exception {
+                public CompanyResp apply(CompanyResp resp) throws Exception {
                     // save company & store response
-                    Log.w(TAG, "company_id: " + response.getCompanyId()
-                            + ", store_id: " + response.getStoreId());
-
-//                    mUserRepository.saveCompanyId(response.getCompanyId());
-//                    mUserRepository.saveStoreId(response.getStoreId());
+                    if (resp.getCompany() != null) {
+                        mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
+                    }
+                    return resp;
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())

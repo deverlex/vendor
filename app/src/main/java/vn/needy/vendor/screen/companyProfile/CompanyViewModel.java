@@ -99,7 +99,7 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
     @Override
     public void onClickEdit() {
         if (mEnable) {
-           boolean isValidate = mPresenter.validateDataInput(mCompany.getName(), mCompany.getOfficeAddress());
+           boolean isValidate = mPresenter.validateDataInput(mCompany.getName(), mCompany.getAddress());
            if (!isValidate) return;
 
            mPresenter.updateCompanyInfo(mCompany);
@@ -187,7 +187,6 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
         datePickerDialog.getDatePicker().setSpinnersShown(true);
         datePickerDialog.getDatePicker().setCalendarViewShown(false);
         datePickerDialog.show();
-
     }
 
     @Override

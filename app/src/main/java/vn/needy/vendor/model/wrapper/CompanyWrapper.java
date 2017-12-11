@@ -23,7 +23,7 @@ public class CompanyWrapper {
     private String mName;
     @SerializedName("address")
     @Expose
-    private String mOfficeAddress;
+    private String mAddress;
     @SerializedName("foundedDate")
     @Expose
     private String mFoundedDate;
@@ -90,12 +90,12 @@ public class CompanyWrapper {
         mName = mName;
     }
 
-    public String getOfficeAddress() {
-        return mOfficeAddress;
+    public String getAddress() {
+        return mAddress;
     }
 
-    public void setOfficeAddress(String mOfficeAddress) {
-        mOfficeAddress = mOfficeAddress;
+    public void setAddress(String address) {
+        mAddress = address;
     }
 
     public String getFoundedDate() {

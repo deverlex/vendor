@@ -97,9 +97,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void accept(CompanyResp response) throws Exception {
                     // save company & store response
-                    Log.w(TAG, "company_id: " + response.getCompanyId()
-                            + ", store_id: " + response.getStoreId());
-                    
+
 //                    mUserRepository.saveCompanyId(response.getCompanyId());
 //                    mUserRepository.saveStoreId(response.getStoreId());
                 }
