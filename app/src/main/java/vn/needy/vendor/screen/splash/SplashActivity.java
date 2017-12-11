@@ -9,8 +9,10 @@ import android.util.Log;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
+import vn.needy.vendor.model.Company;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
@@ -68,9 +70,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                if (TextUtils.isEmpty(token)) {
-                    loginPage();
+//                    loginPage();
 //                } else {
-//                    gateway();
+                    gateway();
 //                }
 //                new Navigator(SplashActivity.this).startActivity(mIntent);
             }
@@ -93,13 +95,15 @@ public class SplashActivity extends AppCompatActivity {
                     mainPage();
                 }
             })
-            .doOnNext(new Consumer<CompanyResp>() {
+            .observeOn(Schedulers.computation())
+            .map(new Function<CompanyResp, CompanyResp>() {
                 @Override
-                public void accept(CompanyResp response) throws Exception {
+                public CompanyResp apply(CompanyResp resp) throws Exception {
                     // save company & store response
-
-//                    mUserRepository.saveCompanyId(response.getCompanyId());
-//                    mUserRepository.saveStoreId(response.getStoreId());
+                    if (resp.getCompany() != null) {
+                        mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
+                    }
+                    return resp;
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
