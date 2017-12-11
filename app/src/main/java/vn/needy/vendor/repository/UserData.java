@@ -10,7 +10,7 @@ import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
+import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
 /**
@@ -35,8 +35,6 @@ public interface UserData {
         Observable<UserInfoResponse> getUserInformation();
 
         Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request);
-
-        Observable<BusinessIdResponse> findUserBusinessId();
     }
 
     interface Local {

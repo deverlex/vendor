@@ -11,7 +11,7 @@ import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
+import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 import vn.needy.vendor.repository.remote.BaseDataRemote;
 
@@ -63,10 +63,5 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     @Override
     public Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request) {
         return mApi.updateUserInformation(request);
-    }
-
-    @Override
-    public Observable<BusinessIdResponse> findUserBusinessId() {
-        return mApi.findUserBusinessId();
     }
 }

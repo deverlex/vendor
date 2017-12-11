@@ -58,12 +58,11 @@ public class CompanyPresenter implements CompanyContract.Presenter {
         banners.add(new RemoteBanner("https://spark.adobe.com/images/landing/examples/fathersday-sale-etsy-banner.jpg"));
 
         mViewModel.setBanners(banners);
-
     }
 
     @Override
     public void getCompanyInfo() {
-        String companyId = mCompanyRepository.getCompanyId();
+        String companyId = mCompanyRepository.getCompanyIdSync();
         mCompanyRepository.getCompanyInformation(companyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -11,7 +11,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
@@ -20,7 +19,7 @@ import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
-import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
+import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
@@ -40,7 +39,6 @@ public class SplashActivity extends AppCompatActivity {
     private Runnable mRunnable;
     private Intent mIntent;
 
-    private UserRepository mUserRepository;
     private CompanyRepository mCompanyRepository;
     private Navigator mNavigator;
 
@@ -57,11 +55,6 @@ public class SplashActivity extends AppCompatActivity {
         mPrefsApi = SharedPrefsImpl.getInstance();
         mVendorApi = VendorServiceClient.getInstance();
 
-        // create new user data source
-        mUserRepository = new UserRepository(
-                new UserDataRemote(mVendorApi),
-                new UserDataLocal(mPrefsApi)
-        );
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(mVendorApi),
                 new CompanyDataLocal()
@@ -91,7 +84,7 @@ public class SplashActivity extends AppCompatActivity {
     private void gateway() {
         // will check each login app because user maybe remove by ceo/manager
         // if connect has error, redirect to main page
-        mUserRepository.findUserBusinessId()
+        mCompanyRepository.findOurCompany()
             .subscribeOn(Schedulers.io())
             .doOnError(new SafetyError() {
                 @Override
@@ -100,9 +93,9 @@ public class SplashActivity extends AppCompatActivity {
                     mainPage();
                 }
             })
-            .doOnNext(new Consumer<BusinessIdResponse>() {
+            .doOnNext(new Consumer<CompanyResp>() {
                 @Override
-                public void accept(BusinessIdResponse response) throws Exception {
+                public void accept(CompanyResp response) throws Exception {
                     // save company & store response
                     Log.w(TAG, "company_id: " + response.getCompanyId()
                             + ", store_id: " + response.getStoreId());
@@ -112,9 +105,9 @@ public class SplashActivity extends AppCompatActivity {
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<BusinessIdResponse>() {
+            .subscribe(new Consumer<CompanyResp>() {
                 @Override
-                public void accept(BusinessIdResponse response) throws Exception {
+                public void accept(CompanyResp response) throws Exception {
                     if (response.getStatus().equals("OK")) {
                         mainPage();
                     } else {

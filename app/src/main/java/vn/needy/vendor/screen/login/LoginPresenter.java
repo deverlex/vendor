@@ -10,10 +10,8 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.model.User;
-import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.UserRepository;
@@ -22,8 +20,7 @@ import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
-import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
@@ -50,10 +47,6 @@ public class LoginPresenter implements LoginContract.Presenter {
         mUserRepository = new UserRepository(
                 new UserDataRemote(VendorServiceClient.getInstance()),
                 new UserDataLocal(SharedPrefsImpl.getInstance())
-        );
-        mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteData(VendorServiceClient.getInstance()),
-                new CompanyDataLocal()
         );
     }
 
@@ -150,11 +143,12 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void findCompany() {
-        mUserRepository = new UserRepository(
-                new UserDataRemote(VendorServiceClient.getInstance()),
-                new UserDataLocal(SharedPrefsImpl.getInstance())
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteData(VendorServiceClient.getInstance()),
+                new CompanyDataLocal()
         );
-        mUserRepository.findUserBusinessId()
+        // check company
+        mCompanyRepository.findOurCompany()
             .subscribeOn(Schedulers.io())
             .doAfterTerminate(new Action() {
                 @Override
@@ -166,22 +160,21 @@ public class LoginPresenter implements LoginContract.Presenter {
                 public void onSafetyError(BaseException error) {
 
                 }
-            }).doOnNext(new Consumer<BusinessIdResponse>() {
+            }).doOnNext(new Consumer<CompanyResp>() {
                 @Override
-                public void accept(BusinessIdResponse response) throws Exception {
+                public void accept(CompanyResp response) throws Exception {
                     // save company & store response
                     Log.w(TAG, "company_id: " + response.getCompanyId()
                             + ", store_id: " + response.getStoreId());
-
 
 //                    mUserRepository.saveCompanyId(response.getCompanyId());
 //                    mUserRepository.saveStoreId(response.getStoreId());
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<BusinessIdResponse>() {
+            .subscribe(new Consumer<CompanyResp>() {
                 @Override
-                public void accept(BusinessIdResponse response) throws Exception {
+                public void accept(CompanyResp response) throws Exception {
                     if (response.getStatus().equals("OK")) {
                         mViewModel.onToMainPage();
                     } else {

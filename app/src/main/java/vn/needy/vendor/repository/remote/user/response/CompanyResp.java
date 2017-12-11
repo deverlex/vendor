@@ -9,7 +9,7 @@ import vn.needy.vendor.port.message.BaseResponse;
  * Created by lion on 10/12/2017.
  */
 
-public class BusinessIdResponse extends BaseResponse {
+public class CompanyResp extends BaseResponse {
 
     @Expose
     @SerializedName("companyId")

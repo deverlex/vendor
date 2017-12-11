@@ -22,7 +22,7 @@ import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetPasswordRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.repository.remote.user.response.BusinessIdResponse;
+import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
 /**
@@ -50,8 +50,8 @@ public interface VendorApi {
     @PUT("v1/users/informations/details")
     Observable<BaseResponse> updateUserInformation(@Body UpdateUserInfoRequest request);
 
-    @GET("v1/users/companies")
-    Observable<BusinessIdResponse> findUserBusinessId();
+    @GET("v1/companies")
+    Observable<CompanyResp> findOurCompany();
 
     @GET("v1/companies/{company_id}/informations/details")
     Observable<CompanyInfoResponse> getCompanyInformation(@Path(value = "company_id") String companyId);

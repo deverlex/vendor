@@ -8,6 +8,7 @@ import vn.needy.vendor.repository.remote.BaseDataRemote;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 
 /**
  * Created by lion on 10/12/2017.
@@ -17,6 +18,11 @@ public class CompanyRemoteData extends BaseDataRemote<VendorApi> implements Comp
 
     public CompanyRemoteData(VendorApi api) {
         super(api);
+    }
+
+    @Override
+    public Observable<CompanyResp> findOurCompany() {
+        return mApi.findOurCompany();
     }
 
     @Override

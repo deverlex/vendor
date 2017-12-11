@@ -6,6 +6,7 @@ import vn.needy.vendor.model.Company;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 
 /**
  * Created by lion on 10/12/2017.
@@ -14,6 +15,8 @@ import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
 public interface CompanyData {
 
     interface Remote {
+        Observable<CompanyResp> findOurCompany();
+
         Observable<CompanyInfoResponse> getCompanyInformation(String companyId);
 
         Observable<CompanyInfoResponse> registerCompany(RegisterCompanyRequest request);
@@ -24,8 +27,8 @@ public interface CompanyData {
     }
 
     interface Local {
-        Observable<Void> saveCompany(Company company);
+        void saveCompanySync(Company company);
 
-        String getCompanyId();
+        String getCompanyIdSync();
     }
 }

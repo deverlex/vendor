@@ -24,8 +24,6 @@ public class LoginActivity extends BaseActivity {
     private Navigator mNavigator;
 
     private SharedPrefsApi mPrefsApi;
-    private VendorApi mVendorApi;
-    private RealmApi mRealmApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -34,15 +32,14 @@ public class LoginActivity extends BaseActivity {
         //Clear data
         mPrefsApi = SharedPrefsImpl.getInstance();
         mPrefsApi.clear();
-        mVendorApi = VendorServiceClient.initialize(getApplication());
+        VendorServiceClient.initialize(getApplication());
 
         mNavigator = new Navigator(this);
 
         DialogManager dialogManager = new DialogManager(this);
         mViewModel = new LoginViewModel(this, getApplication(), mNavigator, dialogManager);
 
-        LoginContract.Presenter presenter = new LoginPresenter(mViewModel, mNavigator,
-                mVendorApi, mPrefsApi);
+        LoginContract.Presenter presenter = new LoginPresenter(mViewModel, mNavigator);
 
         mViewModel.setPresenter(presenter);
 
