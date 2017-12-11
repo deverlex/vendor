@@ -1,7 +1,7 @@
 package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.repository.remote.attribute.response.AttributesResponse;
+import vn.needy.vendor.repository.remote.attribute.response.AttributesResp;
 
 /**
  * Created by lion on 10/12/2017.
@@ -10,14 +10,12 @@ import vn.needy.vendor.repository.remote.attribute.response.AttributesResponse;
 public class AttributeRepository {
 
     private AttributeData.Remote mRemote;
-    private AttributeData.Local mLocal;
 
-    public AttributeRepository(AttributeData.Remote remote, AttributeData.Local local) {
+    public AttributeRepository(AttributeData.Remote remote) {
         mRemote = remote;
-        mLocal = local;
     }
 
-    public Observable<AttributesResponse> getAttributeCategory(String category) {
+    public Observable<AttributesResp> getAttributeCategory(String category) {
         return mRemote.getAttributesCategory(category);
     }
 }

@@ -22,7 +22,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
-import vn.needy.vendor.repository.remote.product.request.AddProductPnRequest;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.addProduct.addAttribute.AddAttributeFragment;
@@ -142,7 +142,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     @Override
     public void onClickCreate() {
-        AddProductPnRequest request = new AddProductPnRequest();
+        AddProductPnReq request = new AddProductPnReq();
         mPresenter.uploadProduct(request, mImageAdapter.getImages());
     }
 

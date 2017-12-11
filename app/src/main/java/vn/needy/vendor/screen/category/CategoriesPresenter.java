@@ -61,11 +61,11 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(new Consumer<CategoriesResp>() {
                 @Override
-                public void accept(CategoriesResp categories) throws Exception {
-                    List<CategoryWrapper> wrappers = categories.getCategories();
-                    if (wrappers != null && wrappers.size() > 0) {
-                        mViewModel.onUpdateListCategory(wrappers);
-                    } else if (wrappers == null) {
+                public void accept(CategoriesResp resp) throws Exception {
+                    List<CategoryWrapper> categories = resp.getCategories();
+                    if (categories != null && categories.size() > 0) {
+                        mViewModel.onUpdateListCategory(categories);
+                    } else if (categories == null) {
                         mViewModel.backActivity();
                     }
                 }
@@ -84,11 +84,11 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(new Consumer<CategoriesResp>() {
                 @Override
-                public void accept(CategoriesResp categories) throws Exception {
-                    List<CategoryWrapper> wrappers = categories.getCategories();
-                    if (wrappers != null && wrappers.size() > 0) {
-                        mViewModel.onUpdateListCategory(wrappers);
-                    } else if (wrappers == null) {
+                public void accept(CategoriesResp resp) throws Exception {
+                    List<CategoryWrapper> categories = resp.getCategories();
+                    if (categories != null && categories.size() > 0) {
+                        mViewModel.onUpdateListCategory(categories);
+                    } else if (categories == null) {
                         mViewModel.backActivity();
                     }
                 }
@@ -107,11 +107,11 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(new Consumer<CategoriesResp>() {
                 @Override
-                public void accept(CategoriesResp categories) throws Exception {
-                    List<CategoryWrapper> wrappers = categories.getCategories();
-                    if (wrappers != null && wrappers.size() > 0) {
-                        mViewModel.onUpdateListCategory(wrappers);
-                    } else if (wrappers == null) {
+                public void accept(CategoriesResp resp) throws Exception {
+                    List<CategoryWrapper> categories = resp.getCategories();
+                    if (categories != null && categories.size() > 0) {
+                        mViewModel.onUpdateListCategory(categories);
+                    } else if (categories == null) {
                         mViewModel.backActivity();
                     }
                 }
@@ -135,11 +135,11 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(new Consumer<CategoriesResp>() {
                 @Override
-                public void accept(CategoriesResp categories) throws Exception {
-                    List<CategoryWrapper> wrappers = categories.getCategories();
-                    if (wrappers != null && wrappers.size() > 0) {
-                        mViewModel.onUpdateListCategory(wrappers);
-                    } else if (wrappers == null || wrappers.size() == 0) {
+                public void accept(CategoriesResp resp) throws Exception {
+                    List<CategoryWrapper> categories = resp.getCategories();
+                    if (categories != null && categories.size() > 0) {
+                        mViewModel.onUpdateListCategory(categories);
+                    } else if (categories == null || categories.size() == 0) {
                         mViewModel.backActivity();
                     }
                 }
@@ -158,11 +158,11 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(new Consumer<CategoriesResp>() {
                 @Override
-                public void accept(CategoriesResp categories) throws Exception {
-                    List<CategoryWrapper> wrappers = categories.getCategories();
-                    if (wrappers != null && wrappers.size() > 0) {
-                        mViewModel.onUpdateListCategory(wrappers);
-                    } else if (wrappers == null || wrappers.size() == 0) {
+                public void accept(CategoriesResp resp) throws Exception {
+                    List<CategoryWrapper> categories = resp.getCategories();
+                    if (categories != null && categories.size() > 0) {
+                        mViewModel.onUpdateListCategory(categories);
+                    } else if (categories == null || categories.size() == 0) {
                         mViewModel.backActivity();
                     }
                 }

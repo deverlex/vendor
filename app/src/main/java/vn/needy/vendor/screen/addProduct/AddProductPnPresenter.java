@@ -10,7 +10,7 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 import vn.needy.vendor.model.Image;
-import vn.needy.vendor.repository.remote.product.request.AddProductPnRequest;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 
 /**
  * Created by lion on 08/11/2017.
@@ -43,7 +43,7 @@ public class AddProductPnPresenter implements AddProductPnContract.Presenter {
     }
 
     @Override
-    public void uploadProduct(final AddProductPnRequest request, final List<Image> images) {
+    public void uploadProduct(final AddProductPnReq request, final List<Image> images) {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -63,7 +63,7 @@ public class AddProductPnPresenter implements AddProductPnContract.Presenter {
     }
 
     @Override
-    public boolean validateDataInput(AddProductPnRequest request) {
+    public boolean validateDataInput(AddProductPnReq request) {
         boolean isValidate = true;
         if (TextUtils.isEmpty(request.getName())) {
 

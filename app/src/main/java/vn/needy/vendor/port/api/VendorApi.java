@@ -11,7 +11,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import vn.needy.vendor.port.message.BaseResponse;
-import vn.needy.vendor.repository.remote.attribute.response.AttributesResponse;
+import vn.needy.vendor.repository.remote.attribute.response.AttributesResp;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
@@ -72,10 +72,8 @@ public interface VendorApi {
     Observable<CategoriesResp> getCompanyCategories(@Path("category") String category,
                                                     @Query("company_id") String companyId);
 
-    @GET("v1/attributes")
-    Observable<AttributesResponse> getAttributesCategory(@Query("category_name") String category);
-
-
+    @GET("v1/attributes/lists")
+    Observable<AttributesResp> getAttributesCategory(@Query("category_name") String category);
 
 
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")

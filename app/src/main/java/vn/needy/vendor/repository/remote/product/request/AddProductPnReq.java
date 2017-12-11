@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by lion on 10/11/2017.
  */
 
-public class AddProductPnRequest {
+public class AddProductPnReq {
 
     @Expose
     @SerializedName("category")

@@ -12,17 +12,17 @@ import vn.needy.vendor.model.wrapper.AttributeWrapper;
  * Created by lion on 06/12/2017.
  */
 
-public class AttributesResponse extends BaseResponse {
+public class AttributesResp extends BaseResponse {
 
     @Expose
     @SerializedName("attributes")
-    private List<AttributeWrapper> attrs;
+    private List<AttributeWrapper> mAttributes;
 
-    public List<AttributeWrapper> getAttrs() {
-        return attrs;
+    public List<AttributeWrapper> getAttributes() {
+        return mAttributes;
     }
 
-    public void setAttrs(List<AttributeWrapper> attrs) {
-        this.attrs = attrs;
+    public void setAttributes(List<AttributeWrapper> attrs) {
+        mAttributes = attrs;
     }
 }
