@@ -1,19 +1,15 @@
 package vn.needy.vendor.screen.companyProfile;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import io.realm.Realm;
 import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
@@ -35,15 +31,15 @@ import vn.needy.vendor.port.error.SafetyError;
  * Created by truongpq on 07/12/2017.
  */
 
-public class CompanyPresenter implements CompanyContract.Presenter {
+public class CompanyProfilePresenter implements CompanyProfileContract.Presenter {
 
-    private static final String TAG = CompanyPresenter.class.getName();
+    private static final String TAG = CompanyProfilePresenter.class.getName();
 
-    private CompanyContract.ViewModel mViewModel;
+    private CompanyProfileContract.ViewModel mViewModel;
 
     private CompanyRepository mCompanyRepository;
 
-    public CompanyPresenter(CompanyContract.ViewModel mViewModel, VendorApi vendorApi) {
+    public CompanyProfilePresenter(CompanyProfileContract.ViewModel mViewModel, VendorApi vendorApi) {
         this.mViewModel = mViewModel;
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(vendorApi),

@@ -11,7 +11,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by truongpq on 04/12/2017.
  */
 
-public class CompanyContract {
+public class CompanyProfileContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void setBanners(List<Banner> banners);
 

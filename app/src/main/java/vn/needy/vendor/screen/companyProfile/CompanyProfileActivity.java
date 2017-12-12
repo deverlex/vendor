@@ -16,9 +16,9 @@ import vn.needy.vendor.widget.WorkaroundMapFragment;
  * Created by truongpq on 04/12/2017.
  */
 
-public class CompanyActivity extends BaseActivity {
+public class CompanyProfileActivity extends BaseActivity {
 
-    private CompanyContract.ViewModel mViewModel;
+    private CompanyProfileContract.ViewModel mViewModel;
     private SharedPrefsApi mPrefsApi;
     private VendorApi mVendorApi;
 
@@ -44,13 +44,13 @@ public class CompanyActivity extends BaseActivity {
         });
 
 
-        mViewModel = new CompanyViewModel(this, mapFragment);
+        mViewModel = new CompanyProfileViewModel(this, mapFragment);
 
-        CompanyContract.Presenter presenter= new CompanyPresenter(mViewModel, mVendorApi);
+        CompanyProfileContract.Presenter presenter= new CompanyProfilePresenter(mViewModel, mVendorApi);
         mViewModel.setPresenter(presenter);
 
         mViewModel.onStart();
 
-        binding.setViewModel((CompanyViewModel) mViewModel);
+        binding.setViewModel((CompanyProfileViewModel) mViewModel);
     }
 }

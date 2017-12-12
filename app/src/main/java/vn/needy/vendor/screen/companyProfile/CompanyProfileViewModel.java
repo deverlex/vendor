@@ -33,8 +33,8 @@ import vn.needy.vendor.model.Company;
  * Created by truongpq on 04/12/2017.
  */
 
-public class CompanyViewModel extends BaseObservable implements CompanyContract.ViewModel{
-    private CompanyContract.Presenter mPresenter;
+public class CompanyProfileViewModel extends BaseObservable implements CompanyProfileContract.ViewModel{
+    private CompanyProfileContract.Presenter mPresenter;
 
     private Context mContext;
     private List<Banner> mBanners;
@@ -49,7 +49,7 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
 
     private MapFragment mMapFragment;
 
-    public CompanyViewModel(Context context, MapFragment mapFragment) {
+    public CompanyProfileViewModel(Context context, MapFragment mapFragment) {
         this.mContext = context;
         this.mMapFragment = mapFragment;
         mDrawableEdit = R.drawable.ic_edits_white;
@@ -86,7 +86,7 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
     }
 
     @Override
-    public void setPresenter(CompanyContract.Presenter presenter) {
+    public void setPresenter(CompanyProfileContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
