@@ -27,8 +27,11 @@ public interface CompanyData {
     }
 
     interface Local {
+
+        Observable<Company> getOurCompanyAsync();
+
         void saveCompanySync(Company company);
 
-        String getCompanyIdSync();
+        String getOurCompanyIdSync();
     }
 }

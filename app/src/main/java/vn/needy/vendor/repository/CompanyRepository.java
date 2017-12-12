@@ -42,11 +42,16 @@ public class CompanyRepository {
         return mRemote.updateCompanyInformation(companyId, infoRequest);
     }
 
+    /** LOCAL */
+    public Observable<Company> getOurCompanyAsync() {
+        return mLocal.getOurCompanyAsync();
+    }
+
     public void saveCompanySync(Company company) {
         mLocal.saveCompanySync(company);
     }
 
     public String getCompanyIdSync() {
-        return mLocal.getCompanyIdSync();
+        return mLocal.getOurCompanyIdSync();
     }
 }

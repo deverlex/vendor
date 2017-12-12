@@ -1,18 +1,23 @@
 package vn.needy.vendor.screen.companyProfile;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
+import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.port.message.BaseResponse;
@@ -31,6 +36,9 @@ import vn.needy.vendor.port.error.SafetyError;
  */
 
 public class CompanyPresenter implements CompanyContract.Presenter {
+
+    private static final String TAG = CompanyPresenter.class.getName();
+
     private CompanyContract.ViewModel mViewModel;
 
     private CompanyRepository mCompanyRepository;
@@ -65,52 +73,61 @@ public class CompanyPresenter implements CompanyContract.Presenter {
 
     @Override
     public void getCompanyInfo() {
-        String companyId = mCompanyRepository.getCompanyIdSync();
-        mCompanyRepository.getCompanyInformation(companyId)
-                .subscribeOn(Schedulers.io())
+        // Get data company from local
+        mCompanyRepository.getOurCompanyAsync()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CompanyInfoResp>() {
+                .subscribe(new Consumer<Company>() {
                     @Override
-                    public void accept(CompanyInfoResp resp) throws Exception {
-                        Company company = new Company(resp.getCompany());
-                        // save total staff
-                        company.setTotalStaff(resp.getTotalStaff());
+                    public void accept(Company company) throws Exception {
+                        // We need copy to other object when using model on viewModel update UI
+                        // Error: cannot modify managed objects outside of a write transaction realm android
+                        Company com = RealmApi.getSync().copyFromRealm(company);
+                        mViewModel.setCompanyInfo(com, com.getTotalStaff());
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
 
-                        // add list fee transport
-                        RealmList<FeeTransport> feeTransports = new RealmList<>();
-                        for (FeeTransportWrapper wrapper : resp.getFeeTransports()) {
-                            feeTransports.add(new FeeTransport(company.getId(), wrapper));
-                        }
-                        company.setFeeTransports(feeTransports);
-                        mViewModel.setCompanyInfo(company, company.getTotalStaff());
                     }
                 });
 
-//        mCompanyRepository.getCompanyInformation()
-//                .subscribeOn(Schedulers.io())
-//                .doOnError(new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//
-//                    }
-//                })
-//                .map(new Function<CompanyResponse, Company>() {
-//                    @Override
-//                    public Company apply(CompanyResponse companyResponse) throws Exception {
-//                        return companyResponse.getCompany();
-//                    }
-//                })
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<Company>() {
-//                    @Override
-//                    public void accept(Company company) throws Exception {
-//                    }
-//                }, new SafetyError() {
-//                    @Override
-//                    public void onSafetyError(BaseException error) {
-//
-//                    }
-//                });
+        String companyId = mCompanyRepository.getCompanyIdSync();
+        // get company from remote
+        mCompanyRepository.getCompanyInformation(companyId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .map(new Function<CompanyInfoResp, Company>() {
+                         @Override
+                         public Company apply(CompanyInfoResp resp) throws Exception {
+                             Company company = new Company(resp.getCompany());
+                             // save total staff
+                             company.setTotalStaff(resp.getTotalStaff());
+
+                             // add list fee transport
+                             RealmList<FeeTransport> feeTransports = new RealmList<>();
+                             for (FeeTransportWrapper wrapper : resp.getFeeTransports()) {
+                                 feeTransports.add(new FeeTransport(company.getId(), wrapper));
+                             }
+                             company.setFeeTransports(feeTransports);
+
+                             mCompanyRepository.saveCompanySync(company);
+                             return company;
+                         }
+                     }
+                )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Company>() {
+                    @Override
+                    public void accept(Company company) throws Exception {
+                        mViewModel.setCompanyInfo(company, company.getTotalStaff());
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        // need add notify error show on to screen
+
+                    }
+                });
     }
 
     @Override

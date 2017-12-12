@@ -120,7 +120,7 @@ public class Company extends RealmObject implements Parcelable {
     }
 
     public void setId(String mId) {
-        this.mId = mId;
+        mId = mId;
     }
 
     public String getCompanyNumber() {
@@ -128,7 +128,7 @@ public class Company extends RealmObject implements Parcelable {
     }
 
     public void setCompanyNumber(String mAuthId) {
-        this.mCompanyNumber = mAuthId;
+        mCompanyNumber = mAuthId;
     }
 
     public int getState() {
@@ -160,7 +160,7 @@ public class Company extends RealmObject implements Parcelable {
     }
 
     public void setFoundedDate(String mFoundedDate) {
-        this.mFoundedDate = mFoundedDate;
+        mFoundedDate = mFoundedDate;
     }
 
     public String getOpeningTime() {
@@ -168,7 +168,7 @@ public class Company extends RealmObject implements Parcelable {
     }
 
     public void setOpeningTime(String mOpeningTime) {
-        this.mOpeningTime = mOpeningTime;
+        mOpeningTime = mOpeningTime;
     }
 
     public String getClosingTime() {
@@ -176,7 +176,7 @@ public class Company extends RealmObject implements Parcelable {
     }
 
     public void setClosingTime(String mClosingTime) {
-        this.mClosingTime = mClosingTime;
+        mClosingTime = mClosingTime;
     }
 
     public String getDescription() {
