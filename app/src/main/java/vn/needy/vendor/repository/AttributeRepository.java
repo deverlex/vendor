@@ -1,7 +1,7 @@
 package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.repository.remote.attribute.response.AttributesResp;
+import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 
 /**
  * Created by lion on 10/12/2017.
@@ -15,7 +15,7 @@ public class AttributeRepository {
         mRemote = remote;
     }
 
-    public Observable<AttributesResp> getAttributeCategory(String category) {
+    public Observable<AttributeInfoResp> getAttributeCategory(String category) {
         return mRemote.getAttributesCategory(category);
     }
 }

@@ -7,6 +7,8 @@ import android.support.annotation.IntDef;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by lion on 04/12/2017.
  */
@@ -22,6 +24,9 @@ public class AttributeWrapper implements Parcelable {
     @Expose
     @SerializedName("dataType")
     private int mDataType;
+    @Expose
+    @SerializedName("values")
+    private List<Object> mValues;
     private Object mValue;
 
     @Override
@@ -66,6 +71,14 @@ public class AttributeWrapper implements Parcelable {
 
     public void setDataType(int dataType) {
         mDataType = dataType;
+    }
+
+    public List<Object> getValues() {
+        return mValues;
+    }
+
+    public void setValues(List<Object> values) {
+        mValues = values;
     }
 
     public static final Creator<AttributeWrapper> CREATOR = new Creator<AttributeWrapper>() {

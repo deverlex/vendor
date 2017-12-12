@@ -1,6 +1,7 @@
 package vn.needy.vendor.repository.remote.attribute;
 
 import io.reactivex.Observable;
+import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 import vn.needy.vendor.repository.remote.attribute.response.AttributesResp;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.AttributeData;
@@ -17,7 +18,7 @@ public class AttributeDataRemote extends BaseDataRemote<VendorApi> implements At
     }
 
     @Override
-    public Observable<AttributesResp> getAttributesCategory(String category) {
+    public Observable<AttributeInfoResp> getAttributesCategory(String category) {
         return mApi.getAttributesCategory(category);
     }
 }

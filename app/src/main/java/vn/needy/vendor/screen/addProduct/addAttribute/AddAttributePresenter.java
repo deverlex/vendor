@@ -12,6 +12,7 @@ import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.AttributeRepository;
 import vn.needy.vendor.repository.remote.attribute.AttributeDataRemote;
+import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 import vn.needy.vendor.repository.remote.attribute.response.AttributesResp;
 
 /**
@@ -50,9 +51,9 @@ public class AddAttributePresenter implements AddAttributeContract.Presenter {
                 .getAttributeCategory(category.getName())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<AttributesResp>() {
+                .subscribe(new Consumer<AttributeInfoResp>() {
                     @Override
-                    public void accept(AttributesResp resp) throws Exception {
+                    public void accept(AttributeInfoResp resp) throws Exception {
                         List<AttributeWrapper> attributes = resp.getAttributes();
                         if (attributes != null) {
                             mViewModel.onListAttributeLoaded(attributes);
