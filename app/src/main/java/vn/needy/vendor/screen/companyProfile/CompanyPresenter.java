@@ -3,22 +3,25 @@ package vn.needy.vendor.screen.companyProfile;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
+import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.port.message.BaseResponse;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
 import vn.needy.vendor.model.Company;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
@@ -66,10 +69,20 @@ public class CompanyPresenter implements CompanyContract.Presenter {
         mCompanyRepository.getCompanyInformation(companyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CompanyInfoResponse>() {
+                .subscribe(new Consumer<CompanyInfoResp>() {
                     @Override
-                    public void accept(CompanyInfoResponse companyResponse) throws Exception {
-                        mViewModel.setCompanyInfo(companyResponse.getCompany(), companyResponse.getTotalStaff());
+                    public void accept(CompanyInfoResp resp) throws Exception {
+                        Company company = new Company(resp.getCompany());
+                        // save total staff
+                        company.setTotalStaff(resp.getTotalStaff());
+
+                        // add list fee transport
+                        RealmList<FeeTransport> feeTransports = new RealmList<>();
+                        for (FeeTransportWrapper wrapper : resp.getFeeTransports()) {
+                            feeTransports.add(new FeeTransport(company.getId(), wrapper));
+                        }
+                        company.setFeeTransports(feeTransports);
+                        mViewModel.setCompanyInfo(company, company.getTotalStaff());
                     }
                 });
 

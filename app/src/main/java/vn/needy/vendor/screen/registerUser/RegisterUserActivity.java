@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import com.google.firebase.auth.FirebaseAuth;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityRegisterUserBinding;

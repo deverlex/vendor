@@ -12,14 +12,13 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
-import vn.needy.vendor.repository.remote.attribute.response.AttributesResp;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResp;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
@@ -55,14 +54,14 @@ public interface VendorApi {
     Observable<CompanyResp> findOurCompany();
 
     @GET("v1/companies/{company_id}/informations/details")
-    Observable<CompanyInfoResponse> getCompanyInformation(@Path(value = "company_id") String companyId);
+    Observable<CompanyInfoResp> getCompanyInformation(@Path(value = "company_id") String companyId);
 
     @PUT("v1/companies/{company_id}/informations/details")
     Observable<BaseResponse> updateCompanyInformation(@Path(value = "company_id") String companyId,
                                                       @Body UpdateCompanyInfoRequest infoRequest);
 
     @POST("v1/companies")
-    Observable<CompanyInfoResponse> registerCompany(@Body RegisterCompanyRequest request);
+    Observable<CompanyInfoResp> registerCompany(@Body RegisterCompanyRequest request);
 
     /**************************************************************************************/
 

@@ -6,61 +6,37 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import vn.needy.vendor.model.wrapper.CompanyWrapper;
 
 public class Company extends RealmObject implements Parcelable {
 
+    /** Core */
     @PrimaryKey
-    @SerializedName("id")
-    @Expose
     private String mId;
-    @SerializedName("companyNumber")
-    @Expose
     private String mCompanyNumber;
-    @SerializedName("state")
-    @Expose
     private int mState;
-    @SerializedName("name")
-    @Expose
     private String mName;
-    @SerializedName("address")
-    @Expose
     private String mAddress;
-    @SerializedName("foundedDate")
-    @Expose
     private String mFoundedDate;
-    @SerializedName("openingTime")
-    @Expose
     private String mOpeningTime;
-    @SerializedName("closingTime")
-    @Expose
     private String mClosingTime;
-    @SerializedName("description")
-    @Expose
     private String mDescription;
-    @SerializedName("siteUrl")
-    @Expose
     private String mSiteUrl;
-    @SerializedName("createdTime")
-    @Expose
     private String mCreatedTime;
-    @SerializedName("lastUpdatedTime")
-    @Expose
     private String mLastUpdatedTime;
-    @SerializedName("reputation")
-    @Expose
     private boolean mIsReputation;
-    @SerializedName("email")
-    @Expose
     private String mEmail;
-    @SerializedName("lat")
-    @Expose
     private float mLat;
-    @SerializedName("lng")
-    @Expose
     private float mLng;
+
+    /** Extends */
+    private int mTotalStaff;
+
+    /** Relations */
+    private RealmList<FeeTransport> mFeeTransports;
 
     public Company() {
         super();
@@ -68,6 +44,7 @@ public class Company extends RealmObject implements Parcelable {
 
     public Company(CompanyWrapper wrapper) {
         mId = wrapper.getId();
+        mName = wrapper.getName();
         mCompanyNumber = wrapper.getCompanyNumber();
         mState = wrapper.getState();
         mAddress = wrapper.getAddress();
@@ -264,5 +241,21 @@ public class Company extends RealmObject implements Parcelable {
 
     public void setLng(float lng) {
         this.mLng = lng;
+    }
+
+    public int getTotalStaff() {
+        return mTotalStaff;
+    }
+
+    public void setTotalStaff(int totalStaff) {
+        mTotalStaff = totalStaff;
+    }
+
+    public RealmList<FeeTransport> getFeeTransports() {
+        return mFeeTransports;
+    }
+
+    public void setFeeTransports(RealmList<FeeTransport> feeTransports) {
+        mFeeTransports = feeTransports;
     }
 }

@@ -5,7 +5,7 @@ import vn.needy.vendor.model.Company;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.port.message.BaseResponse;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
 import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 
 /**
@@ -26,11 +26,11 @@ public class CompanyRepository {
         return mRemote.findOurCompany();
     }
 
-    public Observable<CompanyInfoResponse> getCompanyInformation(String companyId) {
+    public Observable<CompanyInfoResp> getCompanyInformation(String companyId) {
         return mRemote.getCompanyInformation(companyId);
     }
 
-    public Observable<CompanyInfoResponse> registerCompany(RegisterCompanyRequest request) {
+    public Observable<CompanyInfoResp> registerCompany(RegisterCompanyRequest request) {
         return mRemote.registerCompany(request);
     }
 

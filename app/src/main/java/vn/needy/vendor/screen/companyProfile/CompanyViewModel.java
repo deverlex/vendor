@@ -113,9 +113,9 @@ public class CompanyViewModel extends BaseObservable implements CompanyContract.
     }
 
     @Override
-    public void setCompanyInfo(Company company, int staffCount) {
+    public void setCompanyInfo(Company company, int totalStaff) {
         mCompany = company;
-        mStaffCount = staffCount;
+        mStaffCount = totalStaff;
         notifyPropertyChanged(BR.company);
         notifyPropertyChanged(BR.staffCount);
 

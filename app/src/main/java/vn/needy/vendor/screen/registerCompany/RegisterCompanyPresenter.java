@@ -7,7 +7,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.port.error.BaseException;
@@ -15,8 +14,7 @@ import vn.needy.vendor.port.error.SafetyError;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
 
 /**
  * Created by lion on 07/10/2017.
@@ -58,9 +56,9 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<CompanyInfoResponse>() {
+            .subscribe(new Consumer<CompanyInfoResp>() {
                 @Override
-                public void accept(CompanyInfoResponse companyResponse) throws Exception {
+                public void accept(CompanyInfoResp companyResponse) throws Exception {
                     if (companyResponse.getCompany() != null) {
                         mViewModel.onRegisterSuccess();
                         mViewModel.onHideProgressBar();

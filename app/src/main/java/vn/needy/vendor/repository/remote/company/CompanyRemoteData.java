@@ -7,7 +7,7 @@ import vn.needy.vendor.repository.CompanyData;
 import vn.needy.vendor.repository.remote.BaseDataRemote;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
 import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 
 /**
@@ -26,12 +26,12 @@ public class CompanyRemoteData extends BaseDataRemote<VendorApi> implements Comp
     }
 
     @Override
-    public Observable<CompanyInfoResponse> getCompanyInformation(String companyId) {
+    public Observable<CompanyInfoResp> getCompanyInformation(String companyId) {
         return mApi.getCompanyInformation(companyId);
     }
 
     @Override
-    public Observable<CompanyInfoResponse> registerCompany(RegisterCompanyRequest request) {
+    public Observable<CompanyInfoResp> registerCompany(RegisterCompanyRequest request) {
         return mApi.registerCompany(request);
     }
 

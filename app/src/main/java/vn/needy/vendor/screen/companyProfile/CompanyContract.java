@@ -17,7 +17,7 @@ public class CompanyContract {
 
         void onClickEdit();
 
-        void setCompanyInfo(Company company, int stafCount);
+        void setCompanyInfo(Company company, int totalStaff);
 
         void onInputNameError(String errorMsg);
 
