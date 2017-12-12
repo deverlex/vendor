@@ -3,6 +3,8 @@ package vn.needy.vendor.repository.remote.company.request;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import vn.needy.vendor.model.Company;
+
 /**
  * Created by truongpq on 08/12/2017.
  */
@@ -10,116 +12,128 @@ import com.google.gson.annotations.SerializedName;
 public class UpdateCompanyInfoRequest {
     @Expose
     @SerializedName("name")
-    private String name;
+    private String mName;
     @Expose
     @SerializedName("address")
-    private String address;
+    private String mAddress;
     @Expose
     @SerializedName("description")
-    private String description;
+    private String mDescription;
     @Expose
     @SerializedName("siteURL")
-    private String siteURL;
+    private String mSiteURL;
     @Expose
     @SerializedName("email")
-    private String email;
+    private String mEmail;
     @Expose
     @SerializedName("foundedDate")
-    private String foundedDate;
+    private String mFoundedDate;
     @Expose
     @SerializedName("openingTime")
-    private String openingTime;
+    private String mOpeningTime;
     @Expose
     @SerializedName("closingTime")
-    private String closingTime;
+    private String mClosingTime;
     @Expose
     @SerializedName("lat")
-    private float lat;
+    private float mLat;
     @Expose
     @SerializedName("lng")
-    private float lng;
+    private float mLng;
 
     public UpdateCompanyInfoRequest() {
         super();
     }
 
+    public UpdateCompanyInfoRequest(Company company) {
+        mName = company.getName();
+        mAddress = company.getAddress();
+        mDescription = company.getDescription();
+        mSiteURL = company.getSiteUrl();
+        mFoundedDate = company.getFoundedDate();
+        mOpeningTime = company.getOpeningTime();
+        mClosingTime = company.getClosingTime();
+        mLat = company.getLat();
+        mLng = company.getLng();
+    }
+
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        mName = name;
     }
 
     public String getAddress() {
-        return address;
+        return mAddress;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        mAddress = address;
     }
 
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        mDescription = description;
     }
 
     public String getSiteURL() {
-        return siteURL;
+        return mSiteURL;
     }
 
     public void setSiteURL(String siteURL) {
-        this.siteURL = siteURL;
+        mSiteURL = siteURL;
     }
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        mEmail = email;
     }
 
     public String getFoundedDate() {
-        return foundedDate;
+        return mFoundedDate;
     }
 
     public void setFoundedDate(String foundedDate) {
-        this.foundedDate = foundedDate;
+        mFoundedDate = foundedDate;
     }
 
     public String getOpeningTime() {
-        return openingTime;
+        return mOpeningTime;
     }
 
     public void setOpeningTime(String openingTime) {
-        this.openingTime = openingTime;
+        mOpeningTime = openingTime;
     }
 
     public String getClosingTime() {
-        return closingTime;
+        return mClosingTime;
     }
 
     public void setClosingTime(String closingTime) {
-        this.closingTime = closingTime;
+        mClosingTime = closingTime;
     }
 
     public float getLat() {
-        return lat;
+        return mLat;
     }
 
     public void setLat(float lat) {
-        this.lat = lat;
+        mLat = lat;
     }
 
     public float getLng() {
-        return lng;
+        return mLng;
     }
 
     public void setLng(float lng) {
-        this.lng = lng;
+        mLng = lng;
     }
 }

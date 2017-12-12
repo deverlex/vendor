@@ -70,6 +70,12 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
     @Override
     public void getCompanyInfo() {
         // Get data company from local
+        getCompanyInfoFromLocal();
+        // get company from remote
+        getCompanyInfoFromRemote();
+    }
+
+    private void getCompanyInfoFromLocal() {
         mCompanyRepository.getOurCompanyAsync()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Company>() {
@@ -86,9 +92,10 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
 
                     }
                 });
+    }
 
+    private void getCompanyInfoFromRemote() {
         String companyId = mCompanyRepository.getCompanyIdSync();
-        // get company from remote
         mCompanyRepository.getCompanyInformation(companyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
@@ -143,18 +150,7 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
 
     @Override
     public void updateCompanyInfo(Company company) {
-        UpdateCompanyInfoRequest request = new UpdateCompanyInfoRequest();
-        request.setName(company.getName());
-        request.setAddress(company.getAddress());
-        request.setDescription(company.getDescription());
-        request.setSiteURL(company.getSiteUrl());
-        request.setEmail(company.getEmail());
-        request.setFoundedDate(company.getFoundedDate());
-        request.setOpeningTime(company.getOpeningTime());
-        request.setClosingTime(company.getClosingTime());
-        request.setLat(company.getLat());
-        request.setLng(company.getLng());
-
+        UpdateCompanyInfoRequest request = new UpdateCompanyInfoRequest(company);
         mCompanyRepository.updateCompanyInformation(company.getId(), request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -175,6 +171,5 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
 
                     }
                 });
-
     }
 }
