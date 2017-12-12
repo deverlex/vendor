@@ -21,7 +21,7 @@ import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
-import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
+import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoReq;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
 import vn.needy.vendor.model.Company;
 import vn.needy.vendor.port.error.BaseException;
@@ -150,7 +150,7 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
 
     @Override
     public void updateCompanyInfo(Company company) {
-        UpdateCompanyInfoRequest request = new UpdateCompanyInfoRequest(company);
+        UpdateCompanyInfoReq request = new UpdateCompanyInfoReq(company);
         mCompanyRepository.updateCompanyInformation(company.getId(), request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {

@@ -17,7 +17,7 @@ import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResp;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
-import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
+import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoReq;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
@@ -58,7 +58,7 @@ public interface VendorApi {
 
     @PUT("v1/companies/{company_id}/informations/details")
     Observable<BaseResponse> updateCompanyInformation(@Path(value = "company_id") String companyId,
-                                                      @Body UpdateCompanyInfoRequest infoRequest);
+                                                      @Body UpdateCompanyInfoReq infoRequest);
 
     @POST("v1/companies")
     Observable<CompanyInfoResp> registerCompany(@Body RegisterCompanyRequest request);

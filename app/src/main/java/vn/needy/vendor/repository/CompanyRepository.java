@@ -2,7 +2,7 @@ package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.model.Company;
-import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
+import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoReq;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
@@ -38,7 +38,7 @@ public class CompanyRepository {
         return mRemote.updateStaffFcmToken(companyId, fcmToken);
     }
 
-    public Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest) {
+    public Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoReq infoRequest) {
         return mRemote.updateCompanyInformation(companyId, infoRequest);
     }
 

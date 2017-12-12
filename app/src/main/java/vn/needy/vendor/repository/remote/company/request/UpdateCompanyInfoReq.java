@@ -9,7 +9,7 @@ import vn.needy.vendor.model.Company;
  * Created by truongpq on 08/12/2017.
  */
 
-public class UpdateCompanyInfoRequest {
+public class UpdateCompanyInfoReq {
     @Expose
     @SerializedName("name")
     private String mName;
@@ -41,11 +41,11 @@ public class UpdateCompanyInfoRequest {
     @SerializedName("lng")
     private float mLng;
 
-    public UpdateCompanyInfoRequest() {
+    public UpdateCompanyInfoReq() {
         super();
     }
 
-    public UpdateCompanyInfoRequest(Company company) {
+    public UpdateCompanyInfoReq(Company company) {
         mName = company.getName();
         mAddress = company.getAddress();
         mDescription = company.getDescription();
