@@ -4,6 +4,8 @@ import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.model.Company;
+import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -34,6 +36,10 @@ public class CompanyProfileContract {
         void onClickClosingTime();
 
         void onClickDescription();
+
+        void onUpdateFeeTransport(List<FeeTransport> feeTransports);
+
+        void addFeeTransport();
     }
 
     interface Presenter extends BasePresenter {

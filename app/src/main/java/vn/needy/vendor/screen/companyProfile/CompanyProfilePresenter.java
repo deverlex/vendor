@@ -3,7 +3,9 @@ package vn.needy.vendor.screen.companyProfile;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -123,6 +125,7 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
                     @Override
                     public void accept(Company company) throws Exception {
                         mViewModel.setCompanyInfo(company, company.getTotalStaff());
+                        mViewModel.onUpdateFeeTransport(new LinkedList<>(company.getFeeTransports()));
                     }
                 }, new SafetyError() {
                     @Override

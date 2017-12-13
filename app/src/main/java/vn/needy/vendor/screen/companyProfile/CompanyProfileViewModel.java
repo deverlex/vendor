@@ -7,6 +7,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.location.Location;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
@@ -28,12 +29,16 @@ import java.util.Locale;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.R;
 import vn.needy.vendor.model.Company;
+import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
+import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
  * Created by truongpq on 04/12/2017.
  */
 
-public class CompanyProfileViewModel extends BaseObservable implements CompanyProfileContract.ViewModel{
+public class CompanyProfileViewModel extends BaseObservable implements CompanyProfileContract.ViewModel,
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>{
     private CompanyProfileContract.Presenter mPresenter;
 
     private Context mContext;
@@ -46,14 +51,17 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     private String mAddressError;
     private boolean mVisibleDescription;
     private int mDrawableExpandDescription;
+    private FeeTransportAdapter mFeeTransportAdapter;
 
     private MapFragment mMapFragment;
 
-    public CompanyProfileViewModel(Context context, MapFragment mapFragment) {
+    public CompanyProfileViewModel(Context context, MapFragment mapFragment, FeeTransportAdapter feeTransportAdapter) {
         this.mContext = context;
         this.mMapFragment = mapFragment;
         mDrawableEdit = R.drawable.ic_edits_white;
         mDrawableExpandDescription = R.drawable.ic_next_right;
+        mFeeTransportAdapter = feeTransportAdapter;
+        mFeeTransportAdapter.setItemClickListener(this);
     }
 
     @Override
@@ -101,6 +109,7 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
         if (mEnable) {
            boolean isValidate = mPresenter.validateDataInput(mCompany.getName(), mCompany.getAddress());
            if (!isValidate) return;
+
 
            mPresenter.updateCompanyInfo(mCompany);
         }
@@ -161,11 +170,13 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
                         addOnSuccessListener((Activity) mContext, new OnSuccessListener<Location>() {
                             @Override
                             public void onSuccess(Location location) {
-                                LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                                googleMap.addMarker(new MarkerOptions().position(currentPosition));
-                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
-                                mCompany.setLat((float) location.getLatitude());
-                                mCompany.setLng((float) location.getLongitude());
+                                if (location != null) {
+                                    LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
+                                    googleMap.addMarker(new MarkerOptions().position(currentPosition));
+                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
+                                    mCompany.setLat((float) location.getLatitude());
+                                    mCompany.setLng((float) location.getLongitude());
+                                }
                             }
                         });
             }
@@ -226,6 +237,16 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
         notifyPropertyChanged(BR.drawableExpandDescription);
     }
 
+    @Override
+    public void onUpdateFeeTransport(List<FeeTransport> feeTransports) {
+        mFeeTransportAdapter.updateData(feeTransports);
+    }
+
+    @Override
+    public void addFeeTransport() {
+        mFeeTransportAdapter.addItem();
+    }
+
     @Bindable
     public List<Banner> getBanners() {
         return mBanners;
@@ -269,5 +290,14 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     @Bindable
     public int getStaffCount() {
         return mStaffCount;
+    }
+
+    public FeeTransportAdapter getFeeTransportAdapter() {
+        return mFeeTransportAdapter;
+    }
+
+    @Override
+    public void onItemRecyclerViewClick(Object item) {
+        mFeeTransportAdapter.removeItem((FeeTransport) item);
     }
 }
