@@ -8,6 +8,7 @@ import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
 import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
@@ -56,6 +57,10 @@ public class UserRepository {
 
     public Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request) {
         return mRemote.updateUserInformation(request);
+    }
+
+    public Observable<BusinessInfoResp> getBusinessInformation() {
+        return mRemote.getBusinessInformation();
     }
 
     public void saveUserSync(User user) {

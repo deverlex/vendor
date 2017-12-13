@@ -12,15 +12,20 @@ import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.model.Company;
+import vn.needy.vendor.model.Store;
 import vn.needy.vendor.model.User;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.repository.StoreRepository;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.local.StoreDataLocal;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
+import vn.needy.vendor.repository.remote.store.StoreDataRemote;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
@@ -40,7 +45,9 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private Navigator mNavigator;
     private UserRepository mUserRepository;
+
     private CompanyRepository mCompanyRepository;
+    private StoreRepository mStoreRepository;
 
     LoginPresenter(LoginContract.ViewModel viewModel, Navigator navigator) {
         mViewModel = viewModel;
@@ -144,50 +151,110 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void findCompany() {
+        updateRepositoryAfterResetApi();
+        // check company & store info
+        mUserRepository.getBusinessInformation()
+                .subscribeOn(Schedulers.io())
+                .doAfterTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
+                .doOnError(new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onLoginError(error.getMessage());
+                    }
+                })
+                .observeOn(Schedulers.computation())
+                .map(new Function<BusinessInfoResp, BusinessInfoResp>() {
+                    @Override
+                    public BusinessInfoResp apply(BusinessInfoResp resp) throws Exception {
+                        // save company & store response
+                        if (resp.getStatus().equals("OK")) {
+                            mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
+                            // save store into realm
+                            mStoreRepository.saveStoreSync(new Store(resp.getStore()));
+                        }
+                        return resp;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BusinessInfoResp>() {
+                    @Override
+                    public void accept(BusinessInfoResp resp) throws Exception {
+                        if (resp.getStatus().equals("OK")) {
+                            mViewModel.onToMainPage();
+                        } else {
+                            mNavigator.showToastBottom(resp.getMessage());
+                            mViewModel.onToRegisterCompany();
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mNavigator.showToastCenterText(error.getMessage());
+                        mViewModel.onLoginError(error.getMessage());
+                    }
+                });
+
+        // check company
+//        mCompanyRepository.findOurCompany()
+//            .subscribeOn(Schedulers.io())
+//            .doAfterTerminate(new Action() {
+//                @Override
+//                public void run() throws Exception {
+//                    mViewModel.onHideProgressBar();
+//                }
+//            }).doOnError(new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mViewModel.onLoginError(error.getMessage());
+//                }
+//            }).observeOn(Schedulers.computation())
+//            .map(new Function<CompanyResp, CompanyResp>() {
+//                @Override
+//                public CompanyResp apply(CompanyResp resp) throws Exception {
+//                    // save company & store response
+//                    if (resp.getCompany() != null) {
+//                        mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
+//                    }
+//                    return resp;
+//                }
+//            })
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(new Consumer<CompanyResp>() {
+//                @Override
+//                public void accept(CompanyResp response) throws Exception {
+//                    if (response.getStatus().equals("OK")) {
+//                        mViewModel.onToMainPage();
+//                    } else {
+//                        mNavigator.showToastBottom(response.getMessage());
+//                        mViewModel.onToRegisterCompany();
+//                    }
+//                }
+//            }, new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mViewModel.onLoginError(error.getMessage());
+//                }
+//            });
+    }
+
+    private void updateRepositoryAfterResetApi() {
+        // update API
+        mUserRepository = new UserRepository(
+                new UserDataRemote(VendorServiceClient.getInstance()),
+                new UserDataLocal(SharedPrefsImpl.getInstance())
+        );
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(VendorServiceClient.getInstance()),
                 new CompanyDataLocal()
         );
-        // check company
-        mCompanyRepository.findOurCompany()
-            .subscribeOn(Schedulers.io())
-            .doAfterTerminate(new Action() {
-                @Override
-                public void run() throws Exception {
-                    mViewModel.onHideProgressBar();
-                }
-            }).doOnError(new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onLoginError(error.getMessage());
-                }
-            }).observeOn(Schedulers.computation())
-            .map(new Function<CompanyResp, CompanyResp>() {
-                @Override
-                public CompanyResp apply(CompanyResp resp) throws Exception {
-                    // save company & store response
-                    if (resp.getCompany() != null) {
-                        mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
-                    }
-                    return resp;
-                }
-            })
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<CompanyResp>() {
-                @Override
-                public void accept(CompanyResp response) throws Exception {
-                    if (response.getStatus().equals("OK")) {
-                        mViewModel.onToMainPage();
-                    } else {
-                        mNavigator.showToastBottom(response.getMessage());
-                        mViewModel.onToRegisterCompany();
-                    }
-                }
-            }, new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onLoginError(error.getMessage());
-                }
-            });
+        mStoreRepository = new StoreRepository(
+                new StoreDataRemote(VendorServiceClient.getInstance()),
+                new StoreDataLocal()
+        );
     }
 }

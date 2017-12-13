@@ -13,6 +13,7 @@ import retrofit2.http.Query;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResp;
@@ -50,6 +51,9 @@ public interface VendorApi {
     @PUT("v1/users/informations/details")
     Observable<BaseResponse> updateUserInformation(@Body UpdateUserInfoRequest request);
 
+    @GET("v1/users/businesses/informations")
+    Observable<BusinessInfoResp> getBusinessInformation();
+
     @GET("v1/companies/users")
     Observable<CompanyResp> findOurCompany();
 
@@ -63,8 +67,6 @@ public interface VendorApi {
     @POST("v1/companies")
     Observable<CompanyInfoResp> registerCompany(@Body RegisterCompanyRequest request);
 
-    /**************************************************************************************/
-
     @GET("v1/categories/{category}/childs")
     Observable<CategoriesResp> getCategories(@Path("category") String category);
 
@@ -75,6 +77,7 @@ public interface VendorApi {
     @GET("v1/attributes/lists")
     Observable<AttributeInfoResp> getAttributesCategory(@Query("category_name") String category);
 
+    /**************************************************************************************/
 
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,

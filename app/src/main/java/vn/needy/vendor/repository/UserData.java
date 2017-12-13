@@ -5,6 +5,7 @@ import retrofit2.Response;
 import vn.needy.vendor.model.User;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
@@ -34,6 +35,8 @@ public interface UserData {
         Observable<UserInfoResponse> getUserInformation();
 
         Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request);
+
+        Observable<BusinessInfoResp> getBusinessInformation();
     }
 
     interface Local {

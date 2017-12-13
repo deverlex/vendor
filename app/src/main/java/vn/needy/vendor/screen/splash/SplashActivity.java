@@ -13,14 +13,20 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.model.Company;
+import vn.needy.vendor.model.Store;
 import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.repository.StoreRepository;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.local.StoreDataLocal;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
+import vn.needy.vendor.repository.remote.store.StoreDataRemote;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
@@ -41,7 +47,9 @@ public class SplashActivity extends AppCompatActivity {
     private Runnable mRunnable;
     private Intent mIntent;
 
+    private UserRepository mUserRepository;
     private CompanyRepository mCompanyRepository;
+    private StoreRepository mStoreRepository;
     private Navigator mNavigator;
 
     private SharedPrefsApi mPrefsApi;
@@ -57,11 +65,18 @@ public class SplashActivity extends AppCompatActivity {
         mPrefsApi = SharedPrefsImpl.getInstance();
         mVendorApi = VendorServiceClient.getInstance();
 
+        mUserRepository = new UserRepository(
+                new UserDataRemote(mVendorApi),
+                new UserDataLocal(mPrefsApi)
+        );
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(mVendorApi),
                 new CompanyDataLocal()
         );
-
+        mStoreRepository = new StoreRepository(
+                new StoreDataRemote(mVendorApi),
+                new StoreDataLocal()
+        );
         final String token = getToken(mPrefsApi);
 
         mNavigator = new Navigator(this);
@@ -70,9 +85,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                if (TextUtils.isEmpty(token)) {
-//                    loginPage();
+                    loginPage();
 //                } else {
-                    gateway();
+//                    gateway();
 //                }
 //                new Navigator(SplashActivity.this).startActivity(mIntent);
             }
@@ -86,44 +101,86 @@ public class SplashActivity extends AppCompatActivity {
     private void gateway() {
         // will check each login app because user maybe remove by ceo/manager
         // if connect has error, redirect to main page
-        mCompanyRepository.findOurCompany()
-            .subscribeOn(Schedulers.io())
-            .doOnError(new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mNavigator.showToastCenterText(error.getMessage());
-                    mainPage();
-                }
-            })
-            .observeOn(Schedulers.computation())
-            .map(new Function<CompanyResp, CompanyResp>() {
-                @Override
-                public CompanyResp apply(CompanyResp resp) throws Exception {
-                    // save company & store response
-                    if (resp.getCompany() != null) {
-                        mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
-                    }
-                    return resp;
-                }
-            })
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<CompanyResp>() {
-                @Override
-                public void accept(CompanyResp response) throws Exception {
-                    if (response.getStatus().equals("OK")) {
+        mUserRepository.getBusinessInformation()
+                .subscribeOn(Schedulers.io())
+                .doOnError(new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mNavigator.showToastCenterText(error.getMessage());
                         mainPage();
-                    } else {
-                        mNavigator.showToastBottom(response.getMessage());
-                        registerCompany();
                     }
-                }
-            }, new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mNavigator.showToastCenterText(error.getMessage());
-                    mainPage();
-                }
-            });
+                })
+                .observeOn(Schedulers.computation())
+                .map(new Function<BusinessInfoResp, BusinessInfoResp>() {
+                    @Override
+                    public BusinessInfoResp apply(BusinessInfoResp resp) throws Exception {
+                        // save company & store response
+                        if (resp.getStatus().equals("OK")) {
+                            mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
+                            // save store into realm
+                            mStoreRepository.saveStoreSync(new Store(resp.getStore()));
+                        }
+                        return resp;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BusinessInfoResp>() {
+                    @Override
+                    public void accept(BusinessInfoResp resp) throws Exception {
+                        if (resp.getStatus().equals("OK")) {
+                            mainPage();
+                        } else {
+                            mNavigator.showToastBottom(resp.getMessage());
+                            registerCompany();
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mNavigator.showToastCenterText(error.getMessage());
+                        mainPage();
+                    }
+                });
+
+
+//        mCompanyRepository.findOurCompany()
+//            .subscribeOn(Schedulers.io())
+//            .doOnError(new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mNavigator.showToastCenterText(error.getMessage());
+//                    mainPage();
+//                }
+//            })
+//            .observeOn(Schedulers.computation())
+//            .map(new Function<CompanyResp, CompanyResp>() {
+//                @Override
+//                public CompanyResp apply(CompanyResp resp) throws Exception {
+//                    // save company & store response
+//                    if (resp.getCompany() != null) {
+//                        mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
+//                    }
+//                    return resp;
+//                }
+//            })
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(new Consumer<CompanyResp>() {
+//                @Override
+//                public void accept(CompanyResp response) throws Exception {
+//                    if (response.getStatus().equals("OK")) {
+//                        mainPage();
+//                    } else {
+//                        mNavigator.showToastBottom(response.getMessage());
+//                        registerCompany();
+//                    }
+//                }
+//            }, new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mNavigator.showToastCenterText(error.getMessage());
+//                    mainPage();
+//                }
+//            });
     }
 
     public void loginPage() {

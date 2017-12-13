@@ -4,6 +4,7 @@ import io.reactivex.Observable;
 import retrofit2.Response;
 import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.UserData;
@@ -62,5 +63,10 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     @Override
     public Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request) {
         return mApi.updateUserInformation(request);
+    }
+
+    @Override
+    public Observable<BusinessInfoResp> getBusinessInformation() {
+        return mApi.getBusinessInformation();
     }
 }
