@@ -2,7 +2,7 @@ package vn.needy.vendor.repository.remote.user;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
@@ -26,12 +26,12 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<BaseResponse<LoginResp>> login(LoginReq request) {
+    public Observable<ResponseWrapper<LoginResp>> login(LoginReq request) {
         return mApi.login(request);
     }
 
     @Override
-    public Observable<BaseResponse<TokenResponse>> refresh() {
+    public Observable<ResponseWrapper<TokenResponse>> refresh() {
         return null;
     }
 
@@ -41,32 +41,32 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<BaseResponse<TokenResponse>> registerUser(RegisterUserReq request) {
+    public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserReq request) {
         return mApi.registerUser(request);
     }
 
     @Override
-    public Observable<BaseResponse> findUserExist(String phoneNumber) {
+    public Observable<ResponseWrapper> findUserExist(String phoneNumber) {
         return mApi.findUserExist(phoneNumber);
     }
 
     @Override
-    public Observable<BaseResponse<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request) {
+    public Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request) {
         return mApi.resetPassword(phoneNumber, request);
     }
 
     @Override
-    public Observable<BaseResponse<UserInfoResponse>> getUserInformation() {
+    public Observable<ResponseWrapper<UserInfoResponse>> getUserInformation() {
         return mApi.getUserInformation();
     }
 
     @Override
-    public Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request) {
+    public Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request) {
         return mApi.updateUserInformation(request);
     }
 
     @Override
-    public Observable<BaseResponse<BusinessInfoResp>> getBusinessInformation() {
+    public Observable<ResponseWrapper<BusinessInfoResp>> getBusinessInformation() {
         return mApi.getBusinessInformation();
     }
 }

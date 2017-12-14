@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -15,7 +14,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.model.Company;
 import vn.needy.vendor.model.Store;
 import vn.needy.vendor.port.api.VendorApi;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.port.message.BaseStatus;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
@@ -28,7 +27,6 @@ import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.store.StoreDataRemote;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
-import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
@@ -112,9 +110,9 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 })
                 .observeOn(Schedulers.computation())
-                .map(new Function<BaseResponse<BusinessInfoResp>, BaseResponse<BusinessInfoResp>>() {
+                .map(new Function<ResponseWrapper<BusinessInfoResp>, ResponseWrapper<BusinessInfoResp>>() {
                     @Override
-                    public BaseResponse<BusinessInfoResp> apply(BaseResponse<BusinessInfoResp> resp) throws Exception {
+                    public ResponseWrapper<BusinessInfoResp> apply(ResponseWrapper<BusinessInfoResp> resp) throws Exception {
                         // save company & store response
                         if (resp.getStatus().equals(BaseStatus.OK)) {
                             BusinessInfoResp data = resp.getData();
@@ -126,9 +124,9 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseResponse<BusinessInfoResp>>() {
+                .subscribe(new Consumer<ResponseWrapper<BusinessInfoResp>>() {
                     @Override
-                    public void accept(BaseResponse<BusinessInfoResp> resp) throws Exception {
+                    public void accept(ResponseWrapper<BusinessInfoResp> resp) throws Exception {
                         if (resp.getStatus().equals(BaseStatus.OK)) {
                             mainPage();
                         } else {

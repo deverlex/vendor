@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 
 /**

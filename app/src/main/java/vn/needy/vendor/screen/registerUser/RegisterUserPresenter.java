@@ -25,10 +25,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.port.api.VendorApi;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
@@ -158,9 +157,9 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<BaseResponse<TokenResponse>>() {
+            .subscribe(new Consumer<ResponseWrapper<TokenResponse>>() {
                 @Override
-                public void accept(BaseResponse<TokenResponse> certification) throws Exception {
+                public void accept(ResponseWrapper<TokenResponse> certification) throws Exception {
                     TokenResponse data = certification.getData();
                     if (data != null) {
                         String token = data.getToken();

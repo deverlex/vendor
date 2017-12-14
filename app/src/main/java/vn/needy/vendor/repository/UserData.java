@@ -3,7 +3,7 @@ package vn.needy.vendor.repository;
 import io.reactivex.Observable;
 import retrofit2.Response;
 import vn.needy.vendor.model.User;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
@@ -20,23 +20,23 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface UserData {
 
     interface Remote {
-        Observable<BaseResponse<LoginResp>> login(LoginReq request);
+        Observable<ResponseWrapper<LoginResp>> login(LoginReq request);
 
-        Observable<BaseResponse<TokenResponse>> refresh();
+        Observable<ResponseWrapper<TokenResponse>> refresh();
 
         Observable<Response<Void>> logout();
 
-        Observable<BaseResponse<TokenResponse>> registerUser(RegisterUserReq request);
+        Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserReq request);
 
-        Observable<BaseResponse> findUserExist(String phoneNumber);
+        Observable<ResponseWrapper> findUserExist(String phoneNumber);
 
-        Observable<BaseResponse<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request);
+        Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request);
 
-        Observable<BaseResponse<UserInfoResponse>> getUserInformation();
+        Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
 
-        Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request);
+        Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request);
 
-        Observable<BaseResponse<BusinessInfoResp>> getBusinessInformation();
+        Observable<ResponseWrapper<BusinessInfoResp>> getBusinessInformation();
     }
 
     interface Local {

@@ -16,7 +16,7 @@ import ss.com.bannerslider.banners.RemoteBanner;
 import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
@@ -99,9 +99,9 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
         mCompanyRepository.getCompanyInformation(companyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map(new Function<BaseResponse<CompanyInfoResp>, Company>() {
+                .map(new Function<ResponseWrapper<CompanyInfoResp>, Company>() {
                          @Override
-                         public Company apply(BaseResponse<CompanyInfoResp> resp) throws Exception {
+                         public Company apply(ResponseWrapper<CompanyInfoResp> resp) throws Exception {
                              CompanyInfoResp data = resp.getData();
                              if (data != null) {
                                  Company company = new Company(data.getCompany());
@@ -164,9 +164,9 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseResponse>() {
+                .subscribe(new Consumer<ResponseWrapper>() {
                     @Override
-                    public void accept(BaseResponse baseResponse) throws Exception {
+                    public void accept(ResponseWrapper baseResponse) throws Exception {
 
                     }
                 }, new SafetyError() {

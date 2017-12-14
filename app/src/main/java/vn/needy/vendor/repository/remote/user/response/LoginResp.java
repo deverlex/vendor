@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import vn.needy.vendor.model.wrapper.UserWrapper;
-import vn.needy.vendor.port.message.BaseResponse;
 
 /**
  * Created by lion on 11/12/2017.

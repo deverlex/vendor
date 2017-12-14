@@ -10,7 +10,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
@@ -33,59 +33,59 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface VendorApi {
 
     @POST("v1/authentications")
-    Observable<BaseResponse<LoginResp>> login(@Body LoginReq request);
+    Observable<ResponseWrapper<LoginResp>> login(@Body LoginReq request);
 
     @POST("v1/users")
-    Observable<BaseResponse<TokenResponse>> registerUser(@Body RegisterUserReq request);
+    Observable<ResponseWrapper<TokenResponse>> registerUser(@Body RegisterUserReq request);
 
     @GET("v1/users/finds")
-    Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
+    Observable<ResponseWrapper> findUserExist(@Query("username") String phoneNumber);
 
     @POST("v1/users/resets")
-    Observable<BaseResponse<TokenResponse>> resetPassword(@Query("username") String phoneNumber,
-                                            @Body ResetAccountReq request);
+    Observable<ResponseWrapper<TokenResponse>> resetPassword(@Query("username") String phoneNumber,
+                                                             @Body ResetAccountReq request);
 
     @GET("v1/users/informations/details")
-    Observable<BaseResponse<UserInfoResponse>> getUserInformation();
+    Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
 
     @PUT("v1/users/informations/details")
-    Observable<BaseResponse> updateUserInformation(@Body UpdateUserInfoRequest request);
+    Observable<ResponseWrapper> updateUserInformation(@Body UpdateUserInfoRequest request);
 
     @GET("v1/users/businesses/informations")
-    Observable<BaseResponse<BusinessInfoResp>> getBusinessInformation();
+    Observable<ResponseWrapper<BusinessInfoResp>> getBusinessInformation();
 
     @GET("v1/companies/users")
-    Observable<BaseResponse<CompanyResp>> findOurCompany();
+    Observable<ResponseWrapper<CompanyResp>> findOurCompany();
 
     @GET("v1/companies/{company_id}/informations/details")
-    Observable<BaseResponse<CompanyInfoResp>> getCompanyInformation(@Path(value = "company_id") String companyId);
+    Observable<ResponseWrapper<CompanyInfoResp>> getCompanyInformation(@Path(value = "company_id") String companyId);
 
     @PUT("v1/companies/{company_id}/informations/details")
-    Observable<BaseResponse> updateCompanyInformation(@Path(value = "company_id") String companyId,
-                                                      @Body UpdateCompanyInfoReq infoRequest);
+    Observable<ResponseWrapper> updateCompanyInformation(@Path(value = "company_id") String companyId,
+                                                         @Body UpdateCompanyInfoReq infoRequest);
 
     @POST("v1/companies")
-    Observable<BaseResponse<CompanyInfoResp>> registerCompany(@Body RegisterCompanyRequest request);
+    Observable<ResponseWrapper<CompanyInfoResp>> registerCompany(@Body RegisterCompanyRequest request);
 
     @GET("v1/categories/{category}/childs")
-    Observable<BaseResponse<CategoriesResp>> getCategories(@Path("category") String category);
+    Observable<ResponseWrapper<CategoriesResp>> getCategories(@Path("category") String category);
 
     @GET("v1/categories/{category}/childs")
-    Observable<BaseResponse<CategoriesResp>> getCompanyCategories(@Path("category") String category,
-                                                    @Query("company_id") String companyId);
+    Observable<ResponseWrapper<CategoriesResp>> getCompanyCategories(@Path("category") String category,
+                                                                     @Query("company_id") String companyId);
 
     @GET("v1/attributes/lists")
-    Observable<BaseResponse<AttributeInfoResp>> getAttributesCategory(@Query("category_name") String category);
+    Observable<ResponseWrapper<AttributeInfoResp>> getAttributesCategory(@Query("category_name") String category);
 
     /**************************************************************************************/
 
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
-    Observable<BaseResponse> updateStaffFcmToken(@Path("company_id") String companyId,
-                                                 @Query("token") String token);
+    Observable<ResponseWrapper> updateStaffFcmToken(@Path("company_id") String companyId,
+                                                    @Query("token") String token);
 
     // POST new images
     @Multipart
     @POST("v1/pn/products/{product_id}/images")
-    Observable<BaseResponse> uploadImageProduct(@Path("product_id") long productId,
-                                                @Part MultipartBody.Part image);
+    Observable<ResponseWrapper> uploadImageProduct(@Path("product_id") long productId,
+                                                   @Part MultipartBody.Part image);
 }

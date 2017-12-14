@@ -8,7 +8,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.port.api.VendorApi;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
@@ -57,9 +57,9 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<BaseResponse<CompanyInfoResp>>() {
+            .subscribe(new Consumer<ResponseWrapper<CompanyInfoResp>>() {
                 @Override
-                public void accept(BaseResponse<CompanyInfoResp> companyResponse) throws Exception {
+                public void accept(ResponseWrapper<CompanyInfoResp> companyResponse) throws Exception {
                     CompanyInfoResp data = companyResponse.getData();
                     if (data != null && data.getCompany() != null) {
                         mViewModel.onRegisterSuccess();

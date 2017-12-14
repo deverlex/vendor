@@ -9,12 +9,11 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.AttributeRepository;
 import vn.needy.vendor.repository.remote.attribute.AttributeDataRemote;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
-import vn.needy.vendor.repository.remote.attribute.response.AttributesResp;
 
 /**
  * Created by lion on 04/12/2017.
@@ -52,9 +51,9 @@ public class AddAttributePresenter implements AddAttributeContract.Presenter {
                 .getAttributeCategory(category.getName())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseResponse<AttributeInfoResp>>() {
+                .subscribe(new Consumer<ResponseWrapper<AttributeInfoResp>>() {
                     @Override
-                    public void accept(BaseResponse<AttributeInfoResp> resp) throws Exception {
+                    public void accept(ResponseWrapper<AttributeInfoResp> resp) throws Exception {
                         AttributeInfoResp data = resp.getData();
                         if (data != null) {
                             List<AttributeWrapper> attributes = data.getAttributes();

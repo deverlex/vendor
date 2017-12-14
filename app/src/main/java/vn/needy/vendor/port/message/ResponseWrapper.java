@@ -11,7 +11,7 @@ import vn.needy.vendor.model.BaseModel;
  * Created by lion on 23/09/2017.
  */
 
-public class BaseResponse<T> extends BaseModel {
+public class ResponseWrapper<T> extends BaseModel {
     @Expose
     @SerializedName("status")
     private String mStatus;
@@ -28,7 +28,7 @@ public class BaseResponse<T> extends BaseModel {
     @SerializedName("links")
     private List<String> mLinks;
 
-    public BaseResponse() {
+    public ResponseWrapper() {
         super();
     }
 

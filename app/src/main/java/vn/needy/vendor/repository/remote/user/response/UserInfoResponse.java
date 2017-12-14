@@ -3,7 +3,6 @@ package vn.needy.vendor.repository.remote.user.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.model.User;
 
 /**

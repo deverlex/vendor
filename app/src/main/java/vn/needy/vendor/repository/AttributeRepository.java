@@ -1,7 +1,7 @@
 package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 
 /**
@@ -16,7 +16,7 @@ public class AttributeRepository {
         mRemote = remote;
     }
 
-    public Observable<BaseResponse<AttributeInfoResp>> getAttributeCategory(String category) {
+    public Observable<ResponseWrapper<AttributeInfoResp>> getAttributeCategory(String category) {
         return mRemote.getAttributesCategory(category);
     }
 }

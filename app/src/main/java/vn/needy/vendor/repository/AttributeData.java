@@ -1,7 +1,7 @@
 package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 
 /**
@@ -11,7 +11,7 @@ import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 public interface AttributeData {
 
     interface Remote {
-        Observable<BaseResponse<AttributeInfoResp>> getAttributesCategory(String category);
+        Observable<ResponseWrapper<AttributeInfoResp>> getAttributesCategory(String category);
     }
 
     interface Local {
