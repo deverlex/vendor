@@ -5,14 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 
 /**
  * Created by lion on 06/12/2017.
  */
 
-public class AttributesResp extends BaseResponse {
+public class AttributesResp {
 
     @Expose
     @SerializedName("attributes")

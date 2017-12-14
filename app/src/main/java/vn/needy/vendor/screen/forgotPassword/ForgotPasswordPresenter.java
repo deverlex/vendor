@@ -32,7 +32,7 @@ import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.utils.Utils;
 
@@ -120,9 +120,9 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<BaseResponse>() {
+            .subscribe(new Consumer<ResponseWrapper>() {
                 @Override
-                public void accept(BaseResponse baseResponse) throws Exception {
+                public void accept(ResponseWrapper baseResponse) throws Exception {
                     mViewModel.onFindPhoneNumberExistSuccess();
                 }
             }, new SafetyError() {
@@ -209,11 +209,12 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<TokenResponse>() {
+            .subscribe(new Consumer<ResponseWrapper<TokenResponse>>() {
                 @Override
-                public void accept(TokenResponse certification) throws Exception {
-                    if (!TextUtils.isEmpty(certification.getToken())) {
-                        mUserRepository.saveTokenSync(certification.getToken());
+                public void accept(ResponseWrapper<TokenResponse> certification) throws Exception {
+                    TokenResponse data = certification.getData();
+                    if (data != null && !TextUtils.isEmpty(data.getToken())) {
+                        mUserRepository.saveTokenSync(data.getToken());
                         mViewModel.onResetPasswordSuccess();
                     } else {
                         mViewModel.onResetPasswordError(certification.getMessage());

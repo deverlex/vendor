@@ -1,7 +1,8 @@
 package vn.needy.vendor.repository.remote.company;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.RequestWrapper;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyData;
 import vn.needy.vendor.repository.remote.BaseDataRemote;
@@ -21,27 +22,27 @@ public class CompanyRemoteData extends BaseDataRemote<VendorApi> implements Comp
     }
 
     @Override
-    public Observable<CompanyResp> findOurCompany() {
+    public Observable<ResponseWrapper<CompanyResp>> findOurCompany() {
         return mApi.findOurCompany();
     }
 
     @Override
-    public Observable<CompanyInfoResp> getCompanyInformation(String companyId) {
+    public Observable<ResponseWrapper<CompanyInfoResp>> getCompanyInformation(String companyId) {
         return mApi.getCompanyInformation(companyId);
     }
 
     @Override
-    public Observable<CompanyInfoResp> registerCompany(RegisterCompanyRequest request) {
-        return mApi.registerCompany(request);
+    public Observable<ResponseWrapper<CompanyInfoResp>> registerCompany(RegisterCompanyRequest request) {
+        return mApi.registerCompany(new RequestWrapper<RegisterCompanyRequest>().setData(request));
     }
 
     @Override
-    public Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoReq request) {
-        return mApi.updateCompanyInformation(companyId, request);
+    public Observable<ResponseWrapper> updateCompanyInformation(String companyId, UpdateCompanyInfoReq request) {
+        return mApi.updateCompanyInformation(companyId, new RequestWrapper<UpdateCompanyInfoReq>().setData(request));
     }
 
     @Override
-    public Observable<BaseResponse> updateStaffFcmToken(String companyId, String fcmToken) {
+    public Observable<ResponseWrapper> updateStaffFcmToken(String companyId, String fcmToken) {
         return mApi.updateStaffFcmToken(companyId, fcmToken);
     }
 }

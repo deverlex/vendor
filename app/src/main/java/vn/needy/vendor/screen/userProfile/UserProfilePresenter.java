@@ -12,9 +12,8 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.port.api.VendorApi;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
@@ -74,10 +73,11 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
                     }
                 })
-                .map(new Function<UserInfoResponse, User>() {
+                .map(new Function<ResponseWrapper<UserInfoResponse>, User>() {
                     @Override
-                    public User apply(UserInfoResponse userResponse) throws Exception {
-                        return userResponse.getUser();
+                    public User apply(ResponseWrapper<UserInfoResponse> response) throws Exception {
+                        UserInfoResponse resp = response.getData();
+                        return resp.getUser();
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -108,9 +108,9 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseResponse>() {
+                .subscribe(new Consumer<ResponseWrapper>() {
                     @Override
-                    public void accept(BaseResponse baseResponse) throws Exception {
+                    public void accept(ResponseWrapper baseResponse) throws Exception {
                         Log.e(getClass().getSimpleName(), baseResponse.getMessage());
                     }
                 }, new SafetyError() {

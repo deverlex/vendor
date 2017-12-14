@@ -1,6 +1,7 @@
 package vn.needy.vendor.repository.remote.category;
 
 import io.reactivex.Observable;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResp;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CategoryData;
@@ -17,12 +18,12 @@ public class CategoryDataRemote extends BaseDataRemote<VendorApi> implements Cat
     }
 
     @Override
-    public Observable<CategoriesResp> getCategories(String category) {
+    public Observable<ResponseWrapper<CategoriesResp>> getCategories(String category) {
         return mApi.getCategories(category);
     }
 
     @Override
-    public Observable<CategoriesResp> getCompanyCategories(String category, String companyId) {
+    public Observable<ResponseWrapper<CategoriesResp>> getCompanyCategories(String category, String companyId) {
         return mApi.getCompanyCategories(category, companyId);
     }
 }

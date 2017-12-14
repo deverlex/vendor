@@ -5,14 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 
 /**
  * Created by lion on 07/11/2017.
  */
 
-public class CategoriesResp extends BaseResponse {
+public class CategoriesResp {
     @Expose
     @SerializedName("categories")
     private List<CategoryWrapper> mCategories;

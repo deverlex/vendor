@@ -4,16 +4,20 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import vn.needy.vendor.model.wrapper.CompanyWrapper;
+import vn.needy.vendor.model.wrapper.StoreWrapper;
 
 /**
- * Created by lion on 10/12/2017.
+ * Created by lion on 13/12/2017.
  */
 
-public class CompanyResp {
+public class BusinessInfoResp {
 
     @Expose
     @SerializedName("company")
     private CompanyWrapper mCompany;
+    @Expose
+    @SerializedName("store")
+    private StoreWrapper mStore;
 
     public CompanyWrapper getCompany() {
         return mCompany;
@@ -21,5 +25,13 @@ public class CompanyResp {
 
     public void setCompany(CompanyWrapper company) {
         mCompany = company;
+    }
+
+    public StoreWrapper getStore() {
+        return mStore;
+    }
+
+    public void setStore(StoreWrapper store) {
+        mStore = store;
     }
 }

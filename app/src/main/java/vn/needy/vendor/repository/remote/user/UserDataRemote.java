@@ -2,8 +2,10 @@ package vn.needy.vendor.repository.remote.user;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.RequestWrapper;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.UserData;
@@ -25,12 +27,12 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<LoginResp> login(LoginReq request) {
-        return mApi.login(request);
+    public Observable<ResponseWrapper<LoginResp>> login(LoginReq request) {
+        return mApi.login(new RequestWrapper<LoginReq>().setData(request));
     }
 
     @Override
-    public Observable<TokenResponse> refresh() {
+    public Observable<ResponseWrapper<TokenResponse>> refresh() {
         return null;
     }
 
@@ -40,27 +42,32 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<TokenResponse> registerUser(RegisterUserReq request) {
-        return mApi.registerUser(request);
+    public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserReq request) {
+        return mApi.registerUser(new RequestWrapper<RegisterUserReq>().setData(request));
     }
 
     @Override
-    public Observable<BaseResponse> findUserExist(String phoneNumber) {
+    public Observable<ResponseWrapper> findUserExist(String phoneNumber) {
         return mApi.findUserExist(phoneNumber);
     }
 
     @Override
-    public Observable<TokenResponse> resetPassword(String phoneNumber, ResetAccountReq request) {
-        return mApi.resetPassword(phoneNumber, request);
+    public Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request) {
+        return mApi.resetPassword(phoneNumber, new RequestWrapper<ResetAccountReq>().setData(request));
     }
 
     @Override
-    public Observable<UserInfoResponse> getUserInformation() {
+    public Observable<ResponseWrapper<UserInfoResponse>> getUserInformation() {
         return mApi.getUserInformation();
     }
 
     @Override
-    public Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request) {
-        return mApi.updateUserInformation(request);
+    public Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request) {
+        return mApi.updateUserInformation(new RequestWrapper<UpdateUserInfoRequest>().setData(request));
+    }
+
+    @Override
+    public Observable<ResponseWrapper<BusinessInfoResp>> getBusinessInformation() {
+        return mApi.getBusinessInformation();
     }
 }

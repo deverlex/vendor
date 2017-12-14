@@ -18,7 +18,7 @@ import ss.com.bannerslider.banners.RemoteBanner;
 import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
-import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
@@ -101,22 +101,26 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
         mCompanyRepository.getCompanyInformation(companyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map(new Function<CompanyInfoResp, Company>() {
+                .map(new Function<ResponseWrapper<CompanyInfoResp>, Company>() {
                          @Override
-                         public Company apply(CompanyInfoResp resp) throws Exception {
-                             Company company = new Company(resp.getCompany());
-                             // save total staff
-                             company.setTotalStaff(resp.getTotalStaff());
+                         public Company apply(ResponseWrapper<CompanyInfoResp> resp) throws Exception {
+                             CompanyInfoResp data = resp.getData();
+                             if (data != null) {
+                                 Company company = new Company(data.getCompany());
+                                 // save total staff
+                                 company.setTotalStaff(data.getTotalStaff());
 
-                             // add list fee transport
-                             RealmList<FeeTransport> feeTransports = new RealmList<>();
-                             for (FeeTransportWrapper wrapper : resp.getFeeTransports()) {
-                                 feeTransports.add(new FeeTransport(company.getId(), wrapper));
+                                 // add list fee transport
+                                 RealmList<FeeTransport> feeTransports = new RealmList<>();
+                                 for (FeeTransportWrapper wrapper : data.getFeeTransports()) {
+                                     feeTransports.add(new FeeTransport(company.getId(), wrapper));
+                                 }
+                                 company.setFeeTransports(feeTransports);
+
+                                 mCompanyRepository.saveCompanySync(company);
+                                 return company;
                              }
-                             company.setFeeTransports(feeTransports);
-
-                             mCompanyRepository.saveCompanySync(company);
-                             return company;
+                             return null;
                          }
                      }
                 )
@@ -163,9 +167,9 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseResponse>() {
+                .subscribe(new Consumer<ResponseWrapper>() {
                     @Override
-                    public void accept(BaseResponse baseResponse) throws Exception {
+                    public void accept(ResponseWrapper baseResponse) throws Exception {
 
                     }
                 }, new SafetyError() {
