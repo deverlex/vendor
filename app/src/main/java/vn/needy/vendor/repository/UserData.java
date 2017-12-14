@@ -20,23 +20,23 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface UserData {
 
     interface Remote {
-        Observable<LoginResp> login(LoginReq request);
+        Observable<BaseResponse<LoginResp>> login(LoginReq request);
 
-        Observable<TokenResponse> refresh();
+        Observable<BaseResponse<TokenResponse>> refresh();
 
         Observable<Response<Void>> logout();
 
-        Observable<TokenResponse> registerUser(RegisterUserReq request);
+        Observable<BaseResponse<TokenResponse>> registerUser(RegisterUserReq request);
 
         Observable<BaseResponse> findUserExist(String phoneNumber);
 
-        Observable<TokenResponse> resetPassword(String phoneNumber, ResetAccountReq request);
+        Observable<BaseResponse<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request);
 
-        Observable<UserInfoResponse> getUserInformation();
+        Observable<BaseResponse<UserInfoResponse>> getUserInformation();
 
         Observable<BaseResponse> updateUserInformation(UpdateUserInfoRequest request);
 
-        Observable<BusinessInfoResp> getBusinessInformation();
+        Observable<BaseResponse<BusinessInfoResp>> getBusinessInformation();
     }
 
     interface Local {

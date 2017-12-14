@@ -6,6 +6,6 @@ import vn.needy.vendor.port.message.BaseResponse;
  * Created by lion on 12/12/2017.
  */
 
-public class StoreInfoResp extends BaseResponse {
+public class StoreInfoResp {
 
 }

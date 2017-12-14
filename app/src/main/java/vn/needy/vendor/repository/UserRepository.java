@@ -27,11 +27,11 @@ public class UserRepository {
         mLocal = local;
     }
 
-    public Observable<LoginResp> login(LoginReq request) {
+    public Observable<BaseResponse<LoginResp>> login(LoginReq request) {
         return mRemote.login(request);
     }
 
-    public Observable<TokenResponse> refresh() {
+    public Observable<BaseResponse<TokenResponse>> refresh() {
         return mRemote.refresh();
     }
 
@@ -39,7 +39,7 @@ public class UserRepository {
         return mRemote.logout();
     }
 
-    public Observable<TokenResponse> registerUser(RegisterUserReq request) {
+    public Observable<BaseResponse<TokenResponse>> registerUser(RegisterUserReq request) {
         return mRemote.registerUser(request);
     }
 
@@ -47,11 +47,11 @@ public class UserRepository {
         return mRemote.findUserExist(phoneNumber);
     }
 
-    public Observable<TokenResponse> resetPassword(String phoneNumber, ResetAccountReq request) {
+    public Observable<BaseResponse<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request) {
         return mRemote.resetPassword(phoneNumber, request);
     }
 
-    public Observable<UserInfoResponse> getUserInformation() {
+    public Observable<BaseResponse<UserInfoResponse>> getUserInformation() {
         return mRemote.getUserInformation();
     }
 
@@ -59,7 +59,7 @@ public class UserRepository {
         return mRemote.updateUserInformation(request);
     }
 
-    public Observable<BusinessInfoResp> getBusinessInformation() {
+    public Observable<BaseResponse<BusinessInfoResp>> getBusinessInformation() {
         return mRemote.getBusinessInformation();
     }
 

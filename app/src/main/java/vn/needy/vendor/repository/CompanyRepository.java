@@ -22,15 +22,15 @@ public class CompanyRepository {
         mLocal = local;
     }
 
-    public Observable<CompanyResp> findOurCompany() {
+    public Observable<BaseResponse<CompanyResp>> findOurCompany() {
         return mRemote.findOurCompany();
     }
 
-    public Observable<CompanyInfoResp> getCompanyInformation(String companyId) {
+    public Observable<BaseResponse<CompanyInfoResp>> getCompanyInformation(String companyId) {
         return mRemote.getCompanyInformation(companyId);
     }
 
-    public Observable<CompanyInfoResp> registerCompany(RegisterCompanyRequest request) {
+    public Observable<BaseResponse<CompanyInfoResp>> registerCompany(RegisterCompanyRequest request) {
         return mRemote.registerCompany(request);
     }
 

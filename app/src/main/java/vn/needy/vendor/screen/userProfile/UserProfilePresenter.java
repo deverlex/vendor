@@ -74,10 +74,11 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
                     }
                 })
-                .map(new Function<UserInfoResponse, User>() {
+                .map(new Function<BaseResponse<UserInfoResponse>, User>() {
                     @Override
-                    public User apply(UserInfoResponse userResponse) throws Exception {
-                        return userResponse.getUser();
+                    public User apply(BaseResponse<UserInfoResponse> response) throws Exception {
+                        UserInfoResponse resp = response.getData();
+                        return resp.getUser();
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())

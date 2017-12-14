@@ -209,11 +209,12 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<TokenResponse>() {
+            .subscribe(new Consumer<BaseResponse<TokenResponse>>() {
                 @Override
-                public void accept(TokenResponse certification) throws Exception {
-                    if (!TextUtils.isEmpty(certification.getToken())) {
-                        mUserRepository.saveTokenSync(certification.getToken());
+                public void accept(BaseResponse<TokenResponse> certification) throws Exception {
+                    TokenResponse data = certification.getData();
+                    if (data != null && !TextUtils.isEmpty(data.getToken())) {
+                        mUserRepository.saveTokenSync(data.getToken());
                         mViewModel.onResetPasswordSuccess();
                     } else {
                         mViewModel.onResetPasswordError(certification.getMessage());

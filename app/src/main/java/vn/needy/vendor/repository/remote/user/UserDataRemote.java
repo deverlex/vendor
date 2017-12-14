@@ -26,12 +26,12 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<LoginResp> login(LoginReq request) {
+    public Observable<BaseResponse<LoginResp>> login(LoginReq request) {
         return mApi.login(request);
     }
 
     @Override
-    public Observable<TokenResponse> refresh() {
+    public Observable<BaseResponse<TokenResponse>> refresh() {
         return null;
     }
 
@@ -41,7 +41,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<TokenResponse> registerUser(RegisterUserReq request) {
+    public Observable<BaseResponse<TokenResponse>> registerUser(RegisterUserReq request) {
         return mApi.registerUser(request);
     }
 
@@ -51,12 +51,12 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<TokenResponse> resetPassword(String phoneNumber, ResetAccountReq request) {
+    public Observable<BaseResponse<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request) {
         return mApi.resetPassword(phoneNumber, request);
     }
 
     @Override
-    public Observable<UserInfoResponse> getUserInformation() {
+    public Observable<BaseResponse<UserInfoResponse>> getUserInformation() {
         return mApi.getUserInformation();
     }
 
@@ -66,7 +66,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<BusinessInfoResp> getBusinessInformation() {
+    public Observable<BaseResponse<BusinessInfoResp>> getBusinessInformation() {
         return mApi.getBusinessInformation();
     }
 }

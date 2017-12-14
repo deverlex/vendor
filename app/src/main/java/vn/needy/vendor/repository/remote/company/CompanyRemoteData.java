@@ -21,17 +21,17 @@ public class CompanyRemoteData extends BaseDataRemote<VendorApi> implements Comp
     }
 
     @Override
-    public Observable<CompanyResp> findOurCompany() {
+    public Observable<BaseResponse<CompanyResp>> findOurCompany() {
         return mApi.findOurCompany();
     }
 
     @Override
-    public Observable<CompanyInfoResp> getCompanyInformation(String companyId) {
+    public Observable<BaseResponse<CompanyInfoResp>> getCompanyInformation(String companyId) {
         return mApi.getCompanyInformation(companyId);
     }
 
     @Override
-    public Observable<CompanyInfoResp> registerCompany(RegisterCompanyRequest request) {
+    public Observable<BaseResponse<CompanyInfoResp>> registerCompany(RegisterCompanyRequest request) {
         return mApi.registerCompany(request);
     }
 

@@ -5,13 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 import vn.needy.vendor.model.wrapper.CompanyWrapper;
 import vn.needy.vendor.model.wrapper.StoreWrapper;
-import vn.needy.vendor.port.message.BaseResponse;
 
 /**
  * Created by lion on 13/12/2017.
  */
 
-public class BusinessInfoResp extends BaseResponse {
+public class BusinessInfoResp {
 
     @Expose
     @SerializedName("company")

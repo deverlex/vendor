@@ -16,6 +16,7 @@ import vn.needy.vendor.model.Company;
 import vn.needy.vendor.model.Store;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.BaseStatus;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.StoreRepository;
@@ -111,23 +112,24 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 })
                 .observeOn(Schedulers.computation())
-                .map(new Function<BusinessInfoResp, BusinessInfoResp>() {
+                .map(new Function<BaseResponse<BusinessInfoResp>, BaseResponse<BusinessInfoResp>>() {
                     @Override
-                    public BusinessInfoResp apply(BusinessInfoResp resp) throws Exception {
+                    public BaseResponse<BusinessInfoResp> apply(BaseResponse<BusinessInfoResp> resp) throws Exception {
                         // save company & store response
-                        if (resp.getStatus().equals("OK")) {
-                            mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
+                        if (resp.getStatus().equals(BaseStatus.OK)) {
+                            BusinessInfoResp data = resp.getData();
+                            mCompanyRepository.saveCompanySync(new Company(data.getCompany()));
                             // save store into realm
-                            mStoreRepository.saveStoreSync(new Store(resp.getStore()));
+                            mStoreRepository.saveStoreSync(new Store(data.getStore()));
                         }
                         return resp;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BusinessInfoResp>() {
+                .subscribe(new Consumer<BaseResponse<BusinessInfoResp>>() {
                     @Override
-                    public void accept(BusinessInfoResp resp) throws Exception {
-                        if (resp.getStatus().equals("OK")) {
+                    public void accept(BaseResponse<BusinessInfoResp> resp) throws Exception {
+                        if (resp.getStatus().equals(BaseStatus.OK)) {
                             mainPage();
                         } else {
                             mNavigator.showToastBottom(resp.getMessage());

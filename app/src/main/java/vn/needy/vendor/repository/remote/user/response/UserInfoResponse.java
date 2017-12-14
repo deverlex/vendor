@@ -10,7 +10,7 @@ import vn.needy.vendor.model.User;
  * Created by lion on 30/10/2017.
  */
 
-public class UserInfoResponse extends BaseResponse {
+public class UserInfoResponse {
 
     @Expose
     @SerializedName("user")

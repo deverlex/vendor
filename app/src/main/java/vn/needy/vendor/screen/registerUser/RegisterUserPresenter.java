@@ -28,6 +28,7 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.message.BaseResponse;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
@@ -157,15 +158,18 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<TokenResponse>() {
+            .subscribe(new Consumer<BaseResponse<TokenResponse>>() {
                 @Override
-                public void accept(TokenResponse certification) throws Exception {
-                    String token = certification.getToken();
-                    if (!TextUtils.isEmpty(token)) {
-                        mUserRepository.saveTokenSync(certification.getToken());
-                        mViewModel.onRegisterSuccess();
-                    } else {
-                        mViewModel.onRegisterError(certification.getMessage());
+                public void accept(BaseResponse<TokenResponse> certification) throws Exception {
+                    TokenResponse data = certification.getData();
+                    if (data != null) {
+                        String token = data.getToken();
+                        if (!TextUtils.isEmpty(token)) {
+                            mUserRepository.saveTokenSync(token);
+                            mViewModel.onRegisterSuccess();
+                        } else {
+                            mViewModel.onRegisterError(certification.getMessage());
+                        }
                     }
                 }
             }, new SafetyError() {

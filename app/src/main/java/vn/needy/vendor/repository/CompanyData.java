@@ -15,11 +15,11 @@ import vn.needy.vendor.repository.remote.user.response.CompanyResp;
 public interface CompanyData {
 
     interface Remote {
-        Observable<CompanyResp> findOurCompany();
+        Observable<BaseResponse<CompanyResp>> findOurCompany();
 
-        Observable<CompanyInfoResp> getCompanyInformation(String companyId);
+        Observable<BaseResponse<CompanyInfoResp>> getCompanyInformation(String companyId);
 
-        Observable<CompanyInfoResp> registerCompany(RegisterCompanyRequest request);
+        Observable<BaseResponse<CompanyInfoResp>> registerCompany(RegisterCompanyRequest request);
 
         Observable<BaseResponse> updateCompanyInformation(String companyId, UpdateCompanyInfoReq infoRequest);
 

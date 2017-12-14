@@ -14,6 +14,8 @@ import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.model.Company;
 import vn.needy.vendor.model.Store;
 import vn.needy.vendor.model.User;
+import vn.needy.vendor.port.message.BaseResponse;
+import vn.needy.vendor.port.message.BaseStatus;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.StoreRepository;
@@ -88,25 +90,26 @@ public class LoginPresenter implements LoginContract.Presenter {
                     mNavigator.showToastCenterText(error.getMessage());
                 }
             }).observeOn(Schedulers.computation())
-            .map(new Function<LoginResp, LoginResp>() {
+            .map(new Function<BaseResponse<LoginResp>, BaseResponse<LoginResp>>() {
                 @Override
-                public LoginResp apply(LoginResp resp) throws Exception {
-                    if (resp.getToken() != null) {
+                public BaseResponse<LoginResp> apply(BaseResponse<LoginResp> resp) throws Exception {
+                    LoginResp data = resp.getData();
+                    if (data != null && data.getToken() != null) {
                         // save user info & token to database
-                        User user = new User(resp.getUser());
+                        User user = new User(data.getUser());
                         // save user to realm
                         mUserRepository.saveUserSync(user);
-                        mUserRepository.saveTokenSync(resp.getToken());
+                        mUserRepository.saveTokenSync(data.getToken());
                     }
                     return resp;
                 }
             })
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<LoginResp>() {
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<BaseResponse<LoginResp>>() {
                 @Override
-                public void accept(LoginResp resp) throws Exception {
+                public void accept(BaseResponse<LoginResp> resp) throws Exception {
                     mViewModel.onHideProgressBar();
                     Log.d(TAG, resp.getStatus());
-                    if (resp.getStatus().equals("ERROR")) {
+                    if (resp.getStatus().equals(BaseStatus.ERROR)) {
                         mViewModel.onLoginError(resp.getMessage());
                     }  else {
                         mViewModel.onLoginSuccess();
@@ -168,23 +171,24 @@ public class LoginPresenter implements LoginContract.Presenter {
                     }
                 })
                 .observeOn(Schedulers.computation())
-                .map(new Function<BusinessInfoResp, BusinessInfoResp>() {
+                .map(new Function<BaseResponse<BusinessInfoResp>, BaseResponse<BusinessInfoResp>>() {
                     @Override
-                    public BusinessInfoResp apply(BusinessInfoResp resp) throws Exception {
+                    public BaseResponse<BusinessInfoResp> apply(BaseResponse<BusinessInfoResp> resp) throws Exception {
                         // save company & store response
-                        if (resp.getStatus().equals("OK")) {
-                            mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
+                        BusinessInfoResp data = resp.getData();
+                        if (data != null && resp.getStatus().equals(BaseStatus.OK)) {
+                            mCompanyRepository.saveCompanySync(new Company(data.getCompany()));
                             // save store into realm
-                            mStoreRepository.saveStoreSync(new Store(resp.getStore()));
+                            mStoreRepository.saveStoreSync(new Store(data.getStore()));
                         }
                         return resp;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BusinessInfoResp>() {
+                .subscribe(new Consumer<BaseResponse<BusinessInfoResp>>() {
                     @Override
-                    public void accept(BusinessInfoResp resp) throws Exception {
-                        if (resp.getStatus().equals("OK")) {
+                    public void accept(BaseResponse<BusinessInfoResp> resp) throws Exception {
+                        if (resp.getStatus().equals(BaseStatus.OK)) {
                             mViewModel.onToMainPage();
                         } else {
                             mNavigator.showToastBottom(resp.getMessage());

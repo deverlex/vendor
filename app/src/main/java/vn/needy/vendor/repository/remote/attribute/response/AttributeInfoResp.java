@@ -12,7 +12,7 @@ import vn.needy.vendor.port.message.BaseResponse;
  * Created by lion on 12/12/2017.
  */
 
-public class AttributeInfoResp extends BaseResponse {
+public class AttributeInfoResp {
 
     @SerializedName("attributes")
     @Expose

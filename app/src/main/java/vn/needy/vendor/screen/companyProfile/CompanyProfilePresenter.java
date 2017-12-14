@@ -99,22 +99,26 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
         mCompanyRepository.getCompanyInformation(companyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map(new Function<CompanyInfoResp, Company>() {
+                .map(new Function<BaseResponse<CompanyInfoResp>, Company>() {
                          @Override
-                         public Company apply(CompanyInfoResp resp) throws Exception {
-                             Company company = new Company(resp.getCompany());
-                             // save total staff
-                             company.setTotalStaff(resp.getTotalStaff());
+                         public Company apply(BaseResponse<CompanyInfoResp> resp) throws Exception {
+                             CompanyInfoResp data = resp.getData();
+                             if (data != null) {
+                                 Company company = new Company(data.getCompany());
+                                 // save total staff
+                                 company.setTotalStaff(data.getTotalStaff());
 
-                             // add list fee transport
-                             RealmList<FeeTransport> feeTransports = new RealmList<>();
-                             for (FeeTransportWrapper wrapper : resp.getFeeTransports()) {
-                                 feeTransports.add(new FeeTransport(company.getId(), wrapper));
+                                 // add list fee transport
+                                 RealmList<FeeTransport> feeTransports = new RealmList<>();
+                                 for (FeeTransportWrapper wrapper : data.getFeeTransports()) {
+                                     feeTransports.add(new FeeTransport(company.getId(), wrapper));
+                                 }
+                                 company.setFeeTransports(feeTransports);
+
+                                 mCompanyRepository.saveCompanySync(company);
+                                 return company;
                              }
-                             company.setFeeTransports(feeTransports);
-
-                             mCompanyRepository.saveCompanySync(company);
-                             return company;
+                             return null;
                          }
                      }
                 )

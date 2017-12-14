@@ -14,7 +14,7 @@ import vn.needy.vendor.model.Company;
  * Created by lion on 07/10/2017.
  */
 
-public class CompanyInfoResp extends BaseResponse {
+public class CompanyInfoResp {
 
     @Expose
     @SerializedName("company")

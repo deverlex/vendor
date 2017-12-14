@@ -33,49 +33,49 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface VendorApi {
 
     @POST("v1/authentications")
-    Observable<LoginResp> login(@Body LoginReq request);
+    Observable<BaseResponse<LoginResp>> login(@Body LoginReq request);
 
     @POST("v1/users")
-    Observable<TokenResponse> registerUser(@Body RegisterUserReq request);
+    Observable<BaseResponse<TokenResponse>> registerUser(@Body RegisterUserReq request);
 
     @GET("v1/users/finds")
     Observable<BaseResponse> findUserExist(@Query("username") String phoneNumber);
 
     @POST("v1/users/resets")
-    Observable<TokenResponse> resetPassword(@Query("username") String phoneNumber,
+    Observable<BaseResponse<TokenResponse>> resetPassword(@Query("username") String phoneNumber,
                                             @Body ResetAccountReq request);
 
     @GET("v1/users/informations/details")
-    Observable<UserInfoResponse> getUserInformation();
+    Observable<BaseResponse<UserInfoResponse>> getUserInformation();
 
     @PUT("v1/users/informations/details")
     Observable<BaseResponse> updateUserInformation(@Body UpdateUserInfoRequest request);
 
     @GET("v1/users/businesses/informations")
-    Observable<BusinessInfoResp> getBusinessInformation();
+    Observable<BaseResponse<BusinessInfoResp>> getBusinessInformation();
 
     @GET("v1/companies/users")
-    Observable<CompanyResp> findOurCompany();
+    Observable<BaseResponse<CompanyResp>> findOurCompany();
 
     @GET("v1/companies/{company_id}/informations/details")
-    Observable<CompanyInfoResp> getCompanyInformation(@Path(value = "company_id") String companyId);
+    Observable<BaseResponse<CompanyInfoResp>> getCompanyInformation(@Path(value = "company_id") String companyId);
 
     @PUT("v1/companies/{company_id}/informations/details")
     Observable<BaseResponse> updateCompanyInformation(@Path(value = "company_id") String companyId,
                                                       @Body UpdateCompanyInfoReq infoRequest);
 
     @POST("v1/companies")
-    Observable<CompanyInfoResp> registerCompany(@Body RegisterCompanyRequest request);
+    Observable<BaseResponse<CompanyInfoResp>> registerCompany(@Body RegisterCompanyRequest request);
 
     @GET("v1/categories/{category}/childs")
-    Observable<CategoriesResp> getCategories(@Path("category") String category);
+    Observable<BaseResponse<CategoriesResp>> getCategories(@Path("category") String category);
 
     @GET("v1/categories/{category}/childs")
-    Observable<CategoriesResp> getCompanyCategories(@Path("category") String category,
+    Observable<BaseResponse<CategoriesResp>> getCompanyCategories(@Path("category") String category,
                                                     @Query("company_id") String companyId);
 
     @GET("v1/attributes/lists")
-    Observable<AttributeInfoResp> getAttributesCategory(@Query("category_name") String category);
+    Observable<BaseResponse<AttributeInfoResp>> getAttributesCategory(@Query("category_name") String category);
 
     /**************************************************************************************/
 
