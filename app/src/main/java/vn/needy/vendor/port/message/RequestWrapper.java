@@ -18,7 +18,8 @@ public class RequestWrapper<T> extends BaseModel {
         return data;
     }
 
-    public void setData(T data) {
+    public RequestWrapper<T> setData(T data) {
         this.data = data;
+        return this;
     }
 }

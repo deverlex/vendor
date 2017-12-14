@@ -2,6 +2,7 @@ package vn.needy.vendor.repository.remote.user;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
+import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
@@ -27,7 +28,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
 
     @Override
     public Observable<ResponseWrapper<LoginResp>> login(LoginReq request) {
-        return mApi.login(request);
+        return mApi.login(new RequestWrapper<LoginReq>().setData(request));
     }
 
     @Override
@@ -42,7 +43,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
 
     @Override
     public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserReq request) {
-        return mApi.registerUser(request);
+        return mApi.registerUser(new RequestWrapper<RegisterUserReq>().setData(request));
     }
 
     @Override
@@ -52,7 +53,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
 
     @Override
     public Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request) {
-        return mApi.resetPassword(phoneNumber, request);
+        return mApi.resetPassword(phoneNumber, new RequestWrapper<ResetAccountReq>().setData(request));
     }
 
     @Override
@@ -62,7 +63,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
 
     @Override
     public Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request) {
-        return mApi.updateUserInformation(request);
+        return mApi.updateUserInformation(new RequestWrapper<UpdateUserInfoRequest>().setData(request));
     }
 
     @Override

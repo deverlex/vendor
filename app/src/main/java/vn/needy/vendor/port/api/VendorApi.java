@@ -10,6 +10,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
@@ -33,23 +34,23 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface VendorApi {
 
     @POST("v1/authentications")
-    Observable<ResponseWrapper<LoginResp>> login(@Body LoginReq request);
+    Observable<ResponseWrapper<LoginResp>> login(@Body RequestWrapper<LoginReq> request);
 
     @POST("v1/users")
-    Observable<ResponseWrapper<TokenResponse>> registerUser(@Body RegisterUserReq request);
+    Observable<ResponseWrapper<TokenResponse>> registerUser(@Body RequestWrapper<RegisterUserReq> request);
 
     @GET("v1/users/finds")
     Observable<ResponseWrapper> findUserExist(@Query("username") String phoneNumber);
 
     @POST("v1/users/resets")
     Observable<ResponseWrapper<TokenResponse>> resetPassword(@Query("username") String phoneNumber,
-                                                             @Body ResetAccountReq request);
+                                                             @Body RequestWrapper<ResetAccountReq> request);
 
     @GET("v1/users/informations/details")
     Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
 
     @PUT("v1/users/informations/details")
-    Observable<ResponseWrapper> updateUserInformation(@Body UpdateUserInfoRequest request);
+    Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
 
     @GET("v1/users/businesses/informations")
     Observable<ResponseWrapper<BusinessInfoResp>> getBusinessInformation();
@@ -62,10 +63,10 @@ public interface VendorApi {
 
     @PUT("v1/companies/{company_id}/informations/details")
     Observable<ResponseWrapper> updateCompanyInformation(@Path(value = "company_id") String companyId,
-                                                         @Body UpdateCompanyInfoReq infoRequest);
+                                                         @Body RequestWrapper<UpdateCompanyInfoReq> infoRequest);
 
     @POST("v1/companies")
-    Observable<ResponseWrapper<CompanyInfoResp>> registerCompany(@Body RegisterCompanyRequest request);
+    Observable<ResponseWrapper<CompanyInfoResp>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
 
     @GET("v1/categories/{category}/childs")
     Observable<ResponseWrapper<CategoriesResp>> getCategories(@Path("category") String category);
