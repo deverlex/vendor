@@ -2,6 +2,8 @@ package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.model.Store;
+import vn.needy.vendor.port.message.ResponseWrapper;
+import vn.needy.vendor.repository.remote.store.response.StoreInfoResp;
 
 /**
  * Created by lion on 12/12/2017.
@@ -17,7 +19,20 @@ public class StoreRepository {
         mLocal = local;
     }
 
+    public Observable<ResponseWrapper<StoreInfoResp>> getStoreInfo(String storeId) {
+        return mRemote.getStoreInfo(storeId);
+    }
+
+    /** LOCAL */
+    public Observable<Store> getOurStoreAsync() {
+        return mLocal.getOurCompanyAsync();
+    }
+
     public void saveStoreSync(Store store) {
         mLocal.saveStoreSync(store);
+    }
+
+    public String getStoreIdSync() {
+        return mLocal.getOurStoreIdSync();
     }
 }
