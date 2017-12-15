@@ -60,7 +60,7 @@ public class StoreProfilePresenter implements StoreProfileContract.Presenter {
 
     @Override
     public void getStoreInfo() {
-//        getStoreFromLocal();
+        getStoreFromLocal();
         getStoreFromRemote();
     }
 
@@ -91,7 +91,8 @@ public class StoreProfilePresenter implements StoreProfileContract.Presenter {
                     public Store apply(ResponseWrapper<StoreInfoResp> storeInfoRespResponseWrapper) throws Exception {
                         StoreInfoResp storeInfoResp = storeInfoRespResponseWrapper.getData();
                         if (storeInfoResp != null) {
-                            Store store = new Store(storeInfoResp.getmStore());
+                            Store store = new Store(storeInfoResp.getStore());
+                            store.setTotalStaff(storeInfoResp.getTotalStaff());
                             mStoreRepository.saveStoreSync(store);
                             return store;
                         }

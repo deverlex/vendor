@@ -25,10 +25,13 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     private boolean mEnable;
     private int mDrawableEdit;
     private Store mStore;
+    private boolean mVisibleDescription;
+    private int mDrawableExpandDescription;
 
     StoreProfileViewModel(Context context) {
         mContext = context;
         mDrawableEdit = R.drawable.ic_edits_white;
+        mDrawableExpandDescription = R.drawable.ic_next_right;
     }
 
     @Override
@@ -63,6 +66,16 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     }
 
     @Bindable
+    public boolean isVisibleDescription() {
+        return mVisibleDescription;
+    }
+
+    @Bindable
+    public int getDrawableExpandDescription() {
+        return mDrawableExpandDescription;
+    }
+
+    @Bindable
     public boolean isEnable() {
         return mEnable;
     }
@@ -87,8 +100,16 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
 
     @Override
     public void setStoreInfo(Store store) {
-        Log.e("XXXXXXXXXXXX", "-------------------------" + store.getName());
         mStore = store;
         notifyPropertyChanged(BR.store);
+    }
+
+    @Override
+    public void onClickDescription() {
+        mVisibleDescription = !mVisibleDescription;
+        notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.visibleDescription);
+
+        mDrawableExpandDescription = mVisibleDescription ? R.drawable.ic_expand : R.drawable.ic_next_right;
+        notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.drawableExpandDescription);
     }
 }

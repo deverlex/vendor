@@ -19,6 +19,8 @@ public interface StoreProfileContract {
         void onClickEdit();
 
         void setStoreInfo(Store store);
+
+        void onClickDescription();
     }
 
     interface Presenter extends BasePresenter {

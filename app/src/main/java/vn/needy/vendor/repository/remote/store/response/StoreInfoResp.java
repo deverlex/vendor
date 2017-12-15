@@ -16,11 +16,23 @@ public class StoreInfoResp {
     @SerializedName("store")
     private StoreWrapper mStore;
 
-    public StoreWrapper getmStore() {
+    @Expose
+    @SerializedName("totalStaff")
+    private int mTotalStaff;
+
+    public StoreWrapper getStore() {
         return mStore;
     }
 
-    public void setmStore(StoreWrapper mStore) {
+    public void setStore(StoreWrapper mStore) {
         this.mStore = mStore;
+    }
+
+    public int getTotalStaff() {
+        return mTotalStaff;
+    }
+
+    public void setTotalStaff(int mTotalStaff) {
+        this.mTotalStaff = mTotalStaff;
     }
 }

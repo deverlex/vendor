@@ -155,6 +155,8 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
+                        android:enabled="@{viewModel.enable}"
+                        android:text="@={viewModel.store.name}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
@@ -181,6 +183,46 @@
                     android:background="@color/color_white">
 
                     <TextView
+                        android:id="@+id/headerState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Trạng thái"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerState"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:text='@{viewModel.store.state == 1 ? "Hoạt động":(viewModel.store.state == 0 ? "Chưa kích hoạt":"Ngừng hoạt động")}'
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
                         android:id="@+id/headerNumberStaff"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -193,13 +235,13 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
+                        android:text="@{Integer.toString(viewModel.store.totalStaff)}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/headerNumberStaff"
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
-                        android:text="Chưa có nhân viên nào"
                         android:textColor="@color/gray70"
                         android:textSize="@dimen/sp_14"
                         tools:ignore="UnusedAttribute" />
@@ -225,13 +267,14 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
+                        android:text="@{viewModel.store.openingTime}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/headerOpenTime"
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
-                        android:text="@string/not_set"
+                        android:hint="@string/not_set"
                         android:textColor="@color/gray70"
                         android:textSize="@dimen/sp_13"
                         tools:ignore="UnusedAttribute" />
@@ -265,13 +308,14 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
+                        android:text="@{viewModel.store.closingTime}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/headerClosingTime"
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
-                        android:text="@string/not_set"
+                        android:hint="@string/not_set"
                         android:textColor="@color/gray70"
                         android:textSize="@dimen/sp_13"
                         tools:ignore="UnusedAttribute" />
@@ -308,6 +352,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
+                        android:text="@{viewModel.store.email}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
@@ -323,20 +368,55 @@
                         tools:ignore="UnusedAttribute" />
                 </LinearLayout>
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_1"
-                    android:background="@color/color_white"
-                    android:drawableEnd="@drawable/ic_expand"
-                    android:drawablePadding="@dimen/dp_15"
-                    android:drawableRight="@drawable/ic_expand"
-                    android:fontFamily="@string/font_serif"
                     android:padding="@dimen/dp_10"
-                    android:text="@string/store_description"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:id="@+id/headerDescription"
+                        android:onClick="@{() -> viewModel.onClickDescription()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_1"
+                        android:background="@color/color_white"
+                        android:drawablePadding="@dimen/dp_15"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@string/store_description"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <EditText
+                        android:inputType="textMultiLine"
+                        android:layout_below="@+id/headerDescription"
+                        android:animateLayoutChanges="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:drawablePadding="@dimen/dp_15"
+                        android:enabled="@{viewModel.enable}"
+                        android:fontFamily="@string/font_serif"
+                        android:hint="@string/not_set"
+                        android:text="@={viewModel.store.description}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray70"
+                        android:textSize="@dimen/sp_14"
+                        android:visibility="@{viewModel.visibleDescription ? View.VISIBLE : View.GONE}"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:onClick="@{() -> viewModel.onClickDescription()}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:background="@color/transparent"
+                        app:srcVector="@{viewModel.drawableExpandDescription}" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -357,20 +437,27 @@
                         android:textSize="@dimen/sp_14"
                         tools:ignore="UnusedAttribute" />
 
-                    <TextView
+                    <EditText
+                        android:enabled="@{viewModel.enable}"
+                        android:layout_below="@+id/headerAddress"
+                        android:text="@={viewModel.store.address}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/headerAddress"
+                        android:background="@drawable/background_text"
                         android:drawableEnd="@drawable/ic_check_circle_mini"
                         android:drawablePadding="@dimen/dp_15"
                         android:drawableRight="@drawable/ic_check_circle_mini"
                         android:fontFamily="@string/font_serif"
+                        android:hint="Chưa thiết lập"
+                        android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
                         android:paddingRight="@dimen/dp_10"
-                        android:text="@string/not_set"
-                        android:textColor="@color/gray70"
-                        android:textSize="@dimen/sp_13"
+                        android:paddingTop="@dimen/dp_10"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray70"
+                        android:textSize="@dimen/sp_14"
                         tools:ignore="UnusedAttribute" />
                 </RelativeLayout>
 
@@ -380,7 +467,7 @@
 
                     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/map"
-                        class="com.google.android.gms.maps.SupportMapFragment"
+                        class="vn.needy.vendor.widget.WorkaroundMapFragment"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_250" />
 
