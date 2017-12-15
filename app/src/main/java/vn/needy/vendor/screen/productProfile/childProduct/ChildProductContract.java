@@ -7,7 +7,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 08/12/2017.
  */
 
-interface AddProductPnContract {
+interface ChildProductContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
         void onBackClicked();

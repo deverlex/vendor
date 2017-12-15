@@ -6,7 +6,7 @@ import android.databinding.BaseObservable;
  * Created by lion on 08/12/2017.
  */
 
-public class AddProductPnViewModel extends BaseObservable implements AddProductPnContract.ViewModel {
+public class ChildProductViewModel extends BaseObservable implements ChildProductContract.ViewModel {
 
     @Override
     public void onStart() {
@@ -19,7 +19,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     }
 
     @Override
-    public void setPresenter(AddProductPnContract.Presenter presenter) {
+    public void setPresenter(ChildProductContract.Presenter presenter) {
 
     }
 

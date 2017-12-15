@@ -25,7 +25,7 @@ import vn.needy.vendor.model.Image;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
-import vn.needy.vendor.screen.productProfile.attribute.AddAttributeFragment;
+import vn.needy.vendor.screen.productProfile.attribute.AttributeFragment;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -152,7 +152,7 @@ public class ProductProfilePnViewModel extends BaseObservable implements Product
             Bundle extras = new Bundle();
             extras.putParcelable(CategoriesActivity.CATEGORY, mCategory);
             ((ProductProfilePnActivity) mContext)
-                    .initFragment(android.R.id.content, AddAttributeFragment.getInstance(), extras);
+                    .initFragment(android.R.id.content, AttributeFragment.getInstance(), extras);
         } else {
             // notify require choose category before add attribute
 

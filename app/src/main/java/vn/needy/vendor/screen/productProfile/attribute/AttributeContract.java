@@ -11,7 +11,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 04/12/2017.
  */
 
-interface AddAttributeContract {
+interface AttributeContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
         void onBackClicked();

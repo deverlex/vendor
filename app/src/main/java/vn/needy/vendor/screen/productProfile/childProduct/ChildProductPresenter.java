@@ -4,11 +4,11 @@ package vn.needy.vendor.screen.productProfile.childProduct;
  * Created by lion on 08/12/2017.
  */
 
-public class AddProductpnPresenter implements AddProductPnContract.Presenter {
+public class ChildProductPresenter implements ChildProductContract.Presenter {
 
-    private AddProductPnContract.ViewModel mViewModel;
+    private ChildProductContract.ViewModel mViewModel;
 
-    public AddProductpnPresenter(AddProductPnContract.ViewModel viewModel) {
+    public ChildProductPresenter(ChildProductContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 

@@ -18,17 +18,17 @@ import vn.needy.vendor.screen.productProfile.ProductProfilePnActivity;
  * Created by lion on 04/12/2017.
  */
 
-public class AddAttributeViewModel extends BaseObservable implements AddAttributeContract.ViewModel {
+public class AttributeViewModel extends BaseObservable implements AttributeContract.ViewModel {
 
-    private static final String TAG = AddAttributeViewModel.class.getName();
+    private static final String TAG = AttributeViewModel.class.getName();
 
-    private AddAttributeContract.Presenter mPresenter;
+    private AttributeContract.Presenter mPresenter;
     private Context mContext;
     private AttributeAdapter mAttributeAdapter;
 
     private CategoryWrapper mCategory;
 
-    public AddAttributeViewModel(Context context, AttributeAdapter attributeAdapter, CategoryWrapper category) {
+    public AttributeViewModel(Context context, AttributeAdapter attributeAdapter, CategoryWrapper category) {
         mContext = context;
         mAttributeAdapter = attributeAdapter;
         mCategory = category;
@@ -45,7 +45,7 @@ public class AddAttributeViewModel extends BaseObservable implements AddAttribut
     }
 
     @Override
-    public void setPresenter(AddAttributeContract.Presenter presenter) {
+    public void setPresenter(AttributeContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
@@ -66,7 +66,7 @@ public class AddAttributeViewModel extends BaseObservable implements AddAttribut
         }
         Bundle extras = new Bundle();
         extras.putParcelableArrayList(
-                AddAttributeFragment.class.getSimpleName(),
+                AttributeFragment.class.getSimpleName(),
                 attributes
         );
         ((ProductProfilePnActivity) mContext).onUpdateListAttribute(attributes);

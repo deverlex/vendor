@@ -19,15 +19,15 @@ import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
  * Created by lion on 04/12/2017.
  */
 
-public class AddAttributePresenter implements AddAttributeContract.Presenter {
+public class AttributePresenter implements AttributeContract.Presenter {
 
-    private static final String TAG = AddAttributePresenter.class.getName();
+    private static final String TAG = AttributePresenter.class.getName();
 
-    private AddAttributeContract.ViewModel mViewModel;
+    private AttributeContract.ViewModel mViewModel;
     private AttributeRepository mAttributeRepository;
     private CompositeDisposable mCompositeDisposable;
 
-    public AddAttributePresenter(AddAttributeContract.ViewModel viewModel) {
+    public AttributePresenter(AttributeContract.ViewModel viewModel) {
         mViewModel = viewModel;
         mAttributeRepository = new AttributeRepository(
             new AttributeDataRemote(VendorServiceClient.getInstance())

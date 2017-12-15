@@ -21,12 +21,12 @@ import vn.needy.vendor.screen.category.CategoriesActivity;
  * Created by lion on 04/12/2017.
  */
 
-public class AddAttributeFragment extends Fragment {
+public class AttributeFragment extends Fragment {
 
-    private static final String TAG = AddAttributeFragment.class.getName();
+    private static final String TAG = AttributeFragment.class.getName();
 
-    public static final AddAttributeFragment getInstance() {
-        return new AddAttributeFragment();
+    public static final AttributeFragment getInstance() {
+        return new AttributeFragment();
     }
 
     @Override
@@ -43,17 +43,17 @@ public class AddAttributeFragment extends Fragment {
 
         List<AttributeWrapper> attributes = new ArrayList<>();
         AttributeAdapter attributeAdapter = new AttributeAdapter(getContext(), attributes);
-        AddAttributeContract.ViewModel viewModel =
-                new AddAttributeViewModel(getContext(), attributeAdapter, category);
+        AttributeContract.ViewModel viewModel =
+                new AttributeViewModel(getContext(), attributeAdapter, category);
 
-        AddAttributeContract.Presenter presenter = new AddAttributePresenter(viewModel);
+        AttributeContract.Presenter presenter = new AttributePresenter(viewModel);
         viewModel.setPresenter(presenter);
         viewModel.onStart();
 
         // data binding
         FragmentAddAttributesBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_add_attributes, container, false);
-        binding.setViewModel((AddAttributeViewModel) viewModel);
+        binding.setViewModel((AttributeViewModel) viewModel);
         return binding.getRoot();
     }
 
