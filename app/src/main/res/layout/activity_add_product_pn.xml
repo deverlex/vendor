@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.productProfile.AddProductPnViewModel"
+            type="vn.needy.vendor.screen.productProfile.ProductProfilePnViewModel"
             />
 
         <import type="vn.needy.vendor.utils.binding.LayoutManagers" />
@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:background="@color/color_gray_white"
             android:orientation="vertical"
-            tools:context=".screen.productProfile.AddProductPnActivity"
+            tools:context=".screen.productProfile.ProductProfilePnActivity"
             tools:ignore="ScrollViewSize">
 
             <android.support.v7.widget.Toolbar

@@ -30,12 +30,12 @@ import vn.needy.vendor.utils.navigator.Navigator;
  * Created by lion on 08/11/2017.
  */
 
-public class AddProductPnActivity extends BaseActivity
+public class ProductProfilePnActivity extends BaseActivity
         implements AddAttributeFragment.OnCallbackReceived {
 
-    private static final String TAG = AddProductPnActivity.class.getName();
+    private static final String TAG = ProductProfilePnActivity.class.getName();
 
-    private AddProductPnContract.ViewModel mViewModel;
+    private ProductProfilePnContract.ViewModel mViewModel;
     public static final int RC_CHOOSE_IMAGE = 2682;
     public static final int RC_CHOOSE_CATEGORY = 1782;
 
@@ -48,13 +48,13 @@ public class AddProductPnActivity extends BaseActivity
 
         mNavigator = new Navigator(this);
 
-        mViewModel = new AddProductPnViewModel(this, mNavigator, imageAdapter);
-        AddProductPnContract.Presenter presenter = new AddProductPnPresenter(this, mViewModel);
+        mViewModel = new ProductProfilePnViewModel(this, mNavigator, imageAdapter);
+        ProductProfilePnContract.Presenter presenter = new ProductProfilePnPresenter(this, mViewModel);
         mViewModel.setPresenter(presenter);
 
         ActivityAddProductPnBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_add_product_pn);
-        binding.setViewModel((AddProductPnViewModel) mViewModel);
+        binding.setViewModel((ProductProfilePnViewModel) mViewModel);
     }
 
     @Override

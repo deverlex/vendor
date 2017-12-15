@@ -31,18 +31,18 @@ import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 import vn.needy.vendor.widget.GifSizeFilter;
 
-import static vn.needy.vendor.screen.productProfile.AddProductPnActivity.RC_CHOOSE_IMAGE;
+import static vn.needy.vendor.screen.productProfile.ProductProfilePnActivity.RC_CHOOSE_IMAGE;
 
 /**
  * Created by lion on 08/11/2017.
  */
-public class AddProductPnViewModel extends BaseObservable implements AddProductPnContract.ViewModel,
+public class ProductProfilePnViewModel extends BaseObservable implements ProductProfilePnContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
-    private static final String TAG = AddProductPnViewModel.class.getName();
+    private static final String TAG = ProductProfilePnViewModel.class.getName();
     private final Context mContext;
 
-    private AddProductPnContract.Presenter mPresenter;
+    private ProductProfilePnContract.Presenter mPresenter;
     private Navigator mNavigator;
 
     private String mNameError;
@@ -63,7 +63,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
 
     private boolean mVisibleImages;
 
-    public AddProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
+    public ProductProfilePnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
         mContext = context;
         mNavigator = navigator;
         mAttributes = new HashMap<>();
@@ -85,7 +85,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     }
 
     @Override
-    public void setPresenter(AddProductPnContract.Presenter presenter) {
+    public void setPresenter(ProductProfilePnContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
@@ -117,8 +117,8 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
     public void onChooseCategory() {
         Bundle extras = new Bundle();
         // put simple name thought bundle
-        extras.putString(CategoriesActivity.FROM_CLASS, AddProductPnActivity.class.getSimpleName());
-        mNavigator.startActivityForResult(CategoriesActivity.class, extras, AddProductPnActivity.RC_CHOOSE_CATEGORY);
+        extras.putString(CategoriesActivity.FROM_CLASS, ProductProfilePnActivity.class.getSimpleName());
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, ProductProfilePnActivity.RC_CHOOSE_CATEGORY);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
         if (mImageAdapter.getItemCount() > 0) {
             limitSelectable = Constant.MAX_IMAGES_PUSH - mImageAdapter.getItemCount();
         }
-        Matisse.from((AddProductPnActivity) mContext)
+        Matisse.from((ProductProfilePnActivity) mContext)
                 .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))
                 .countable(true)
                 .maxSelectable(limitSelectable)
@@ -151,7 +151,7 @@ public class AddProductPnViewModel extends BaseObservable implements AddProductP
         if (mCategory != null) {
             Bundle extras = new Bundle();
             extras.putParcelable(CategoriesActivity.CATEGORY, mCategory);
-            ((AddProductPnActivity) mContext)
+            ((ProductProfilePnActivity) mContext)
                     .initFragment(android.R.id.content, AddAttributeFragment.getInstance(), extras);
         } else {
             // notify require choose category before add attribute

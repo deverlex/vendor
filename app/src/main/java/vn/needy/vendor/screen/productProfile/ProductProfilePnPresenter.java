@@ -16,16 +16,16 @@ import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
  * Created by lion on 08/11/2017.
  */
 
-public class AddProductPnPresenter implements AddProductPnContract.Presenter {
+public class ProductProfilePnPresenter implements ProductProfilePnContract.Presenter {
 
-    private static final String TAG = AddProductPnPresenter.class.getName();
+    private static final String TAG = ProductProfilePnPresenter.class.getName();
 
     private final Context mContext;
-    private final AddProductPnContract.ViewModel mViewModel;
+    private final ProductProfilePnContract.ViewModel mViewModel;
 
     private final CompositeDisposable mCompositeDisposable;
 
-    public AddProductPnPresenter(Context context, AddProductPnContract.ViewModel viewModel) {
+    public ProductProfilePnPresenter(Context context, ProductProfilePnContract.ViewModel viewModel) {
         mContext = context;
         mViewModel = viewModel;
 

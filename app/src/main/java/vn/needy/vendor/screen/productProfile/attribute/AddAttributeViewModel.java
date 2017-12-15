@@ -12,7 +12,7 @@ import java.util.List;
 
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
-import vn.needy.vendor.screen.productProfile.AddProductPnActivity;
+import vn.needy.vendor.screen.productProfile.ProductProfilePnActivity;
 
 /**
  * Created by lion on 04/12/2017.
@@ -69,7 +69,7 @@ public class AddAttributeViewModel extends BaseObservable implements AddAttribut
                 AddAttributeFragment.class.getSimpleName(),
                 attributes
         );
-        ((AddProductPnActivity) mContext).onUpdateListAttribute(attributes);
+        ((ProductProfilePnActivity) mContext).onUpdateListAttribute(attributes);
         ((Activity) mContext).onBackPressed();
     }
 
