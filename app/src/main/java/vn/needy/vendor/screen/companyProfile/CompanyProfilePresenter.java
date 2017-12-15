@@ -157,7 +157,7 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
     }
 
     @Override
-    public void updateCompanyInfo(Company company) {
+    public void updateCompanyInfo(Company company, List<Long> removeFeeTransportIds) {
         RealmList<FeeTransport> feeTransports = company.getFeeTransports();
         if (feeTransports != null) {
             for (int i = 0; i < feeTransports.size(); i++) {
@@ -171,6 +171,7 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
             }
         }
         UpdateCompanyInfoReq request = new UpdateCompanyInfoReq(company);
+        request.setmRemoveFeeTransportIds(removeFeeTransportIds);
         mCompanyRepository.updateCompanyInformation(company.getId(), request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {

@@ -48,6 +48,9 @@ public class UpdateCompanyInfoReq {
     @Expose
     @SerializedName("feeTransport")
     private List<FeeTransportWrapper> mFeeTransport;
+    @Expose
+    @SerializedName("removeFeeTransportId")
+    private List<Long> mRemoveFeeTransportIds;
 
     public UpdateCompanyInfoReq() {
         super();
@@ -148,5 +151,13 @@ public class UpdateCompanyInfoReq {
 
     public void setLng(float lng) {
         mLng = lng;
+    }
+
+    public List<Long> getmRemoveFeeTransportIds() {
+        return mRemoveFeeTransportIds;
+    }
+
+    public void setmRemoveFeeTransportIds(List<Long> mRemoveFeeTransportIds) {
+        this.mRemoveFeeTransportIds = mRemoveFeeTransportIds;
     }
 }

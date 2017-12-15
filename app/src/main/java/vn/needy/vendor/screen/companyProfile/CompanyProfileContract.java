@@ -50,6 +50,6 @@ public class CompanyProfileContract {
 
         boolean validateDataInput(String name, String address);
 
-        void updateCompanyInfo(Company company);
+        void updateCompanyInfo(Company company, List<Long> removeFeeTransportIds);
     }
 }

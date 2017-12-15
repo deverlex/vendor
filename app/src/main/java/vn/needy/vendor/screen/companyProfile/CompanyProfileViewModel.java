@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -54,6 +55,7 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     private boolean mVisibleDescription;
     private int mDrawableExpandDescription;
     private FeeTransportAdapter mFeeTransportAdapter;
+    private List<Long> mRemoveFeeTransportIds;
 
     private MapFragment mMapFragment;
 
@@ -64,6 +66,7 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
         mDrawableExpandDescription = R.drawable.ic_next_right;
         mFeeTransportAdapter = feeTransportAdapter;
         mFeeTransportAdapter.setItemClickListener(this);
+        mRemoveFeeTransportIds = new ArrayList<>();
     }
 
     @Override
@@ -112,7 +115,8 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
            boolean isValidate = mPresenter.validateDataInput(mCompany.getName(), mCompany.getAddress());
            if (!isValidate) return;
 
-           mPresenter.updateCompanyInfo(mCompany);
+           mPresenter.updateCompanyInfo(mCompany, mRemoveFeeTransportIds);
+           mFeeTransportAdapter.notifyDataSetChanged();
         }
 
         mEnable = !mEnable;
@@ -300,5 +304,6 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     @Override
     public void onItemRecyclerViewClick(Object item) {
         mFeeTransportAdapter.removeItem((FeeTransport) item);
+        mRemoveFeeTransportIds.add(((FeeTransport) item).getId());
     }
 }
