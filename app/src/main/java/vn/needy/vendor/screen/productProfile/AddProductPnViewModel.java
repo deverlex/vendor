@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.addProduct;
+package vn.needy.vendor.screen.productProfile;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -25,13 +25,13 @@ import vn.needy.vendor.model.Image;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
-import vn.needy.vendor.screen.addProduct.addAttribute.AddAttributeFragment;
+import vn.needy.vendor.screen.productProfile.addAttribute.AddAttributeFragment;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 import vn.needy.vendor.widget.GifSizeFilter;
 
-import static vn.needy.vendor.screen.addProduct.AddProductPnActivity.RC_CHOOSE_IMAGE;
+import static vn.needy.vendor.screen.productProfile.AddProductPnActivity.RC_CHOOSE_IMAGE;
 
 /**
  * Created by lion on 08/11/2017.

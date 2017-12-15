@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.addProduct;
+package vn.needy.vendor.screen.productProfile;
 
 import android.content.Context;
 import android.os.AsyncTask;

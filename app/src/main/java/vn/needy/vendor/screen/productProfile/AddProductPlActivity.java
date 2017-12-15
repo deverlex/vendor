@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.addProduct;
+package vn.needy.vendor.screen.productProfile;
 
 import vn.needy.vendor.screen.BaseActivity;
 

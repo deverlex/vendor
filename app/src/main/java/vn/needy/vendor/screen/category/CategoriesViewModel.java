@@ -14,7 +14,7 @@ import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
-import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
+import vn.needy.vendor.screen.productProfile.AddProductPnActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.utils.navigator.Navigator;
 

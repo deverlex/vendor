@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.addProduct.addAttribute;
+package vn.needy.vendor.screen.productProfile.addAttribute;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

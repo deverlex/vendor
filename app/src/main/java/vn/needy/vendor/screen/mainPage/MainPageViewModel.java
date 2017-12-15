@@ -10,8 +10,8 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
-import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
+import vn.needy.vendor.screen.productProfile.AddProductPlActivity;
+import vn.needy.vendor.screen.productProfile.AddProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 

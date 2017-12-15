@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.addProduct;
+package vn.needy.vendor.screen.productProfile;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -22,7 +22,7 @@ import vn.needy.vendor.model.Image;
 import vn.needy.vendor.databinding.ActivityAddProductPnBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;
-import vn.needy.vendor.screen.addProduct.addAttribute.AddAttributeFragment;
+import vn.needy.vendor.screen.productProfile.addAttribute.AddAttributeFragment;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 

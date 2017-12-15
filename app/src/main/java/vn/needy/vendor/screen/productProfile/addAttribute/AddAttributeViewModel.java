@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.addProduct.addAttribute;
+package vn.needy.vendor.screen.productProfile.addAttribute;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
-import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
+import vn.needy.vendor.screen.productProfile.AddProductPnActivity;
 
 /**
  * Created by lion on 04/12/2017.

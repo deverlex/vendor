@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.addProduct.addAttribute;
+package vn.needy.vendor.screen.productProfile.addAttribute;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

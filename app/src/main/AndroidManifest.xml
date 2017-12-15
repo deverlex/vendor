@@ -74,13 +74,13 @@
             android:windowSoftInputMode="stateHidden"
             />
 
-        <activity android:name=".screen.addProduct.AddProductPnActivity"
+        <activity android:name=".screen.productProfile.AddProductPnActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"
             />
 
-        <activity android:name=".screen.addProduct.AddProductPlActivity"
+        <activity android:name=".screen.productProfile.AddProductPlActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"
