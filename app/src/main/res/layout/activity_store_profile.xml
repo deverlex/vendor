@@ -249,6 +249,8 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:clickable="@{viewModel.enable}"
+                    android:onClick="@{() -> viewModel.onClickOpeningTime()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_1"
@@ -290,6 +292,8 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:clickable="@{viewModel.enable}"
+                    android:onClick="@{() -> viewModel.onClickClosingTime()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_1"

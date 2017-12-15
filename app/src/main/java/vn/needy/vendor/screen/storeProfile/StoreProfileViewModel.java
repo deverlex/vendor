@@ -1,11 +1,13 @@
 package vn.needy.vendor.screen.storeProfile;
 
 import android.app.Activity;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.location.Location;
 import android.util.Log;
+import android.widget.TimePicker;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,7 +18,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.BR;
@@ -182,5 +188,33 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     @Override
     public void onBackPressed() {
         ((Activity) mContext).onBackPressed();
+    }
+
+    @Override
+    public void onClickOpeningTime() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, R.style.DatePickerDialogTheme, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                Calendar calendar = new GregorianCalendar(0, 0, 0, hourOfDay, minute);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                mStore.setOpeningTime(dateFormat.format(calendar.getTime()));
+                notifyPropertyChanged(BR.store);
+            }
+        }, 0, 0, true);
+        timePickerDialog.show();
+    }
+
+    @Override
+    public void onClickClosingTime() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, R.style.DatePickerDialogTheme, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                Calendar calendar = new GregorianCalendar(0, 0, 0, hourOfDay, minute);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                mStore.setClosingTime(dateFormat.format(calendar.getTime()));
+                notifyPropertyChanged(BR.store);
+            }
+        }, 0, 0, true);
+        timePickerDialog.show();
     }
 }
