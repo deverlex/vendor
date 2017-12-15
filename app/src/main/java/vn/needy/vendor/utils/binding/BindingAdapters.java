@@ -76,20 +76,20 @@ public class BindingAdapters {
 
 
     // for load image from path in device's storage
-    @BindingAdapter("srcPath")
-    public static void loadImagePath(final ImageView imageView, final String path) {
-        if (!TextUtils.isEmpty(path)) {
-            Bitmap bmp = BitmapFactory.decodeFile(path);
-            imageView.setImageBitmap(CompressImage.reduceSize(bmp,
-                    ViewUtil.dpToPx(imageView.getContext(), 100)));
-        }
-    }
+//    @BindingAdapter("srcPath")
+//    public static void loadImagePath(final ImageView imageView, final String path) {
+//        if (!TextUtils.isEmpty(path)) {
+//            Bitmap bmp = BitmapFactory.decodeFile(path);
+//            imageView.setImageBitmap(CompressImage.reduceSize(bmp,
+//                    ViewUtil.dpToPx(imageView.getContext(), 100)));
+//        }
+//    }
 
     // for load image from Resource server (Python)
     @BindingAdapter("srcUri")
     public static void loadImageUri(ImageView imageView, String url) {
         // check image load from server
-        if (url.indexOf("http") >= 0 || url.indexOf("ws") >= 0) {
+        if (url.contains("http")) {
             String token = SharedPrefsImpl.getInstance()
                     .get(SharedPrefsKey.TOKEN_KEY, String.class);
 

@@ -24,9 +24,10 @@ public class ItemImageViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getImagePath() {
-        Log.w(TAG, "getImagePath()");
-        if (mImage != null) {
+    public String getImageUri() {
+        if (mImage != null && mImage.getUri().contains("http")) {
+            return mImage.getUri();
+        } else if (mImage != null) {
             return mImage.getPath();
         }
         return "";

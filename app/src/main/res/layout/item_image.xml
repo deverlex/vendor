@@ -23,7 +23,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:onClick="@{() -> viewModel.onItemClicked()}"
-            app:srcPath="@{viewModel.imagePath}"
+            app:srcUri="@{viewModel.imageUri}"
             />
     </RelativeLayout>
 </layout>
