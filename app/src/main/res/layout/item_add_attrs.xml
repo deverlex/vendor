@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.productProfile.addAttribute.ItemAttributeViewModel" />
+            type="vn.needy.vendor.screen.productProfile.attribute.ItemAttributeViewModel" />
     </data>
 
     <LinearLayout

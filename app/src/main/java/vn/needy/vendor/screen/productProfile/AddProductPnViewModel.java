@@ -25,7 +25,7 @@ import vn.needy.vendor.model.Image;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
-import vn.needy.vendor.screen.productProfile.addAttribute.AddAttributeFragment;
+import vn.needy.vendor.screen.productProfile.attribute.AddAttributeFragment;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;

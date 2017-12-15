@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile.addAttribute;
+package vn.needy.vendor.screen.productProfile.attribute;
 
 import android.app.Activity;
 import android.content.Context;
