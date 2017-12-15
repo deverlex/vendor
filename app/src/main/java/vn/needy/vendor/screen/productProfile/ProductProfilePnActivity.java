@@ -53,7 +53,7 @@ public class ProductProfilePnActivity extends BaseActivity
         mViewModel.setPresenter(presenter);
 
         ActivityAddProductPnBinding binding =
-                DataBindingUtil.setContentView(this, R.layout.activity_add_product_pn);
+                DataBindingUtil.setContentView(this, R.layout.activity_product_profile_pn);
         binding.setViewModel((ProductProfilePnViewModel) mViewModel);
     }
 

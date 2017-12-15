@@ -52,7 +52,7 @@ public class AttributeFragment extends Fragment {
 
         // data binding
         FragmentAddAttributesBinding binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_add_attributes, container, false);
+                DataBindingUtil.inflate(inflater, R.layout.fragment_attributes, container, false);
         binding.setViewModel((AttributeViewModel) viewModel);
         return binding.getRoot();
     }
