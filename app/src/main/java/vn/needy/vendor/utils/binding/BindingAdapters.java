@@ -88,14 +88,22 @@ public class BindingAdapters {
     // for load image from Resource server (Python)
     @BindingAdapter("srcUri")
     public static void loadImageUri(ImageView imageView, String url) {
-        String token = SharedPrefsImpl.getInstance()
-                .get(SharedPrefsKey.TOKEN_KEY, String.class);
+        // check image load from server
+        if (url.indexOf("http") >= 0 || url.indexOf("ws") >= 0) {
+            String token = SharedPrefsImpl.getInstance()
+                    .get(SharedPrefsKey.TOKEN_KEY, String.class);
 
-        GlideUrl gUri = new GlideUrl(url, new LazyHeaders.Builder()
-                .setHeader("Authorization", token).build());
+            GlideUrl gUri = new GlideUrl(url, new LazyHeaders.Builder()
+                    .setHeader("Authorization", token).build());
 
-        Glide.with(imageView.getContext())
-                .load(gUri).into(imageView);
+            Glide.with(imageView.getContext())
+                    .load(gUri).into(imageView);
+        } else if (!TextUtils.isEmpty(url)) {
+            // for image load from local
+            Bitmap bmp = BitmapFactory.decodeFile(url);
+            imageView.setImageBitmap(CompressImage.reduceSize(bmp,
+                    ViewUtil.dpToPx(imageView.getContext(), 100)));
+        }
     }
 
     @BindingAdapter("transformationMethod")
