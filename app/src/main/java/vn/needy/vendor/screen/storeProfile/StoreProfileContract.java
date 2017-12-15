@@ -21,6 +21,8 @@ public interface StoreProfileContract {
         void setStoreInfo(Store store);
 
         void onClickDescription();
+
+        void onClickPosition();
     }
 
     interface Presenter extends BasePresenter {

@@ -1,9 +1,20 @@
 package vn.needy.vendor.screen.storeProfile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.location.Location;
 import android.util.Log;
+
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
@@ -27,9 +38,11 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     private Store mStore;
     private boolean mVisibleDescription;
     private int mDrawableExpandDescription;
+    private MapFragment mMapFragment;
 
-    StoreProfileViewModel(Context context) {
+    StoreProfileViewModel(Context context, MapFragment mapFragment) {
         mContext = context;
+        mMapFragment = mapFragment;
         mDrawableEdit = R.drawable.ic_edits_white;
         mDrawableExpandDescription = R.drawable.ic_next_right;
     }
@@ -38,6 +51,23 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     public void onStart() {
         mPresenter.getCoverPictures();
         mPresenter.getStoreInfo();
+
+        // Settup click map
+        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                // Settup click
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        googleMap.clear();
+                        googleMap.addMarker(new MarkerOptions().position(latLng));
+                        mStore.setLat((float) latLng.latitude);
+                        mStore.setLng((float) latLng.longitude);
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -102,6 +132,18 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     public void setStoreInfo(Store store) {
         mStore = store;
         notifyPropertyChanged(BR.store);
+
+        //Move to address on Map
+        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                // Move to Address
+                googleMap.clear();
+                LatLng addressLatLng = new LatLng(mStore.getLat(), mStore.getLng());
+                googleMap.addMarker(new MarkerOptions().position(addressLatLng));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(addressLatLng, 13));
+            }
+        });
     }
 
     @Override
@@ -111,5 +153,29 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
 
         mDrawableExpandDescription = mVisibleDescription ? R.drawable.ic_expand : R.drawable.ic_next_right;
         notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.drawableExpandDescription);
+    }
+
+    @Override
+    public void onClickPosition() {
+        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                googleMap.clear();
+                LocationServices.getFusedLocationProviderClient(mContext)
+                        .getLastLocation().
+                        addOnSuccessListener((Activity) mContext, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                if (location!= null) {
+                                    LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
+                                    googleMap.addMarker(new MarkerOptions().position(currentPosition));
+                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
+                                    mStore.setLat((float) location.getLatitude());
+                                    mStore.setLng((float) location.getLongitude());
+                                }
+                            }
+                        });
+            }
+        });
     }
 }
