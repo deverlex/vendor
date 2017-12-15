@@ -19,33 +19,33 @@ public class ItemFeeTransportViewModel extends BaseObservable {
         this.mItemClickListener = mItemClickListener;
     }
 
-    public float getFrom() {
-        return mFeeTransport.getFrom();
+    public String getFrom() {
+        return String.valueOf(mFeeTransport.getFrom());
     }
 
-    public float getTo() {
-        return mFeeTransport.getTo();
+    public String getTo() {
+        return String.valueOf(mFeeTransport.getTo());
     }
 
-    public float getFee() {
-        return mFeeTransport.getFee();
+    public String getFee() {
+        return String.valueOf(mFeeTransport.getFee());
     }
 
-    public void setFrom(float from) {
+    public void setFrom(String from) {
         if (mFeeTransport != null) {
-            mFeeTransport.setFrom(from);
+            mFeeTransport.setFrom(Float.valueOf(from));
         }
     }
 
-    public void setTo(float to) {
+    public void setTo(String to) {
         if (mFeeTransport != null) {
-            mFeeTransport.setTo(to);
+            mFeeTransport.setTo(Float.valueOf(to));
         }
     }
 
-    public void setFee(float fee) {
+    public void setFee(String fee) {
         if (mFeeTransport != null) {
-            mFeeTransport.setFee(fee);
+            mFeeTransport.setFee(Float.valueOf(fee));
         }
     }
 

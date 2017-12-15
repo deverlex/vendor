@@ -11,6 +11,7 @@ import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 public class FeeTransport extends RealmObject {
 
     @PrimaryKey
+    private long id;
     private String mCompanyId;
     private int mFeeType;
     private float mFrom;
@@ -22,6 +23,7 @@ public class FeeTransport extends RealmObject {
     }
 
     public FeeTransport(String companyId, FeeTransportWrapper wrapper) {
+        id = wrapper.getId();
         mCompanyId = companyId;
         mFeeType = wrapper.getFeeType();
         mFrom = wrapper.getFrom();
@@ -67,5 +69,13 @@ public class FeeTransport extends RealmObject {
 
     public void setFee(float fee) {
         mFee = fee;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

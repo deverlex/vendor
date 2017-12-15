@@ -26,6 +26,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+
+import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.R;
 import vn.needy.vendor.model.Company;
@@ -109,7 +111,6 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
         if (mEnable) {
            boolean isValidate = mPresenter.validateDataInput(mCompany.getName(), mCompany.getAddress());
            if (!isValidate) return;
-
 
            mPresenter.updateCompanyInfo(mCompany);
         }
@@ -238,8 +239,8 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     }
 
     @Override
-    public void onUpdateFeeTransport(List<FeeTransport> feeTransports) {
-        mFeeTransportAdapter.updateData(feeTransports);
+    public void onSetFeeTransport(RealmList<FeeTransport> feeTransports) {
+        mFeeTransportAdapter.setData(feeTransports);
     }
 
     @Override

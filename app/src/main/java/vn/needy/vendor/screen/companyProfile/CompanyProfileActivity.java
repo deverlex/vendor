@@ -7,6 +7,7 @@ import android.widget.ScrollView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.databinding.ActivityCompanyProfileBinding;
@@ -49,7 +50,7 @@ public class CompanyProfileActivity extends BaseActivity {
         });
 
 
-        List<FeeTransport> feeTransports = new ArrayList<>();
+        RealmList<FeeTransport> feeTransports = new RealmList<>();
         FeeTransportAdapter feeTransportAdapter = new FeeTransportAdapter(this, feeTransports);
         mViewModel = new CompanyProfileViewModel(this, mapFragment, feeTransportAdapter);
 

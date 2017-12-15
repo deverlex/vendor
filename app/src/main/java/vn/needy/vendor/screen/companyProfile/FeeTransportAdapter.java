@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import io.realm.RealmList;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ItemFeeTransportBinding;
 import vn.needy.vendor.model.FeeTransport;
@@ -20,10 +21,10 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 public class FeeTransportAdapter extends BaseRecyclerViewAdapter<FeeTransportAdapter.ItemViewHolder> {
 
-    private final List<FeeTransport> mFeeTransport;
+    private RealmList<FeeTransport> mFeeTransport;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected FeeTransportAdapter(@NonNull Context context, List<FeeTransport> feeTransport) {
+    protected FeeTransportAdapter(@NonNull Context context, RealmList<FeeTransport> feeTransport) {
         super(context);
         this.mFeeTransport = feeTransport;
     }
@@ -45,12 +46,20 @@ public class FeeTransportAdapter extends BaseRecyclerViewAdapter<FeeTransportAda
         return mFeeTransport.size();
     }
 
-    public void updateData(List<FeeTransport> feeTransports) {
+    public void updateData(RealmList<FeeTransport> feeTransports) {
         if (feeTransports == null) {
             return;
         }
         mFeeTransport.clear();
         mFeeTransport.addAll(feeTransports);
+        notifyDataSetChanged();
+    }
+
+    public void setData(RealmList<FeeTransport> feeTransports) {
+        if (feeTransports == null) {
+            return;
+        }
+        mFeeTransport = feeTransports;
         notifyDataSetChanged();
     }
 
@@ -64,6 +73,10 @@ public class FeeTransportAdapter extends BaseRecyclerViewAdapter<FeeTransportAda
         int position = mFeeTransport.indexOf(feeTransport);
         mFeeTransport.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public List<FeeTransport> getData() {
+        return mFeeTransport;
     }
 
     public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {

@@ -2,6 +2,7 @@ package vn.needy.vendor.screen.companyProfile;
 
 import java.util.List;
 
+import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.model.Company;
 import vn.needy.vendor.model.FeeTransport;
@@ -37,7 +38,7 @@ public class CompanyProfileContract {
 
         void onClickDescription();
 
-        void onUpdateFeeTransport(List<FeeTransport> feeTransports);
+        void onSetFeeTransport(RealmList<FeeTransport> feeTransports);
 
         void addFeeTransport();
     }
