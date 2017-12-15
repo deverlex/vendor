@@ -178,4 +178,9 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        ((Activity) mContext).onBackPressed();
+    }
 }

@@ -23,6 +23,8 @@ public interface StoreProfileContract {
         void onClickDescription();
 
         void onClickPosition();
+
+        void onBackPressed();
     }
 
     interface Presenter extends BasePresenter {
