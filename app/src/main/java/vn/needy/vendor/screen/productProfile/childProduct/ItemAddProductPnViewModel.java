@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile.addProductPn;
+package vn.needy.vendor.screen.productProfile.childProduct;
 
 import android.databinding.BaseObservable;
 

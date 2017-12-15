@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.productProfile.addProductPn.AddProductPnViewModel"
+            type="vn.needy.vendor.screen.productProfile.childProduct.AddProductPnViewModel"
             />
         <import type="vn.needy.vendor.utils.binding.LayoutManagers" />
         <import type="android.support.v7.widget.LinearLayoutManager"/>
