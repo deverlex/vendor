@@ -41,7 +41,7 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemAddAttrsBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.item_add_attrs, parent, false);
+                        R.layout.item_choose_attribute, parent, false);
         return new AttributeAdapter.ItemViewHolder(binding);
     }
 
