@@ -2,8 +2,11 @@ package vn.needy.vendor.screen.companyProfile;
 
 import java.util.List;
 
+import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.model.Company;
+import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -34,6 +37,10 @@ public class CompanyProfileContract {
         void onClickClosingTime();
 
         void onClickDescription();
+
+        void onSetFeeTransport(RealmList<FeeTransport> feeTransports);
+
+        void addFeeTransport();
     }
 
     interface Presenter extends BasePresenter {
@@ -43,6 +50,6 @@ public class CompanyProfileContract {
 
         boolean validateDataInput(String name, String address);
 
-        void updateCompanyInfo(Company company);
+        void updateCompanyInfo(Company company, List<Long> removeFeeTransportIds);
     }
 }

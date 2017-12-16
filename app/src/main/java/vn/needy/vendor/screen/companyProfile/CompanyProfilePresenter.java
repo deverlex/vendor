@@ -1,9 +1,12 @@
 package vn.needy.vendor.screen.companyProfile;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -127,6 +130,7 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
                     @Override
                     public void accept(Company company) throws Exception {
                         mViewModel.setCompanyInfo(company, company.getTotalStaff());
+                        mViewModel.onSetFeeTransport(company.getFeeTransports());
                     }
                 }, new SafetyError() {
                     @Override
@@ -153,8 +157,21 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
     }
 
     @Override
-    public void updateCompanyInfo(Company company) {
+    public void updateCompanyInfo(Company company, List<Long> removeFeeTransportIds) {
+        RealmList<FeeTransport> feeTransports = company.getFeeTransports();
+        if (feeTransports != null) {
+            for (int i = 0; i < feeTransports.size(); i++) {
+                if (feeTransports.get(i).getFrom() > feeTransports.get(i).getTo()) {
+                    // Show Error
+                }
+
+                if (feeTransports.get(i).getFrom() == 0f && feeTransports.get(i).getTo() == 0f && feeTransports.get(i).getFee() == 0f) {
+                    feeTransports.remove(i);
+                }
+            }
+        }
         UpdateCompanyInfoReq request = new UpdateCompanyInfoReq(company);
+        request.setmRemoveFeeTransportIds(removeFeeTransportIds);
         mCompanyRepository.updateCompanyInformation(company.getId(), request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {

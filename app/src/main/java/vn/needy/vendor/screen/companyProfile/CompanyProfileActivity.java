@@ -4,9 +4,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.widget.ScrollView;
 
+import io.realm.RealmList;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.databinding.ActivityCompanyProfileBinding;
+import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;
@@ -44,7 +46,9 @@ public class CompanyProfileActivity extends BaseActivity {
         });
 
 
-        mViewModel = new CompanyProfileViewModel(this, mapFragment);
+        RealmList<FeeTransport> feeTransports = new RealmList<>();
+        FeeTransportAdapter feeTransportAdapter = new FeeTransportAdapter(this, feeTransports);
+        mViewModel = new CompanyProfileViewModel(this, mapFragment, feeTransportAdapter);
 
         CompanyProfileContract.Presenter presenter= new CompanyProfilePresenter(mViewModel, mVendorApi);
         mViewModel.setPresenter(presenter);

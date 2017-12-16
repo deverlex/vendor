@@ -3,7 +3,12 @@ package vn.needy.vendor.repository.remote.company.request;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vn.needy.vendor.model.Company;
+import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 
 /**
  * Created by truongpq on 08/12/2017.
@@ -40,6 +45,12 @@ public class UpdateCompanyInfoReq {
     @Expose
     @SerializedName("lng")
     private float mLng;
+    @Expose
+    @SerializedName("feeTransport")
+    private List<FeeTransportWrapper> mFeeTransport;
+    @Expose
+    @SerializedName("removeFeeTransportId")
+    private List<Long> mRemoveFeeTransportIds;
 
     public UpdateCompanyInfoReq() {
         super();
@@ -55,6 +66,11 @@ public class UpdateCompanyInfoReq {
         mClosingTime = company.getClosingTime();
         mLat = company.getLat();
         mLng = company.getLng();
+
+        mFeeTransport = new ArrayList<>();
+        for (FeeTransport ft : company.getFeeTransports()) {
+            mFeeTransport.add(new FeeTransportWrapper(ft));
+        }
     }
 
     public String getName() {
@@ -135,5 +151,13 @@ public class UpdateCompanyInfoReq {
 
     public void setLng(float lng) {
         mLng = lng;
+    }
+
+    public List<Long> getmRemoveFeeTransportIds() {
+        return mRemoveFeeTransportIds;
+    }
+
+    public void setmRemoveFeeTransportIds(List<Long> mRemoveFeeTransportIds) {
+        this.mRemoveFeeTransportIds = mRemoveFeeTransportIds;
     }
 }

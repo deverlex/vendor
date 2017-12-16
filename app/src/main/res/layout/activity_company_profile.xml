@@ -424,6 +424,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:onClick="@{() -> viewModel.addFeeTransport()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_1"
@@ -437,20 +438,8 @@
                         android:fontFamily="@string/font_serif"
                         android:paddingLeft="@dimen/dp_10"
                         android:paddingTop="@dimen/dp_10"
-                        android:text="Miễn phí vận chuyển với đơn hàng từ"
+                        android:text="Phí vận chuyển"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/sp_13"
-                        tools:ignore="UnusedAttribute" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/headerFreeTransport"
-                        android:fontFamily="@string/font_serif"
-                        android:paddingBottom="@dimen/dp_10"
-                        android:paddingLeft="@dimen/dp_10"
-                        android:text="@string/not_set"
-                        android:textColor="@color/gray70"
                         android:textSize="@dimen/sp_13"
                         tools:ignore="UnusedAttribute" />
 
@@ -461,8 +450,17 @@
                         android:layout_centerVertical="true"
                         android:background="@color/transparent"
                         android:padding="@dimen/dp_10"
-                        app:srcCompat="@drawable/ic_next_right" />
+                        app:srcCompat="@drawable/ic_plus" />
                 </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    app:layoutManager="LinearLayoutManager"
+                    app:recyclerAdapter="@{viewModel.feeTransportAdapter}"
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
