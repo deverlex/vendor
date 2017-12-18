@@ -155,6 +155,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
+                        app:errorText="@{viewModel.nameError}"
                         android:enabled="@{viewModel.enable}"
                         android:text="@={viewModel.store.name}"
                         android:layout_width="match_parent"
@@ -356,7 +357,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
-                        android:text="@{viewModel.store.email}"
+                        android:text="@={viewModel.store.email}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
@@ -442,6 +443,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
+                        app:errorText="@{viewModel.addressError}"
                         android:enabled="@{viewModel.enable}"
                         android:layout_below="@+id/headerAddress"
                         android:text="@={viewModel.store.address}"

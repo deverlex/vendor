@@ -29,10 +29,16 @@ public interface StoreProfileContract {
         void onClickOpeningTime();
 
         void onClickClosingTime();
+
+        void onInputNameError(String msg);
+
+        void onInputAddressError(String msg);
     }
 
     interface Presenter extends BasePresenter {
         void getCoverPictures();
         void getStoreInfo();
+        void updateStoreInfo(Store store);
+        boolean validateDataInput(String name, String address);
     }
 }

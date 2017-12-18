@@ -45,6 +45,8 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     private boolean mVisibleDescription;
     private int mDrawableExpandDescription;
     private MapFragment mMapFragment;
+    private String mNameError;
+    private String mAddressError;
 
     StoreProfileViewModel(Context context, MapFragment mapFragment) {
         mContext = context;
@@ -112,6 +114,16 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     }
 
     @Bindable
+    public String getNameError() {
+        return mNameError;
+    }
+
+    @Bindable
+    public String getAddressError() {
+        return mAddressError;
+    }
+
+    @Bindable
     public boolean isEnable() {
         return mEnable;
     }
@@ -125,7 +137,10 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     @Override
     public void onClickEdit() {
         if (mEnable) {
+            boolean isValidate = mPresenter.validateDataInput(mStore.getName(), mStore.getAddress());
+            if (!isValidate) return;
             // Update
+            mPresenter.updateStoreInfo(mStore);
         }
 
         mEnable = !mEnable;
@@ -216,5 +231,17 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
             }
         }, 0, 0, true);
         timePickerDialog.show();
+    }
+
+    @Override
+    public void onInputNameError(String msg) {
+        mNameError = msg;
+        notifyPropertyChanged(BR.nameError);
+    }
+
+    @Override
+    public void onInputAddressError(String msg) {
+        mAddressError = msg;
+        notifyPropertyChanged(BR.addressError);
     }
 }

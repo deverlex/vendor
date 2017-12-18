@@ -1,5 +1,6 @@
 package vn.needy.vendor.screen.storeProfile;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -21,6 +23,7 @@ import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.StoreRepository;
 import vn.needy.vendor.repository.local.StoreDataLocal;
 import vn.needy.vendor.repository.remote.store.StoreDataRemote;
+import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoReq;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResp;
 
 /**
@@ -62,6 +65,46 @@ public class StoreProfilePresenter implements StoreProfileContract.Presenter {
     public void getStoreInfo() {
         getStoreFromLocal();
         getStoreFromRemote();
+    }
+
+    @Override
+    public void updateStoreInfo(Store store) {
+        UpdateStoreInfoReq infoReq = new UpdateStoreInfoReq(store);
+        mStoreRepository.updateStoreInfo(store.getId(), infoReq)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        // Show ProgressBar
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseWrapper>() {
+                    @Override
+                    public void accept(ResponseWrapper baseResponse) throws Exception {
+
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+
+                    }
+                });
+    }
+
+    @Override
+    public boolean validateDataInput(String name, String address) {
+        boolean isValidate = true;
+        if (TextUtils.isEmpty(name)) {
+            isValidate = false;
+            mViewModel.onInputNameError("Tên hiển thị rỗng");
+        }
+
+        if (TextUtils.isEmpty(address)) {
+            isValidate = false;
+            mViewModel.onInputAddressError("Địa chỉ rỗng");
+        }
+        return isValidate;
     }
 
     private void getStoreFromLocal() {

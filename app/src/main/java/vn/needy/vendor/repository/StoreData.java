@@ -3,6 +3,7 @@ package vn.needy.vendor.repository;
 import io.reactivex.Observable;
 import vn.needy.vendor.model.Store;
 import vn.needy.vendor.port.message.ResponseWrapper;
+import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoReq;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResp;
 
 /**
@@ -13,6 +14,7 @@ public interface StoreData {
 
     interface Remote {
         Observable<ResponseWrapper<StoreInfoResp>> getStoreInfo(String storeId);
+        Observable<ResponseWrapper> updateStoreInfo(String storeId, UpdateStoreInfoReq infoReq);
     }
 
     interface Local {
