@@ -32,9 +32,10 @@
                     android:layout_height="?attr/actionBarSize"
                     app:srcCompat="@drawable/ic_back_left"
                     android:background="@color/transparent"
-                    android:onClick="@{() -> viewModel.onBackClicked()}"
+
                     />
 
+                <!--android:onClick="@{() -> viewModel.onBackClicked()}"-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,8 +52,10 @@
                     app:srcCompat="@drawable/ic_check"
                     android:background="@color/transparent"
                     android:layout_alignParentRight="true"
-                    android:onClick="@{() -> viewModel.onDoneClicked()}"
+
                     />
+
+                <!--android:onClick="@{() -> viewModel.onDoneClicked()}"-->
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 

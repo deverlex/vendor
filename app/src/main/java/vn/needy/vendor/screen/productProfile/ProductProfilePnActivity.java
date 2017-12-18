@@ -16,10 +16,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.databinding.ActivityProductProfilePnBinding;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
-import vn.needy.vendor.databinding.ActivityAddProductPnBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.productProfile.attribute.AttributeFragment;
@@ -52,7 +52,7 @@ public class ProductProfilePnActivity extends BaseActivity
         ProductProfilePnContract.Presenter presenter = new ProductProfilePnPresenter(this, mViewModel);
         mViewModel.setPresenter(presenter);
 
-        ActivityAddProductPnBinding binding =
+        ActivityProductProfilePnBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_product_profile_pn);
         binding.setViewModel((ProductProfilePnViewModel) mViewModel);
     }

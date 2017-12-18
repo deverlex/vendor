@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.databinding.FragmentAttributesBinding;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
-import vn.needy.vendor.databinding.FragmentAddAttributesBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 
 /**
@@ -51,7 +51,8 @@ public class AttributeFragment extends Fragment {
         viewModel.onStart();
 
         // data binding
-        FragmentAddAttributesBinding binding =
+
+        FragmentAttributesBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_attributes, container, false);
         binding.setViewModel((AttributeViewModel) viewModel);
         return binding.getRoot();

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -16,8 +17,8 @@ import java.util.Random;
 import java.util.Set;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.databinding.ItemAttributeBinding;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
-import vn.needy.vendor.databinding.ItemAddAttrsBinding;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
@@ -39,9 +40,10 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemAddAttrsBinding binding =
+
+        ItemAttributeBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.item_choose_attribute, parent, false);
+                        R.layout.item_attribute, parent, false);
         return new AttributeAdapter.ItemViewHolder(binding);
     }
 
@@ -68,10 +70,10 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        private final ItemAddAttrsBinding mBinding;
+        private final ItemAttributeBinding mBinding;
 
         @SuppressLint("ResourceType")
-        public ItemViewHolder(ItemAddAttrsBinding binding) {
+        public ItemViewHolder(ItemAttributeBinding binding) {
             super(binding.getRoot());
             // set ID for edit_text in each item
             LinearLayout layout = (LinearLayout) binding.getRoot();
