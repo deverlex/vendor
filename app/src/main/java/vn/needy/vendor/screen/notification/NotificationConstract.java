@@ -1,5 +1,8 @@
 package vn.needy.vendor.screen.notification;
 
+import java.util.List;
+
+import vn.needy.vendor.model.Notification;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -10,10 +13,10 @@ import vn.needy.vendor.screen.BaseViewModel;
 public class NotificationConstract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
-
+        void onSetNotifications(List<Notification> notifications);
     }
 
     interface Presenter extends BasePresenter {
-
+        void onGetNotification();
     }
 }
