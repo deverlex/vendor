@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.FragmentListOrderBinding;
+import vn.needy.vendor.model.Order;
 
 /**
  * Created by lion on 21/10/2017.
@@ -26,9 +30,19 @@ public class ListOrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new ListOrderViewModel();
+
+        List<Order> orders = new ArrayList<>();
+        ListOrderAdapter adapter = new ListOrderAdapter(getActivity(), orders);
+
+        mViewModel = new ListOrderViewModel(getActivity(), adapter);
 
         FragmentListOrderBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list_order, container, false);
+
+        ListOrderContract.Presenter presenter = new ListOrderPresenter(mViewModel);
+        mViewModel.setPresenter(presenter);
+
+        mViewModel.onStart();
+
         binding.setViewModel((ListOrderViewModel) mViewModel);
 //        binding.setMainPage(this);
         return binding.getRoot();

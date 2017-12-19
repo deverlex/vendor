@@ -1,5 +1,8 @@
 package vn.needy.vendor.screen.listorder;
 
+import java.util.List;
+
+import vn.needy.vendor.model.Order;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -10,10 +13,13 @@ import vn.needy.vendor.screen.BaseViewModel;
 public class ListOrderContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
-
+        void setOrders(List<Order> orders);
+        void onClickChangeList();
     }
 
     interface Presenter extends BasePresenter {
+        void getReceivingOrders();
 
+        void getTransportingOrders();
     }
 }
