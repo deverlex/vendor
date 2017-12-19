@@ -45,4 +45,11 @@ public class NotificationPresenter implements NotificationConstract.Presenter{
         }
         mViewModel.onSetNotifications(notifications);
     }
+
+    @Override
+    public void onReadAll(List<Notification> notifications) {
+        for (Notification notification : notifications) {
+            notification.setIsReaded(true);
+        }
+    }
 }

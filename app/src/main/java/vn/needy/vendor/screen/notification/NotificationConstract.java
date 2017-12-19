@@ -14,9 +14,12 @@ public class NotificationConstract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
         void onSetNotifications(List<Notification> notifications);
+
+        void onClickReadAll();
     }
 
     interface Presenter extends BasePresenter {
         void onGetNotification();
+        void onReadAll(List<Notification> notifications);
     }
 }

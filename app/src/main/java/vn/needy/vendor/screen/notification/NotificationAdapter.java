@@ -52,8 +52,16 @@ public class NotificationAdapter extends BaseRecyclerViewAdapter<NotificationAda
         notifyDataSetChanged();
     }
 
+    public List<Notification> getData() {
+        return mNotifications;
+    }
+
     public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
         this.mItemClickListener = itemClickListener;
+    }
+
+    public int getPosition(Notification notification) {
+        return mNotifications.indexOf(notification);
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {

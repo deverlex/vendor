@@ -5,10 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.util.Log;
+
 
 import java.util.List;
 
+import vn.needy.vendor.BR;
 import vn.needy.vendor.model.Notification;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
@@ -56,9 +57,19 @@ public class NotificationViewModel extends BaseObservable implements Notificatio
     }
 
     @Override
+    public void onClickReadAll() {
+        mPresenter.onReadAll(mAdapter.getData());
+        notifyPropertyChanged(BR.adapter);
+    }
+
+    @Override
     public void onItemRecyclerViewClick(Object item) {
+        Notification notification = (Notification) item;
+        notification.setIsReaded(true);
+        mAdapter.notifyItemChanged(mAdapter.getPosition(notification));
+
         Intent intent=new Intent();
-        intent.setComponent(new ComponentName(mContext.getPackageName(), mContext.getPackageName() + ((Notification)item).getReferenceGUI()));
+        intent.setComponent(new ComponentName(mContext.getPackageName(), mContext.getPackageName() + notification.getReferenceGUI()));
         mContext.startActivity(intent);
     }
 }
