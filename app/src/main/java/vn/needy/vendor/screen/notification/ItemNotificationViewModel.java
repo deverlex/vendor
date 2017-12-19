@@ -32,6 +32,10 @@ public class ItemNotificationViewModel extends BaseObservable {
         return mNotification.getCreateTime();
     }
 
+    public boolean isReaded() {
+        return mNotification.isReaded();
+    }
+
     public void onItemClicked() {
         if (mItemClickListener == null) {
             return;

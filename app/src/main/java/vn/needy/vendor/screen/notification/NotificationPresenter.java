@@ -2,6 +2,7 @@ package vn.needy.vendor.screen.notification;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import vn.needy.vendor.model.Notification;
 
@@ -39,6 +40,8 @@ public class NotificationPresenter implements NotificationConstract.Presenter{
             notification.setHtmlContent("<font color=\"red\">Mua một tặng một </font> cho tất cả các sản phẩm gas<br/><font color=\"red\">Miễn phí vẫn chuyển</font>  cho đơn hàng từ 500k trở lên");
             notification.setReferenceGUI(".screen.category.CategoriesActivity");
             notifications.add(notification);
+            Random random = new Random();
+            notification.setIsReaded(random.nextBoolean());
         }
         mViewModel.onSetNotifications(notifications);
     }

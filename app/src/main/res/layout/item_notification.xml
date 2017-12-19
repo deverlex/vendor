@@ -14,12 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
-        android:padding="@dimen/dp_3"
         app:cardCornerRadius="@dimen/dp_2"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        app:contentPaddingBottom="@dimen/dp_1"
+        app:cardPreventCornerOverlap="true">
 
         <RelativeLayout
+            android:background="@{viewModel.readed ?  @color/color_gray_white: @color/color_white}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

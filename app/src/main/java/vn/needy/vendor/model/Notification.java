@@ -15,7 +15,8 @@ public class Notification extends RealmObject {
     private String mHtmlContent;
     private String mCreateTime;
     private String mReferenceGUI;
-    
+    private boolean mIsReaded;
+    private boolean mIsViewed;
 
     public Notification() {
         super();
@@ -67,5 +68,21 @@ public class Notification extends RealmObject {
 
     public void setReferenceGUI(String referenceGUI) {
         this.mReferenceGUI = referenceGUI;
+    }
+
+    public boolean isReaded() {
+        return mIsReaded;
+    }
+
+    public void setIsReaded(boolean isReaded) {
+        this.mIsReaded = isReaded;
+    }
+
+    public boolean isViewed() {
+        return mIsViewed;
+    }
+
+    public void setIsViewed(boolean isViewed) {
+        this.mIsViewed = isViewed;
     }
 }
