@@ -12,15 +12,17 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
-import vn.needy.vendor.api.base.BaseResponse;
-import vn.needy.vendor.api.v1.user.UserDataSource;
-import vn.needy.vendor.api.v1.user.UserDataSourceImpl;
-import vn.needy.vendor.api.v1.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.api.v1.user.response.UserResponse;
-import vn.needy.vendor.database.model.User;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.message.ResponseWrapper;
+import vn.needy.vendor.repository.UserRepository;
+import vn.needy.vendor.repository.local.UserDataLocal;
+import vn.needy.vendor.repository.remote.user.UserDataRemote;
+import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
+import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
+import vn.needy.vendor.model.User;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
 
 /**
  * Created by lion on 02/12/2017.
@@ -30,11 +32,15 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     private UserProfileContract.ViewModel mViewModel;
 
-    private final UserDataSource mUserDataSource;
+    private UserRepository mUserRepository;
 
-    public UserProfilePresenter(UserProfileContract.ViewModel viewModel, SharedPrefsApi prefsApi) {
+    public UserProfilePresenter(UserProfileContract.ViewModel viewModel,
+                                VendorApi vendorApi, SharedPrefsApi prefsApi) {
         mViewModel = viewModel;
-        mUserDataSource = new UserDataSourceImpl(prefsApi);
+        mUserRepository = new UserRepository(
+                new UserDataRemote(vendorApi),
+                new UserDataLocal(prefsApi)
+        );
     }
 
     @Override
@@ -59,7 +65,7 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     @Override
     public void getUserInfo() {
-        mUserDataSource.getUserInformation()
+        mUserRepository.getUserInformation()
                 .subscribeOn(Schedulers.io())
                 .doOnError(new Consumer<Throwable>() {
                     @Override
@@ -67,10 +73,11 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
                     }
                 })
-                .map(new Function<UserResponse, User>() {
+                .map(new Function<ResponseWrapper<UserInfoResponse>, User>() {
                     @Override
-                    public User apply(UserResponse userResponse) throws Exception {
-                        return userResponse.getUser();
+                    public User apply(ResponseWrapper<UserInfoResponse> response) throws Exception {
+                        UserInfoResponse resp = response.getData();
+                        return resp.getUser();
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -91,7 +98,7 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     @Override
     public void updateUserInformation(UpdateUserInfoRequest request) {
-        mUserDataSource.updateUserInformation(request)
+        mUserRepository.updateUserInformation(request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -101,9 +108,9 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseResponse>() {
+                .subscribe(new Consumer<ResponseWrapper>() {
                     @Override
-                    public void accept(BaseResponse baseResponse) throws Exception {
+                    public void accept(ResponseWrapper baseResponse) throws Exception {
                         Log.e(getClass().getSimpleName(), baseResponse.getMessage());
                     }
                 }, new SafetyError() {

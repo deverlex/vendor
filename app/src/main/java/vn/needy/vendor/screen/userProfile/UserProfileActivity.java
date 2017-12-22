@@ -8,9 +8,12 @@ import android.support.v4.app.Fragment;
 import android.widget.ScrollView;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityUserProfileBinding;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.widget.WorkaroundMapFragment;
 
@@ -26,14 +29,15 @@ public class UserProfileActivity extends BaseActivity {
     private ScrollView mScrollView;
 
     private SharedPrefsApi mPrefsApi;
+    private VendorApi mVendorApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         super.onCreateActivity(savedInstanceState);
-        ActivityUserProfileBinding binding = DataBindingUtil
-                .setContentView(this, R.layout.activity_user_profile);
+        ActivityUserProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile);
 
         mPrefsApi = SharedPrefsImpl.getInstance();
+        mVendorApi = VendorServiceClient.getInstance();
 
         mScrollView = (ScrollView) findViewById(R.id.sv_container);
 
@@ -49,7 +53,8 @@ public class UserProfileActivity extends BaseActivity {
 
         mViewModel = new UserProfileViewModel(this, mapFragment);
 
-        UserProfileContract.Presenter presenter = new UserProfilePresenter(mViewModel, mPrefsApi);
+        UserProfileContract.Presenter presenter =
+                new UserProfilePresenter(mViewModel, mVendorApi, mPrefsApi);
         mViewModel.setPresenter(presenter);
         // will active some actions
         mViewModel.onStart();

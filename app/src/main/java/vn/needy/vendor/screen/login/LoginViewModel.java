@@ -11,7 +11,7 @@ import android.text.method.TransformationMethod;
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.service.VendorServiceClient;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;

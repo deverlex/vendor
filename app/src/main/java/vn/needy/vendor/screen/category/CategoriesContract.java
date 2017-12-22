@@ -2,8 +2,8 @@ package vn.needy.vendor.screen.category;
 
 import java.util.List;
 
-import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.error.BaseException;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -17,7 +17,7 @@ public interface CategoriesContract {
 
         void onBackClicked();
 
-        void onUpdateListCategory(List<Category> categories);
+        void onUpdateListCategory(List<CategoryWrapper> categories);
 
         void onUpdateListCategoryError(BaseException exception);
 
@@ -26,16 +26,16 @@ public interface CategoriesContract {
 
     interface Presenter extends BasePresenter {
 
-        void getCompanyLinkCategoryPriceNow();
+        void getCompanyCategoryPriceNow();
 
-        void getCompanyLinkCategoryPriceLater();
+        void getCompanyCategoryPriceLater();
 
-        void getLinkCategoryPriceNow();
+        void getCategoryPriceNow();
 
-        void getLinkCategoryPriceLater();
+        void getCategoryPriceLater();
 
-        void getCompanyLinkCategories(String category);
+        void getCompanyCategories(String category);
 
-        void getLinkCategories(String category);
+        void getCategories(String category);
     }
 }

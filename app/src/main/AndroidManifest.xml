@@ -74,13 +74,13 @@
             android:windowSoftInputMode="stateHidden"
             />
 
-        <activity android:name=".screen.addProduct.AddProductPnActivity"
+        <activity android:name=".screen.createProduct.CreateProductPnActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"
             />
 
-        <activity android:name=".screen.addProduct.AddProductPlActivity"
+        <activity android:name=".screen.createProduct.CreateProductPlActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"
@@ -97,7 +97,13 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"
             />
-        <activity android:name=".screen.companyProfile.CompanyActivity"
+        <activity android:name=".screen.companyProfile.CompanyProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
+        <activity android:name=".screen.storeProfile.StoreProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"

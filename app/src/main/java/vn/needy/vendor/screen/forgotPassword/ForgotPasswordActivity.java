@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.databinding.ActivityForgotPasswordBinding;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
@@ -17,6 +18,8 @@ import vn.needy.vendor.utils.navigator.Navigator;
 public class ForgotPasswordActivity extends BaseActivity {
 
     private ForgotPasswordContract.ViewModel mViewModel;
+    private ForgotPasswordContract.Presenter mPresenter;
+
     public static final String KEY_PHONE_NUMBER = "phone_number";
     public static final String KEY_FIREBASE_TOKEN = "firebase_token";
 
@@ -29,11 +32,17 @@ public class ForgotPasswordActivity extends BaseActivity {
 
         mViewModel = new ForgotPasswordViewModel(this, getApplication(), navigator, dialogManager);
 
-        ForgotPasswordContract.Presenter presenter = new ForgotPasswordPresenter(mViewModel, this);
-        mViewModel.setPresenter(presenter);
+        mPresenter = new ForgotPasswordPresenter(this, mViewModel);
+        mViewModel.setPresenter(mPresenter);
 
         ActivityForgotPasswordBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_forgot_password);
         binding.setViewModel((ForgotPasswordViewModel) mViewModel);
+    }
+
+    @Override
+    public void onDestroy() {
+        mPresenter.onStop();
+        super.onDestroy();
     }
 }

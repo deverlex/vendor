@@ -1,6 +1,5 @@
 package vn.needy.vendor.screen.category;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
@@ -8,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.model.Category;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityCategoriesBinding;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -42,13 +42,13 @@ public class CategoriesActivity extends BaseActivity {
         }
 
         mNavigator = new Navigator(this);
-        List<Category> categories = new ArrayList<>();
+        List<CategoryWrapper> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
         mViewModel = new CategoriesViewModel(this, mNavigator,
                 categoryAdapter, SharedPrefsImpl.getInstance(), fromClass);
 
         CategoriesContract.Presenter presenter =
-                new CategoriesPresenter(mViewModel, SharedPrefsImpl.getInstance());
+                new CategoriesPresenter(mViewModel, VendorServiceClient.getInstance());
 
         mViewModel.setPresenter(presenter);
         mViewModel.onStart();

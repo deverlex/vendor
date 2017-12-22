@@ -3,17 +3,19 @@ package vn.needy.vendor.screen.registerCompany;
 import android.text.TextUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
-import vn.needy.vendor.api.v1.company.CompanyDataSource;
-import vn.needy.vendor.api.v1.company.CompanyDataSourceImpl;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.api.v1.company.request.RegisterCompanyRequest;
-import vn.needy.vendor.api.v1.company.response.CompanyResponse;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.message.ResponseWrapper;
+import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
+import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
+import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
 
 /**
  * Created by lion on 07/10/2017.
@@ -22,11 +24,15 @@ import vn.needy.vendor.api.v1.company.response.CompanyResponse;
 public class RegisterCompanyPresenter implements RegisterCompanyContract.Presenter {
 
     private RegisterCompanyContract.ViewModel mViewModel;
-    private CompanyDataSource mCompanyDataSource;
+    private CompanyRepository mCompanyRepository;
 
-    public RegisterCompanyPresenter(RegisterCompanyContract.ViewModel viewModel) {
+    public RegisterCompanyPresenter(RegisterCompanyContract.ViewModel viewModel,
+                                    VendorApi vendorApi) {
         mViewModel = viewModel;
-        mCompanyDataSource = new CompanyDataSourceImpl();
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteData(vendorApi),
+                new CompanyDataLocal()
+        );
     }
 
     @Override
@@ -42,7 +48,7 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
     @Override
     public void registerCompany(RegisterCompanyRequest request) {
         if (!validateDataInput(request)) return;
-        mCompanyDataSource.registerCompany(request)
+        mCompanyRepository.registerCompany(request)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe(new Consumer<Disposable>() {
                 @Override
@@ -51,13 +57,14 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<CompanyResponse>() {
+            .subscribe(new Consumer<ResponseWrapper<CompanyInfoResp>>() {
                 @Override
-                public void accept(CompanyResponse companyResponse) throws Exception {
-                    if (companyResponse.getCompany() != null) {
+                public void accept(ResponseWrapper<CompanyInfoResp> companyResponse) throws Exception {
+                    CompanyInfoResp data = companyResponse.getData();
+                    if (data != null && data.getCompany() != null) {
                         mViewModel.onRegisterSuccess();
                         mViewModel.onHideProgressBar();
-                    } else {
+                    }else {
                         mViewModel.onRegisterError(companyResponse.getMessage());
                     }
                 }
