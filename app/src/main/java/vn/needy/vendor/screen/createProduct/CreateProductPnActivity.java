@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile;
+package vn.needy.vendor.screen.createProduct;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -16,13 +16,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.databinding.ActivityProductProfilePnBinding;
+import vn.needy.vendor.databinding.ActivityCreateProductPnBinding;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;
-import vn.needy.vendor.screen.productProfile.attribute.AttributeFragment;
+import vn.needy.vendor.screen.createProduct.attribute.AttributeFragment;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -30,12 +30,12 @@ import vn.needy.vendor.utils.navigator.Navigator;
  * Created by lion on 08/11/2017.
  */
 
-public class ProductProfilePnActivity extends BaseActivity
+public class CreateProductPnActivity extends BaseActivity
         implements AttributeFragment.OnCallbackReceived {
 
-    private static final String TAG = ProductProfilePnActivity.class.getName();
+    private static final String TAG = CreateProductPnActivity.class.getName();
 
-    private ProductProfilePnContract.ViewModel mViewModel;
+    private CreateProductPnContract.ViewModel mViewModel;
     public static final int RC_CHOOSE_IMAGE = 2682;
     public static final int RC_CHOOSE_CATEGORY = 1782;
 
@@ -48,13 +48,13 @@ public class ProductProfilePnActivity extends BaseActivity
 
         mNavigator = new Navigator(this);
 
-        mViewModel = new ProductProfilePnViewModel(this, mNavigator, imageAdapter);
-        ProductProfilePnContract.Presenter presenter = new ProductProfilePnPresenter(this, mViewModel);
+        mViewModel = new CreateProductPnViewModel(this, mNavigator, imageAdapter);
+        CreateProductPnContract.Presenter presenter = new CreateProductPnPresenter(this, mViewModel);
         mViewModel.setPresenter(presenter);
 
-        ActivityProductProfilePnBinding binding =
-                DataBindingUtil.setContentView(this, R.layout.activity_product_profile_pn);
-        binding.setViewModel((ProductProfilePnViewModel) mViewModel);
+        ActivityCreateProductPnBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_create_product_pn);
+        binding.setViewModel((CreateProductPnViewModel) mViewModel);
     }
 
     @Override

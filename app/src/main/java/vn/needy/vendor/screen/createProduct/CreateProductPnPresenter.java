@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile;
+package vn.needy.vendor.screen.createProduct;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -16,16 +16,16 @@ import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
  * Created by lion on 08/11/2017.
  */
 
-public class ProductProfilePnPresenter implements ProductProfilePnContract.Presenter {
+public class CreateProductPnPresenter implements CreateProductPnContract.Presenter {
 
-    private static final String TAG = ProductProfilePnPresenter.class.getName();
+    private static final String TAG = CreateProductPnPresenter.class.getName();
 
     private final Context mContext;
-    private final ProductProfilePnContract.ViewModel mViewModel;
+    private final CreateProductPnContract.ViewModel mViewModel;
 
     private final CompositeDisposable mCompositeDisposable;
 
-    public ProductProfilePnPresenter(Context context, ProductProfilePnContract.ViewModel viewModel) {
+    public CreateProductPnPresenter(Context context, CreateProductPnContract.ViewModel viewModel) {
         mContext = context;
         mViewModel = viewModel;
 

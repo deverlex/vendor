@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile;
+package vn.needy.vendor.screen.createProduct;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 08/11/2017.
  */
 
-interface ProductProfilePnContract {
+interface CreateProductPnContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 

@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile;
+package vn.needy.vendor.screen.createProduct;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -25,24 +25,24 @@ import vn.needy.vendor.model.Image;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
-import vn.needy.vendor.screen.productProfile.attribute.AttributeFragment;
+import vn.needy.vendor.screen.createProduct.attribute.AttributeFragment;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 import vn.needy.vendor.widget.GifSizeFilter;
 
-import static vn.needy.vendor.screen.productProfile.ProductProfilePnActivity.RC_CHOOSE_IMAGE;
+import static vn.needy.vendor.screen.createProduct.CreateProductPnActivity.RC_CHOOSE_IMAGE;
 
 /**
  * Created by lion on 08/11/2017.
  */
-public class ProductProfilePnViewModel extends BaseObservable implements ProductProfilePnContract.ViewModel,
+public class CreateProductPnViewModel extends BaseObservable implements CreateProductPnContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
-    private static final String TAG = ProductProfilePnViewModel.class.getName();
+    private static final String TAG = CreateProductPnViewModel.class.getName();
     private final Context mContext;
 
-    private ProductProfilePnContract.Presenter mPresenter;
+    private CreateProductPnContract.Presenter mPresenter;
     private Navigator mNavigator;
 
     private String mNameError;
@@ -63,7 +63,7 @@ public class ProductProfilePnViewModel extends BaseObservable implements Product
 
     private boolean mVisibleImages;
 
-    public ProductProfilePnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
+    public CreateProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
         mContext = context;
         mNavigator = navigator;
         mAttributes = new HashMap<>();
@@ -85,7 +85,7 @@ public class ProductProfilePnViewModel extends BaseObservable implements Product
     }
 
     @Override
-    public void setPresenter(ProductProfilePnContract.Presenter presenter) {
+    public void setPresenter(CreateProductPnContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
@@ -117,8 +117,8 @@ public class ProductProfilePnViewModel extends BaseObservable implements Product
     public void onChooseCategory() {
         Bundle extras = new Bundle();
         // put simple name thought bundle
-        extras.putString(CategoriesActivity.FROM_CLASS, ProductProfilePnActivity.class.getSimpleName());
-        mNavigator.startActivityForResult(CategoriesActivity.class, extras, ProductProfilePnActivity.RC_CHOOSE_CATEGORY);
+        extras.putString(CategoriesActivity.FROM_CLASS, CreateProductPnActivity.class.getSimpleName());
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, CreateProductPnActivity.RC_CHOOSE_CATEGORY);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class ProductProfilePnViewModel extends BaseObservable implements Product
         if (mImageAdapter.getItemCount() > 0) {
             limitSelectable = Constant.MAX_IMAGES_PUSH - mImageAdapter.getItemCount();
         }
-        Matisse.from((ProductProfilePnActivity) mContext)
+        Matisse.from((CreateProductPnActivity) mContext)
                 .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))
                 .countable(true)
                 .maxSelectable(limitSelectable)
@@ -151,7 +151,7 @@ public class ProductProfilePnViewModel extends BaseObservable implements Product
         if (mCategory != null) {
             Bundle extras = new Bundle();
             extras.putParcelable(CategoriesActivity.CATEGORY, mCategory);
-            ((ProductProfilePnActivity) mContext)
+            ((CreateProductPnActivity) mContext)
                     .initFragment(android.R.id.content, AttributeFragment.getInstance(), extras);
         } else {
             // notify require choose category before add attribute

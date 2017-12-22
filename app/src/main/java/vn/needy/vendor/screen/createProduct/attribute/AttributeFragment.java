@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile.attribute;
+package vn.needy.vendor.screen.createProduct.attribute;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
