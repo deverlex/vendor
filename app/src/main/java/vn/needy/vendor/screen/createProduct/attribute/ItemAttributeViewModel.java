@@ -2,6 +2,8 @@ package vn.needy.vendor.screen.createProduct.attribute;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
+import android.widget.Spinner;
 
 import java.util.List;
 
@@ -55,5 +57,9 @@ public class ItemAttributeViewModel extends BaseObservable {
     @Bindable
     public List<Object> getValues() {
         return mAttribute.getValues();
+    }
+
+    public void onItemSelected(Spinner spinner) {
+        mAttribute.setValue(mAttribute.getValues().get(spinner.getSelectedItemPosition()));
     }
 }

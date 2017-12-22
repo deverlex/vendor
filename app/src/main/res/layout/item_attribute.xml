@@ -55,6 +55,8 @@
         <!--/>-->
 
         <Spinner
+            android:id="@+id/spinner"
+            android:onItemSelected="@{() -> viewModel.onItemSelected(spinner)}"
             android:minWidth="@dimen/dp_150"
             spinnerAdapter="@{viewModel.values}"
             android:layout_width="wrap_content"

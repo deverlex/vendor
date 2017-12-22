@@ -214,6 +214,7 @@
                 android:layout_marginTop="@dimen/dp_15"
                 android:orientation="horizontal">
                 <TextView
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
@@ -237,7 +238,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@string/font_serif"
                     android:hint="@string/product_price_input"
-                    android:gravity="end"
+                    android:gravity="end|center_vertical"
                     android:inputType="numberDecimal"
                     android:text="@={viewModel.price}"
                     android:textSize="@dimen/sp_14"
@@ -258,6 +259,7 @@
                 android:layout_marginTop="@dimen/dp_1"
                 android:orientation="horizontal">
                 <TextView
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
@@ -281,7 +283,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@string/font_serif"
                     android:hint="@string/quantity"
-                    android:gravity="end"
+                    android:gravity="end|center_vertical"
                     android:inputType="number"
                     android:text="@={viewModel.quantity}"
                     android:textSize="@dimen/sp_14"
@@ -303,6 +305,7 @@
                 android:layout_marginTop="@dimen/dp_1"
                 >
                 <TextView
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
@@ -319,21 +322,32 @@
                     />
 
                 <TextView
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
                     android:background="@color/color_white"
                     android:layout_alignParentRight="true"
                     android:fontFamily="@string/font_serif"
-                    android:text="@string/add_attrs_input"
+                    android:hint="@string/add_attrs_input"
                     android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
-                    android:textColor="@color/gray35"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_5"
                     tools:ignore="UnusedAttribute"
                     />
             </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:paddingLeft="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                app:layoutManager="LinearLayoutManager"
+                app:recyclerAdapter="@{viewModel.attributeResultPnAdapter}"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -342,6 +356,7 @@
                 android:layout_marginTop="@dimen/dp_1"
                 android:orientation="horizontal">
                 <TextView
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
@@ -366,7 +381,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@string/font_serif"
                     android:hint="@string/product_price_input"
-                    android:gravity="end"
+                    android:gravity="end|center_vertical"
                     android:inputType="numberDecimal"
                     android:text="@={viewModel.feeTransport}"
                     android:textSize="@dimen/sp_14"
@@ -399,6 +414,7 @@
                 android:layout_marginTop="@dimen/dp_1"
                 >
                 <TextView
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
@@ -415,6 +431,7 @@
                     />
 
                 <TextView
+                    android:gravity="end|center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"

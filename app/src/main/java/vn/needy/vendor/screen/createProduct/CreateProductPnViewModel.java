@@ -60,14 +60,15 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
 
     private ImageAdapter mImageAdapter;
     private Map<String, Object> mAttributes;
+    private AttributeResultPnAdapter mAttributeResultPnAdapter;
 
     private boolean mVisibleImages;
 
-    public CreateProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
+    public CreateProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, AttributeResultPnAdapter attributeResultPnAdapter) {
         mContext = context;
         mNavigator = navigator;
         mAttributes = new HashMap<>();
-
+        mAttributeResultPnAdapter = attributeResultPnAdapter;
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
 
@@ -182,12 +183,16 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
 
     @Override
     public void onSelectedListAttribute(final List<AttributeWrapper> attributes) {
+        // Update Attribute in result View
+        mAttributeResultPnAdapter.updateData(attributes);
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 for (AttributeWrapper attribute : attributes) {
                     mAttributes.put(attribute.getName(), attribute.getValue());
                 }
+
             }
         });
     }
@@ -294,5 +299,10 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
 
     public void setCategory(CategoryWrapper category) {
         mCategory = category;
+    }
+
+    @Bindable
+    public AttributeResultPnAdapter getAttributeResultPnAdapter() {
+        return mAttributeResultPnAdapter;
     }
 }

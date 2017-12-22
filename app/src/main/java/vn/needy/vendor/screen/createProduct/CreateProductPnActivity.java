@@ -48,7 +48,10 @@ public class CreateProductPnActivity extends BaseActivity
 
         mNavigator = new Navigator(this);
 
-        mViewModel = new CreateProductPnViewModel(this, mNavigator, imageAdapter);
+        List<AttributeWrapper> attributeWrappers = new ArrayList<>();
+        AttributeResultPnAdapter attributeResultPnAdapter = new AttributeResultPnAdapter(this, attributeWrappers);
+
+        mViewModel = new CreateProductPnViewModel(this, mNavigator, imageAdapter, attributeResultPnAdapter);
         CreateProductPnContract.Presenter presenter = new CreateProductPnPresenter(this, mViewModel);
         mViewModel.setPresenter(presenter);
 
