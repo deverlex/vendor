@@ -40,6 +40,8 @@ interface CreateProductPnContract {
         void updateCategory(CategoryWrapper category);
 
         void onSelectedListAttribute(List<AttributeWrapper> attributes);
+
+        void onBackPressed();
     }
 
     interface Presenter extends BasePresenter {

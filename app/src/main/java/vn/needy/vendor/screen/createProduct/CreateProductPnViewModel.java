@@ -1,5 +1,6 @@
 package vn.needy.vendor.screen.createProduct;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.databinding.BaseObservable;
@@ -195,6 +196,11 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        ((Activity)mContext).onBackPressed();
     }
 
     @Override
