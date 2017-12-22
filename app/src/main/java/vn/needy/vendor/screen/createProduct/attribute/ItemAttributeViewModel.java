@@ -3,6 +3,8 @@ package vn.needy.vendor.screen.createProduct.attribute;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import java.util.List;
+
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.AttributeWrapper.DataType;
 
@@ -48,5 +50,10 @@ public class ItemAttributeViewModel extends BaseObservable {
             return mAttribute.getDataType();
         }
         return DataType.STRING;
+    }
+
+    @Bindable
+    public List<Object> getValues() {
+        return mAttribute.getValues();
     }
 }

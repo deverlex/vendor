@@ -287,7 +287,7 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     @Bindable
     public String getCategory() {
         if (mCategory != null) {
-            return mCategory.getTitle();
+            return mCategory.getName();
         }
         return mContext.getString(R.string.choose_category);
     }

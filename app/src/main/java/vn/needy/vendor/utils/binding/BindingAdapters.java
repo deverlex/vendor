@@ -5,14 +5,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.TransformationMethod;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +27,7 @@ import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.views.BannerSlider;
+import vn.needy.vendor.R;
 import vn.needy.vendor.model.wrapper.AttributeWrapper.DataType;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
@@ -130,6 +135,15 @@ public class BindingAdapters {
             editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         } else {
             editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
+    }
+
+    @BindingAdapter("spinnerAdapter")
+    public static void setSpinnerAdapter(Spinner spinner, List<Object> objects) {
+        if (objects != null) {
+            ArrayAdapter<Object> adapter = new ArrayAdapter<>(spinner.getContext(), R.layout.attribute_spinner_item, objects);
+            adapter.setDropDownViewResource(R.layout.attribute_spinner_item);
+            spinner.setAdapter(adapter);
         }
     }
 }
