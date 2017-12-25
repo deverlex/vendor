@@ -65,6 +65,11 @@ public class BindingAdapters {
         editText.setError(text);
     }
 
+    @BindingAdapter("errorText")
+    public static void setErrorTextForTextView(TextView textView, String text) {
+        textView.setError(text);
+    }
+
     @BindingAdapter("htmlText")
     public static void setHtmlText(TextView textView, String text) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

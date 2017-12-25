@@ -131,6 +131,7 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     @Override
     public void onInputAttributesError(int msg) {
         mAttributesError = mContext.getString(msg);
+        notifyPropertyChanged(BR.attributesError);
     }
 
     @Override
@@ -215,6 +216,8 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     public void updateCategory(CategoryWrapper category) {
         mCategory = category;
         notifyPropertyChanged(BR.category);
+        mCategoryError = null;
+        notifyPropertyChanged(BR.categoryError);
     }
 
     @Override
@@ -231,6 +234,9 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
 
             }
         });
+
+        mAttributesError = null;
+        notifyPropertyChanged(BR.attributesError);
     }
 
     @Override
