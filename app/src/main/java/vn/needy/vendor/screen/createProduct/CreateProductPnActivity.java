@@ -22,6 +22,8 @@ import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.createProduct.attribute.AttributeFragment;
@@ -42,6 +44,7 @@ public class CreateProductPnActivity extends BaseActivity
     public static final int RC_CHOOSE_CATEGORY = 1782;
 
     private Navigator mNavigator;
+    private VendorApi mVendorApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class CreateProductPnActivity extends BaseActivity
         ImageAdapter imageAdapter = new ImageAdapter(this, images);
 
         mNavigator = new Navigator(this);
+        mVendorApi = VendorServiceClient.getInstance();
 
         List<AttributeWrapper> attributeWrappers = new ArrayList<>();
         AttributeResultPnAdapter attributeResultPnAdapter = new AttributeResultPnAdapter(this, attributeWrappers);
@@ -57,7 +61,7 @@ public class CreateProductPnActivity extends BaseActivity
         FeeTransportPnAdapter feeTransportAdapter = new FeeTransportPnAdapter(this, feeTransports);
 
         mViewModel = new CreateProductPnViewModel(this, mNavigator, imageAdapter, attributeResultPnAdapter, feeTransportAdapter);
-        CreateProductPnContract.Presenter presenter = new CreateProductPnPresenter(this, mViewModel);
+        CreateProductPnContract.Presenter presenter = new CreateProductPnPresenter(this, mViewModel, mVendorApi);
         mViewModel.setPresenter(presenter);
 
         ActivityCreateProductPnBinding binding =

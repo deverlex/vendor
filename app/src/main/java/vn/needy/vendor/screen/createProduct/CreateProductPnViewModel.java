@@ -14,6 +14,7 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
+import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
@@ -57,7 +59,6 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     private int mQuantity;
     private float mPrice;
     private String mPromotion;
-    private float mFeeTransport;
     private CategoryWrapper mCategory;
 
     private ImageAdapter mImageAdapter;
@@ -148,6 +149,23 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     @Override
     public void onClickCreate() {
         AddProductPnReq request = new AddProductPnReq();
+        request.setName(mName);
+        request.setDescription(mDescription);
+        if (mCategory != null) {
+            request.setCategory(mCategory.getName());
+        }
+        request.setPrice(mPrice);
+        request.setQuantity(mQuantity);
+        request.setAttributes(mAttributes);
+        List<FeeTransportWrapper> feeTransportWrappers = new ArrayList<>();
+        for (FeeTransport ft : mFeeTransportPnAdapter.getData()) {
+            if (ft.getFrom() == 0f && ft.getTo() == 0f && ft.getFee() == 0f) {
+                continue;
+            }
+
+            feeTransportWrappers.add(new FeeTransportWrapper(ft));
+        }
+        request.setFeeTransport(feeTransportWrappers);
         mPresenter.uploadProduct(request, mImageAdapter.getImages());
     }
 
@@ -285,15 +303,6 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
 
     public void setPrice(String price) {
         mPrice = Float.parseFloat(price);
-    }
-
-    @Bindable
-    public String getFeeTransport() {
-        return String.valueOf(mFeeTransport);
-    }
-
-    public void setFeeTransport(String feeTransport) {
-        mFeeTransport = Float.parseFloat(feeTransport);
     }
 
     @Bindable
