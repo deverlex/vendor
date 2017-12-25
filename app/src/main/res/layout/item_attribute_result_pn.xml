@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.createProduct.ItemAttributeResultPnViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:padding="@dimen/dp_8"
+            android:id="@+id/img"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_tags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_toRightOf="@+id/img"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@string/font_serif"
+            android:text="@{viewModel.attributeTitle}"
+            android:textAllCaps="false"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/sp_16"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_toRightOf="@+id/title"
+            android:layout_weight="1"
+            android:background="@drawable/background_text"
+            android:fontFamily="@string/font_serif"
+            android:gravity="end"
+            android:text="@{String.valueOf(viewModel.attributeValue)}"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16"
+            tools:ignore="UnusedAttribute" />
+    </RelativeLayout>
+</layout>

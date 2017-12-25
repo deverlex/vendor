@@ -1,11 +1,10 @@
-package vn.needy.vendor.screen.createProduct.attribute;
+package vn.needy.vendor.screen.createProduct;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.databinding.ItemAttributeBinding;
+import vn.needy.vendor.databinding.ItemAttributeResultPnBinding;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
@@ -22,14 +21,14 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  * Created by lion on 04/12/2017.
  */
 
-public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.ItemViewHolder> {
+public class AttributeResultPnAdapter extends BaseRecyclerViewAdapter<AttributeResultPnAdapter.ItemViewHolder> {
 
-    private static final String TAG = AttributeAdapter.class.getName();
+    private static final String TAG = AttributeResultPnAdapter.class.getName();
 
     private final List<AttributeWrapper> mAttributes;
     private final Set<Integer> mIds;
 
-    public AttributeAdapter(@NonNull Context context, List<AttributeWrapper> attributes) {
+    public AttributeResultPnAdapter(@NonNull Context context, List<AttributeWrapper> attributes) {
         super(context);
         mAttributes = attributes;
         mIds = new HashSet<>();
@@ -38,10 +37,10 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        ItemAttributeBinding binding =
+        ItemAttributeResultPnBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.item_attribute, parent, false);
-        return new AttributeAdapter.ItemViewHolder(binding);
+                        R.layout.item_attribute_result_pn, parent, false);
+        return new AttributeResultPnAdapter.ItemViewHolder(binding);
     }
 
     @Override
@@ -57,7 +56,7 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
         if (attributes == null) {
             return;
         }
-        Log.w(TAG, "size of attributes????? " + attributes.size());
+        mAttributes.clear();
         mAttributes.addAll(attributes);
         notifyDataSetChanged();
     }
@@ -67,16 +66,16 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        private final ItemAttributeBinding mBinding;
+        private final ItemAttributeResultPnBinding mBinding;
 
         @SuppressLint("ResourceType")
-        public ItemViewHolder(ItemAttributeBinding binding) {
+        public ItemViewHolder(ItemAttributeResultPnBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
         }
 
         void bind(AttributeWrapper attribute) {
-            mBinding.setViewModel(new ItemAttributeViewModel(attribute));
+            mBinding.setViewModel(new ItemAttributeResultPnViewModel(attribute));
             mBinding.executePendingBindings();
         }
     }

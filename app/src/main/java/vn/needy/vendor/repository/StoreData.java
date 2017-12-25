@@ -14,5 +14,6 @@ public interface StoreData {
 
     interface Local {
         void saveStoreSync(Store store);
+        String getOurStoreIdSync();
     }
 }

@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Map;
 
+import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
+
 /**
  * Created by lion on 10/11/2017.
  */
@@ -23,7 +25,7 @@ public class AddProductPnReq {
     private float mPrice;
     @Expose
     @SerializedName("quantity")
-    private short mQuantity;
+    private int mQuantity;
     @Expose
     @SerializedName("promotion")
     private String mPromotion;
@@ -35,7 +37,7 @@ public class AddProductPnReq {
     private Map<String, Object> mAttributes;
     @Expose
     @SerializedName("feeTransport")
-    private float mFeeTransport;
+    private List<FeeTransportWrapper> mFeeTransport;
     @Expose
     @SerializedName("hashtag")
     private List<String> mHashtag;
@@ -67,11 +69,11 @@ public class AddProductPnReq {
         mPrice = price;
     }
 
-    public short getQuantity() {
+    public int getQuantity() {
         return mQuantity;
     }
 
-    public void setQuantity(short quantity) {
+    public void setQuantity(int quantity) {
         mQuantity = quantity;
     }
 
@@ -99,12 +101,12 @@ public class AddProductPnReq {
         mAttributes = attributes;
     }
 
-    public float getFeeTransport() {
+    public List<FeeTransportWrapper> getFeeTransport() {
         return mFeeTransport;
     }
 
-    public void setFeeTransport(float feeTransport) {
-        mFeeTransport = feeTransport;
+    public void setFeeTransport(List<FeeTransportWrapper> feeTransport) {
+        this.mFeeTransport = feeTransport;
     }
 
     public List<String> getHashtag() {
