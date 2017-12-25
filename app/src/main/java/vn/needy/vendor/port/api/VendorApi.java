@@ -13,6 +13,7 @@ import retrofit2.http.Query;
 import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
@@ -83,6 +84,16 @@ public interface VendorApi {
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<ResponseWrapper> updateStaffFcmToken(@Path("company_id") String companyId,
                                                     @Query("token") String token);
+
+    // Product
+    /**************************************************************************************/
+
+    @POST("v1/pn/products")
+    Observable<ResponseWrapper> addProductPn(
+            @Query("company_id") String companyId,
+            @Query("store_id") String storeId,
+            @Body RequestWrapper<AddProductPnReq> request);
+
 
     // POST new images
     @Multipart
