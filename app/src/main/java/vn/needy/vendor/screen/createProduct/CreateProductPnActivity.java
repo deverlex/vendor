@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.realm.RealmList;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityCreateProductPnBinding;
+import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
@@ -51,7 +53,10 @@ public class CreateProductPnActivity extends BaseActivity
         List<AttributeWrapper> attributeWrappers = new ArrayList<>();
         AttributeResultPnAdapter attributeResultPnAdapter = new AttributeResultPnAdapter(this, attributeWrappers);
 
-        mViewModel = new CreateProductPnViewModel(this, mNavigator, imageAdapter, attributeResultPnAdapter);
+        RealmList<FeeTransport> feeTransports = new RealmList<>();
+        FeeTransportPnAdapter feeTransportAdapter = new FeeTransportPnAdapter(this, feeTransports);
+
+        mViewModel = new CreateProductPnViewModel(this, mNavigator, imageAdapter, attributeResultPnAdapter, feeTransportAdapter);
         CreateProductPnContract.Presenter presenter = new CreateProductPnPresenter(this, mViewModel);
         mViewModel.setPresenter(presenter);
 

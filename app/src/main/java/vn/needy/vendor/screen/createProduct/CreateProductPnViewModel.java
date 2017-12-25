@@ -20,6 +20,7 @@ import java.util.Map;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
+import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
@@ -62,17 +63,19 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     private ImageAdapter mImageAdapter;
     private Map<String, Object> mAttributes;
     private AttributeResultPnAdapter mAttributeResultPnAdapter;
+    private FeeTransportPnAdapter mFeeTransportPnAdapter;
 
     private boolean mVisibleImages;
 
-    public CreateProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, AttributeResultPnAdapter attributeResultPnAdapter) {
+    public CreateProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, AttributeResultPnAdapter attributeResultPnAdapter, FeeTransportPnAdapter feeTransportAdapter) {
         mContext = context;
         mNavigator = navigator;
         mAttributes = new HashMap<>();
         mAttributeResultPnAdapter = attributeResultPnAdapter;
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
-
+        mFeeTransportPnAdapter = feeTransportAdapter;
+        mFeeTransportPnAdapter.setItemClickListener(this);
         mVisibleImages = false;
     }
 
@@ -204,8 +207,15 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     }
 
     @Override
-    public void onItemRecyclerViewClick(Object item) {
+    public void addFeeTransport() {
+        mFeeTransportPnAdapter.addItem();
+    }
 
+    @Override
+    public void onItemRecyclerViewClick(Object item) {
+        if (item instanceof FeeTransport) {
+            mFeeTransportPnAdapter.removeItem((FeeTransport) item);
+        }
     }
 
     @Bindable
@@ -310,5 +320,10 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     @Bindable
     public AttributeResultPnAdapter getAttributeResultPnAdapter() {
         return mAttributeResultPnAdapter;
+    }
+
+    @Bindable
+    public FeeTransportPnAdapter getFeeTransportPnAdapter() {
+        return mFeeTransportPnAdapter;
     }
 }

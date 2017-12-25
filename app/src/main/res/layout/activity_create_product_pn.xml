@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.createProduct.CreateProductPnViewModel"
-            />
+            type="vn.needy.vendor.screen.createProduct.CreateProductPnViewModel" />
 
         <import type="vn.needy.vendor.utils.binding.LayoutManagers" />
-        <import type="android.support.v7.widget.LinearLayoutManager"/>
+
+        <import type="android.support.v7.widget.LinearLayoutManager" />
+
         <import type="android.view.View" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,34 +35,35 @@
                 android:background="@color/colorPrimary"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageButton
-                        android:onClick="@{() -> viewModel.onBackPressed()}"
                         android:id="@+id/back"
                         android:layout_width="?attr/actionBarSize"
                         android:layout_height="?attr/actionBarSize"
-                        app:srcCompat="@drawable/ic_back_left"
                         android:background="@color/transparent"
-                        />
+                        android:onClick="@{() -> viewModel.onBackPressed()}"
+                        app:srcCompat="@drawable/ic_back_left" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/back"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/back"
                         android:text="@string/add_product"
                         android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_18"
-                        />
+                        android:textSize="@dimen/sp_18" />
+
                     <ImageButton
                         android:layout_width="?attr/actionBarSize"
                         android:layout_height="?attr/actionBarSize"
-                        app:srcCompat="@drawable/ic_check"
-                        android:background="@color/transparent"
                         android:layout_alignParentRight="true"
+                        android:background="@color/transparent"
                         android:onClick="@{() -> viewModel.onClickCreate()}"
-                        />
+                        app:srcCompat="@drawable/ic_check" />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
 
@@ -68,10 +71,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_white">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <android.support.v7.widget.RecyclerView
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_100"
@@ -80,36 +85,37 @@
                         android:layout_alignParentTop="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
-                        android:orientation="horizontal"
                         android:layout_margin="@dimen/dp_3"
+                        android:orientation="horizontal"
                         android:visibility="@{viewModel.visibleImages? View.VISIBLE : View.GONE}"
                         app:layoutManager="LinearLayoutManager"
-                        app:recyclerAdapter="@{viewModel.imageAdapter}"
-                        />
+                        app:recyclerAdapter="@{viewModel.imageAdapter}" />
+
                     <RelativeLayout
                         android:id="@+id/add_image"
                         android:layout_width="@dimen/dp_100"
                         android:layout_height="@dimen/dp_100"
-                        android:background="@drawable/border_price"
-                        android:layout_margin="@dimen/dp_3"
                         android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/dp_3"
+                        android:background="@drawable/border_price"
                         android:onClick="@{() -> viewModel.onClickAddImage()}">
+
                         <ImageView
                             android:id="@+id/ic_image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_centerHorizontal="true"
-                            app:srcCompat="@drawable/ic_image"
-                            />
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/ic_image" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/ic_image"
                             android:layout_centerHorizontal="true"
                             android:text="Thêm ảnh"
-                            android:textSize="@dimen/sp_12"
-                            android:textColor="@color/color_orange_mos"/>
+                            android:textColor="@color/color_orange_mos"
+                            android:textSize="@dimen/sp_12" />
                     </RelativeLayout>
                 </LinearLayout>
             </ScrollView>
@@ -117,336 +123,322 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
+                android:layout_margin="@dimen/dp_1"
                 android:background="@color/color_white"
                 android:fontFamily="@string/font_serif"
                 android:hint="@string/name_product"
                 android:inputType="text"
+                android:padding="@dimen/dp_10"
                 android:text="@={viewModel.name}"
-                android:textSize="@dimen/sp_14"
                 android:textAllCaps="false"
                 android:textColor="@color/color_black"
                 android:textColorHint="@color/gray35"
-                android:layout_margin="@dimen/dp_1"
-                tools:ignore="UnusedAttribute"
+                android:textSize="@dimen/sp_14"
                 app:errorText="@{viewModel.nameError}"
-                />
+                tools:ignore="UnusedAttribute" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
                 android:background="@color/color_white"
                 android:fontFamily="@string/font_serif"
                 android:hint="@string/product_describe"
                 android:inputType="text"
+                android:padding="@dimen/dp_10"
                 android:text="@={viewModel.description}"
-                android:textSize="@dimen/sp_14"
                 android:textAllCaps="false"
                 android:textColor="@color/color_black"
                 android:textColorHint="@color/gray35"
-                tools:ignore="UnusedAttribute"
+                android:textSize="@dimen/sp_14"
                 app:errorText="@{viewModel.descriptionError}"
-                />
+                tools:ignore="UnusedAttribute" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_white">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@string/add_hashtag"
-                    android:textSize="@dimen/sp_10"
-                    android:textColor="@color/colorPrimary"
-                    android:background="@drawable/border_item_text"
                     android:layout_alignParentRight="true"
+                    android:layout_marginBottom="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_15"
                     android:layout_marginTop="@dimen/dp_5"
-                    android:layout_marginBottom="@dimen/dp_8"/>
+                    android:background="@drawable/border_item_text"
+                    android:fontFamily="@string/font_serif"
+                    android:text="@string/add_hashtag"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_10" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_white"
                 android:layout_marginTop="@dimen/dp_15"
-                android:onClick="@{() -> viewModel.onChooseCategory()}"
-                >
+                android:background="@color/color_white"
+                android:onClick="@{() -> viewModel.onChooseCategory()}">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_list_categories"
+                    android:layout_centerVertical="true"
                     android:background="@color/color_white"
+                    android:drawableLeft="@drawable/ic_list_categories"
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_list_categories"
                     android:fontFamily="@string/font_serif"
+                    android:padding="@dimen/dp_10"
                     android:text="@string/categories"
-                    android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"
-                    android:layout_centerVertical="true"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:background="@color/color_white"
                     android:layout_alignParentRight="true"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@{viewModel.category}"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
-                    android:textColor="@color/gray78"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_5"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:background="@color/color_white"
+                    android:fontFamily="@string/font_serif"
+                    android:padding="@dimen/dp_10"
+                    android:text="@{viewModel.category}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/gray78"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_white"
                 android:layout_marginTop="@dimen/dp_15"
+                android:background="@color/color_white"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_cash"
                     android:background="@color/color_white"
+                    android:drawableLeft="@drawable/ic_cash"
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_cash"
                     android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
                     android:text="@string/price"
-                    android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
 
                 <EditText
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:background="@color/color_white"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
+                    android:background="@color/color_white"
                     android:fontFamily="@string/font_serif"
-                    android:hint="@string/product_price_input"
                     android:gravity="end|center_vertical"
+                    android:hint="@string/product_price_input"
                     android:inputType="numberDecimal"
+                    android:padding="@dimen/dp_10"
                     android:text="@={viewModel.price}"
-                    android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray35"
-                    android:layout_marginRight="@dimen/dp_5"
-                    android:layout_gravity="center"
-                    tools:ignore="UnusedAttribute"
+                    android:textSize="@dimen/sp_14"
                     app:errorText="@{viewModel.priceError}"
-                    />
+                    tools:ignore="UnusedAttribute" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_white"
                 android:layout_marginTop="@dimen/dp_1"
+                android:background="@color/color_white"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_quantity_stock"
                     android:background="@color/color_white"
+                    android:drawableLeft="@drawable/ic_quantity_stock"
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_quantity_stock"
                     android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
                     android:text="@string/quantity_stock"
-                    android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
 
                 <EditText
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:background="@color/color_white"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
+                    android:background="@color/color_white"
                     android:fontFamily="@string/font_serif"
-                    android:hint="@string/quantity"
                     android:gravity="end|center_vertical"
+                    android:hint="@string/quantity"
                     android:inputType="number"
+                    android:padding="@dimen/dp_10"
                     android:text="@={viewModel.quantity}"
-                    android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray35"
-                    android:layout_marginRight="@dimen/dp_5"
-                    android:layout_gravity="center"
-                    tools:ignore="UnusedAttribute"
+                    android:textSize="@dimen/sp_14"
                     app:errorText="@{viewModel.quantityError}"
-                    />
+                    tools:ignore="UnusedAttribute" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:onClick="@{() -> viewModel.onClickAddAttribute()}"
                 android:layout_marginTop="@dimen/dp_1"
-                >
+                android:background="@color/color_white"
+                android:onClick="@{() -> viewModel.onClickAddAttribute()}">
+
                 <TextView
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_plus_outline"
                     android:background="@color/color_white"
+                    android:drawableLeft="@drawable/ic_plus_outline"
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_plus_outline"
                     android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
                     android:text="@string/attrs"
-                    android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:background="@color/color_white"
                     android:layout_alignParentRight="true"
-                    android:fontFamily="@string/font_serif"
-                    android:hint="@string/add_attrs_input"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_5"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:background="@color/color_white"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:hint="@string/add_attrs_input"
+                    android:padding="@dimen/dp_10"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:paddingLeft="@dimen/dp_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_white"
                 android:layout_gravity="center_vertical"
+                android:background="@color/color_white"
                 android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_10"
                 app:layoutManager="LinearLayoutManager"
-                app:recyclerAdapter="@{viewModel.attributeResultPnAdapter}"
-                />
+                app:recyclerAdapter="@{viewModel.attributeResultPnAdapter}" />
 
-            <LinearLayout
+            <RelativeLayout
+                android:onClick="@{() -> viewModel.addFeeTransport()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_white"
                 android:layout_marginTop="@dimen/dp_1"
-                android:orientation="horizontal">
+                android:background="@color/color_white">
+
                 <TextView
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:drawableLeft="@drawable/ic_square_cash"
                     android:background="@color/color_white"
+                    android:drawableLeft="@drawable/ic_square_cash"
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_square_cash"
                     android:fontFamily="@string/font_serif"
+                    android:padding="@dimen/dp_10"
                     android:text="@string/fee_transport"
-                    android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"
-                    tools:ignore="UnusedAttribute"
-                    />
-
-                <EditText
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:background="@color/color_white"
-                    android:layout_weight="1"
-                    android:fontFamily="@string/font_serif"
-                    android:hint="@string/product_price_input"
-                    android:gravity="end|center_vertical"
-                    android:inputType="numberDecimal"
-                    android:text="@={viewModel.feeTransport}"
                     android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray35"
-                    android:layout_marginRight="@dimen/dp_5"
-                    android:layout_gravity="center"
-                    tools:ignore="UnusedAttribute"
-                    />
-            </LinearLayout>
+                    tools:ignore="UnusedAttribute" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/transparent"
+                    android:padding="@dimen/dp_10"
+                    app:srcCompat="@drawable/ic_plus_outline" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
                 android:fontFamily="@string/font_serif"
+                android:padding="@dimen/dp_10"
                 android:text="@string/fee_transport_expand"
-                android:textSize="@dimen/sp_14"
                 android:textAllCaps="false"
                 android:textColor="@color/gray78"
-                tools:ignore="UnusedAttribute"
-                />
+                android:textSize="@dimen/sp_14"
+                tools:ignore="UnusedAttribute" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                app:layoutManager="LinearLayoutManager"
+                app:recyclerAdapter="@{viewModel.feeTransportPnAdapter}"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.onClickAddPromotion()}"
+                android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1"
-                >
+                android:onClick="@{() -> viewModel.onClickAddPromotion()}">
+
                 <TextView
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_gift"
                     android:background="@color/color_white"
+                    android:drawableLeft="@drawable/ic_gift"
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_gift"
                     android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
                     android:text="@string/product_promotion"
-                    android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
-                    android:gravity="end|center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:background="@color/color_white"
                     android:layout_alignParentRight="true"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@string/product_promotion_input"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
-                    android:textColor="@color/gray35"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_5"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:background="@color/color_white"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="end|center_vertical"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/product_promotion_input"
+                    android:textAllCaps="false"
+                    android:textColor="@color/gray35"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
             </RelativeLayout>
 
         </LinearLayout>
