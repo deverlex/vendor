@@ -58,10 +58,10 @@
                         android:textSize="@dimen/sp_18" />
 
                     <ImageButton
-                        android:background="?android:attr/selectableItemBackground"
                         android:layout_width="?attr/actionBarSize"
                         android:layout_height="?attr/actionBarSize"
                         android:layout_alignParentRight="true"
+                        android:background="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> viewModel.onClickCreate()}"
                         app:srcCompat="@drawable/ic_check" />
                 </RelativeLayout>
@@ -188,6 +188,7 @@
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableStart="@drawable/ic_list_categories"
                     android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@string/categories"
                     android:textAllCaps="false"
@@ -203,6 +204,7 @@
                     android:layout_marginRight="@dimen/dp_5"
                     android:background="@color/color_white"
                     android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
                     android:text="@{viewModel.category}"
                     android:textAllCaps="false"
@@ -349,11 +351,11 @@
                 app:recyclerAdapter="@{viewModel.attributeResultPnAdapter}" />
 
             <RelativeLayout
-                android:onClick="@{() -> viewModel.addFeeTransport()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_1"
-                android:background="@color/color_white">
+                android:background="@color/color_white"
+                android:onClick="@{() -> viewModel.addFeeTransport()}">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -399,7 +401,7 @@
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
                 app:layoutManager="LinearLayoutManager"
-                app:recyclerAdapter="@{viewModel.feeTransportPnAdapter}"/>
+                app:recyclerAdapter="@{viewModel.feeTransportPnAdapter}" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

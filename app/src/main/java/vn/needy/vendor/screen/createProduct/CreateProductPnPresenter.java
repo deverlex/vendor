@@ -13,6 +13,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import vn.needy.vendor.R;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.error.BaseException;
@@ -124,19 +125,23 @@ public class CreateProductPnPresenter implements CreateProductPnContract.Present
     public boolean validateDataInput(AddProductPnReq request) {
         boolean isValidate = true;
         if (TextUtils.isEmpty(request.getName())) {
-
+            mViewModel.onInputNameError(R.string.name_product_empty);
             isValidate = false;
         } else if (TextUtils.isEmpty(request.getDescription())
-                && request.getDescription().length() < 120) {
-
-            isValidate = false;
-        } else if (request.getQuantity() < 1) {
-
-            isValidate = false;
-        } else if (request.getPrice() <= 0f) {
-
+                || request.getDescription().length() < 60) {
+            mViewModel.onInputDescriptionError(R.string.description_product_higher_60);
             isValidate = false;
         } else if (request.getCategory() == null) {
+            mViewModel.onInputCategoryError(R.string.product_category_empty);
+            isValidate = false;
+        } else if (request.getPrice() <= 0f) {
+            mViewModel.onInputPriceError(R.string.price_product_empty);
+            isValidate = false;
+        } else if (request.getQuantity() < 1) {
+            mViewModel.onInputQuantityError(R.string.quantity_prduct_empty);
+            isValidate = false;
+        } else if (request.getAttributes().size() == 0) {
+            mViewModel.onInputAttributesError(R.string.product_attributes_empty);
             isValidate = false;
         }
         return isValidate;

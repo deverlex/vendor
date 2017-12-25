@@ -27,6 +27,10 @@ interface CreateProductPnContract {
 
         void onInputPriceError(int msg);
 
+        void onInputCategoryError(int msg);
+
+        void onInputAttributesError(int msg);
+
         void onChooseCategory();
 
         void onClickAddImage();

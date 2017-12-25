@@ -7,6 +7,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.zhihu.matisse.Matisse;
@@ -53,6 +54,8 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     private String mDescriptionError;
     private String mQuantityError;
     private String mPriceError;
+    private String mCategoryError;
+    private String mAttributesError;
 
     private String mName;
     private String mDescription;
@@ -117,6 +120,17 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     public void onInputPriceError(int msg) {
         mPriceError = mContext.getString(msg);
         notifyPropertyChanged(BR.priceError);
+    }
+
+    @Override
+    public void onInputCategoryError(int msg) {
+        mCategoryError = mContext.getString(msg);
+        notifyPropertyChanged(BR.categoryError);
+    }
+
+    @Override
+    public void onInputAttributesError(int msg) {
+        mAttributesError = mContext.getString(msg);
     }
 
     @Override
@@ -270,6 +284,16 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     }
 
     @Bindable
+    public String getCategoryError() {
+        return mCategoryError;
+    }
+
+    @Bindable
+    public String getAttributesError() {
+        return mAttributesError;
+    }
+
+    @Bindable
     public String getName() {
         return mName;
     }
@@ -293,7 +317,9 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     }
 
     public void setQuantity(String quantity) {
-        mQuantity = Integer.parseInt(quantity);
+        if (!TextUtils.isEmpty(quantity)) {
+            mQuantity = Integer.parseInt(quantity);
+        }
     }
 
     @Bindable
@@ -302,8 +328,12 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     }
 
     public void setPrice(String price) {
-        mPrice = Float.parseFloat(price);
+        if (!TextUtils.isEmpty(price)) {
+            mPrice = Float.parseFloat(price);
+        }
     }
+
+
 
     @Bindable
     public String getPromotion() {
