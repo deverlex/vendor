@@ -20,4 +20,8 @@ public class StoreRepository {
     public void saveStoreSync(Store store) {
         mLocal.saveStoreSync(store);
     }
+
+    public String getOurStoreIdSync() {
+        return mLocal.getOurStoreIdSync();
+    }
 }
