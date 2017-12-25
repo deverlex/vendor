@@ -66,12 +66,12 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
 
     private ImageAdapter mImageAdapter;
     private Map<String, Object> mAttributes;
-    private AttributeResultPnAdapter mAttributeResultPnAdapter;
+    private AttributeProductPnAdapter mAttributeResultPnAdapter;
     private FeeTransportPnAdapter mFeeTransportPnAdapter;
 
     private boolean mVisibleImages;
 
-    public CreateProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, AttributeResultPnAdapter attributeResultPnAdapter, FeeTransportPnAdapter feeTransportAdapter) {
+    public CreateProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, AttributeProductPnAdapter attributeResultPnAdapter, FeeTransportPnAdapter feeTransportAdapter) {
         mContext = context;
         mNavigator = navigator;
         mAttributes = new HashMap<>();
@@ -363,7 +363,7 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     }
 
     @Bindable
-    public AttributeResultPnAdapter getAttributeResultPnAdapter() {
+    public AttributeProductPnAdapter getAttributeResultPnAdapter() {
         return mAttributeResultPnAdapter;
     }
 

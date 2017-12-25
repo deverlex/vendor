@@ -55,7 +55,7 @@ public class CreateProductPnActivity extends BaseActivity
         mVendorApi = VendorServiceClient.getInstance();
 
         List<AttributeWrapper> attributeWrappers = new ArrayList<>();
-        AttributeResultPnAdapter attributeResultPnAdapter = new AttributeResultPnAdapter(this, attributeWrappers);
+        AttributeProductPnAdapter attributeResultPnAdapter = new AttributeProductPnAdapter(this, attributeWrappers);
 
         RealmList<FeeTransport> feeTransports = new RealmList<>();
         FeeTransportPnAdapter feeTransportAdapter = new FeeTransportPnAdapter(this, feeTransports);

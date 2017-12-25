@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.createProduct.ItemAttributeResultPnViewModel" />
+            type="vn.needy.vendor.screen.createProduct.ItemAttributeProductPnViewModel" />
     </data>
 
     <RelativeLayout

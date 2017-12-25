@@ -13,11 +13,11 @@ import vn.needy.vendor.model.wrapper.AttributeWrapper.DataType;
  * Created by lion on 04/12/2017.
  */
 
-public class ItemAttributeResultPnViewModel extends BaseObservable {
+public class ItemAttributeProductPnViewModel extends BaseObservable {
 
     private AttributeWrapper mAttribute;
 
-    public ItemAttributeResultPnViewModel(AttributeWrapper attribute) {
+    public ItemAttributeProductPnViewModel(AttributeWrapper attribute) {
         mAttribute = attribute;
     }
 

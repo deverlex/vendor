@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.databinding.ItemAttributeResultPnBinding;
+import vn.needy.vendor.databinding.ItemAttributeProductPnBinding;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
@@ -21,14 +21,14 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  * Created by lion on 04/12/2017.
  */
 
-public class AttributeResultPnAdapter extends BaseRecyclerViewAdapter<AttributeResultPnAdapter.ItemViewHolder> {
+public class AttributeProductPnAdapter extends BaseRecyclerViewAdapter<AttributeProductPnAdapter.ItemViewHolder> {
 
-    private static final String TAG = AttributeResultPnAdapter.class.getName();
+    private static final String TAG = AttributeProductPnAdapter.class.getName();
 
     private final List<AttributeWrapper> mAttributes;
     private final Set<Integer> mIds;
 
-    public AttributeResultPnAdapter(@NonNull Context context, List<AttributeWrapper> attributes) {
+    public AttributeProductPnAdapter(@NonNull Context context, List<AttributeWrapper> attributes) {
         super(context);
         mAttributes = attributes;
         mIds = new HashSet<>();
@@ -37,10 +37,10 @@ public class AttributeResultPnAdapter extends BaseRecyclerViewAdapter<AttributeR
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        ItemAttributeResultPnBinding binding =
+        ItemAttributeProductPnBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.item_attribute_result_pn, parent, false);
-        return new AttributeResultPnAdapter.ItemViewHolder(binding);
+                        R.layout.item_attribute_product_pn, parent, false);
+        return new AttributeProductPnAdapter.ItemViewHolder(binding);
     }
 
     @Override
@@ -66,16 +66,16 @@ public class AttributeResultPnAdapter extends BaseRecyclerViewAdapter<AttributeR
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        private final ItemAttributeResultPnBinding mBinding;
+        private final ItemAttributeProductPnBinding mBinding;
 
         @SuppressLint("ResourceType")
-        public ItemViewHolder(ItemAttributeResultPnBinding binding) {
+        public ItemViewHolder(ItemAttributeProductPnBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
         }
 
         void bind(AttributeWrapper attribute) {
-            mBinding.setViewModel(new ItemAttributeResultPnViewModel(attribute));
+            mBinding.setViewModel(new ItemAttributeProductPnViewModel(attribute));
             mBinding.executePendingBindings();
         }
     }
