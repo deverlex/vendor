@@ -85,7 +85,7 @@ public class Navigator {
         }
     }
 
-    public void showToastButtom(String message) {
+    public void showToastBottom(String message) {
 //        Toast toast = Toast.makeText(mActivity, message, Toast.LENGTH_SHORT);
 //        View view = toast.getView();
 //        toast.setGravity(Gravity.BOTTOM | Gravity.HORIZONTAL_GRAVITY_MASK, 0, 0);

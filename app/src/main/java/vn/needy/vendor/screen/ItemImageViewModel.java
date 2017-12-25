@@ -4,7 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.util.Log;
 
-import vn.needy.vendor.database.model.Image;
+import vn.needy.vendor.model.Image;
 
 /**
  * Created by lion on 08/11/2017.
@@ -24,9 +24,10 @@ public class ItemImageViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getImagePath() {
-        Log.w(TAG, "getImagePath()");
-        if (mImage != null) {
+    public String getImageUri() {
+        if (mImage != null && mImage.getUri().contains("http")) {
+            return mImage.getUri();
+        } else if (mImage != null) {
             return mImage.getPath();
         }
         return "";

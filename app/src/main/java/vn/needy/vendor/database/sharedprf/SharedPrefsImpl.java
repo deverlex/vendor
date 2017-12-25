@@ -80,6 +80,11 @@ public class SharedPrefsImpl implements SharedPrefsApi {
     }
 
     @Override
+    public void remove(String key) {
+        mSharedPreferences.edit().remove(key).commit();
+    }
+
+    @Override
     public void clear() {
         mSharedPreferences.edit().clear().apply();
     }

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.model.Image;
+import vn.needy.vendor.model.Image;
 import vn.needy.vendor.databinding.ItemImageBinding;
 
 /**

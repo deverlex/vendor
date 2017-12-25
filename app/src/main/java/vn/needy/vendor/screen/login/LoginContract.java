@@ -31,9 +31,9 @@ public interface LoginContract {
 
         void onPasswordTextChanged(CharSequence s, int start, int before, int count);
 
-        void onRedirectToMain();
+        void onToMainPage();
 
-        void onRedirectToRegisterCompany();
+        void onToRegisterCompany();
     }
 
     interface Presenter extends BasePresenter {
@@ -41,6 +41,6 @@ public interface LoginContract {
 
         boolean validateDataInput(String phoneNumber, String passWord);
 
-        void findCompanyReference();
+        void findCompany();
     }
 }

@@ -11,7 +11,7 @@ import android.text.method.TransformationMethod;
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.service.VendorServiceClient;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.forgotPassword.ForgotPasswordActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
@@ -67,9 +67,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onLoginSuccess() {
         VendorServiceClient.initialize(mApplication);
-        mPresenter.findCompanyReference();
-//        mNavigator.startActivity(MainActivity.class);
-//        mNavigator.finishActivity();
+        mPresenter.findCompany();
     }
 
     @Override
@@ -144,13 +142,13 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
-    public void onRedirectToMain() {
+    public void onToMainPage() {
         mNavigator.startActivity(MainActivity.class);
         mNavigator.finishActivity();
     }
 
     @Override
-    public void onRedirectToRegisterCompany() {
+    public void onToRegisterCompany() {
         mNavigator.startActivity(RegisterCompanyActivity.class);
         mNavigator.finishActivity();
     }

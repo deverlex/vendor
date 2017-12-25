@@ -1,15 +1,15 @@
 package vn.needy.vendor.screen.main;
 
 import io.reactivex.disposables.CompositeDisposable;
-import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.user.UserRepository;
-import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
-import vn.needy.vendor.api.v1.user.UserLocalDataSource;
 import vn.needy.vendor.database.realm.RealmApi;
-import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
-import vn.needy.vendor.api.v1.user.UserRemoteDataSource;
-import vn.needy.vendor.service.VendorServiceClient;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.repository.UserRepository;
+import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.local.UserDataLocal;
+import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
+import vn.needy.vendor.repository.remote.user.UserDataRemote;
 
 /**
  * Created by lion on 30/10/2017.
@@ -24,14 +24,14 @@ public class MainPresenter implements MainContract.Presenter {
     private final UserRepository mUserRepository;
     private final CompanyRepository mCompanyRepository;
 
-    public MainPresenter(RealmApi realmApi) {
+    public MainPresenter(VendorApi vendorApi, SharedPrefsApi prefsApi) {
         mUserRepository = new UserRepository(
-                new UserRemoteDataSource(VendorServiceClient.getInstance()),
-                new UserLocalDataSource(realmApi, SharedPrefsImpl.getInstance())
+                new UserDataRemote(vendorApi),
+                new UserDataLocal(prefsApi)
         );
         mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(SharedPrefsImpl.getInstance())
+                new CompanyRemoteData(vendorApi),
+                new CompanyDataLocal()
         );
         mCompositeDisposable = new CompositeDisposable();
     }

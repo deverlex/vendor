@@ -7,22 +7,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.database.model.Company;
-import vn.needy.vendor.api.v1.company.CompanyRepository;
-import vn.needy.vendor.api.v1.company.CompanyLocalDataSource;
-import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.R;
+import vn.needy.vendor.model.Company;
+import vn.needy.vendor.model.Store;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.message.ResponseWrapper;
+import vn.needy.vendor.port.message.BaseStatus;
+import vn.needy.vendor.port.service.VendorServiceClient;
+import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.repository.StoreRepository;
+import vn.needy.vendor.repository.UserRepository;
+import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.local.StoreDataLocal;
+import vn.needy.vendor.repository.local.UserDataLocal;
+import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
+import vn.needy.vendor.repository.remote.store.StoreDataRemote;
+import vn.needy.vendor.repository.remote.user.UserDataRemote;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.api.v1.company.CompanyRemoteDataSource;
-import vn.needy.vendor.error.BaseException;
-import vn.needy.vendor.error.SafetyError;
-import vn.needy.vendor.api.v1.company.response.CompanyResponse;
-import vn.needy.vendor.service.VendorServiceClient;
+import vn.needy.vendor.port.error.BaseException;
+import vn.needy.vendor.port.error.SafetyError;
 import vn.needy.vendor.screen.login.LoginActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
@@ -32,31 +41,42 @@ public class SplashActivity extends AppCompatActivity {
 
     private static final String TAG = SplashActivity.class.getName();
 
-    private static final int SECOND_DELAYED = 1000;
+    private static final int SECOND_DELAYED = 500;
     private Handler mHandler;
     private Runnable mRunnable;
     private Intent mIntent;
 
-    private RealmApi mRealmApi;
-
-    private CompositeDisposable mCompositeDisposable;
+    private UserRepository mUserRepository;
     private CompanyRepository mCompanyRepository;
+    private StoreRepository mStoreRepository;
     private Navigator mNavigator;
+
+    private SharedPrefsApi mPrefsApi;
+    private VendorApi mVendorApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        mCompositeDisposable = new CompositeDisposable();
-        SharedPrefsApi prefsApi = SharedPrefsImpl.getInstance();
 
-        mRealmApi = new RealmApi();
-        mCompanyRepository = new CompanyRepository(
-                new CompanyRemoteDataSource(VendorServiceClient.getInstance()),
-                new CompanyLocalDataSource(SharedPrefsImpl.getInstance())
+        setContentView(R.layout.activity_splash);
+
+        mPrefsApi = SharedPrefsImpl.getInstance();
+        mVendorApi = VendorServiceClient.getInstance();
+
+        mUserRepository = new UserRepository(
+                new UserDataRemote(mVendorApi),
+                new UserDataLocal(mPrefsApi)
         );
-
-        final String token = getToken(prefsApi);
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteData(mVendorApi),
+                new CompanyDataLocal()
+        );
+        mStoreRepository = new StoreRepository(
+                new StoreDataRemote(mVendorApi),
+                new StoreDataLocal()
+        );
+        final String token = getToken(mPrefsApi);
 
         mNavigator = new Navigator(this);
         mHandler = new Handler();
@@ -64,12 +84,11 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                if (TextUtils.isEmpty(token)) {
-//                    loginPage();
+                    loginPage();
 //                } else {
-                    gatewaySigned();
+//                    gateway();
 //                }
 //                new Navigator(SplashActivity.this).startActivity(mIntent);
-                finish();
             }
         };
         mHandler.postDelayed(mRunnable, SECOND_DELAYED);
@@ -78,19 +97,40 @@ public class SplashActivity extends AppCompatActivity {
     // If app is signed then check user has company
     // -> save company info and redirect to main
     // -> go to register company
-    private void gatewaySigned() {
+    private void gateway() {
         // will check each login app because user maybe remove by ceo/manager
         // if connect has error, redirect to main page
-        Disposable disposable = mCompanyRepository.getCompanyInformation()
+        mUserRepository.getBusinessInformation()
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CompanyResponse>() {
+                .doOnError(new SafetyError() {
                     @Override
-                    public void accept(CompanyResponse companyResponse) throws Exception {
-                        if (companyResponse.getCompany() != null) {
-                            saveCompany(companyResponse.getCompany());
+                    public void onSafetyError(BaseException error) {
+                        mNavigator.showToastCenterText(error.getMessage());
+                        mainPage();
+                    }
+                })
+                .observeOn(Schedulers.computation())
+                .map(new Function<ResponseWrapper<BusinessInfoResp>, ResponseWrapper<BusinessInfoResp>>() {
+                    @Override
+                    public ResponseWrapper<BusinessInfoResp> apply(ResponseWrapper<BusinessInfoResp> resp) throws Exception {
+                        // save company & store response
+                        if (resp.getStatus().equals(BaseStatus.OK)) {
+                            BusinessInfoResp data = resp.getData();
+                            mCompanyRepository.saveCompanySync(new Company(data.getCompany()));
+                            // save store into realm
+                            mStoreRepository.saveStoreSync(new Store(data.getStore()));
+                        }
+                        return resp;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseWrapper<BusinessInfoResp>>() {
+                    @Override
+                    public void accept(ResponseWrapper<BusinessInfoResp> resp) throws Exception {
+                        if (resp.getStatus().equals(BaseStatus.OK)) {
                             mainPage();
                         } else {
+                            mNavigator.showToastBottom(resp.getMessage());
                             registerCompany();
                         }
                     }
@@ -101,7 +141,46 @@ public class SplashActivity extends AppCompatActivity {
                         mainPage();
                     }
                 });
-        mCompositeDisposable.add(disposable);
+
+
+//        mCompanyRepository.findOurCompany()
+//            .subscribeOn(Schedulers.io())
+//            .doOnError(new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mNavigator.showToastCenterText(error.getMessage());
+//                    mainPage();
+//                }
+//            })
+//            .observeOn(Schedulers.computation())
+//            .map(new Function<CompanyResp, CompanyResp>() {
+//                @Override
+//                public CompanyResp apply(CompanyResp resp) throws Exception {
+//                    // save company & store response
+//                    if (resp.getCompany() != null) {
+//                        mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
+//                    }
+//                    return resp;
+//                }
+//            })
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(new Consumer<CompanyResp>() {
+//                @Override
+//                public void accept(CompanyResp response) throws Exception {
+//                    if (response.getStatus().equals("OK")) {
+//                        mainPage();
+//                    } else {
+//                        mNavigator.showToastBottom(response.getMessage());
+//                        registerCompany();
+//                    }
+//                }
+//            }, new SafetyError() {
+//                @Override
+//                public void onSafetyError(BaseException error) {
+//                    mNavigator.showToastCenterText(error.getMessage());
+//                    mainPage();
+//                }
+//            });
     }
 
     public void loginPage() {
@@ -122,17 +201,12 @@ public class SplashActivity extends AppCompatActivity {
         mNavigator.finishActivity();
     }
 
-    private void saveCompany(Company company) {
-        mCompanyRepository.saveCompany(company);
-    }
-
-    // We will get it and refresh, if fail -> re-login
+    // We will getAsync it and refresh, if fail -> re-login
     private String getToken(SharedPrefsApi prefsApi) {
         return prefsApi.get(SharedPrefsKey.TOKEN_KEY, String.class);
     }
 
     public void onDestroy() {
         super.onDestroy();
-        mRealmApi.closeRealmOnMainThread();
     }
 }
