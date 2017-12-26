@@ -1,284 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_gray_white"
-    android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.createProduct.CreateProductPlViewModel" />
+
+        <import type="vn.needy.vendor.utils.binding.LayoutManagers" />
+
+        <import type="android.support.v7.widget.LinearLayoutManager" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
-        <RelativeLayout
+        android:layout_height="match_parent"
+        android:background="@color/color_gray_white"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/back"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                app:srcCompat="@drawable/ic_back_left"
-                android:background="@color/transparent"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/back"
-                android:layout_centerVertical="true"
-                android:text="@string/add_service"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/sp_18"
-                />
-            <ImageButton
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                app:srcCompat="@drawable/ic_check"
-                android:background="@color/transparent"
-                android:layout_alignParentRight="true"
-                />
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <LinearLayout
+                <ImageButton
+                    android:id="@+id/back"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/transparent"
+                    android:onClick="@{() -> viewModel.onBackPressed()}"
+                    app:srcCompat="@drawable/ic_back_left" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/back"
+                    android:text="@string/add_service"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_18" />
+
+                <ImageButton
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/transparent"
+                    app:srcCompat="@drawable/ic_check" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_80"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/dp_10"
-                android:background="@color/color_white"
-                app:layoutManager="LinearLayoutManager"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
-                android:background="@color/color_white"
-                android:fontFamily="@string/font_serif"
-                android:hint="@string/name_service"
-                android:inputType="text"
-                android:textSize="@dimen/sp_14"
-                android:textAllCaps="false"
-                android:textColor="@color/color_black"
-                android:textColorHint="@color/gray35"
-                android:layout_margin="@dimen/dp_1"
-                tools:ignore="UnusedAttribute"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
-                android:background="@color/color_white"
-                android:fontFamily="@string/font_serif"
-                android:hint="@string/service_describe"
-                android:inputType="text"
-                android:textSize="@dimen/sp_14"
-                android:textAllCaps="false"
-                android:textColor="@color/color_black"
-                android:textColorHint="@color/gray35"
-                tools:ignore="UnusedAttribute"
-                />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@string/add_hashtag"
-                    android:textSize="@dimen/sp_10"
-                    android:textColor="@color/colorPrimary"
-                    android:background="@drawable/border_item_text"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/dp_15"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:layout_marginBottom="@dimen/dp_8"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_15">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_list_categories"
-                    android:background="@color/color_white"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_list_categories"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@string/categories"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
-                    android:textColor="@color/color_black"
-                    android:layout_centerVertical="true"
-                    tools:ignore="UnusedAttribute"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:background="@color/color_white"
-                    android:layout_alignParentRight="true"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@string/category_choose"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
-                    android:textColor="@color/gray35"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_5"
-                    tools:ignore="UnusedAttribute"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_10">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_plus_outline"
-                    android:background="@color/color_white"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_plus_outline"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@string/product_dependency"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
-                    android:textColor="@color/color_black"
-                    tools:ignore="UnusedAttribute"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:background="@color/color_white"
-                    android:layout_alignParentRight="true"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@string/product_dependency_input"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
-                    android:textColor="@color/gray35"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_5"
-                    tools:ignore="UnusedAttribute"
-                    />
-            </RelativeLayout>
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_square_cash"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
                     android:background="@color/color_white"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_square_cash"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@string/fee_move"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
-                    android:textColor="@color/color_black"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_10"
+                    app:layoutManager="LinearLayoutManager" />
 
                 <EditText
-                    android:layout_width="@dimen/dp_100"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
+                    android:layout_margin="@dimen/dp_1"
                     android:background="@color/color_white"
-                    android:layout_weight="1"
                     android:fontFamily="@string/font_serif"
-                    android:hint="@string/product_price_input"
-                    android:gravity="end"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray35"
-                    android:layout_marginRight="@dimen/dp_5"
-                    android:layout_gravity="center"
-                    tools:ignore="UnusedAttribute"
-                    />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
-                android:fontFamily="@string/font_serif"
-                android:text="@string/fee_move_expand"
-                android:textSize="@dimen/sp_14"
-                android:textAllCaps="false"
-                android:textColor="@color/gray78"
-                tools:ignore="UnusedAttribute"
-                />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:hint="@string/name_service"
+                    android:inputType="text"
                     android:padding="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_gift"
-                    android:background="@color/color_white"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_gift"
-                    android:fontFamily="@string/font_serif"
-                    android:text="@string/product_promotion"
-                    android:textSize="@dimen/sp_14"
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:textColorHint="@color/gray35"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:fontFamily="@string/font_serif"
+                    android:hint="@string/service_describe"
+                    android:inputType="text"
+                    android:padding="@dimen/dp_10"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_black"
+                    android:textColorHint="@color/gray35"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/dp_8"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:background="@drawable/border_item_text"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@string/add_hashtag"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/sp_10" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:background="@color/color_white"
+                    android:onClick="@{() -> viewModel.onChooseCategory()}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@color/color_white"
+                        android:drawableLeft="@drawable/ic_list_categories"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@drawable/ic_list_categories"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/categories"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:background="@color/color_white"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_10"
+                        android:hint="@string/category_choose"
+                        android:text="@{viewModel.category}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/gray35"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:drawableLeft="@drawable/ic_plus_outline"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@drawable/ic_plus_outline"
+                        android:fontFamily="@string/font_serif"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/product_dependency"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:background="@color/color_white"
+                        android:fontFamily="@string/font_serif"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/product_dependency_input"
+                        android:textAllCaps="false"
+                        android:textColor="@color/gray35"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:drawableLeft="@drawable/ic_square_cash"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@drawable/ic_square_cash"
+                        android:fontFamily="@string/font_serif"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/fee_move"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <EditText
+                        android:layout_width="@dimen/dp_100"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:layout_weight="1"
+                        android:background="@color/color_white"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="end"
+                        android:hint="@string/product_price_input"
+                        android:padding="@dimen/dp_10"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray35"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:background="@color/color_white"
-                    android:layout_alignParentRight="true"
                     android:fontFamily="@string/font_serif"
-                    android:text="@string/product_promotion_input"
-                    android:textSize="@dimen/sp_14"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/fee_move_expand"
                     android:textAllCaps="false"
-                    android:textColor="@color/gray35"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_5"
-                    tools:ignore="UnusedAttribute"
-                    />
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+                    android:textColor="@color/gray78"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@drawable/ic_gift"
+                        android:fontFamily="@string/font_serif"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/product_promotion"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:background="@color/color_white"
+                        android:fontFamily="@string/font_serif"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/product_promotion_input"
+                        android:textAllCaps="false"
+                        android:textColor="@color/gray35"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

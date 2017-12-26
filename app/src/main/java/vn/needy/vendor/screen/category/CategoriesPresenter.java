@@ -135,7 +135,28 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCategoryPriceLater() {
-
+        mCategoryRepository.getCategories(Constant.PRICE_LATER)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseWrapper<CategoriesResp>>() {
+                    @Override
+                    public void accept(ResponseWrapper<CategoriesResp> resp) throws Exception {
+                        CategoriesResp data = resp.getData();
+                        if (data != null) {
+                            List<CategoryWrapper> categories = data.getCategories();
+                            if (categories != null && categories.size() > 0) {
+                                mViewModel.onUpdateListCategory(categories);
+                            } else if (categories == null) {
+                                mViewModel.backActivity();
+                            }
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onUpdateListCategoryError(error);
+                    }
+                });
     }
 
     @Override

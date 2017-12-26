@@ -70,6 +70,7 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
         } else {
             // from add product pl
             Log.w(TAG, "from add product pl");
+            mPresenter.getCategoryPriceLater();
         }
     }
 
