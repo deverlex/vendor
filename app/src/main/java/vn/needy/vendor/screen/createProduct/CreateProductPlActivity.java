@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.zhihu.matisse.Matisse;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import vn.needy.vendor.databinding.ActivityCreateProductPlBinding;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -36,7 +38,10 @@ public class CreateProductPlActivity extends BaseActivity {
 
         mNavigator = new Navigator(this);
 
-        mViewModel = new CreateProductPlViewModel(this, mNavigator);
+        List<Image> images = new ArrayList<>();
+        ImageAdapter imageAdapter = new ImageAdapter(this, images);
+
+        mViewModel = new CreateProductPlViewModel(this, mNavigator, imageAdapter);
         CreateProductPlContract.Presenter presenter = new CreateProductPlPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
 

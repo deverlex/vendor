@@ -68,18 +68,54 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_80"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/color_white"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/dp_10"
-                    app:layoutManager="LinearLayoutManager" />
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_100"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="@dimen/dp_3"
+                            android:orientation="horizontal"
+                            android:visibility="@{viewModel.visibleImages? View.VISIBLE : View.GONE}"
+                            app:layoutManager="LinearLayoutManager"
+                            app:recyclerAdapter="@{viewModel.imageAdapter}" />
+
+                        <RelativeLayout
+                            android:id="@+id/add_image"
+                            android:layout_width="@dimen/dp_100"
+                            android:layout_height="@dimen/dp_100"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="@dimen/dp_3"
+                            android:background="@drawable/border_price"
+                            android:onClick="@{() -> viewModel.onClickAddImage()}">
+
+                            <ImageView
+                                android:id="@+id/ic_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_image" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/ic_image"
+                                android:layout_centerHorizontal="true"
+                                android:text="Thêm ảnh"
+                                android:textColor="@color/color_orange_mos"
+                                android:textSize="@dimen/sp_12" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </ScrollView>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -162,8 +198,8 @@
                         android:background="@color/color_white"
                         android:fontFamily="@string/font_serif"
                         android:gravity="center"
-                        android:padding="@dimen/dp_10"
                         android:hint="@string/category_choose"
+                        android:padding="@dimen/dp_10"
                         android:text="@{viewModel.category}"
                         android:textAllCaps="false"
                         android:textColor="@color/gray35"
