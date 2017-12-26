@@ -20,6 +20,7 @@ import vn.needy.vendor.model.Image;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.category.CategoriesActivity;
+import vn.needy.vendor.screen.createProduct.childProduct.ChildProductFragment;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 import vn.needy.vendor.widget.GifSizeFilter;
@@ -39,6 +40,9 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     private CategoryWrapper mCategory;
     private boolean mVisibleImages;
     private ImageAdapter mImageAdapter;
+
+    private String mName;
+    private String mDescription;
 
     public CreateProductPlViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
         this.mContext = context;
@@ -108,6 +112,12 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
         mImageAdapter.updateData(images);
     }
 
+    @Override
+    public void onClickAddChildProduct() {
+        ((CreateProductPlActivity) mContext)
+                .initFragment(android.R.id.content, ChildProductFragment.newInstance());
+    }
+
     @Bindable
     public String getCategory() {
         if (mCategory != null) {
@@ -125,5 +135,23 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     @Bindable
     public ImageAdapter getImageAdapter() {
         return mImageAdapter;
+    }
+
+    @Bindable
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        this.mName = name;
+    }
+
+    @Bindable
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        this.mDescription = description;
     }
 }

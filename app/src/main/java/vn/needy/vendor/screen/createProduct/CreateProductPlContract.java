@@ -23,6 +23,8 @@ public interface CreateProductPlContract {
         void onClickAddImage();
 
         void onSelectedListImages(List<Image> images);
+
+        void onClickAddChildProduct();
     }
 
     interface Presenter extends BasePresenter {

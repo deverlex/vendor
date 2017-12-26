@@ -9,6 +9,9 @@ import android.os.Parcelable;
 
 public class ProductPn implements Parcelable {
 
+    public ProductPn() {
+    }
+
     protected ProductPn(Parcel in) {
     }
 
