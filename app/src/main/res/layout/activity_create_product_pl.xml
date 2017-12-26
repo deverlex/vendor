@@ -210,11 +210,11 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:onClick="@{() -> viewModel.onClickAddChildProduct()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:background="@color/color_white">
+                    android:background="@color/color_white"
+                    android:onClick="@{() -> viewModel.onClickAddChildProduct()}">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -249,10 +249,18 @@
                         tools:ignore="UnusedAttribute" />
                 </RelativeLayout>
 
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    app:layoutManager="LinearLayoutManager"
+                    recyclerAdapter="@{viewModel.childProductPlAdapter}"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_4"
                     android:background="@color/color_white"
                     android:orientation="horizontal">
 

@@ -9,14 +9,18 @@ import android.os.Parcelable;
 
 public class ProductPn implements Parcelable {
 
+    private long id;
+
     public ProductPn() {
     }
 
     protected ProductPn(Parcel in) {
+        id = in.readLong();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
     }
 
     @Override
@@ -35,4 +39,12 @@ public class ProductPn implements Parcelable {
             return new ProductPn[size];
         }
     };
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.createProduct.ItemChildProductPlViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:onClick="@{() -> viewModel.onItemClicked()}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        android:background="@color/color_white"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:onClick="@{() -> viewModel.onRemoveItemClick()}"
+            android:id="@+id/btn_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="@dimen/dp_10"
+            app:srcCompat="@drawable/ic_remove_item" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/price"
+            android:layout_toRightOf="@+id/btn_remove"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="@dimen/dp_8"
+            android:text="Lốp xe"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_10"
+            android:text="209.000 đ"
+            android:textColor="@color/color_orange_mos"
+            android:textSize="@dimen/dp_14" />
+    </RelativeLayout>
+</layout>

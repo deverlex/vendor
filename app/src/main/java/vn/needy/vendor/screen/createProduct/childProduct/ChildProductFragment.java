@@ -3,6 +3,7 @@ package vn.needy.vendor.screen.createProduct.childProduct;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,15 +25,11 @@ import vn.needy.vendor.screen.category.CategoriesActivity;
  */
 
 public class ChildProductFragment extends Fragment {
-    public static final int RC_CHOOSE_IMAGE = 2684;
     public static final int RC_CHOOSE_CATEGORY = 1784;
+    public static final String PRODUCT_LIST = "_products";
 
     public static ChildProductFragment newInstance() {
-        
-        Bundle args = new Bundle();
-        
         ChildProductFragment fragment = new ChildProductFragment();
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -44,6 +41,11 @@ public class ChildProductFragment extends Fragment {
 
         List<ProductPn> productPns = new ArrayList<>();
         ChildProductAdapter childProductAdapter = new ChildProductAdapter(getActivity(), productPns);
+
+        List<ProductPn> checkedProductPns = getArguments().getParcelableArrayList(PRODUCT_LIST);
+        if (checkedProductPns == null) {
+            checkedProductPns = new ArrayList<>();
+        }
 
         mViewModel = new ChildProductViewModel(getActivity(), this, childProductAdapter);
         ChildProductContract.Presenter presenter = new ChildProductPresenter(mViewModel);
@@ -67,5 +69,9 @@ public class ChildProductFragment extends Fragment {
                 mViewModel.updateCategory(category);
             }
         }
+    }
+
+    public interface OnCallbackReceived {
+        void onUpdateListChildProduct(List<ProductPn> productPns);
     }
 }

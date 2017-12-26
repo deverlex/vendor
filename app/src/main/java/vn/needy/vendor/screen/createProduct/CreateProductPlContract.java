@@ -3,6 +3,7 @@ package vn.needy.vendor.screen.createProduct;
 import java.util.List;
 
 import vn.needy.vendor.model.Image;
+import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
@@ -25,6 +26,8 @@ public interface CreateProductPlContract {
         void onSelectedListImages(List<Image> images);
 
         void onClickAddChildProduct();
+
+        void onUpdateListChildProduct(List<ProductPn> productPns);
     }
 
     interface Presenter extends BasePresenter {

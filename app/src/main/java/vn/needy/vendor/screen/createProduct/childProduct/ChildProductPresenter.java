@@ -32,7 +32,9 @@ public class ChildProductPresenter implements ChildProductContract.Presenter {
         // Get All Product of company
         List<ProductPn> productPns = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            productPns.add(new ProductPn());
+            ProductPn productPn = new ProductPn();
+            productPn.setId(i);
+            productPns.add(productPn);
         }
 
         mViewModel.onUpdateProducts(productPns);
@@ -42,7 +44,9 @@ public class ChildProductPresenter implements ChildProductContract.Presenter {
     public void getProductByCategory(String category) {
         List<ProductPn> productPns = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            productPns.add(new ProductPn());
+            ProductPn productPn = new ProductPn();
+            productPn.setId(i);
+            productPns.add(productPn);
         }
 
         mViewModel.onUpdateProducts(productPns);

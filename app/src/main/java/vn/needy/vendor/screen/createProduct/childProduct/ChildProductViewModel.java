@@ -13,6 +13,7 @@ import vn.needy.vendor.BR;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.category.CategoriesActivity;
+import vn.needy.vendor.screen.createProduct.CreateProductPlActivity;
 
 /**
  * Created by lion on 08/12/2017.
@@ -56,7 +57,8 @@ public class ChildProductViewModel extends BaseObservable implements ChildProduc
 
     @Override
     public void onDoneClicked() {
-
+        ((CreateProductPlActivity)mContext).onUpdateListChildProduct(mChildProductAdapter.getCheckedProducts());
+        ((Activity) mContext).onBackPressed();
     }
 
     @Override

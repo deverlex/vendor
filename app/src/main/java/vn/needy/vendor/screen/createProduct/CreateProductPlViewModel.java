@@ -6,17 +6,21 @@ import android.content.pm.ActivityInfo;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.model.Image;
+import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.category.CategoriesActivity;
@@ -40,14 +44,16 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     private CategoryWrapper mCategory;
     private boolean mVisibleImages;
     private ImageAdapter mImageAdapter;
+    private ChildProductPlAdapter mChildProductPlAdapter;
 
     private String mName;
     private String mDescription;
 
-    public CreateProductPlViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
+    public CreateProductPlViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, ChildProductPlAdapter childProductPlAdapter) {
         this.mContext = context;
         mNavigator = navigator;
         mImageAdapter = imageAdapter;
+        this.mChildProductPlAdapter = childProductPlAdapter;
     }
 
     @Override
@@ -114,8 +120,15 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
 
     @Override
     public void onClickAddChildProduct() {
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(ChildProductFragment.PRODUCT_LIST, (ArrayList<? extends Parcelable>) mChildProductPlAdapter.getData());
         ((CreateProductPlActivity) mContext)
-                .initFragment(android.R.id.content, ChildProductFragment.newInstance());
+                .initFragment(android.R.id.content, ChildProductFragment.newInstance(), args);
+    }
+
+    @Override
+    public void onUpdateListChildProduct(List<ProductPn> productPns) {
+        mChildProductPlAdapter.setData(productPns);
     }
 
     @Bindable
@@ -153,5 +166,10 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
 
     public void setDescription(String description) {
         this.mDescription = description;
+    }
+
+    @Bindable
+    public ChildProductPlAdapter getChildProductPlAdapter() {
+        return mChildProductPlAdapter;
     }
 }

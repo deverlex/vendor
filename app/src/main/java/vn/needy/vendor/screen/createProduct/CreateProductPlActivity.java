@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.zhihu.matisse.Matisse;
@@ -16,17 +17,19 @@ import java.util.List;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityCreateProductPlBinding;
 import vn.needy.vendor.model.Image;
+import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.category.CategoriesActivity;
+import vn.needy.vendor.screen.createProduct.childProduct.ChildProductFragment;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by lion on 28/11/2017.
  */
 
-public class CreateProductPlActivity extends BaseActivity {
+public class CreateProductPlActivity extends BaseActivity implements ChildProductFragment.OnCallbackReceived{
 
     public static final int RC_CHOOSE_IMAGE = 2683;
     public static final int RC_CHOOSE_CATEGORY = 1783;
@@ -43,7 +46,10 @@ public class CreateProductPlActivity extends BaseActivity {
         List<Image> images = new ArrayList<>();
         ImageAdapter imageAdapter = new ImageAdapter(this, images);
 
-        mViewModel = new CreateProductPlViewModel(this, mNavigator, imageAdapter);
+        List<ProductPn> productPns = new ArrayList<>();
+        ChildProductPlAdapter childProductPlAdapter = new ChildProductPlAdapter(this, productPns);
+
+        mViewModel = new CreateProductPlViewModel(this, mNavigator, imageAdapter, childProductPlAdapter);
         CreateProductPlContract.Presenter presenter = new CreateProductPlPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
 
@@ -82,8 +88,20 @@ public class CreateProductPlActivity extends BaseActivity {
         }
     }
 
+    // Call from ViewModel
     @Override
     protected <T extends Fragment> T initFragment(int target, @NonNull T fragment) {
         return super.initFragment(target, fragment);
+    }
+
+    // Call from ViewModel
+    @Override
+    protected <T extends Fragment> T initFragment(int target, @NonNull T fragment, @Nullable Bundle extras) {
+        return super.initFragment(target, fragment, extras);
+    }
+
+    @Override
+    public void onUpdateListChildProduct(List<ProductPn> productPns) {
+        mViewModel.onUpdateListChildProduct(productPns);
     }
 }

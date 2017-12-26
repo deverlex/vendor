@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
@@ -19,25 +20,29 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  * Created by lion on 08/12/2017.
  */
 
-public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAdapter.ItemViewHolder>{
+public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAdapter.ItemViewHolder>
+        implements ItemChildProductViewModel.OnCheckClickListener {
     private List<ProductPn> mProductPns;
+    private List<ProductPn> mCheckedProductPns;
     private OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
     protected ChildProductAdapter(@NonNull Context context, List<ProductPn> productPns) {
         super(context);
         this.mProductPns = productPns;
+        mCheckedProductPns = new ArrayList<>();
     }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemChooseChildProductBinding binding =  DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+        ItemChooseChildProductBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_choose_child_product, parent, false);
-        return new ChildProductAdapter.ItemViewHolder(binding, mItemClickListener);
+        return new ChildProductAdapter.ItemViewHolder(binding, mItemClickListener, this);
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        holder.bind(mProductPns.get(position));
+        ProductPn productPn = mProductPns.get(position);
+        holder.bind(productPn, mCheckedProductPns.contains(productPn));
     }
 
     @Override
@@ -55,19 +60,41 @@ public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAda
         notifyDataSetChanged();
     }
 
+    public List<ProductPn> getData() {
+        return mProductPns;
+    }
+
+    public List<ProductPn> getCheckedProducts() {
+        return mCheckedProductPns;
+    }
+
+    @Override
+    public void onCheckClicked(boolean isChecked, ProductPn productPn) {
+        if (isChecked) {
+            mCheckedProductPns.add(productPn);
+        } else {
+            mCheckedProductPns.remove(productPn);
+        }
+    }
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         private final ItemChooseChildProductBinding mBinding;
         private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
                 mItemClickListener;
+        private ItemChildProductViewModel.OnCheckClickListener mOnCheckClickListener;
 
-        public ItemViewHolder(ItemChooseChildProductBinding binding, BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> itemClickListener) {
+
+        public ItemViewHolder(ItemChooseChildProductBinding binding,
+                              BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> itemClickListener,
+                              ItemChildProductViewModel.OnCheckClickListener onCheckClickListener) {
             super(binding.getRoot());
             this.mBinding = binding;
             this.mItemClickListener = itemClickListener;
+            this.mOnCheckClickListener = onCheckClickListener;
         }
 
-        void bind(ProductPn productPn) {
-            mBinding.setViewModel(new ItemChildProductViewModel(productPn, mItemClickListener));
+        void bind(ProductPn productPn, boolean isChecked) {
+            mBinding.setViewModel(new ItemChildProductViewModel(productPn, mItemClickListener, isChecked, mOnCheckClickListener));
             mBinding.executePendingBindings();
         }
     }
