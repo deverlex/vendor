@@ -1,6 +1,9 @@
 package vn.needy.vendor.screen.createProduct;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import java.util.Locale;
 
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;
@@ -22,6 +25,16 @@ public class ItemChildProductPlViewModel extends BaseObservable{
         this.mProductPn = productPn;
         this.mItemClickListener = itemClickListener;
         this.mOnRemoveItemClick = onRemoveItemClick;
+    }
+
+    @Bindable
+    public String getName() {
+        return mProductPn.getName();
+    }
+
+    @Bindable
+    public String getPrice() {
+        return String.format(Locale.getDefault(), "%f d", mProductPn.getPrice());
     }
 
     public void onRemoveItemClick() {

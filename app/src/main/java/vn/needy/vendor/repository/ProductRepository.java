@@ -22,7 +22,7 @@ public class ProductRepository {
         return mRemote.addProductPn(companyId, storeId, request);
     }
 
-    public Observable<ResponseWrapper<ProductPnInfoResp>> getAllProductsPnOfCompany(String companyId) {
-        return mRemote.getAllProductsPnOfCompany(companyId);
+    public Observable<ResponseWrapper<ProductPnInfoResp>> getProductsPnOfCompany(String companyId, String category) {
+        return mRemote.getProductsPnOfCompany(companyId, category);
     }
 }

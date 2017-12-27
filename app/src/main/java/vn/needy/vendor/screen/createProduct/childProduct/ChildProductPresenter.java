@@ -20,6 +20,7 @@ import vn.needy.vendor.repository.local.ProductDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.product.ProductDataRemote;
 import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResp;
+import vn.needy.vendor.utils.Constant;
 
 /**
  * Created by lion on 08/12/2017.
@@ -57,7 +58,7 @@ public class ChildProductPresenter implements ChildProductContract.Presenter {
     public void getProducts() {
         // Get All Product of company
         String companyId = mCompanyRepository.getCompanyIdSync();
-        mProductRepository.getAllProductsPnOfCompany(companyId)
+        mProductRepository.getProductsPnOfCompany(companyId, Constant.PRICE_NOW)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ResponseWrapper<ProductPnInfoResp>>() {
@@ -75,13 +76,20 @@ public class ChildProductPresenter implements ChildProductContract.Presenter {
 
     @Override
     public void getProductByCategory(String category) {
-//        List<ProductPn> productPns = new ArrayList<>();
-//        for (int i = 0; i < 5; i++) {
-//            ProductPn productPn = new ProductPn();
-//            productPn.setId(i);
-//            productPns.add(productPn);
-//        }
-//
-//        mViewModel.onUpdateProducts(productPns);
+        String companyId = mCompanyRepository.getCompanyIdSync();
+        mProductRepository.getProductsPnOfCompany(companyId, category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseWrapper<ProductPnInfoResp>>() {
+                    @Override
+                    public void accept(ResponseWrapper<ProductPnInfoResp> productPnInfoRespResponseWrapper) throws Exception {
+                        mViewModel.onUpdateProducts(productPnInfoRespResponseWrapper.getData().getProducts());
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+
+                    }
+                });
     }
 }

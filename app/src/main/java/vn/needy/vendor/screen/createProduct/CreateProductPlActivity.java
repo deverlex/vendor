@@ -19,7 +19,6 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityCreateProductPlBinding;
 import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.Image;
-import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseActivity;

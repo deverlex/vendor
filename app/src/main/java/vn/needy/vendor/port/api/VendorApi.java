@@ -97,7 +97,8 @@ public interface VendorApi {
 
     @GET("v1/pn/products")
     Observable<ResponseWrapper<ProductPnInfoResp>> getAllProductsPnOfCompany(
-            @Query("company_id") String companyId);
+            @Query("company_id") String companyId,
+            @Query("category") String category);
 
 
     // POST new images

@@ -6,6 +6,7 @@ import vn.needy.vendor.model.Image;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -31,9 +32,13 @@ public interface CreateProductPlContract {
         void onUpdateListChildProduct(List<ProductPnWrapper> productPns);
 
         void addFeeTransport();
+
+        void onClickCreate();
     }
 
     interface Presenter extends BasePresenter {
-        
+        void uploadProduct(AddProductPnReq request, List<Image> images);
+
+        boolean validateDataInput(AddProductPnReq request);
     }
 }

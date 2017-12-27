@@ -146,6 +146,11 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
         mFeeTransportAdapter.addItem();
     }
 
+    @Override
+    public void onClickCreate() {
+        mPresenter.uploadProduct(null, mImageAdapter.getImages());
+    }
+
     @Bindable
     public String getCategory() {
         if (mCategory != null) {

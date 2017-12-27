@@ -13,7 +13,7 @@ public interface ProductData {
     interface Remote {
         Observable<ResponseWrapper> addProductPn(String companyId, String storeId, AddProductPnReq request);
 
-        Observable<ResponseWrapper<ProductPnInfoResp>> getAllProductsPnOfCompany(String companyId);
+        Observable<ResponseWrapper<ProductPnInfoResp>> getProductsPnOfCompany(String companyId, String category);
     }
 
     interface Local {
