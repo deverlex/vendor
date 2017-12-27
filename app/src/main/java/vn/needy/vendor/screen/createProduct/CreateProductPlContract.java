@@ -28,6 +28,8 @@ public interface CreateProductPlContract {
         void onClickAddChildProduct();
 
         void onUpdateListChildProduct(List<ProductPn> productPns);
+
+        void addFeeTransport();
     }
 
     interface Presenter extends BasePresenter {

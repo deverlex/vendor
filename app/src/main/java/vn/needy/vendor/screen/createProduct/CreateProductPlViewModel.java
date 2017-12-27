@@ -19,9 +19,11 @@ import java.util.List;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
+import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.screen.createProduct.childProduct.ChildProductFragment;
@@ -35,7 +37,8 @@ import static vn.needy.vendor.screen.createProduct.CreateProductPlActivity.RC_CH
  * Created by lion on 28/11/2017.
  */
 
-public class CreateProductPlViewModel extends BaseObservable implements CreateProductPlContract.ViewModel {
+public class CreateProductPlViewModel extends BaseObservable implements CreateProductPlContract.ViewModel,
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>{
 
     private Context mContext;
     private Navigator mNavigator;
@@ -45,15 +48,18 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     private boolean mVisibleImages;
     private ImageAdapter mImageAdapter;
     private ChildProductPlAdapter mChildProductPlAdapter;
+    private FeeTransportPnAdapter mFeeTransportAdapter;
 
     private String mName;
     private String mDescription;
 
-    public CreateProductPlViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, ChildProductPlAdapter childProductPlAdapter) {
+    public CreateProductPlViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, ChildProductPlAdapter childProductPlAdapter, FeeTransportPnAdapter feeTransportAdapter) {
         this.mContext = context;
         mNavigator = navigator;
         mImageAdapter = imageAdapter;
         this.mChildProductPlAdapter = childProductPlAdapter;
+        mFeeTransportAdapter = feeTransportAdapter;
+        mFeeTransportAdapter.setItemClickListener(this);
     }
 
     @Override
@@ -131,6 +137,11 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
         mChildProductPlAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void addFeeTransport() {
+        mFeeTransportAdapter.addItem();
+    }
+
     @Bindable
     public String getCategory() {
         if (mCategory != null) {
@@ -171,5 +182,16 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     @Bindable
     public ChildProductPlAdapter getChildProductPlAdapter() {
         return mChildProductPlAdapter;
+    }
+
+    public FeeTransportPnAdapter getFeeTransportAdapter() {
+        return mFeeTransportAdapter;
+    }
+
+    @Override
+    public void onItemRecyclerViewClick(Object item) {
+        if (item instanceof FeeTransport) {
+            mFeeTransportAdapter.removeItem((FeeTransport) item);
+        }
     }
 }

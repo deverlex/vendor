@@ -14,8 +14,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.realm.RealmList;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityCreateProductPlBinding;
+import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
@@ -49,7 +51,10 @@ public class CreateProductPlActivity extends BaseActivity implements ChildProduc
         List<ProductPn> productPns = new ArrayList<>();
         ChildProductPlAdapter childProductPlAdapter = new ChildProductPlAdapter(this, productPns);
 
-        mViewModel = new CreateProductPlViewModel(this, mNavigator, imageAdapter, childProductPlAdapter);
+        RealmList<FeeTransport> feeTransports = new RealmList<>();
+        FeeTransportPnAdapter feeTransportAdapter = new FeeTransportPnAdapter(this, feeTransports);
+
+        mViewModel = new CreateProductPlViewModel(this, mNavigator, imageAdapter, childProductPlAdapter, feeTransportAdapter);
         CreateProductPlContract.Presenter presenter = new CreateProductPlPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
 

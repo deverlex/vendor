@@ -257,46 +257,39 @@
                     app:layoutManager="LinearLayoutManager"
                     recyclerAdapter="@{viewModel.childProductPlAdapter}"/>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginTop="@dimen/dp_1"
                     android:background="@color/color_white"
-                    android:orientation="horizontal">
+                    android:onClick="@{() -> viewModel.addFeeTransport()}">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_5"
                         android:background="@color/color_white"
                         android:drawableLeft="@drawable/ic_square_cash"
                         android:drawablePadding="@dimen/dp_10"
                         android:drawableStart="@drawable/ic_square_cash"
                         android:fontFamily="@string/font_serif"
-                        android:gravity="center_vertical"
                         android:padding="@dimen/dp_10"
-                        android:text="@string/fee_move"
+                        android:text="@string/fee_transport"
                         android:textAllCaps="false"
                         android:textColor="@color/color_black"
                         android:textSize="@dimen/sp_14"
                         tools:ignore="UnusedAttribute" />
 
-                    <EditText
-                        android:layout_width="@dimen/dp_100"
+                    <ImageButton
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/dp_5"
-                        android:layout_weight="1"
-                        android:background="@color/color_white"
-                        android:fontFamily="@string/font_serif"
-                        android:gravity="end|center_vertical"
-                        android:hint="@string/product_price_input"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
                         android:padding="@dimen/dp_10"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/gray35"
-                        android:textSize="@dimen/sp_14"
-                        tools:ignore="UnusedAttribute" />
-                </LinearLayout>
+                        app:srcCompat="@drawable/ic_plus_outline" />
+                </RelativeLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -309,10 +302,18 @@
                     android:textSize="@dimen/sp_14"
                     tools:ignore="UnusedAttribute" />
 
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    app:layoutManager="LinearLayoutManager"
+                    app:recyclerAdapter="@{viewModel.feeTransportAdapter}"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_4"
                     android:background="@color/color_white">
 
                     <TextView
