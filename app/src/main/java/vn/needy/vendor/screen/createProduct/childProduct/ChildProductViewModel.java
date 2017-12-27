@@ -13,6 +13,7 @@ import java.util.List;
 import vn.needy.vendor.BR;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.screen.createProduct.CreateProductPlActivity;
 
@@ -63,9 +64,8 @@ public class ChildProductViewModel extends BaseObservable implements ChildProduc
     }
 
     @Override
-    public void onUpdateProducts(List<ProductPn> productPns) {
+    public void onUpdateProducts(List<ProductPnWrapper> productPns) {
         mChildProductAdapter.setData(productPns);
-        notifyPropertyChanged(BR.childProductAdapter);
     }
 
     @Override

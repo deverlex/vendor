@@ -61,7 +61,7 @@
                 android:lineSpacingExtra="@dimen/dp_4"
                 android:maxLines="2"
                 android:padding="@dimen/dp_5"
-                android:text="Product name"
+                android:text="@{viewModel.name}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_16" />
 
@@ -79,7 +79,7 @@
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_5"
-                    android:text="đ 209.000"
+                    android:text="@{viewModel.price}"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/sp_17"
                     tools:ignore="UnusedAttribute" />

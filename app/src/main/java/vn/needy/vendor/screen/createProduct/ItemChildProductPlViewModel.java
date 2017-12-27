@@ -3,6 +3,7 @@ package vn.needy.vendor.screen.createProduct;
 import android.databinding.BaseObservable;
 
 import vn.needy.vendor.model.ProductPn;
+import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
@@ -10,12 +11,12 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  */
 
 public class ItemChildProductPlViewModel extends BaseObservable{
-    private final ProductPn mProductPn;
+    private final ProductPnWrapper mProductPn;
     private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
             mItemClickListener;
     private final OnRemoveItemClick mOnRemoveItemClick;
 
-    public ItemChildProductPlViewModel(ProductPn productPn,
+    public ItemChildProductPlViewModel(ProductPnWrapper productPn,
                                        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> itemClickListener,
                                        OnRemoveItemClick onRemoveItemClick) {
         this.mProductPn = productPn;
@@ -38,6 +39,6 @@ public class ItemChildProductPlViewModel extends BaseObservable{
     }
 
     interface OnRemoveItemClick {
-        void onRemoveItemClicked(ProductPn productPn);
+        void onRemoveItemClicked(ProductPnWrapper productPn);
     }
 }

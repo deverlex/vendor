@@ -21,6 +21,7 @@ import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.category.CategoriesActivity;
@@ -48,7 +49,7 @@ public class CreateProductPlActivity extends BaseActivity implements ChildProduc
         List<Image> images = new ArrayList<>();
         ImageAdapter imageAdapter = new ImageAdapter(this, images);
 
-        List<ProductPn> productPns = new ArrayList<>();
+        List<ProductPnWrapper> productPns = new ArrayList<>();
         ChildProductPlAdapter childProductPlAdapter = new ChildProductPlAdapter(this, productPns);
 
         RealmList<FeeTransport> feeTransports = new RealmList<>();
@@ -106,7 +107,7 @@ public class CreateProductPlActivity extends BaseActivity implements ChildProduc
     }
 
     @Override
-    public void onUpdateListChildProduct(List<ProductPn> productPns) {
+    public void onUpdateListChildProduct(List<ProductPnWrapper> productPns) {
         mViewModel.onUpdateListChildProduct(productPns);
     }
 }

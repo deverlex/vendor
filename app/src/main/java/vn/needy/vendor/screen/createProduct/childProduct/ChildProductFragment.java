@@ -18,6 +18,9 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.FragmentChildProductBinding;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.model.wrapper.ProductPnWrapper;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 
 /**
@@ -34,21 +37,24 @@ public class ChildProductFragment extends Fragment {
     }
 
     private ChildProductContract.ViewModel mViewModel;
+    private VendorApi mVendorApi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        List<ProductPn> checkedProductPns = getArguments().getParcelableArrayList(PRODUCT_LIST);
+        mVendorApi = VendorServiceClient.getInstance();
+
+        List<ProductPnWrapper> checkedProductPns = getArguments().getParcelableArrayList(PRODUCT_LIST);
         if (checkedProductPns == null) {
             checkedProductPns = new ArrayList<>();
         }
 
-        List<ProductPn> productPns = new ArrayList<>();
+        List<ProductPnWrapper> productPns = new ArrayList<>();
         ChildProductAdapter childProductAdapter = new ChildProductAdapter(getActivity(), productPns, checkedProductPns);
 
         mViewModel = new ChildProductViewModel(getActivity(), this, childProductAdapter);
-        ChildProductContract.Presenter presenter = new ChildProductPresenter(mViewModel);
+        ChildProductContract.Presenter presenter = new ChildProductPresenter(mViewModel, mVendorApi);
         mViewModel.setPresenter(presenter);
 
         mViewModel.onStart();
@@ -72,6 +78,6 @@ public class ChildProductFragment extends Fragment {
     }
 
     public interface OnCallbackReceived {
-        void onUpdateListChildProduct(List<ProductPn> productPns);
+        void onUpdateListChildProduct(List<ProductPnWrapper> productPns);
     }
 }

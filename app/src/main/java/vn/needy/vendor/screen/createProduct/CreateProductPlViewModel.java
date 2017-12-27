@@ -23,6 +23,7 @@ import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.category.CategoriesActivity;
@@ -53,7 +54,10 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     private String mName;
     private String mDescription;
 
-    public CreateProductPlViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, ChildProductPlAdapter childProductPlAdapter, FeeTransportPnAdapter feeTransportAdapter) {
+    public CreateProductPlViewModel(Context context, Navigator navigator,
+                                    ImageAdapter imageAdapter,
+                                    ChildProductPlAdapter childProductPlAdapter,
+                                    FeeTransportPnAdapter feeTransportAdapter) {
         this.mContext = context;
         mNavigator = navigator;
         mImageAdapter = imageAdapter;
@@ -133,7 +137,7 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     }
 
     @Override
-    public void onUpdateListChildProduct(List<ProductPn> productPns) {
+    public void onUpdateListChildProduct(List<ProductPnWrapper> productPns) {
         mChildProductPlAdapter.notifyDataSetChanged();
     }
 

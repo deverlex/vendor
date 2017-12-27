@@ -14,6 +14,7 @@ import java.util.List;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ItemChooseChildProductBinding;
 import vn.needy.vendor.model.ProductPn;
+import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
@@ -22,14 +23,14 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAdapter.ItemViewHolder>
         implements ItemChildProductViewModel.OnCheckClickListener {
-    private List<ProductPn> mProductPns;
-    private List<ProductPn> mCheckedProductPns;
+    private List<ProductPnWrapper> mProductPns;
+    private List<ProductPnWrapper> mCheckedProductPns;
     private OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected ChildProductAdapter(@NonNull Context context, List<ProductPn> productPns, List<ProductPn> checkedProductPns) {
+    protected ChildProductAdapter(@NonNull Context context, List<ProductPnWrapper> productPns, List<ProductPnWrapper> checkedProductPns) {
         super(context);
         this.mProductPns = productPns;
-        mCheckedProductPns = checkedProductPns;
+        this.mCheckedProductPns = checkedProductPns;
     }
 
     @Override
@@ -41,7 +42,7 @@ public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAda
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        ProductPn productPn = mProductPns.get(position);
+        ProductPnWrapper productPn = mProductPns.get(position);
         holder.bind(productPn, contains(mCheckedProductPns, productPn));
     }
 
@@ -54,22 +55,22 @@ public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAda
         this.mItemClickListener = itemClickListener;
     }
 
-    public void setData(List<ProductPn> productPns) {
+    public void setData(List<ProductPnWrapper> productPns) {
         mProductPns.clear();
         mProductPns.addAll(productPns);
         notifyDataSetChanged();
     }
 
-    public List<ProductPn> getData() {
+    public List<ProductPnWrapper> getData() {
         return mProductPns;
     }
 
-    public List<ProductPn> getCheckedProducts() {
+    public List<ProductPnWrapper> getCheckedProducts() {
         return mCheckedProductPns;
     }
 
-    public boolean contains(List<ProductPn> productPns, ProductPn productPn) {
-        for (ProductPn p : productPns) {
+    public boolean contains(List<ProductPnWrapper> productPns, ProductPnWrapper productPn) {
+        for (ProductPnWrapper p : productPns) {
             if (p.getId() == productPn.getId()) return true;
         }
         return false;
@@ -77,10 +78,11 @@ public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAda
 
 
     @Override
-    public void onCheckClicked(boolean isChecked, ProductPn productPn) {
+    public void onCheckClicked(boolean isChecked, ProductPnWrapper productPn) {
         if (isChecked) {
             mCheckedProductPns.add(productPn);
         } else {
+
             mCheckedProductPns.remove(productPn);
         }
     }
@@ -101,7 +103,7 @@ public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAda
             this.mOnCheckClickListener = onCheckClickListener;
         }
 
-        void bind(ProductPn productPn, boolean isChecked) {
+        void bind(ProductPnWrapper productPn, boolean isChecked) {
             mBinding.setViewModel(new ItemChildProductViewModel(productPn, mItemClickListener, isChecked, mOnCheckClickListener));
             mBinding.executePendingBindings();
         }

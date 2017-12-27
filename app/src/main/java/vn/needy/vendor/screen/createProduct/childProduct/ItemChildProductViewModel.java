@@ -4,8 +4,11 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.widget.CheckBox;
 
+import java.util.Locale;
+
 import vn.needy.vendor.BR;
 import vn.needy.vendor.model.ProductPn;
+import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
@@ -13,13 +16,13 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  */
 
 public class ItemChildProductViewModel extends BaseObservable {
-    private final ProductPn mProductPn;
+    private final ProductPnWrapper mProductPn;
     private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
             mItemClickListener;
     private final OnCheckClickListener mOnCheckClickListener;
     private boolean isChecked;
 
-    public ItemChildProductViewModel(ProductPn productPn,
+    public ItemChildProductViewModel(ProductPnWrapper productPn,
                                      BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> itemClickListener,
                                      boolean isChecked,
                                      OnCheckClickListener onCheckClickListener) {
@@ -27,6 +30,16 @@ public class ItemChildProductViewModel extends BaseObservable {
         this.mItemClickListener = itemClickListener;
         this.isChecked = isChecked;
         this.mOnCheckClickListener = onCheckClickListener;
+    }
+
+    @Bindable
+    public String getName() {
+        return mProductPn.getName();
+    }
+
+    @Bindable
+    public String getPrice() {
+        return String.format(Locale.getDefault(), "đ %f", mProductPn.getPrice());
     }
 
     @Bindable
@@ -51,6 +64,6 @@ public class ItemChildProductViewModel extends BaseObservable {
     }
 
     interface OnCheckClickListener {
-        void onCheckClicked(boolean isChecked, ProductPn productPn);
+        void onCheckClicked(boolean isChecked, ProductPnWrapper productPn);
     }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ItemChildProductPlBinding;
 import vn.needy.vendor.model.ProductPn;
+import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
@@ -23,10 +24,10 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 public class ChildProductPlAdapter extends BaseRecyclerViewAdapter<ChildProductPlAdapter.ItemViewHolder>
         implements ItemChildProductPlViewModel.OnRemoveItemClick{
 
-    private List<ProductPn> mProductPns;
+    private List<ProductPnWrapper> mProductPns;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected ChildProductPlAdapter(@NonNull Context context, List<ProductPn> productPns) {
+    protected ChildProductPlAdapter(@NonNull Context context, List<ProductPnWrapper> productPns) {
         super(context);
         this.mProductPns = productPns;
     }
@@ -52,18 +53,18 @@ public class ChildProductPlAdapter extends BaseRecyclerViewAdapter<ChildProductP
         this.mItemClickListener = itemClickListener;
     }
 
-    public void setData(List<ProductPn> productPns) {
+    public void setData(List<ProductPnWrapper> productPns) {
         mProductPns.clear();
         mProductPns.addAll(productPns);
         notifyDataSetChanged();
     }
 
-    public List<ProductPn> getData() {
+    public List<ProductPnWrapper> getData() {
         return mProductPns;
     }
 
     @Override
-    public void onRemoveItemClicked(ProductPn productPn) {
+    public void onRemoveItemClicked(ProductPnWrapper productPn) {
         int position = mProductPns.indexOf(productPn);
         mProductPns.remove(productPn);
         notifyItemRemoved(position);
@@ -84,7 +85,7 @@ public class ChildProductPlAdapter extends BaseRecyclerViewAdapter<ChildProductP
             this.mOnRemoveItemClick = onRemoveItemClick;
         }
 
-        public void bind(ProductPn productPn) {
+        public void bind(ProductPnWrapper productPn) {
             mBinding.setViewModel(new ItemChildProductPlViewModel(productPn, mItemClickListener, mOnRemoveItemClick));
             mBinding.executePendingBindings();
         }

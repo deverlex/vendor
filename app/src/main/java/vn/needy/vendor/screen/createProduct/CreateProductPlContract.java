@@ -5,6 +5,7 @@ import java.util.List;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -27,7 +28,7 @@ public interface CreateProductPlContract {
 
         void onClickAddChildProduct();
 
-        void onUpdateListChildProduct(List<ProductPn> productPns);
+        void onUpdateListChildProduct(List<ProductPnWrapper> productPns);
 
         void addFeeTransport();
     }
