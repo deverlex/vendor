@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.List;
 

@@ -128,7 +128,7 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
 
     @Override
     public void onUpdateListChildProduct(List<ProductPn> productPns) {
-        mChildProductPlAdapter.setData(productPns);
+        mChildProductPlAdapter.notifyDataSetChanged();
     }
 
     @Bindable

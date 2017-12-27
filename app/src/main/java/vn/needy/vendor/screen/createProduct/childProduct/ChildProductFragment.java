@@ -39,13 +39,13 @@ public class ChildProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        List<ProductPn> productPns = new ArrayList<>();
-        ChildProductAdapter childProductAdapter = new ChildProductAdapter(getActivity(), productPns);
-
         List<ProductPn> checkedProductPns = getArguments().getParcelableArrayList(PRODUCT_LIST);
         if (checkedProductPns == null) {
             checkedProductPns = new ArrayList<>();
         }
+
+        List<ProductPn> productPns = new ArrayList<>();
+        ChildProductAdapter childProductAdapter = new ChildProductAdapter(getActivity(), productPns, checkedProductPns);
 
         mViewModel = new ChildProductViewModel(getActivity(), this, childProductAdapter);
         ChildProductContract.Presenter presenter = new ChildProductPresenter(mViewModel);

@@ -26,10 +26,10 @@ public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAda
     private List<ProductPn> mCheckedProductPns;
     private OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected ChildProductAdapter(@NonNull Context context, List<ProductPn> productPns) {
+    protected ChildProductAdapter(@NonNull Context context, List<ProductPn> productPns, List<ProductPn> checkedProductPns) {
         super(context);
         this.mProductPns = productPns;
-        mCheckedProductPns = new ArrayList<>();
+        mCheckedProductPns = checkedProductPns;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAda
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         ProductPn productPn = mProductPns.get(position);
-        holder.bind(productPn, mCheckedProductPns.contains(productPn));
+        holder.bind(productPn, contains(mCheckedProductPns, productPn));
     }
 
     @Override
@@ -67,6 +67,14 @@ public class ChildProductAdapter extends BaseRecyclerViewAdapter<ChildProductAda
     public List<ProductPn> getCheckedProducts() {
         return mCheckedProductPns;
     }
+
+    public boolean contains(List<ProductPn> productPns, ProductPn productPn) {
+        for (ProductPn p : productPns) {
+            if (p.getId() == productPn.getId()) return true;
+        }
+        return false;
+    }
+
 
     @Override
     public void onCheckClicked(boolean isChecked, ProductPn productPn) {
