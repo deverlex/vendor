@@ -7,6 +7,7 @@ import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.ProductData;
 import vn.needy.vendor.repository.remote.BaseDataRemote;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
+import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResp;
 
 /**
  * Created by lion on 10/12/2017.
@@ -20,5 +21,10 @@ public class ProductDataRemote extends BaseDataRemote<VendorApi> implements Prod
     @Override
     public Observable<ResponseWrapper> addProductPn(String companyId, String storeId, AddProductPnReq request) {
         return mApi.addProductPn(companyId, storeId, new RequestWrapper<AddProductPnReq>().setData(request));
+    }
+
+    @Override
+    public Observable<ResponseWrapper<ProductPnInfoResp>> getAllProductsPnOfCompany(String companyId) {
+        return mApi.getAllProductsPnOfCompany(companyId);
     }
 }

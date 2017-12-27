@@ -14,6 +14,7 @@ import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
+import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResp;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
@@ -93,6 +94,10 @@ public interface VendorApi {
             @Query("company_id") String companyId,
             @Query("store_id") String storeId,
             @Body RequestWrapper<AddProductPnReq> request);
+
+    @GET("v1/pn/products")
+    Observable<ResponseWrapper<ProductPnInfoResp>> getAllProductsPnOfCompany(
+            @Query("company_id") String companyId);
 
 
     // POST new images
