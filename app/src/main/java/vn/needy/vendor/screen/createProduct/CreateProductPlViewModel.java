@@ -56,6 +56,10 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     private String mName;
     private String mDescription;
 
+    private String mNameError;
+    private String mDescriptionError;
+    private String mCategoryError;
+
     public CreateProductPlViewModel(Context context, Navigator navigator,
                                     ImageAdapter imageAdapter,
                                     ChildProductPlAdapter childProductPlAdapter,
@@ -84,6 +88,24 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     }
 
     @Override
+    public void onInputNameError(int msg) {
+        mNameError = mContext.getString(msg);
+        notifyPropertyChanged(BR.nameError);
+    }
+
+    @Override
+    public void onInputDescriptionError(int msg) {
+        mDescriptionError = mContext.getString(msg);
+        notifyPropertyChanged(BR.descriptionError);
+    }
+
+    @Override
+    public void onInputCategoryError(int msg) {
+        mCategoryError = mContext.getString(msg);
+        notifyPropertyChanged(BR.categoryError);
+    }
+
+    @Override
     public void onBackPressed() {
         ((Activity) mContext).onBackPressed();
     }
@@ -100,6 +122,8 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
     public void updateCategory(CategoryWrapper category) {
         mCategory = category;
         notifyPropertyChanged(BR.category);
+        mCategoryError = null;
+        notifyPropertyChanged(BR.categoryError);
     }
 
     @Override
@@ -220,6 +244,21 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
 
     public FeeTransportPnAdapter getFeeTransportAdapter() {
         return mFeeTransportAdapter;
+    }
+
+    @Bindable
+    public String getNameError() {
+        return mNameError;
+    }
+
+    @Bindable
+    public String getDescriptionError() {
+        return mDescriptionError;
+    }
+
+    @Bindable
+    public String getCategoryError() {
+        return mCategoryError;
     }
 
     @Override

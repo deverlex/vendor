@@ -35,6 +35,12 @@ public interface CreateProductPlContract {
         void addFeeTransport();
 
         void onClickCreate();
+
+        void onInputNameError(int msg);
+
+        void onInputDescriptionError(int msg);
+
+        void onInputCategoryError(int msg);
     }
 
     interface Presenter extends BasePresenter {

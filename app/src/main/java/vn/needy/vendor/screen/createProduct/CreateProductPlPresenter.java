@@ -1,6 +1,7 @@
 package vn.needy.vendor.screen.createProduct;
 
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
@@ -10,6 +11,7 @@ import java.util.List;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import vn.needy.vendor.R;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
@@ -32,7 +34,7 @@ import vn.needy.vendor.utils.Constant;
  * Created by lion on 28/11/2017.
  */
 
-public class CreateProductPlPresenter implements CreateProductPlContract.Presenter{
+public class CreateProductPlPresenter implements CreateProductPlContract.Presenter {
 
     private CreateProductPlContract.ViewModel mViewModel;
 
@@ -111,6 +113,20 @@ public class CreateProductPlPresenter implements CreateProductPlContract.Present
 
     @Override
     public boolean validateDataInput(AddProductPlReq request) {
-        return true;
+        boolean isValidate = true;
+
+        if (TextUtils.isEmpty(request.getName())) {
+            mViewModel.onInputNameError(R.string.name_product_empty);
+            isValidate = false;
+        } else if (TextUtils.isEmpty(request.getDescription())
+                || request.getDescription().length() < 5) {
+            mViewModel.onInputDescriptionError(R.string.description_product_higher_60);
+            isValidate = false;
+        } else if (request.getCategory() == null) {
+            mViewModel.onInputCategoryError(R.string.product_category_empty);
+            isValidate = false;
+        }
+
+        return isValidate;
     }
 }
