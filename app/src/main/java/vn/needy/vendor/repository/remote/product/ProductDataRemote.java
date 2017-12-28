@@ -19,8 +19,8 @@ public class ProductDataRemote extends BaseDataRemote<VendorApi> implements Prod
     }
 
     @Override
-    public Observable<ResponseWrapper> addProductPn(String companyId, String storeId, AddProductPnReq request) {
-        return mApi.addProductPn(companyId, storeId, new RequestWrapper<AddProductPnReq>().setData(request));
+    public Observable<ResponseWrapper> addProduct(String productType, String companyId, String storeId, Object request) {
+        return mApi.addProductPn(productType, companyId, storeId, new RequestWrapper<>().setData(request));
     }
 
     @Override

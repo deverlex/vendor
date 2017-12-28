@@ -11,7 +11,7 @@ import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResp;
 
 public interface ProductData {
     interface Remote {
-        Observable<ResponseWrapper> addProductPn(String companyId, String storeId, AddProductPnReq request);
+        Observable<ResponseWrapper> addProduct(String productType, String companyId, String storeId, Object request);
 
         Observable<ResponseWrapper<ProductPnInfoResp>> getProductsPnOfCompany(String companyId, String category);
     }

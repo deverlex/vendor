@@ -2,7 +2,6 @@ package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
 import vn.needy.vendor.port.message.ResponseWrapper;
-import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResp;
 
 /**
@@ -18,11 +17,11 @@ public class ProductRepository {
         this.mLocal = mLocal;
     }
 
-    public Observable<ResponseWrapper> addProductPn(String companyId, String storeId, AddProductPnReq request) {
-        return mRemote.addProductPn(companyId, storeId, request);
+    public Observable<ResponseWrapper> addProduct(String productType, String companyId, String storeId, Object request) {
+        return mRemote.addProduct(productType, companyId, storeId, request);
     }
 
-    public Observable<ResponseWrapper<ProductPnInfoResp>> getProductsPnOfCompany(String companyId, String category) {
+    public Observable<ResponseWrapper<ProductPnInfoResp>> getProductsPnOfCompany( String companyId, String category) {
         return mRemote.getProductsPnOfCompany(companyId, category);
     }
 }

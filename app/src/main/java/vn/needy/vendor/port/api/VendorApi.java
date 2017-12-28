@@ -91,9 +91,10 @@ public interface VendorApi {
 
     @POST("v1/pn/products")
     Observable<ResponseWrapper> addProductPn(
+            @Query("product_type") String productType,
             @Query("company_id") String companyId,
             @Query("store_id") String storeId,
-            @Body RequestWrapper<AddProductPnReq> request);
+            @Body RequestWrapper<Object> request);
 
     @GET("v1/pn/products")
     Observable<ResponseWrapper<ProductPnInfoResp>> getAllProductsPnOfCompany(

@@ -23,7 +23,9 @@ import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;
+import vn.needy.vendor.repository.remote.product.request.AddProductPlReq;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.category.CategoriesActivity;
@@ -148,7 +150,30 @@ public class CreateProductPlViewModel extends BaseObservable implements CreatePr
 
     @Override
     public void onClickCreate() {
-        mPresenter.uploadProduct(null, mImageAdapter.getImages());
+        AddProductPlReq request = new AddProductPlReq();
+        request.setName(mName);
+        request.setDescription(mDescription);
+        if (mCategory != null) {
+            request.setCategory(mCategory.getName());
+        }
+
+        List<FeeTransportWrapper> feeTransportWrappers = new ArrayList<>();
+        for (FeeTransport ft : mFeeTransportAdapter.getData()) {
+            if (ft.getFrom() == 0f && ft.getTo() == 0f && ft.getFee() == 0f) {
+                continue;
+            }
+
+            feeTransportWrappers.add(new FeeTransportWrapper(ft));
+        }
+        request.setFeeTransport(feeTransportWrappers);
+
+        List<Long> products = new ArrayList<>();
+        for (ProductPnWrapper p : mChildProductPlAdapter.getData()) {
+            products.add(p.getId());
+        }
+        request.setProducts(products);
+
+        mPresenter.uploadProduct(request, mImageAdapter.getImages());
     }
 
     @Bindable

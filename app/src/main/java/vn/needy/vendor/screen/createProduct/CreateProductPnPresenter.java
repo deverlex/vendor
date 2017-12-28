@@ -3,13 +3,11 @@ package vn.needy.vendor.screen.createProduct;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -30,6 +28,7 @@ import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.product.ProductDataRemote;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.repository.remote.store.StoreDataRemote;
+import vn.needy.vendor.utils.Constant;
 
 /**
  * Created by lion on 08/11/2017.
@@ -99,7 +98,7 @@ public class CreateProductPnPresenter implements CreateProductPnContract.Present
                     String companyId = mCompanyRepository.getCompanyIdSync();
                     String storeId = mStoreRepository.getOurStoreIdSync();
 
-                    mProductRepository.addProductPn(companyId, storeId, request)
+                    mProductRepository.addProduct(Constant.PRICE_NOW, companyId, storeId, request)
                             .subscribeOn(Schedulers.io())
                             .subscribe(new Consumer<ResponseWrapper>() {
                                 @Override
@@ -128,7 +127,7 @@ public class CreateProductPnPresenter implements CreateProductPnContract.Present
             mViewModel.onInputNameError(R.string.name_product_empty);
             isValidate = false;
         } else if (TextUtils.isEmpty(request.getDescription())
-                || request.getDescription().length() < 60) {
+                || request.getDescription().length() < 5) {
             mViewModel.onInputDescriptionError(R.string.description_product_higher_60);
             isValidate = false;
         } else if (request.getCategory() == null) {
