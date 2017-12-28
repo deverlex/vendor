@@ -33,5 +33,6 @@ ext {
                   bannerSlider       : 'com.ss.bannerslider:bannerslider:1.8.0',
                   phoneNumber        : 'com.googlecode.libphonenumber:libphonenumber:8.8.3',
                   imagePicker        : 'com.zhihu.android:matisse:0.4.3',
-                  imageCrop          : 'com.theartofdev.edmodo:android-image-cropper:2.4.7',]
+                  imageCrop          : 'com.theartofdev.edmodo:android-image-cropper:2.4.7',
+                  material           : 'com.github.rey5137:material:1.2.4',]
 }

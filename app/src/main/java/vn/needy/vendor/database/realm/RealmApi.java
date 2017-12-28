@@ -21,7 +21,7 @@ public class RealmApi {
         mRealm = Realm.getDefaultInstance();
     }
 
-    public <T> Observable<T> realmTransactionAsync(final BiConsumer<ObservableEmitter<? super T>, Realm> action) {
+    public <T> Observable<T> transactionAsync(final BiConsumer<ObservableEmitter<? super T>, Realm> action) {
         Observable<T> observable = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<T> observable) {
@@ -54,7 +54,7 @@ public class RealmApi {
     /**
      * USE THIS METHOD FOR GET
      */
-    public <T> Observable<T> realmGet(final BiConsumer<ObservableEmitter<? super T>, Realm> action) {
+    public <T> Observable<T> getAsync(final BiConsumer<ObservableEmitter<? super T>, Realm> action) {
         return Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> observable) throws Exception {
@@ -64,7 +64,11 @@ public class RealmApi {
         });
     }
 
-    public void closeRealmOnMainThread() {
+    public static Realm getSync() {
+        return Realm.getDefaultInstance();
+    }
+
+    public void close() {
         if (mRealm != null && !mRealm.isClosed()) {
             mRealm.close();
             mRealm = null;

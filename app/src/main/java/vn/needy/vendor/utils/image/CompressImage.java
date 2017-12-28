@@ -40,7 +40,7 @@ public class CompressImage {
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         // by setting this field as true, the actual bitmap pixels are not loaded in the memory. Just the bounds are loaded. If
-        // you try the use the bitmap here, you will get null.
+        // you try the use the bitmap here, you will getAsync null.
         options.inJustDecodeBounds = true;
         Bitmap bmp = BitmapFactory.decodeFile(filePath, options);
         int actualHeight = options.outHeight;

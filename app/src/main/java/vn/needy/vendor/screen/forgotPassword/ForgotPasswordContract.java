@@ -1,6 +1,6 @@
 package vn.needy.vendor.screen.forgotPassword;
 
-import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -77,7 +77,7 @@ public class ForgotPasswordContract {
 
         void validateOtpCode(String otpCode);
 
-        void resetPassword(String phoneNumber, ResetPasswordRequest request);
+        void resetPassword(String phoneNumber, ResetAccountReq request);
 
         boolean validateDataInput(String phoneNumber, String password);
     }

@@ -10,7 +10,6 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.TransformationMethod;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,12 +19,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.views.BannerSlider;
-import vn.needy.vendor.database.model.Attribute.DataType;
+import vn.needy.vendor.model.wrapper.AttributeWrapper.DataType;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.utils.ViewUtil;
@@ -78,26 +76,34 @@ public class BindingAdapters {
 
 
     // for load image from path in device's storage
-    @BindingAdapter("srcPath")
-    public static void loadImagePath(final ImageView imageView, final String path) {
-        if (!TextUtils.isEmpty(path)) {
-            Bitmap bmp = BitmapFactory.decodeFile(path);
-            imageView.setImageBitmap(CompressImage.reduceSize(bmp,
-                    ViewUtil.dpToPx(imageView.getContext(), 100)));
-        }
-    }
+//    @BindingAdapter("srcPath")
+//    public static void loadImagePath(final ImageView imageView, final String path) {
+//        if (!TextUtils.isEmpty(path)) {
+//            Bitmap bmp = BitmapFactory.decodeFile(path);
+//            imageView.setImageBitmap(CompressImage.reduceSize(bmp,
+//                    ViewUtil.dpToPx(imageView.getContext(), 100)));
+//        }
+//    }
 
     // for load image from Resource server (Python)
     @BindingAdapter("srcUri")
     public static void loadImageUri(ImageView imageView, String url) {
-        String token = SharedPrefsImpl.getInstance()
-                .get(SharedPrefsKey.TOKEN_KEY, String.class);
+        // check image load from server
+        if (url.contains("http")) {
+            String token = SharedPrefsImpl.getInstance()
+                    .get(SharedPrefsKey.TOKEN_KEY, String.class);
 
-        GlideUrl gUri = new GlideUrl(url, new LazyHeaders.Builder()
-                .setHeader("Authorization", token).build());
+            GlideUrl gUri = new GlideUrl(url, new LazyHeaders.Builder()
+                    .setHeader("Authorization", token).build());
 
-        Glide.with(imageView.getContext())
-                .load(gUri).into(imageView);
+            Glide.with(imageView.getContext())
+                    .load(gUri).into(imageView);
+        } else if (!TextUtils.isEmpty(url)) {
+            // for image load from local
+            Bitmap bmp = BitmapFactory.decodeFile(url);
+            imageView.setImageBitmap(CompressImage.reduceSize(bmp,
+                    ViewUtil.dpToPx(imageView.getContext(), 100)));
+        }
     }
 
     @BindingAdapter("transformationMethod")

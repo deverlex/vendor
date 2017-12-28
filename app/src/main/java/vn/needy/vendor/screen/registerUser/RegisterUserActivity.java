@@ -10,8 +10,11 @@ import android.support.v4.content.ContextCompat;
 import com.google.firebase.auth.FirebaseAuth;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityRegisterUserBinding;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -25,7 +28,8 @@ public class RegisterUserActivity extends BaseActivity {
     private static final String TAG = RegisterUserActivity.class.getName();
 
     private RegisterUserContract.ViewModel mViewModel;
-    private RealmApi mRealmApi;
+    private VendorApi mVendorApi;
+    private SharedPrefsApi mPrefsApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -36,10 +40,13 @@ public class RegisterUserActivity extends BaseActivity {
         Navigator navigator = new Navigator(this);
         DialogManager dialogManager = new DialogManager(this);
 
-        mRealmApi = new RealmApi();
+        mVendorApi = VendorServiceClient.getInstance();
+        mPrefsApi = SharedPrefsImpl.getInstance();
 
         mViewModel = new RegisterUserViewModel(this, getApplication(), navigator, dialogManager);
-        RegisterUserContract.Presenter presenter = new RegisterUserPresenter(this, mViewModel, mRealmApi);
+        RegisterUserContract.Presenter presenter = new RegisterUserPresenter(
+                this, mViewModel, mVendorApi, mPrefsApi
+        );
 
         mViewModel.setPresenter(presenter);
         ActivityRegisterUserBinding binding =
@@ -59,7 +66,6 @@ public class RegisterUserActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mRealmApi.closeRealmOnMainThread();
     }
 
 }

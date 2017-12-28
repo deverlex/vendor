@@ -6,7 +6,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import vn.needy.vendor.database.realm.DataLocalMigration;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
-import vn.needy.vendor.service.VendorServiceClient;
+import vn.needy.vendor.port.service.VendorServiceClient;
 
 public class VendorApplication extends Application {
 
@@ -18,6 +18,7 @@ public class VendorApplication extends Application {
         super.onCreate();
         SharedPrefsImpl.initialize(this);
         VendorServiceClient.initialize(this);
+        // migrate realm
         initAndMigrateRealmIfNeeded();
     }
 

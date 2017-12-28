@@ -12,8 +12,8 @@ import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.api.v1.user.request.ResetPasswordRequest;
-import vn.needy.vendor.service.VendorServiceClient;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -179,11 +179,8 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
 
     @Override
     public void onResetPasswordClick() {
-
-        Log.d(TAG, "password? " + mPassword);
         Log.d(TAG, "TOKEN? " + mFirebaseToken);
-
-        ResetPasswordRequest request = new ResetPasswordRequest();
+        ResetAccountReq request = new ResetAccountReq();
         request.setFirebaseToken(mFirebaseToken);
         request.setPassword(mPassword);
         mPresenter.resetPassword(mPhoneNumber, request);

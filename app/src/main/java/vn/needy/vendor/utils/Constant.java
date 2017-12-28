@@ -5,7 +5,7 @@ package vn.needy.vendor.utils;
  */
 
 public class Constant {
-    public static final String END_POINT_URL = "http://192.168.0.100:8080/";
+    public static final String API_END_POINT_URL = "http://192.168.0.100:8080/";
     public static final int MAX_IMAGES_PUSH = 6;
 
     public static final int NUMBER_COMPRESS = 100;

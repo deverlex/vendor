@@ -9,6 +9,7 @@ import io.realm.RealmSchema;
  */
 
 public class DataLocalMigration implements RealmMigration {
+
     @Override
     public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
         RealmSchema schema = realm.getSchema();

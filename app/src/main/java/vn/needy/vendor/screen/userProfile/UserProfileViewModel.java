@@ -1,26 +1,33 @@
 package vn.needy.vendor.screen.userProfile;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
-import android.support.v4.app.FragmentTransaction;
+import android.widget.DatePicker;
 
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
-import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
+import vn.needy.vendor.model.User;
 import vn.needy.vendor.screen.userProfile.changePassword.ChangePasswordFragment;
 
 /**
@@ -31,6 +38,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
 
     private UserProfileContract.Presenter mPresenter;
 
+    private User mUser;
     private List<Banner> mBanners;
     private boolean mEnable;
     private int mDrawableEdit;
@@ -48,7 +56,24 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     @Override
     public void onStart() {
         mPresenter.getCoverPictures();
+        mPresenter.getUserInfo();
 
+        // Settup click map
+        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                // Settup click
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        googleMap.clear();
+                        googleMap.addMarker(new MarkerOptions().position(latLng));
+                        mUser.setLat((float) latLng.latitude);
+                        mUser.setLng((float) latLng.longitude);
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -63,6 +88,18 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
 
     @Override
     public void onClickEdit() {
+        if (mEnable) {
+            UpdateUserInfoRequest request = new UpdateUserInfoRequest();
+            request.setAddress(mUser.getAddress());
+            request.setEmail(mUser.getEmail());
+            request.setName(mUser.getFullName());
+            request.setBirthday(mUser.getBirthday());
+            request.setGender(mUser.getGender());
+            request.setLat(mUser.getLat());
+            request.setLng(mUser.getLng());
+            mPresenter.updateUserInformation(request);
+        }
+
         mEnable = !mEnable;
         notifyPropertyChanged(BR.enable);
         mDrawableEdit = mEnable ? R.drawable.ic_check : R.drawable.ic_edits_white;
@@ -85,26 +122,19 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
         mMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(final GoogleMap googleMap) {
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        googleMap.clear();
-                        googleMap.addMarker(new MarkerOptions().position(latLng));
-                    }
-                });
-
-                LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-                if (locationManager != null) {
-                    googleMap.clear();
-                    Criteria criteria = new Criteria();
-
-                    Location location = locationManager.getLastKnownLocation(locationManager
-                            .getBestProvider(criteria, false));
-
-                    LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                    googleMap.addMarker(new MarkerOptions().position(currentPosition));
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 10));
-                }
+                googleMap.clear();
+                LocationServices.getFusedLocationProviderClient(mContext)
+                        .getLastLocation().
+                        addOnSuccessListener((Activity) mContext, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
+                                googleMap.addMarker(new MarkerOptions().position(currentPosition));
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
+                                mUser.setLat((float) location.getLatitude());
+                                mUser.setLng((float) location.getLongitude());
+                            }
+                        });
             }
         });
     }
@@ -113,6 +143,57 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     public void onChangePassword() {
         ((UserProfileActivity) mContext).initFragment(android.R.id.content,
                 ChangePasswordFragment.newInstance());
+    }
+
+    @Override
+    public void onBackPressed() {
+        ((UserProfileActivity) mContext).onBackPressed();
+    }
+
+    @Override
+    public void onClickBirthday() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, R.style.DatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar calendar = new GregorianCalendar(year, month, dayOfMonth);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                mUser.setBirthday(dateFormat.format(calendar.getTime()));
+                notifyPropertyChanged(BR.user);
+            }
+        }, 2017, 11, 6);
+        datePickerDialog.getDatePicker().setSpinnersShown(true);
+        datePickerDialog.getDatePicker().setCalendarViewShown(false);
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onClickMale() {
+        mUser.setGender("male");
+        notifyPropertyChanged(BR.user);
+    }
+
+    @Override
+    public void onClickFemale() {
+        mUser.setGender("female");
+        notifyPropertyChanged(BR.user);
+    }
+
+    @Override
+    public void setUserInfo(User user) {
+        mUser = user;
+        notifyPropertyChanged(BR.user);
+
+        //Move to address on Map
+        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                // Move to Address
+                googleMap.clear();
+                LatLng addressLatLng = new LatLng(mUser.getLat(), mUser.getLng());
+                googleMap.addMarker(new MarkerOptions().position(addressLatLng));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(addressLatLng, 13));
+            }
+        });
     }
 
     @Bindable
@@ -125,4 +206,8 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
         return mDrawableEdit;
     }
 
+    @Bindable
+    public User getUser() {
+        return mUser;
+    }
 }

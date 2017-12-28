@@ -7,14 +7,12 @@ import android.os.Bundle;
 import android.widget.RadioGroup;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.model.Category;
-import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.screen.addProduct.AddProductPlActivity;
-import vn.needy.vendor.screen.addProduct.AddProductPnActivity;
+import vn.needy.vendor.screen.createProduct.CreateProductPlActivity;
+import vn.needy.vendor.screen.createProduct.CreateProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
-import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -29,15 +27,15 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     private final Navigator mNavigator;
 
     private MainPageConstract.Presenter mPresenter;
-    private Category mCategory;
+    private CategoryWrapper mCategory;
 
     private SharedPrefsApi mPrefsApi;
 
     private int mProductType;
     private boolean mIsPlChecked;
 
-    public MainPageViewModel(Context context, Navigator navigator, RealmApi realmApi,
-                             SharedPrefsApi prefsApi, final Category category) {
+    public MainPageViewModel(Context context, Navigator navigator,
+                             SharedPrefsApi prefsApi, final CategoryWrapper category) {
         mContext = context;
         mNavigator = navigator;
         // default of product type is pn - because UI set it is checked.
@@ -49,14 +47,14 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
         mIsPlChecked = mProductType == R.id.price_later;
 
-        // when get category from result activity
+        // when getAsync category from result activity
         if (category != null) {
             mCategory = category;
             // save category to db
             prefsApi.putObject(SharedPrefsKey.CURRENT_CATEGORY, category);
         } else {
-            // get category from db
-            mCategory = prefsApi.getObject(SharedPrefsKey.CURRENT_CATEGORY, Category.class);
+            // getAsync category from db
+            mCategory = prefsApi.getObject(SharedPrefsKey.CURRENT_CATEGORY, CategoryWrapper.class);
         }
     }
 
@@ -85,9 +83,9 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     @Override
     public void onClickAddProduct() {
         if (mProductType == R.id.price_now) {
-            mNavigator.startActivity(AddProductPnActivity.class);
+            mNavigator.startActivity(CreateProductPnActivity.class);
         } else {
-            mNavigator.startActivity(AddProductPlActivity.class);
+            mNavigator.startActivity(CreateProductPlActivity.class);
         }
     }
 
@@ -96,8 +94,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         Bundle extras = new Bundle();
         // put simple name thought bundle
         extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.class.getSimpleName());
-        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.RC_CHOOSE_CATEGORY
-        );
+        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.RC_CHOOSE_CATEGORY);
     }
 
     @Bindable

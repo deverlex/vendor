@@ -1,6 +1,6 @@
 package vn.needy.vendor.screen.registerUser;
 
-import vn.needy.vendor.api.v1.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -70,7 +70,7 @@ public class RegisterUserContract {
         // validate OptCode
         void validateVerification(String otpCode);
 
-        void registerUser(RegisterUserRequest request);
+        void registerUser(RegisterUserReq request);
 
         boolean validateDataInput(String phoneNumber, String password);
     }
