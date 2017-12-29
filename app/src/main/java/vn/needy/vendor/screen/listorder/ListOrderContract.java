@@ -14,6 +14,7 @@ public class ListOrderContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
         void setOrders(List<Order> orders);
+
         void onClickChangeList();
     }
 
