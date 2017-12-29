@@ -14,7 +14,7 @@ import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
-import vn.needy.vendor.screen.productProfile.ProductProfilePnActivity;
+import vn.needy.vendor.screen.createProduct.CreateProductPnActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -63,7 +63,7 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
                 Log.w(TAG, "getAsync category from pl");
                 mPresenter.getCompanyCategoryPriceLater();
             }
-        } else if (mFromClass.equals(ProductProfilePnActivity.class.getSimpleName())) {
+        } else if (mFromClass.equals(CreateProductPnActivity.class.getSimpleName())) {
             // from add product pn
             Log.w(TAG, "from add product pn");
             mPresenter.getCategoryPriceNow();

@@ -10,8 +10,8 @@ import vn.needy.vendor.R;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.screen.productProfile.ProductProfilePlActivity;
-import vn.needy.vendor.screen.productProfile.ProductProfilePnActivity;
+import vn.needy.vendor.screen.createProduct.CreateProductPlActivity;
+import vn.needy.vendor.screen.createProduct.CreateProductPnActivity;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -83,9 +83,9 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     @Override
     public void onClickAddProduct() {
         if (mProductType == R.id.price_now) {
-            mNavigator.startActivity(ProductProfilePnActivity.class);
+            mNavigator.startActivity(CreateProductPnActivity.class);
         } else {
-            mNavigator.startActivity(ProductProfilePlActivity.class);
+            mNavigator.startActivity(CreateProductPlActivity.class);
         }
     }
 

@@ -13,6 +13,8 @@ import retrofit2.http.Query;
 import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
+import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoReq;
+import vn.needy.vendor.repository.remote.store.response.StoreInfoResp;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
 import vn.needy.vendor.repository.remote.user.response.LoginResp;
@@ -78,6 +80,12 @@ public interface VendorApi {
     @GET("v1/attributes/lists")
     Observable<ResponseWrapper<AttributeInfoResp>> getAttributesCategory(@Query("category_name") String category);
 
+    @GET("v1/stores/{store_id}/infomations/details")
+    Observable<ResponseWrapper<StoreInfoResp>> getStoreInfo(@Path(value = "store_id") String storeId);
+
+    @PUT("v1/stores/{store_id}/infomations/details")
+    Observable<ResponseWrapper> updateStoreInfo(@Path("store_id") String storeId,
+                                                @Body RequestWrapper<UpdateStoreInfoReq> infoReq);
     /**************************************************************************************/
 
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")

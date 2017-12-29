@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile.attribute;
+package vn.needy.vendor.screen.createProduct.attribute;
 
 import java.util.List;
 
