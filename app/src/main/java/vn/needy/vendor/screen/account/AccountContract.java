@@ -11,31 +11,33 @@ class AccountContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
+        void onUserProfileClicked();
+
         void onDeleteAccountClicked();
 
-        void onDeleteCacheClicked();
+        void onClearCacheClicked();
 
-        void onEvaluationClicked();
+        void onReviewApplicationClicked();
 
         void onBackPressed();
 
-        void onPersonalInfoSettingClicked();
+        void onPersonalSettingClicked();
 
-        void onNotificationAccount();
+        void onNotificationSettingClicked();
 
-        void onAccountBlock();
+        void onBlacklistSettingClicked();
 
-        void onAcountLanguage();
+        void onLanguageSettingClicked();
 
-        void onAcountSupport();
+        void onSupportClicked();
 
-        void onAcountTipAndTrick();
+        void onTipAndTrickClicked();
 
-        void onAcountCommunity();
+        void onCommunityRulesClicked();
 
-        void onNeedRules();
+        void onNeedRulesClicked();
 
-        void onAcountLogout();
+        void onLogout();
 
     }
 

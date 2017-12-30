@@ -15,6 +15,7 @@ import vn.needy.vendor.screen.blacklistSetting.BlackListFragment;
 import vn.needy.vendor.screen.languageSetting.LanguageSettingFragment;
 import vn.needy.vendor.screen.notificationSetting.NotificationSettingFragment;
 import vn.needy.vendor.screen.personalSetting.PersonalSettingFragment;
+import vn.needy.vendor.screen.userProfile.UserProfileActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -58,7 +59,7 @@ public class AccountViewModel extends BaseObservable implements AccountContract.
     }
 
     @Override
-    public void onEvaluationClicked() {
+    public void onReviewApplicationClicked() {
         //
         String packageName = mContext.getPackageName();
         String ulr1 = "market://details?id=" + packageName;
@@ -69,10 +70,16 @@ public class AccountViewModel extends BaseObservable implements AccountContract.
     }
 
     @Override
-    public void onDeleteCacheClicked() {
+    public void onClearCacheClicked() {
         // delete all Realm and sharedPref
         mPrefsApi.clear();
-        mRealm.deleteAll();
+        // Error transaction, need execute in an transaction
+        //mRealm.deleteAll();
+    }
+
+    @Override
+    public void onUserProfileClicked() {
+        mNavigator.startActivity(UserProfileActivity.class);
     }
 
     @Override
@@ -106,47 +113,47 @@ public class AccountViewModel extends BaseObservable implements AccountContract.
     }
 
     @Override
-    public void onPersonalInfoSettingClicked(){
+    public void onPersonalSettingClicked(){
         ((AccountActivity) mContext).initFragment(android.R.id.content , PersonalSettingFragment.getInstance());
     }
 
     @Override
-    public void onNotificationAccount() {
+    public void onNotificationSettingClicked() {
         ((AccountActivity) mContext).initFragment(android.R.id.content , NotificationSettingFragment.getInstance());
     }
 
     @Override
-    public void onAccountBlock() {
+    public void onBlacklistSettingClicked() {
         ((AccountActivity) mContext).initFragment(android.R.id.content , BlackListFragment.getInstance());
     }
 
     @Override
-    public void onAcountLanguage() {
+    public void onLanguageSettingClicked() {
         ((AccountActivity) mContext).initFragment(android.R.id.content , LanguageSettingFragment.getInstance());
     }
 
     @Override
-    public void onAcountSupport() {
+    public void onSupportClicked() {
 
     }
 
     @Override
-    public void onAcountTipAndTrick() {
+    public void onTipAndTrickClicked() {
 
     }
 
     @Override
-    public void onAcountCommunity() {
+    public void onCommunityRulesClicked() {
 
     }
 
     @Override
-    public void onNeedRules() {
+    public void onNeedRulesClicked() {
 
     }
 
     @Override
-    public void onAcountLogout() {
+    public void onLogout() {
 
     }
 
