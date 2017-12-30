@@ -19,6 +19,7 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  */
 
 public class LanguageSettingAdapter extends BaseRecyclerViewAdapter<LanguageSettingAdapter.ItemViewHoder> {
+
     private int mPosition = -1;
     private List<Language> mLanguage;
     private Context mContext;
@@ -40,14 +41,7 @@ public class LanguageSettingAdapter extends BaseRecyclerViewAdapter<LanguageSett
 
     @Override
     public void onBindViewHolder(ItemViewHoder holder, int position) {
-
-        if (position == mPosition) {
-            holder.bind(mLanguage.get(position), true);
-        }
-        else {
-            holder.bind(mLanguage.get(position) , false);
-        }
-
+        holder.bind(mLanguage.get(position), position == mPosition);
     }
 
     @Override
@@ -57,7 +51,6 @@ public class LanguageSettingAdapter extends BaseRecyclerViewAdapter<LanguageSett
 
     public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
         mItemClickListener = itemClickListener;
-
     }
 
     public void updateData(List<Language> languages) {

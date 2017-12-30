@@ -8,10 +8,15 @@ import vn.needy.vendor.screen.BaseViewModel;
  */
 
 public interface PersonalSettingContract {
+
     interface ViewModel extends BaseViewModel<Presenter> {
+
         void onBackPressed();
+
         void onCheckedEmail();
+
         void onCheckedBirthday();
+
         void onCheckedSex();
     }
 

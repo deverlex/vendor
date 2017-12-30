@@ -47,6 +47,7 @@
                         android:textSize="@dimen/sp_18" />
 
                     <ImageButton
+                        android:onClick="@{() -> viewModel.onLanguageSave()}"
                         android:layout_width="?attr/actionBarSize"
                         android:layout_height="?attr/actionBarSize"
                         android:layout_alignParentRight="true"
@@ -62,7 +63,6 @@
             app:recyclerAdapter="@{viewModel.languageSettingAdapter}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>

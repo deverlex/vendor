@@ -33,6 +33,7 @@ public class AccountViewModel extends BaseObservable implements AccountContract.
     private Realm mRealm;
 
     public AccountViewModel(Navigator mNavigator, Context mContext, DialogManager mDialogManager, Application mApplication, SharedPrefsApi mPrefsApi, Realm mRealm) {
+
         this.mNavigator = mNavigator;
         this.mContext = mContext;
         this.mDialogManager = mDialogManager;
@@ -53,12 +54,11 @@ public class AccountViewModel extends BaseObservable implements AccountContract.
 
     @Override
     public void setPresenter(AccountContract.Presenter presenter) {
-
+        mPresenter = presenter;
     }
 
     @Override
-    public void onEvaluationClick()
-    {
+    public void onEvaluationClick() {
         //
         String packageName = mContext.getPackageName();
         String ulr1 = "market://details?id=" + packageName;
@@ -69,16 +69,14 @@ public class AccountViewModel extends BaseObservable implements AccountContract.
     }
 
     @Override
-    public void onDeleteCacheClick()
-    {
+    public void onDeleteCacheClick() {
         // delete all Realm and sharedPref
         mPrefsApi.clear();
         mRealm.deleteAll();
     }
 
     @Override
-    public void onDeleteAccountClick()
-    {
+    public void onDeleteAccountClick() {
         // dialog delete Account
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         String mDeleteAccount = "Do you want delete your account ?";
@@ -108,18 +106,17 @@ public class AccountViewModel extends BaseObservable implements AccountContract.
     }
 
     @Override
-    public void onPrivateCLick()
-    {
+    public void onPersonalInfoSettingClick(){
         ((AccountActivity) mContext).initFragment(android.R.id.content , PersonalSettingFragment.getInstance());
     }
 
     @Override
-    public void onIfoAccount() {
+    public void onInfoAccount() {
 
     }
 
     @Override
-    public void onAccountBank() {
+    public void onAccountBankCLick() {
 
     }
 

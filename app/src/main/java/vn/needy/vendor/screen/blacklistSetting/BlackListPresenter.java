@@ -12,6 +12,7 @@ import vn.needy.vendor.model.BlockUser;
  */
 
 public class BlackListPresenter implements BlacklistSettingContract.Presenter{
+
     private BlacklistSettingContract.ViewModel mViewModel;
     private List<BlockUser> mListUser;
     private Context mContext;
@@ -36,7 +37,6 @@ public class BlackListPresenter implements BlacklistSettingContract.Presenter{
 
     @Override
     public void getUserList() {
-
         mListUser = new ArrayList<>();
         mListUser.add(new BlockUser("minh " , "012345665" ));
         mListUser.add(new BlockUser("minh " , "012345665" ));
@@ -46,6 +46,5 @@ public class BlackListPresenter implements BlacklistSettingContract.Presenter{
         mListUser.add(new BlockUser("minh " , "012345665" ));
         mListUser.add(new BlockUser("minh " , "012345665" ));
         mViewModel.setListBlockUser(mListUser);
-
     }
 }

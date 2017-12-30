@@ -224,11 +224,11 @@
     <string name="choose_category">Lựa chọn danh mục</string>
 
     <string name="hint_email">Ẩn email của tôi</string>
-    <string name="hint_write_mail">Người khác sẽ không thể thấy email của bạn trong hồ sơ nếu kích hoạt</string>
+    <string name="hint_note_mail">Người khác sẽ không thể thấy email của bạn trong hồ sơ nếu kích hoạt</string>
     <string name="hint_birthday">Ẩn ngày sinh của tôi</string>
-    <string name="hint_write_birthday">Người khác sẽ không thể thấy ngày sinh của bạn trong hồ sơ nếu kích hoạt</string>
+    <string name="hint_note_birthday">Người khác sẽ không thể thấy ngày sinh của bạn trong hồ sơ nếu kích hoạt</string>
     <string name="hint_sex">Ẩn giới tính của tôi</string>
-    <string name="hint_write_sex">Người khác sẽ không thể thấy giới tính của bạn trong hồ sơ nếu kích hoạt</string>
+    <string name="hint_note_sex">Người khác sẽ không thể thấy giới tính của bạn trong hồ sơ nếu kích hoạt</string>
     <string name="personal_setting_email">Những người theo dõi bạn sẽ có thể thấy email của bạn </string>
     <string name="personal_setting_birthday">Những người theo dõi bạn sẽ có thể thấy ngày sinh của bạn </string>
     <string name="personal_setting_sex">Những người theo dõi bạn sẽ có thể thấy giới tính của bạn </string>
@@ -258,9 +258,9 @@
     <string name="notification_email_personal_detail">Gửi thông báo cá nhân cho tôi(VD: quá sinh nhật)</string>
 
     <string name="text_block">Người dùng đã bị chặn sẽ không thể gọi hoặc gửi tin nhắn cho bạn.</string>
-    <string name="delete_block">BỎ CHẶN</string>
+    <string name="unblock">BỎ CHẶN</string>
     <string name="personal_block">Chưa có ai bị chặn</string>
-    <string name="dialog_block">Bỏ chặn ? \" Bỏ chặn sẽ chấp nhận để chat , bình luận và mua sản phẩm của b ạn\" \" Bạn có muốn nỏ chặn không ?\"</string>
+    <string name="dialog_block">Bỏ chặn ? \n"Bỏ chặn sẽ chấp nhận để chat , bình luận và mua sản phẩm của bạn.\n"Bạn có muốn bỏ chặn không ?\</string>
 
     <string name="button_ok">OK</string>
     <string name="button_cancel" >Cancel</string>

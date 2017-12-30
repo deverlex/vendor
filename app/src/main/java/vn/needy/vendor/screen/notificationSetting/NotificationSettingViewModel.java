@@ -14,13 +14,14 @@ import vn.needy.vendor.R;
  */
 
 public class NotificationSettingViewModel extends BaseObservable implements NotificationSettingContract.ViewModel{
+
     private Context mContext;
     private NotificationSettingContract.Presenter mPresenter;
     private boolean mShowNotificationSetting;
     private boolean mShowNotificationEmailSetting;
     private int mIconNotificationEmail ;
     private int mIconNotification ;
-    private int mIcon = R.drawable.ic_expand;
+    private int mIconExpand = R.drawable.ic_expand;
     private boolean mNotificationEmail;
     private boolean mNotification;
     private boolean notificationGroup;
@@ -34,6 +35,7 @@ public class NotificationSettingViewModel extends BaseObservable implements Noti
     private boolean notificationApp;
     private boolean notificationNew;
     private boolean notificationPersonal;
+
     public NotificationSettingViewModel(Context mContext) {
         this.mContext = mContext;
         mIconNotificationEmail = R.drawable.ic_next_right;
@@ -65,11 +67,8 @@ public class NotificationSettingViewModel extends BaseObservable implements Noti
         mShowNotificationSetting = !mShowNotificationSetting;
         notifyPropertyChanged(BR.showNotificationSetting);
 
-        if (mIconNotification == mIcon){
-            mIconNotification = R.drawable.ic_next_right;
-        }else {
-            mIconNotification = mIcon;
-        }
+        mIconNotification = (mIconNotification == mIconExpand ? R.drawable.ic_next_right : mIconExpand);
+
         notifyPropertyChanged(BR.iconNotification);
     }
 
@@ -78,11 +77,8 @@ public class NotificationSettingViewModel extends BaseObservable implements Noti
         mShowNotificationEmailSetting = !mShowNotificationEmailSetting;
         notifyPropertyChanged(BR.showNotificationEmailSetting);
 
-        if (mIconNotificationEmail == mIcon){
-            mIconNotificationEmail = R.drawable.ic_next_right;
-        }else {
-            mIconNotificationEmail = mIcon;
-        }
+        mIconNotificationEmail = (mIconNotificationEmail == mIconExpand ? R.drawable.ic_next_right: mIconExpand);
+
         notifyPropertyChanged(BR.iconNotificationEmail);
     }
 
@@ -173,6 +169,11 @@ public class NotificationSettingViewModel extends BaseObservable implements Noti
     public void onNotificationGroupClick() {
         notificationGroup = !notificationGroup;
         notifyPropertyChanged(BR.notificationGroup);
+    }
+
+    @Override
+    public void onNotificationSave() {
+
     }
 
     @Bindable

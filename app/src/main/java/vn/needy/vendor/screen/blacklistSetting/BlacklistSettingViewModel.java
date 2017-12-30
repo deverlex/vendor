@@ -23,7 +23,6 @@ public class BlacklistSettingViewModel implements BlacklistSettingContract.ViewM
     private BlackListSettingAdapter mBlacklistSettingAdapter;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemListener;
 
-
     public BlacklistSettingViewModel(Context mContext, BlackListSettingAdapter mBlacklistSettingAdapter) {
         this.mContext = mContext;
         this.mBlacklistSettingAdapter = mBlacklistSettingAdapter;
@@ -55,20 +54,6 @@ public class BlacklistSettingViewModel implements BlacklistSettingContract.ViewM
         mBlacklistSettingAdapter.updateData(listBlockUser);
     }
 
-
-    @Override
-    public void updateListBlockUser(List<BlockUser> listBlockUser) {
-        mBlacklistSettingAdapter.updateData(listBlockUser);
-    }
-
-    @Override
-    public void onItemClicked() {
-        if (mItemListener != null)
-            return;
-        mItemListener.onItemRecyclerViewClick(mBlacklistSettingAdapter);
-    }
-
-
     public int getSizeBlackList()
     {
         return mBlacklistSettingAdapter.getItemCount();
@@ -80,25 +65,8 @@ public class BlacklistSettingViewModel implements BlacklistSettingContract.ViewM
 
     @Override
     public void onItemRecyclerViewClick(Object item) {
-        showDialog();
+
     }
 
-    private void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setMessage(mContext.getString(R.string.dialog_block));
-        builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+
 }

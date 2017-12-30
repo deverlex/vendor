@@ -30,18 +30,17 @@ public class LanguageSettingFragment extends Fragment {
     private LanguageSettingContract.ViewModel mViewModel;
     private LanguageSettingContract.Presenter mPresenter;
     private LanguageSettingAdapter mLanguageSettingAdapter;
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         List<Language> listLanguage = new ArrayList<>();
-
         mLanguageSettingAdapter = new LanguageSettingAdapter(getContext(), listLanguage);
+
         mViewModel = new LanguageSettingViewModel(getActivity() , mLanguageSettingAdapter);
         mPresenter = new LanguageSettingPresenter(mViewModel, getActivity());
 
         mViewModel.setPresenter(mPresenter);
-
         mViewModel.onStart();
 
         FragmentLanguageSettingBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_language_setting, container

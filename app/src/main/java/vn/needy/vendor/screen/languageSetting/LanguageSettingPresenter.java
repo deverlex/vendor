@@ -14,10 +14,12 @@ import vn.needy.vendor.model.Language;
  */
 
 public class LanguageSettingPresenter implements LanguageSettingContract.Presenter{
+
     private LanguageSettingContract.ViewModel mViewModel;
     private Context mContext;
     private int mPositionEnglish = 0;
     private List<Language> mLanguageList;
+
     public LanguageSettingPresenter(LanguageSettingContract.ViewModel viewModel , Context context) {
         this.mViewModel = viewModel;
         this.mContext = context;
@@ -58,6 +60,7 @@ public class LanguageSettingPresenter implements LanguageSettingContract.Present
         // get defaul language
         Language mLanguage = null;
         String mLanguageCodeDefaul = Locale.getDefault().getLanguage();
+
         for (int i=0; i<mLanguageList.size() ; ++i)
             if (mLanguageList.get(i).getLanguageCode().equals(mLanguageCodeDefaul)) {
                 mLanguage = new Language(mLanguageList.get(i).getLanguageName(), mLanguageCodeDefaul);

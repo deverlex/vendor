@@ -20,6 +20,7 @@ import vn.needy.vendor.model.BlockUser;
  */
 
 public class BlackListFragment extends Fragment{
+
     public static BlackListFragment getInstance()
     {
         return new BlackListFragment();
@@ -30,15 +31,16 @@ public class BlackListFragment extends Fragment{
     private BlacklistSettingContract.ViewModel mViewModel;
     private List<BlockUser> mListUser;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         FragmentBlackListSettingBinding binding = DataBindingUtil.inflate(inflater , R.layout.fragment_black_list_setting , container , false);
         mListUser = new ArrayList<>();
 
         mAdapter = new BlackListSettingAdapter(getActivity() , mListUser);
         mViewModel = new BlacklistSettingViewModel(getActivity(), mAdapter);
         mPresenter = new BlackListPresenter(mViewModel , getActivity());
+
         mViewModel.setPresenter(mPresenter);
         mViewModel.onStart();
 

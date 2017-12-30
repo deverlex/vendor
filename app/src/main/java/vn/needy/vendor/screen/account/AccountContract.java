@@ -10,20 +10,35 @@ import vn.needy.vendor.screen.BaseViewModel;
 class AccountContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
+
         void onDeleteAccountClick();
+
         void onDeleteCacheClick();
+
         void onEvaluationClick();
+
         void onBackPressed();
-        void onPrivateCLick();
-        void onIfoAccount();
-        void onAccountBank();
+
+        void onPersonalInfoSettingClick();
+
+        void onInfoAccount();
+
+        void onAccountBankCLick();
+
         void onNotificationAccount();
+
         void onAccountBlock();
+
         void onAcountLanguage();
+
         void onAcountSupport();
+
         void onAcountTipAndTrick();
+
         void onAcountCommunity();
+
         void onNeedRules();
+
         void onAcountLogout();
 
     }

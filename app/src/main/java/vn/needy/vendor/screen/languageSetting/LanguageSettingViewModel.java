@@ -52,24 +52,6 @@ public class LanguageSettingViewModel extends BaseObservable implements Language
     }
 
     @Override
-    public void onItemClickListener() {
-
-    }
-
-    @Override
-    public void onUpdateLanguage(List<Language> languages) {
-        mLanguageSettingAdapter.updateData(languages);
-    }
-
-    @Override
-    public void onItemClicked() {
-        if (mItemClickListener == null) {
-            return;
-        }
-        mItemClickListener.onItemRecyclerViewClick(mLanguageSettingAdapter);
-    }
-
-    @Override
     public void setLanguageList(List<Language> languageList) {
         mLanguageSettingAdapter.updateData(languageList);
     }
@@ -90,7 +72,7 @@ public class LanguageSettingViewModel extends BaseObservable implements Language
                 dialogInterface.dismiss();
             }
         });
-        builder.setNegativeButton(R.string.order_cancel, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();

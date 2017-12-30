@@ -147,7 +147,7 @@
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/sp_14"
                     tools:ignore="UnusedAttribute"
-                    android:onClick="@{() -> viewModel.onPrivateCLick()}"/>
+                    android:onClick="@{() -> viewModel.onPersonalInfoSettingClick()}"/>
 
                 <TextView
                     android:onClick="@{() -> viewModel.onAccountBlock()}"

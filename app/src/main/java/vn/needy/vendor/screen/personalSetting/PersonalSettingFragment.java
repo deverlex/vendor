@@ -16,6 +16,7 @@ import vn.needy.vendor.databinding.FragmentPersonalSettingBinding;
  */
 
 public class PersonalSettingFragment extends Fragment{
+
     public static PersonalSettingFragment getInstance(){
         return new PersonalSettingFragment();
     }
@@ -23,14 +24,17 @@ public class PersonalSettingFragment extends Fragment{
     private PersonalSettingContract.Presenter mPresenter;
     private PersonalSettingContract.ViewModel mViewModel;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         FragmentPersonalSettingBinding binding = DataBindingUtil.inflate(inflater , R.layout.fragment_personal_setting, container , false);
+
         mPresenter = new PersonalSettingPresenter(getActivity());
         mViewModel = new PersonalSettingViewModel(getActivity());
+
         mViewModel.onStart();
         binding.setViewModel((PersonalSettingViewModel) mViewModel);
+
         return binding.getRoot();
     }
 }

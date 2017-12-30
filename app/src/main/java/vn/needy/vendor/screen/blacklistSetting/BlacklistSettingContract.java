@@ -13,15 +13,17 @@ import vn.needy.vendor.screen.BaseViewModel;
 interface BlacklistSettingContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
+
         void onBackPressed();
+
         void setListBlockUser(List<BlockUser> listBlockUser);
-        void updateListBlockUser(List<BlockUser> listBlockUser);
-        void onItemClicked();
 
     }
 
     interface Presenter extends BasePresenter {
+
         void getUserList();
+
     }
 
 }

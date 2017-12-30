@@ -42,6 +42,7 @@
                 android:textSize="@dimen/sp_18" />
 
             <ImageButton
+                android:onClick="@{() -> viewModel.onNotificationSave()}"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_alignParentRight="true"

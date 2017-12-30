@@ -7,6 +7,7 @@ import android.content.Context;
  */
 
 public class PersonalSettingPresenter implements PersonalSettingContract.Presenter{
+
     private Context mContext;
     private PersonalSettingContract.ViewModel mViewModel;
 

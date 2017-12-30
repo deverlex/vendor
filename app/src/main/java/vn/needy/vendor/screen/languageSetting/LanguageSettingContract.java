@@ -12,19 +12,26 @@ import vn.needy.vendor.screen.BaseViewModel;
  */
 
 interface LanguageSettingContract {
+
     interface ViewModel extends BaseViewModel<Presenter> {
+
         void onBackPressed();
-        void onItemClickListener();
-        void onUpdateLanguage(List<Language> languages);
-        void onItemClicked();
+
         void setLanguageList(List<Language> languageList);
+
         void setDefaulLanguageLanguage(Language defaulLanguage);
+
         void onLanguageSave();
+
     }
 
     interface Presenter extends BasePresenter {
+
         void loadSupportLanguage();
+
         void getLanguageList();
+
         void getDefaulLanguage();
+
     }
 }

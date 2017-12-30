@@ -41,10 +41,7 @@ public class BlackListSettingAdapter extends BaseRecyclerViewAdapter<BlackListSe
 
     @Override
     public void onBindViewHolder(ItemViewHoder holder, int position) {
-        if (mPosition == position)
-            holder.bind(mListUser.get(position), true);
-        else
-            holder.bind(mListUser.get(position), false);
+        holder.bind(mListUser.get(position), mPosition == position);
     }
 
     @Override

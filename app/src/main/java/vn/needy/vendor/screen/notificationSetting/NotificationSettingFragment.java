@@ -26,12 +26,12 @@ public class NotificationSettingFragment extends Fragment{
     private NotificationSettingContract.ViewModel mViewModel;
     private NotificationSettingContract.Presenter mPresenter;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mViewModel = new NotificationSettingViewModel(getActivity());
         mPresenter = new NotificationSettingPresenter(mViewModel , getContext());
+
         mViewModel.setPresenter(mPresenter);
         mViewModel.onStart();
 

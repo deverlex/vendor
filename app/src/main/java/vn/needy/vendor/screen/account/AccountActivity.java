@@ -21,25 +21,33 @@ import vn.needy.vendor.utils.navigator.Navigator;
 
 public class AccountActivity extends BaseActivity {
 
-    private AccountViewModel mAccountViewModel;
+    private AccountContract.ViewModel mAccountViewModel;
+    private AccountContract.Presenter mPresenter;
+
     private SharedPrefsApi mPrefsApi;
     private Navigator mNavigator;
     private Realm mRealm;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
-        ActivityAccountBinding accountBinding = DataBindingUtil.setContentView(this , R.layout.activity_account);
+
         mNavigator = new Navigator(this);
         DialogManager dialogManager = new DialogManager(this);
         mPrefsApi = SharedPrefsImpl.getInstance();
+
+        mPresenter = new AccountPresenter(this);
         mRealm = Realm.getDefaultInstance();
         mAccountViewModel = new AccountViewModel(mNavigator,this,dialogManager,getApplication() , mPrefsApi , mRealm);
-        accountBinding.setViewModel(mAccountViewModel);
+
+        mAccountViewModel.setPresenter(mPresenter);
+        mAccountViewModel.onStart();
+
+        ActivityAccountBinding accountBinding = DataBindingUtil.setContentView(this , R.layout.activity_account);
+        accountBinding.setViewModel((AccountViewModel) mAccountViewModel);
     }
 
     @Override
-    public Fragment initFragment(@IdRes int target,
-                                 @NonNull Fragment fragment) {
+    public Fragment initFragment(@IdRes int target,@NonNull Fragment fragment) {
         return super.initFragment(target, fragment);
     }
 

@@ -11,6 +11,7 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  */
 
 public class ItemLanguageViewModel extends BaseObservable {
+
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
     private Language mLanguage;
     private boolean isChecked;
@@ -25,9 +26,7 @@ public class ItemLanguageViewModel extends BaseObservable {
         if (mItemClickListener == null) {
             return;
         }
-
         mItemClickListener.onItemRecyclerViewClick(mLanguage);
-
     }
 
 
