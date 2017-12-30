@@ -265,4 +265,11 @@
     <string name="button_ok">OK</string>
     <string name="button_cancel" >Cancel</string>
 
+
+    <string name="name_product_empty">Tên sản phẩm trống</string>
+    <string name="description_product_higher_60">Mô tả sản phẩm ít nhất 60 ký tự</string>
+    <string name="quantity_prduct_empty">Nhập số lượng sản phẩm</string>
+    <string name="price_product_empty">Nhập giá sản phẩm</string>
+    <string name="product_category_empty">Chọn danh mục</string>
+    <string name="product_attributes_empty">Thêm thuộc tính cho sản phẩm</string>
 </resources>

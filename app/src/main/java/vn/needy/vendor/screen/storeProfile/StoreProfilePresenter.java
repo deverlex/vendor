@@ -125,7 +125,7 @@ public class StoreProfilePresenter implements StoreProfileContract.Presenter {
     }
 
     private void getStoreFromRemote() {
-        String storeId = mStoreRepository.getStoreIdSync();
+        String storeId = mStoreRepository.getOurStoreIdSync();
         mStoreRepository.getStoreInfo(storeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
