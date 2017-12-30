@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile.childProduct;
+package vn.needy.vendor.screen.createProduct.childProduct;
 
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;

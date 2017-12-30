@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import vn.needy.vendor.screen.companyProfile.CompanyProfileActivity;
+import vn.needy.vendor.screen.storeProfile.StoreProfileActivity;
 import vn.needy.vendor.screen.userProfile.UserProfileActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -64,7 +65,7 @@ public class PersonalViewModel extends BaseObservable implements PersonalConstra
 
     @Override
     public void onClickViewStore() {
-
+        mNavigator.startActivity(StoreProfileActivity.class);
     }
 
     @Override

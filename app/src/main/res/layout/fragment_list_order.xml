@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="vn.needy.vendor.screen.listorder.ListOrderViewModel" />
+
         <import type="android.view.View" />
     </data>
 
@@ -15,39 +17,40 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".screen.main.MainActivity"
-        tools:ignore="ScrollViewSize" >
+        tools:ignore="ScrollViewSize">
 
         <RadioGroup
-            android:checkedButton="@+id/offer"
             android:id="@+id/toggle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_35"
             android:layout_margin="@dimen/dp_5"
+            android:onCheckedChanged="@{() -> viewModel.onClickChangeList()}"
             android:background="@drawable/pink_out_line"
+            android:checkedButton="@+id/offer"
             android:orientation="horizontal">
 
             <RadioButton
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
                 android:id="@+id/search"
-                android:background="@drawable/toggle_widget_background"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
                 android:layout_weight="1"
+                android:background="@drawable/toggle_widget_background"
                 android:button="@null"
-                android:gravity="center"
                 android:checked="true"
+                android:gravity="center"
                 android:text="Chờ xác nhận"
                 android:textColor="@color/color_white" />
 
             <RadioButton
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
                 android:id="@+id/offer"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/toggle_widget_background"
                 android:button="@null"
@@ -60,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_white"
-            />
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerAdapter="@{viewModel.adapter}" />
     </LinearLayout>
 </layout>

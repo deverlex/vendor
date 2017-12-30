@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.productProfile.attribute;
+package vn.needy.vendor.screen.createProduct.attribute;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
-import vn.needy.vendor.screen.productProfile.ProductProfilePnActivity;
+import vn.needy.vendor.screen.createProduct.CreateProductPnActivity;
 
 /**
  * Created by lion on 04/12/2017.
@@ -69,7 +69,7 @@ public class AttributeViewModel extends BaseObservable implements AttributeContr
                 AttributeFragment.class.getSimpleName(),
                 attributes
         );
-        ((ProductProfilePnActivity) mContext).onUpdateListAttribute(attributes);
+        ((CreateProductPnActivity) mContext).onUpdateListAttribute(attributes);
         ((Activity) mContext).onBackPressed();
     }
 
