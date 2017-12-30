@@ -18,29 +18,29 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  * Created by minh_dai on 26/12/2017.
  */
 
-public class LanguageSettingAdapter extends BaseRecyclerViewAdapter<LanguageSettingAdapter.ItemViewHoder> {
+public class LanguageSettingAdapter extends BaseRecyclerViewAdapter<LanguageSettingAdapter.ItemViewHolder> {
 
     private int mPosition = -1;
     private List<Language> mLanguage;
     private Context mContext;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected LanguageSettingAdapter(@NonNull Context context , List<Language> map) {
+    protected LanguageSettingAdapter(@NonNull Context context , List<Language> languages) {
         super(context);
         this.mContext = context;
-        this.mLanguage = map;
+        this.mLanguage = languages;
     }
 
     @Override
-    public ItemViewHoder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemLanguageBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_language, parent, false);
-        return new LanguageSettingAdapter.ItemViewHoder(binding, mItemClickListener);
+        return new LanguageSettingAdapter.ItemViewHolder(binding, mItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHoder holder, int position) {
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
         holder.bind(mLanguage.get(position), position == mPosition);
     }
 
@@ -67,17 +67,18 @@ public class LanguageSettingAdapter extends BaseRecyclerViewAdapter<LanguageSett
     }
 
     public void setPosition(int position){
+        // get position image item clicked
         this.mPosition = position;
         notifyDataSetChanged();
     }
 
-    static class ItemViewHoder extends RecyclerView.ViewHolder {
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private ItemLanguageBinding mBinding;
         private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
                 mItemClickListener;
 
-        public ItemViewHoder(ItemLanguageBinding binding, OnRecyclerViewItemClickListener<Object> mItemClickListener) {
+        public ItemViewHolder(ItemLanguageBinding binding, OnRecyclerViewItemClickListener<Object> mItemClickListener) {
             super(binding.getRoot());
             this.mBinding = binding;
             this.mItemClickListener = mItemClickListener;

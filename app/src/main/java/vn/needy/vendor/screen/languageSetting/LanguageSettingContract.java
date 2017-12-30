@@ -19,7 +19,7 @@ interface LanguageSettingContract {
 
         void setLanguageList(List<Language> languageList);
 
-        void setDefaulLanguageLanguage(Language defaulLanguage);
+        void setDefaultLanguageLanguage(Language defaultLanguage);
 
         void onLanguageSave();
 
@@ -31,7 +31,7 @@ interface LanguageSettingContract {
 
         void getLanguageList();
 
-        void getDefaulLanguage();
+        void getDefaultLanguage();
 
     }
 }

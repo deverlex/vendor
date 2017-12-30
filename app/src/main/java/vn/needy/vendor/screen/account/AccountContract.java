@@ -11,19 +11,15 @@ class AccountContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void onDeleteAccountClick();
+        void onDeleteAccountClicked();
 
-        void onDeleteCacheClick();
+        void onDeleteCacheClicked();
 
-        void onEvaluationClick();
+        void onEvaluationClicked();
 
         void onBackPressed();
 
-        void onPersonalInfoSettingClick();
-
-        void onInfoAccount();
-
-        void onAccountBankCLick();
+        void onPersonalInfoSettingClicked();
 
         void onNotificationAccount();
 

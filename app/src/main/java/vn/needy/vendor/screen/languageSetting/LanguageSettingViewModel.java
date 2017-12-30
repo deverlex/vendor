@@ -33,7 +33,7 @@ public class LanguageSettingViewModel extends BaseObservable implements Language
     @Override
     public void onStart() {
         mPresenter.getLanguageList();
-        mPresenter.getDefaulLanguage();
+        mPresenter.getDefaultLanguage();
     }
 
     @Override
@@ -57,9 +57,9 @@ public class LanguageSettingViewModel extends BaseObservable implements Language
     }
 
     @Override
-    public void setDefaulLanguageLanguage(Language defaulLanguage) {
-        int posotion = mLanguageSettingAdapter.getPosition(defaulLanguage);
-        mLanguageSettingAdapter.setPosition(posotion);
+    public void setDefaultLanguageLanguage(Language defaultLanguage) {
+        int position = mLanguageSettingAdapter.getPosition(defaultLanguage);
+        mLanguageSettingAdapter.setPosition(position);
     }
 
     @Override
@@ -81,7 +81,6 @@ public class LanguageSettingViewModel extends BaseObservable implements Language
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 
     @Override
     public void onItemRecyclerViewClick(Object item) {

@@ -41,7 +41,7 @@ public class BlackListSettingAdapter extends BaseRecyclerViewAdapter<BlackListSe
 
     @Override
     public void onBindViewHolder(ItemViewHoder holder, int position) {
-        holder.bind(mListUser.get(position), mPosition == position);
+        holder.bind(mListUser.get(position));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class BlackListSettingAdapter extends BaseRecyclerViewAdapter<BlackListSe
             this.mItemBinding = itemBlockedBinding;
         }
 
-        void bind(BlockUser user , boolean isChecked) {
+        void bind(BlockUser user ) {
             mItemBinding.setViewModel(new ItemBlackListSettingViewModel(mContext , user , mItemCLickListener, BlackListSettingAdapter.this ));
             mItemBinding.executePendingBindings();
         }

@@ -223,15 +223,15 @@
     <string name="staff_manager">Quản lý nhân viên</string>
     <string name="choose_category">Lựa chọn danh mục</string>
 
-    <string name="hint_email">Ẩn email của tôi</string>
+    <string name="personal_setting_email">Ẩn email của tôi</string>
     <string name="hint_note_mail">Người khác sẽ không thể thấy email của bạn trong hồ sơ nếu kích hoạt</string>
-    <string name="hint_birthday">Ẩn ngày sinh của tôi</string>
+    <string name="personal_setting_birthday">Ẩn ngày sinh của tôi</string>
     <string name="hint_note_birthday">Người khác sẽ không thể thấy ngày sinh của bạn trong hồ sơ nếu kích hoạt</string>
-    <string name="hint_sex">Ẩn giới tính của tôi</string>
+    <string name="personal_setting_sex">Ẩn giới tính của tôi</string>
     <string name="hint_note_sex">Người khác sẽ không thể thấy giới tính của bạn trong hồ sơ nếu kích hoạt</string>
-    <string name="personal_setting_email">Những người theo dõi bạn sẽ có thể thấy email của bạn </string>
-    <string name="personal_setting_birthday">Những người theo dõi bạn sẽ có thể thấy ngày sinh của bạn </string>
-    <string name="personal_setting_sex">Những người theo dõi bạn sẽ có thể thấy giới tính của bạn </string>
+    <string name="dialog_personal_email">Những người theo dõi bạn sẽ có thể thấy email của bạn </string>
+    <string name="dialog_personal_birthday">Những người theo dõi bạn sẽ có thể thấy ngày sinh của bạn </string>
+    <string name="dialog_personal_sex">Những người theo dõi bạn sẽ có thể thấy giới tính của bạn </string>
 
     <string name="select_languge">Chọn ngôn ngữ</string>
     <string name="languge_vietnam">Tiếng Việt</string>

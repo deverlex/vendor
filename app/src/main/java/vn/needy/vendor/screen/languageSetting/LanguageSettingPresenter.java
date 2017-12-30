@@ -23,7 +23,6 @@ public class LanguageSettingPresenter implements LanguageSettingContract.Present
     public LanguageSettingPresenter(LanguageSettingContract.ViewModel viewModel , Context context) {
         this.mViewModel = viewModel;
         this.mContext = context;
-
     }
 
     @Override
@@ -33,12 +32,10 @@ public class LanguageSettingPresenter implements LanguageSettingContract.Present
 
     @Override
     public void onStop() {
-
     }
 
     @Override
     public void loadSupportLanguage() {
-
     }
 
     @Override
@@ -56,20 +53,19 @@ public class LanguageSettingPresenter implements LanguageSettingContract.Present
     }
 
     @Override
-    public void getDefaulLanguage() {
-        // get defaul language
+    public void getDefaultLanguage() {
+        // get default language
         Language mLanguage = null;
-        String mLanguageCodeDefaul = Locale.getDefault().getLanguage();
+        String mLanguageCodeDefault = Locale.getDefault().getLanguage();
 
         for (int i=0; i<mLanguageList.size() ; ++i)
-            if (mLanguageList.get(i).getLanguageCode().equals(mLanguageCodeDefaul)) {
-                mLanguage = new Language(mLanguageList.get(i).getLanguageName(), mLanguageCodeDefaul);
+            if (mLanguageList.get(i).getLanguageCode().equals(mLanguageCodeDefault)) {
+                mLanguage = new Language(mLanguageList.get(i).getLanguageName(), mLanguageCodeDefault);
                 break;
             }
         if (mLanguage == null){
             mLanguage = new Language(mLanguageList.get(mPositionEnglish).getLanguageName(), mLanguageList.get(mPositionEnglish).getLanguageCode());
         }
-        mViewModel.setDefaulLanguageLanguage(mLanguage);
+        mViewModel.setDefaultLanguageLanguage(mLanguage);
     }
-
 }
