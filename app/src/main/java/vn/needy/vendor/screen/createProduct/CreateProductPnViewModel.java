@@ -1,11 +1,13 @@
 package vn.needy.vendor.screen.createProduct;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.zhihu.matisse.Matisse;
@@ -13,15 +15,18 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
+import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
+import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
@@ -49,28 +54,32 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     private String mDescriptionError;
     private String mQuantityError;
     private String mPriceError;
+    private String mCategoryError;
+    private String mAttributesError;
 
     private String mName;
     private String mDescription;
     private int mQuantity;
     private float mPrice;
     private String mPromotion;
-    private float mFeeTransport;
     private CategoryWrapper mCategory;
 
     private ImageAdapter mImageAdapter;
     private Map<String, Object> mAttributes;
+    private AttributeProductPnAdapter mAttributeResultPnAdapter;
+    private FeeTransportPnAdapter mFeeTransportPnAdapter;
 
     private boolean mVisibleImages;
 
-    public CreateProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter) {
+    public CreateProductPnViewModel(Context context, Navigator navigator, ImageAdapter imageAdapter, AttributeProductPnAdapter attributeResultPnAdapter, FeeTransportPnAdapter feeTransportAdapter) {
         mContext = context;
         mNavigator = navigator;
         mAttributes = new HashMap<>();
-
+        mAttributeResultPnAdapter = attributeResultPnAdapter;
         mImageAdapter = imageAdapter;
         mImageAdapter.setItemClickListener(this);
-
+        mFeeTransportPnAdapter = feeTransportAdapter;
+        mFeeTransportPnAdapter.setItemClickListener(this);
         mVisibleImages = false;
     }
 
@@ -114,6 +123,18 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     }
 
     @Override
+    public void onInputCategoryError(int msg) {
+        mCategoryError = mContext.getString(msg);
+        notifyPropertyChanged(BR.categoryError);
+    }
+
+    @Override
+    public void onInputAttributesError(int msg) {
+        mAttributesError = mContext.getString(msg);
+        notifyPropertyChanged(BR.attributesError);
+    }
+
+    @Override
     public void onChooseCategory() {
         Bundle extras = new Bundle();
         // put simple name thought bundle
@@ -143,6 +164,23 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     @Override
     public void onClickCreate() {
         AddProductPnReq request = new AddProductPnReq();
+        request.setName(mName);
+        request.setDescription(mDescription);
+        if (mCategory != null) {
+            request.setCategory(mCategory.getName());
+        }
+        request.setPrice(mPrice);
+        request.setQuantity(mQuantity);
+        request.setAttributes(mAttributes);
+        List<FeeTransportWrapper> feeTransportWrappers = new ArrayList<>();
+        for (FeeTransport ft : mFeeTransportPnAdapter.getData()) {
+            if (ft.getFrom() == 0f && ft.getTo() == 0f && ft.getFee() == 0f) {
+                continue;
+            }
+
+            feeTransportWrappers.add(new FeeTransportWrapper(ft));
+        }
+        request.setFeeTransport(feeTransportWrappers);
         mPresenter.uploadProduct(request, mImageAdapter.getImages());
     }
 
@@ -178,23 +216,44 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     public void updateCategory(CategoryWrapper category) {
         mCategory = category;
         notifyPropertyChanged(BR.category);
+        mCategoryError = null;
+        notifyPropertyChanged(BR.categoryError);
     }
 
     @Override
     public void onSelectedListAttribute(final List<AttributeWrapper> attributes) {
+        // Update Attribute in result View
+        mAttributeResultPnAdapter.updateData(attributes);
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 for (AttributeWrapper attribute : attributes) {
                     mAttributes.put(attribute.getName(), attribute.getValue());
                 }
+
             }
         });
+
+        mAttributesError = null;
+        notifyPropertyChanged(BR.attributesError);
+    }
+
+    @Override
+    public void onBackPressed() {
+        ((Activity)mContext).onBackPressed();
+    }
+
+    @Override
+    public void addFeeTransport() {
+        mFeeTransportPnAdapter.addItem();
     }
 
     @Override
     public void onItemRecyclerViewClick(Object item) {
-
+        if (item instanceof FeeTransport) {
+            mFeeTransportPnAdapter.removeItem((FeeTransport) item);
+        }
     }
 
     @Bindable
@@ -231,6 +290,16 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     }
 
     @Bindable
+    public String getCategoryError() {
+        return mCategoryError;
+    }
+
+    @Bindable
+    public String getAttributesError() {
+        return mAttributesError;
+    }
+
+    @Bindable
     public String getName() {
         return mName;
     }
@@ -254,7 +323,9 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     }
 
     public void setQuantity(String quantity) {
-        mQuantity = Integer.parseInt(quantity);
+        if (!TextUtils.isEmpty(quantity)) {
+            mQuantity = Integer.parseInt(quantity);
+        }
     }
 
     @Bindable
@@ -263,17 +334,12 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     }
 
     public void setPrice(String price) {
-        mPrice = Float.parseFloat(price);
+        if (!TextUtils.isEmpty(price)) {
+            mPrice = Float.parseFloat(price);
+        }
     }
 
-    @Bindable
-    public String getFeeTransport() {
-        return String.valueOf(mFeeTransport);
-    }
 
-    public void setFeeTransport(String feeTransport) {
-        mFeeTransport = Float.parseFloat(feeTransport);
-    }
 
     @Bindable
     public String getPromotion() {
@@ -287,12 +353,22 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
     @Bindable
     public String getCategory() {
         if (mCategory != null) {
-            return mCategory.getTitle();
+            return mCategory.getName();
         }
         return mContext.getString(R.string.choose_category);
     }
 
     public void setCategory(CategoryWrapper category) {
         mCategory = category;
+    }
+
+    @Bindable
+    public AttributeProductPnAdapter getAttributeResultPnAdapter() {
+        return mAttributeResultPnAdapter;
+    }
+
+    @Bindable
+    public FeeTransportPnAdapter getFeeTransportPnAdapter() {
+        return mFeeTransportPnAdapter;
     }
 }

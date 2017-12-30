@@ -13,6 +13,8 @@ import retrofit2.http.Query;
 import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
+import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResp;
 import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoReq;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResp;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
@@ -91,6 +93,22 @@ public interface VendorApi {
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
     Observable<ResponseWrapper> updateStaffFcmToken(@Path("company_id") String companyId,
                                                     @Query("token") String token);
+
+    // Product
+    /**************************************************************************************/
+
+    @POST("v1/pn/products")
+    Observable<ResponseWrapper> addProductPn(
+            @Query("product_type") String productType,
+            @Query("company_id") String companyId,
+            @Query("store_id") String storeId,
+            @Body RequestWrapper<Object> request);
+
+    @GET("v1/pn/products")
+    Observable<ResponseWrapper<ProductPnInfoResp>> getAllProductsPnOfCompany(
+            @Query("company_id") String companyId,
+            @Query("category") String category);
+
 
     // POST new images
     @Multipart

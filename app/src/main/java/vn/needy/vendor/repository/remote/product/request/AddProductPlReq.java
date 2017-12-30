@@ -4,43 +4,42 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-import java.util.Map;
 
 import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 
 /**
- * Created by lion on 10/11/2017.
+ * Created by truongpq on 28/12/2017.
  */
 
-public class AddProductPnReq {
-
+public class AddProductPlReq {
     @Expose
     @SerializedName("category")
     private String mCategory;
+
     @Expose
     @SerializedName("name")
     private String mName;
-    @Expose
-    @SerializedName("price")
-    private float mPrice;
-    @Expose
-    @SerializedName("quantity")
-    private int mQuantity;
+
     @Expose
     @SerializedName("promotion")
     private String mPromotion;
+
     @Expose
     @SerializedName("description")
     private String mDescription;
-    @Expose
-    @SerializedName("attributes")
-    private Map<String, Object> mAttributes;
+
     @Expose
     @SerializedName("feeTransport")
     private List<FeeTransportWrapper> mFeeTransport;
+
     @Expose
     @SerializedName("hashtag")
     private List<String> mHashtag;
+
+    @Expose
+    @SerializedName("products")
+    private List<Long> mProducts;
+
     @Expose
     @SerializedName("images")
     private List<String> images;
@@ -50,7 +49,7 @@ public class AddProductPnReq {
     }
 
     public void setCategory(String category) {
-        mCategory = category;
+        this.mCategory = category;
     }
 
     public String getName() {
@@ -58,23 +57,7 @@ public class AddProductPnReq {
     }
 
     public void setName(String name) {
-        mName = name;
-    }
-
-    public float getPrice() {
-        return mPrice;
-    }
-
-    public void setPrice(float price) {
-        mPrice = price;
-    }
-
-    public int getQuantity() {
-        return mQuantity;
-    }
-
-    public void setQuantity(int quantity) {
-        mQuantity = quantity;
+        this.mName = name;
     }
 
     public String getPromotion() {
@@ -82,7 +65,7 @@ public class AddProductPnReq {
     }
 
     public void setPromotion(String promotion) {
-        mPromotion = promotion;
+        this.mPromotion = promotion;
     }
 
     public String getDescription() {
@@ -90,15 +73,7 @@ public class AddProductPnReq {
     }
 
     public void setDescription(String description) {
-        mDescription = description;
-    }
-
-    public Map<String, Object> getAttributes() {
-        return mAttributes;
-    }
-
-    public void setAttributes(Map<String, Object> attributes) {
-        mAttributes = attributes;
+        this.mDescription = description;
     }
 
     public List<FeeTransportWrapper> getFeeTransport() {
@@ -114,7 +89,15 @@ public class AddProductPnReq {
     }
 
     public void setHashtag(List<String> hashtag) {
-        mHashtag = hashtag;
+        this.mHashtag = hashtag;
+    }
+
+    public List<Long> getProducts() {
+        return mProducts;
+    }
+
+    public void setProducts(List<Long> products) {
+        this.mProducts = products;
     }
 
     public List<String> getImages() {
