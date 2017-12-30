@@ -85,6 +85,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/sp_14"
+                    android:onClick="@{() -> viewModel.onUserProfileClicked()}"
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
@@ -115,7 +116,6 @@
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/sp_10"
                     tools:ignore="UnusedAttribute" />
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,9 +129,29 @@
                     android:textAllCaps="false"
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
+                    tools:ignore="UnusedAttribute"
+                    android:onClick="@{()->viewModel.onNotificationSettingClicked()}"/>
+
 
                 <TextView
+                    android:layout_marginTop="@dimen/dp_0_mid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:drawableEnd="@drawable/ic_next_right"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:drawableRight="@drawable/ic_next_right"
+                    android:fontFamily="@string/font_serif"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/setting_private"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute"
+                    android:onClick="@{() -> viewModel.onPersonalSettingClicked()}"/>
+
+                <TextView
+                    android:onClick="@{() -> viewModel.onBlacklistSettingClicked()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_0_mid"
@@ -148,6 +168,7 @@
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
+                    android:onClick="@{()->viewModel.onLanguageSettingClicked()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_0_mid"
@@ -177,6 +198,7 @@
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
+                    android:onClick="@{() -> viewModel.onSupportClicked()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_0_mid"
@@ -193,6 +215,7 @@
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
+                    android:onClick="@{() -> viewModel.onTipAndTrickClicked()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_0_mid"
@@ -209,6 +232,7 @@
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
+                    android:onClick="@{()-> viewModel.onCommunityRulesClicked()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_0_mid"
@@ -225,6 +249,7 @@
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
+                    android:onClick="@{()->viewModel.onNeedRulesClicked()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_0_mid"
@@ -241,6 +266,7 @@
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
+                    android:onClick="@{() -> viewModel.onReviewApplicationClicked()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_0_mid"
@@ -257,6 +283,7 @@
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
+                    android:onClick="@{() -> viewModel.onClearCacheClicked()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_0_mid"
@@ -273,6 +300,7 @@
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
+                    android:onClick="@{() -> viewModel.onDeleteAccountClicked()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_0_mid"
@@ -289,6 +317,7 @@
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
+                    android:onClick="@{()->viewModel.onLogout()}"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_35"
                     android:layout_marginLeft="@dimen/dp_10"

@@ -37,7 +37,7 @@ public class StoreRepository {
         mLocal.saveStoreSync(store);
     }
 
-    public String getStoreIdSync() {
+    public String getOurStoreIdSync() {
         return mLocal.getOurStoreIdSync();
     }
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.blacklistSetting.BlacklistSettingViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                android:onClick="@{() -> viewModel.onBackPressed()}"
+                app:srcCompat="@drawable/ic_back_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/back"
+                android:text="@string/block_user"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_18" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:background="@color/color_white_transparent"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.sizeBlackList > 0 ? View.VISIBLE : View.GONE}">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    app:layoutManager="LinearLayoutManager"
+                    app:recyclerAdapter="@{viewModel.blacklistSettingAdapter}">
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:fontFamily="@string/font_serif"
+                    android:text="@string/text_block" />
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.sizeBlackList == 0 ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                android:id="@+id/image_block"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_account_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_block"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/dp_10"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_horizontal"
+                android:text="@string/personal_block"
+                android:textSize="@dimen/sp_20" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>
+
+

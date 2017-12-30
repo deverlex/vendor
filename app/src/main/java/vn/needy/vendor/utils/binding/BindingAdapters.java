@@ -84,6 +84,16 @@ public class BindingAdapters {
         view.setImageResource(drawable);
     }
 
+    @BindingAdapter("srcDrawableRight")
+    public static void setDrawableRightTextView(TextView view, int drawable) {
+        view.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0);
+    }
+
+    @BindingAdapter("srcDrawableLeft")
+    public static void setDrawableLeftTextView(TextView view, int drawable) {
+        view.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
+    }
+
 
     // for load image from path in device's storage
 //    @BindingAdapter("srcPath")
