@@ -13,8 +13,8 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.FragmentAttributesBinding;
-import vn.needy.vendor.model.wrapper.AttributeWrapper;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.AttributeWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 
 /**

@@ -1,4 +1,4 @@
-package vn.needy.vendor.model.wrapper;
+package vn.needy.vendor.port.wrapper;
 
 import android.os.Parcel;
 import android.os.Parcelable;

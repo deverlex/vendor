@@ -8,7 +8,7 @@ import java.util.List;
 
 import vn.needy.vendor.domain.Company;
 import vn.needy.vendor.domain.FeeTransport;
-import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
+import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
 
 /**
  * Created by truongpq on 08/12/2017.

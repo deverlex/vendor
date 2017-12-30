@@ -15,7 +15,7 @@ import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.domain.FeeTransport;
-import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
+import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;

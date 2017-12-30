@@ -15,7 +15,7 @@ import java.util.Set;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ItemAttributeBinding;
-import vn.needy.vendor.model.wrapper.AttributeWrapper;
+import vn.needy.vendor.port.wrapper.AttributeWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

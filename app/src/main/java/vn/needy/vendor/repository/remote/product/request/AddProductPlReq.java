@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
+import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
 
 /**
  * Created by truongpq on 28/12/2017.

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;

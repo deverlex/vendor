@@ -1,14 +1,8 @@
 package vn.needy.vendor.domain;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import vn.needy.vendor.model.wrapper.UserWrapper;
+import vn.needy.vendor.port.wrapper.UserWrapper;
 
 /**
  * Created by lion on 03/10/2017.

@@ -11,7 +11,7 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ItemChildProductPlBinding;
-import vn.needy.vendor.model.wrapper.ProductPnWrapper;
+import vn.needy.vendor.port.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

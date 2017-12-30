@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.RadioGroup;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.createProduct.CreateProductPlActivity;

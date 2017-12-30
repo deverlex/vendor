@@ -2,7 +2,7 @@ package vn.needy.vendor.screen.category;
 
 import java.util.List;
 
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;

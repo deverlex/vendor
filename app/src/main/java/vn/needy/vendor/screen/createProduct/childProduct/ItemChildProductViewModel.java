@@ -7,7 +7,7 @@ import android.widget.CheckBox;
 import java.util.Locale;
 
 import vn.needy.vendor.BR;
-import vn.needy.vendor.model.wrapper.ProductPnWrapper;
+import vn.needy.vendor.port.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

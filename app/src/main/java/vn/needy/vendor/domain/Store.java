@@ -2,7 +2,7 @@ package vn.needy.vendor.domain;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import vn.needy.vendor.model.wrapper.StoreWrapper;
+import vn.needy.vendor.port.wrapper.StoreWrapper;
 
 /**
  * Created by lion on 12/12/2017.

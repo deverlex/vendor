@@ -1,4 +1,4 @@
-package vn.needy.vendor.model.wrapper;
+package vn.needy.vendor.port.wrapper;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

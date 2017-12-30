@@ -2,12 +2,8 @@ package vn.needy.vendor.screen.createProduct;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.widget.Spinner;
 
-import java.util.List;
-
-import vn.needy.vendor.model.wrapper.AttributeWrapper;
-import vn.needy.vendor.model.wrapper.AttributeWrapper.DataType;
+import vn.needy.vendor.port.wrapper.AttributeWrapper;
 
 /**
  * Created by lion on 04/12/2017.

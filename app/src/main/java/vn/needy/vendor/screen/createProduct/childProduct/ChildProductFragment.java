@@ -14,8 +14,8 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.FragmentChildProductBinding;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
-import vn.needy.vendor.model.wrapper.ProductPnWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.ProductPnWrapper;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.category.CategoriesActivity;

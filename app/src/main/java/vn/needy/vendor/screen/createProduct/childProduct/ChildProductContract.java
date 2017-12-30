@@ -2,8 +2,8 @@ package vn.needy.vendor.screen.createProduct.childProduct;
 
 import java.util.List;
 
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
-import vn.needy.vendor.model.wrapper.ProductPnWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
