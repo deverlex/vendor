@@ -26,6 +26,9 @@ public class Store extends RealmObject {
     private String mLastUpdatedTime;
     private String mLastUpdatedBy;
 
+    /** Extends */
+    private int mTotalStaff;
+
     public Store() {
         super();
     }
@@ -158,5 +161,13 @@ public class Store extends RealmObject {
 
     public void setLastUpdatedBy(String lastUpdatedBy) {
         mLastUpdatedBy = lastUpdatedBy;
+    }
+
+    public int getTotalStaff() {
+        return mTotalStaff;
+    }
+
+    public void setTotalStaff(int mTotalStaff) {
+        this.mTotalStaff = mTotalStaff;
     }
 }

@@ -218,6 +218,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/color_white"
                 android:layout_marginTop="@dimen/dp_1"
+                android:onClick="@{() -> viewModel.onClickViewStore()}"
                 >
 
                 <TextView

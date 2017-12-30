@@ -2,6 +2,9 @@ package vn.needy.vendor.repository.local;
 
 import android.util.Log;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.functions.BiConsumer;
 import io.realm.Realm;
 import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.model.Store;
@@ -14,6 +17,18 @@ import vn.needy.vendor.repository.StoreData;
 public class StoreDataLocal implements StoreData.Local {
 
     private static final String TAG = StoreDataLocal.class.getName();
+
+    @Override
+    public Observable<Store> getOurCompanyAsync() {
+        return (new RealmApi()).getAsync(new BiConsumer<ObservableEmitter<? super Store>, Realm>() {
+            @Override
+            public void accept(ObservableEmitter<? super Store> observableEmitter, Realm realm) throws Exception {
+                // we will need edit on future
+                Store company = realm.where(Store.class).findFirst();
+                observableEmitter.onNext(company);
+            }
+        });
+    }
 
     @Override
     public void saveStoreSync(final Store store) {
