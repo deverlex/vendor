@@ -57,7 +57,7 @@ public class LanguageSettingViewModel extends BaseObservable implements Language
     }
 
     @Override
-    public void setDefaultLanguageLanguage(Language defaultLanguage) {
+    public void setDefaultLanguage(Language defaultLanguage) {
         int position = mLanguageSettingAdapter.getPosition(defaultLanguage);
         mLanguageSettingAdapter.setPosition(position);
     }

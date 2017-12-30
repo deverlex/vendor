@@ -66,6 +66,6 @@ public class LanguageSettingPresenter implements LanguageSettingContract.Present
         if (mLanguage == null){
             mLanguage = new Language(mLanguageList.get(mPositionEnglish).getLanguageName(), mLanguageList.get(mPositionEnglish).getLanguageCode());
         }
-        mViewModel.setDefaultLanguageLanguage(mLanguage);
+        mViewModel.setDefaultLanguage(mLanguage);
     }
 }
