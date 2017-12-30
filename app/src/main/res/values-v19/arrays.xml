@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language_entries">
+        <item>@string/languge_china</item>
+        <item>@string/languge_english</item>
+        <item>@string/languge_thai</item>
+        <item>@string/languge_vietnam</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>zh</item>
+        <item>en</item>
+        <item>th</item>
+        <item>vi</item>
+    </string-array>
+
+</resources>
