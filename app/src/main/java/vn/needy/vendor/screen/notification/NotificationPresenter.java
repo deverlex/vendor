@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import vn.needy.vendor.model.Notification;
+import vn.needy.vendor.domain.Notification;
 
 /**
  * Created by lion on 21/10/2017.

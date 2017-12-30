@@ -2,7 +2,7 @@ package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
-import vn.needy.vendor.model.User;
+import vn.needy.vendor.domain.User;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.request.LoginReq;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;

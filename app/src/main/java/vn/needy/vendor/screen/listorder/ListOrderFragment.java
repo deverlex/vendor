@@ -13,7 +13,7 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.FragmentListOrderBinding;
-import vn.needy.vendor.model.Order;
+import vn.needy.vendor.domain.Order;
 
 /**
  * Created by lion on 21/10/2017.

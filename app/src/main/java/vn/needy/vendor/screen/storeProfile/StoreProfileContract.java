@@ -3,7 +3,7 @@ package vn.needy.vendor.screen.storeProfile;
 import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
-import vn.needy.vendor.model.Store;
+import vn.needy.vendor.domain.Store;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

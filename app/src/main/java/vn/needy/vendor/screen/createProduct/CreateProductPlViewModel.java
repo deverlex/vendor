@@ -7,7 +7,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -19,9 +18,8 @@ import java.util.List;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.domain.FeeTransport;
 import vn.needy.vendor.model.Image;
-import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;

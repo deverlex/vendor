@@ -4,7 +4,7 @@ import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.model.User;
+import vn.needy.vendor.domain.User;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

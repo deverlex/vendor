@@ -3,10 +3,8 @@ package vn.needy.vendor.screen.createProduct.childProduct;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.FragmentChildProductBinding;
-import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.port.api.VendorApi;

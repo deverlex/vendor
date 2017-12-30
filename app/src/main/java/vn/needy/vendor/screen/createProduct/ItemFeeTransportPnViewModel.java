@@ -2,7 +2,7 @@ package vn.needy.vendor.screen.createProduct;
 
 import android.databinding.BaseObservable;
 
-import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.domain.FeeTransport;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

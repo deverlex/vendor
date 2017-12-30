@@ -3,7 +3,7 @@ package vn.needy.vendor.model.wrapper;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.domain.FeeTransport;
 
 /**
  * Created by lion on 12/12/2017.

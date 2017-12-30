@@ -1,7 +1,7 @@
 package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.model.Store;
+import vn.needy.vendor.domain.Store;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoReq;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResp;

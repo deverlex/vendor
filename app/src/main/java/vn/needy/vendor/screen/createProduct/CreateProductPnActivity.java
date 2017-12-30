@@ -18,7 +18,7 @@ import java.util.List;
 import io.realm.RealmList;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityCreateProductPnBinding;
-import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.domain.FeeTransport;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;

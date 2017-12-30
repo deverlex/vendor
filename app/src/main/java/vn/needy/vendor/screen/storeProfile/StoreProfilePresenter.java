@@ -1,12 +1,10 @@
 package vn.needy.vendor.screen.storeProfile;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -15,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import vn.needy.vendor.database.realm.RealmApi;
-import vn.needy.vendor.model.Store;
+import vn.needy.vendor.domain.Store;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;

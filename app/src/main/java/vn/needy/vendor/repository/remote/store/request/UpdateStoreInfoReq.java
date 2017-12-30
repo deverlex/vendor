@@ -3,7 +3,7 @@ package vn.needy.vendor.repository.remote.store.request;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import vn.needy.vendor.model.Store;
+import vn.needy.vendor.domain.Store;
 
 /**
  * Created by lion on 12/12/2017.

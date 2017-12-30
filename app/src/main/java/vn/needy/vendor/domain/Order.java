@@ -1,4 +1,4 @@
-package vn.needy.vendor.model;
+package vn.needy.vendor.domain;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

@@ -4,16 +4,13 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ItemChooseChildProductBinding;
-import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 

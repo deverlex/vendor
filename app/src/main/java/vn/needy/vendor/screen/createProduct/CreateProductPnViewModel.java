@@ -22,7 +22,7 @@ import java.util.Map;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.domain.FeeTransport;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;

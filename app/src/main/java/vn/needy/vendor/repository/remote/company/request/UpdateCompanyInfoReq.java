@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.needy.vendor.model.Company;
-import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.domain.Company;
+import vn.needy.vendor.domain.FeeTransport;
 import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
 
 /**

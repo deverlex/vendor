@@ -5,7 +5,6 @@ import android.databinding.Bindable;
 
 import java.util.Locale;
 
-import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 

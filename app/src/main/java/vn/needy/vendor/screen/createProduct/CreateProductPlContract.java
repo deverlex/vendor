@@ -3,11 +3,9 @@ package vn.needy.vendor.screen.createProduct;
 import java.util.List;
 
 import vn.needy.vendor.model.Image;
-import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.repository.remote.product.request.AddProductPlReq;
-import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

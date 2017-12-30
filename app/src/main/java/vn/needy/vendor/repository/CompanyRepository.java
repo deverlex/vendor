@@ -1,7 +1,7 @@
 package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.model.Company;
+import vn.needy.vendor.domain.Company;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoReq;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.port.message.ResponseWrapper;

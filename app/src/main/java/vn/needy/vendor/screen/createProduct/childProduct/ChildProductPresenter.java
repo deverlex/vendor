@@ -1,14 +1,8 @@
 package vn.needy.vendor.screen.createProduct.childProduct;
 
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;

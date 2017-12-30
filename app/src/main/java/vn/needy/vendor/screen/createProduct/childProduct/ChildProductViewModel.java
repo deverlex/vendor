@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.List;
 
 import vn.needy.vendor.BR;
-import vn.needy.vendor.model.ProductPn;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.category.CategoriesActivity;

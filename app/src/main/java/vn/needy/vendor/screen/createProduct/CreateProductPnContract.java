@@ -2,8 +2,6 @@ package vn.needy.vendor.screen.createProduct;
 
 import java.util.List;
 
-import io.realm.RealmList;
-import vn.needy.vendor.model.FeeTransport;
 import vn.needy.vendor.model.wrapper.AttributeWrapper;
 import vn.needy.vendor.model.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;

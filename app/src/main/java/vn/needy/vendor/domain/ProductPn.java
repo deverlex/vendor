@@ -1,4 +1,4 @@
-package vn.needy.vendor.model;
+package vn.needy.vendor.domain;
 
 import android.os.Parcel;
 import android.os.Parcelable;
