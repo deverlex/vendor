@@ -8,20 +8,20 @@ import java.util.List;
 import vn.needy.vendor.port.wrapper.AttributeWrapper;
 
 /**
- * Created by lion on 12/12/2017.
+ * Created by lion on 06/12/2017.
  */
 
-public class AttributeInfoResp {
+public class AttributesResponse {
 
-    @SerializedName("attributes")
     @Expose
-    private List<AttributeWrapper> attributes;
+    @SerializedName("attributes")
+    private List<AttributeWrapper> mAttributes;
 
     public List<AttributeWrapper> getAttributes() {
-        return attributes;
+        return mAttributes;
     }
 
-    public void setAttributes(List<AttributeWrapper> attributes) {
-        this.attributes = attributes;
+    public void setAttributes(List<AttributeWrapper> attrs) {
+        mAttributes = attrs;
     }
 }

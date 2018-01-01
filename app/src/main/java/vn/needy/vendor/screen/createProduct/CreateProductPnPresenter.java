@@ -26,7 +26,7 @@ import vn.needy.vendor.repository.local.ProductDataLocal;
 import vn.needy.vendor.repository.local.StoreDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.product.ProductDataRemote;
-import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnRequest;
 import vn.needy.vendor.repository.remote.store.StoreDataRemote;
 import vn.needy.vendor.utils.Constant;
 
@@ -78,7 +78,7 @@ public class CreateProductPnPresenter implements CreateProductPnContract.Present
     }
 
     @Override
-    public void uploadProduct(final AddProductPnReq request, final List<Image> images) {
+    public void uploadProduct(final AddProductPnRequest request, final List<Image> images) {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -121,7 +121,7 @@ public class CreateProductPnPresenter implements CreateProductPnContract.Present
     }
 
     @Override
-    public boolean validateDataInput(AddProductPnReq request) {
+    public boolean validateDataInput(AddProductPnRequest request) {
         boolean isValidate = true;
         if (TextUtils.isEmpty(request.getName())) {
             mViewModel.onInputNameError(R.string.name_product_empty);

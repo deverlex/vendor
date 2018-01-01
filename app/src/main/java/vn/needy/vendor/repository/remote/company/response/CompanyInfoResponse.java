@@ -12,7 +12,7 @@ import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
  * Created by lion on 07/10/2017.
  */
 
-public class CompanyInfoResp {
+public class CompanyInfoResponse {
 
     @Expose
     @SerializedName("company")

@@ -4,12 +4,12 @@ import io.reactivex.Observable;
 import retrofit2.Response;
 import vn.needy.vendor.domain.User;
 import vn.needy.vendor.port.message.ResponseWrapper;
-import vn.needy.vendor.repository.remote.user.request.LoginReq;
-import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
-import vn.needy.vendor.repository.remote.user.response.LoginResp;
+import vn.needy.vendor.repository.remote.user.request.LoginRequest;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
-import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
@@ -20,23 +20,23 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface UserData {
 
     interface Remote {
-        Observable<ResponseWrapper<LoginResp>> login(LoginReq request);
+        Observable<ResponseWrapper<LoginResponse>> login(LoginRequest request);
 
         Observable<ResponseWrapper<TokenResponse>> refresh();
 
         Observable<Response<Void>> logout();
 
-        Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserReq request);
+        Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request);
 
         Observable<ResponseWrapper> findUserExist(String phoneNumber);
 
-        Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request);
+        Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountRequest request);
 
         Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
 
         Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request);
 
-        Observable<ResponseWrapper<BusinessInfoResp>> getBusinessInformation();
+        Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();
     }
 
     interface Local {

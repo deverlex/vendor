@@ -12,7 +12,7 @@ import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
@@ -180,7 +180,7 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     @Override
     public void onResetPasswordClick() {
         Log.d(TAG, "TOKEN? " + mFirebaseToken);
-        ResetAccountReq request = new ResetAccountReq();
+        ResetAccountRequest request = new ResetAccountRequest();
         request.setFirebaseToken(mFirebaseToken);
         request.setPassword(mPassword);
         mPresenter.resetPassword(mPhoneNumber, request);

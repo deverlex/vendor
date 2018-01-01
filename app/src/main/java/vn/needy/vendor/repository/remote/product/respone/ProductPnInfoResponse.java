@@ -11,7 +11,7 @@ import vn.needy.vendor.port.wrapper.ProductPnWrapper;
  * Created by truongpq on 27/12/2017.
  */
 
-public class ProductPnInfoResp {
+public class ProductPnInfoResponse {
     @SerializedName("products")
     @Expose
     private List<ProductPnWrapper> products;

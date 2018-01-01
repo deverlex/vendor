@@ -11,7 +11,7 @@ import vn.needy.vendor.port.wrapper.CategoryWrapper;
  * Created by lion on 07/11/2017.
  */
 
-public class CategoriesResp {
+public class CategoriesResponse {
     @Expose
     @SerializedName("categories")
     private List<CategoryWrapper> mCategories;

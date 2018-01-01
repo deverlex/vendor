@@ -13,7 +13,7 @@ import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.local.ProductDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.product.ProductDataRemote;
-import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResp;
+import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResponse;
 import vn.needy.vendor.utils.Constant;
 
 /**
@@ -55,9 +55,9 @@ public class ChildProductPresenter implements ChildProductContract.Presenter {
         mProductRepository.getProductsPnOfCompany(companyId, Constant.PRICE_NOW)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseWrapper<ProductPnInfoResp>>() {
+                .subscribe(new Consumer<ResponseWrapper<ProductPnInfoResponse>>() {
                     @Override
-                    public void accept(ResponseWrapper<ProductPnInfoResp> productPnInfoRespResponseWrapper) throws Exception {
+                    public void accept(ResponseWrapper<ProductPnInfoResponse> productPnInfoRespResponseWrapper) throws Exception {
                         mViewModel.onUpdateProducts(productPnInfoRespResponseWrapper.getData().getProducts());
                     }
                 }, new SafetyError() {
@@ -74,9 +74,9 @@ public class ChildProductPresenter implements ChildProductContract.Presenter {
         mProductRepository.getProductsPnOfCompany(companyId, category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseWrapper<ProductPnInfoResp>>() {
+                .subscribe(new Consumer<ResponseWrapper<ProductPnInfoResponse>>() {
                     @Override
-                    public void accept(ResponseWrapper<ProductPnInfoResp> productPnInfoRespResponseWrapper) throws Exception {
+                    public void accept(ResponseWrapper<ProductPnInfoResponse> productPnInfoRespResponseWrapper) throws Exception {
                         mViewModel.onUpdateProducts(productPnInfoRespResponseWrapper.getData().getProducts());
                     }
                 }, new SafetyError() {

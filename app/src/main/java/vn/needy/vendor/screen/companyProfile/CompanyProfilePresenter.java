@@ -21,8 +21,8 @@ import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
-import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoReq;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
+import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
 import vn.needy.vendor.domain.Company;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
@@ -99,10 +99,10 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
         mCompanyRepository.getCompanyInformation(companyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map(new Function<ResponseWrapper<CompanyInfoResp>, Company>() {
+                .map(new Function<ResponseWrapper<CompanyInfoResponse>, Company>() {
                          @Override
-                         public Company apply(ResponseWrapper<CompanyInfoResp> resp) throws Exception {
-                             CompanyInfoResp data = resp.getData();
+                         public Company apply(ResponseWrapper<CompanyInfoResponse> resp) throws Exception {
+                             CompanyInfoResponse data = resp.getData();
                              if (data != null) {
                                  Company company = new Company(data.getCompany());
                                  // save total staff
@@ -167,7 +167,7 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
                 }
             }
         }
-        UpdateCompanyInfoReq request = new UpdateCompanyInfoReq(company);
+        UpdateCompanyInfoRequest request = new UpdateCompanyInfoRequest(company);
         request.setmRemoveFeeTransportIds(removeFeeTransportIds);
         mCompanyRepository.updateCompanyInformation(company.getId(), request)
                 .subscribeOn(Schedulers.io())

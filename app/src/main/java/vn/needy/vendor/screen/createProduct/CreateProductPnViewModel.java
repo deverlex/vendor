@@ -27,7 +27,7 @@ import vn.needy.vendor.port.wrapper.AttributeWrapper;
 import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
-import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnRequest;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.createProduct.attribute.AttributeFragment;
@@ -163,7 +163,7 @@ public class CreateProductPnViewModel extends BaseObservable implements CreatePr
 
     @Override
     public void onClickCreate() {
-        AddProductPnReq request = new AddProductPnReq();
+        AddProductPnRequest request = new AddProductPnRequest();
         request.setName(mName);
         request.setDescription(mDescription);
         if (mCategory != null) {

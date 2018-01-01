@@ -31,7 +31,7 @@ import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
-import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.utils.Utils;
@@ -196,7 +196,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     }
 
     @Override
-    public void resetPassword(String phoneNumber, ResetAccountReq request) {
+    public void resetPassword(String phoneNumber, ResetAccountRequest request) {
         if (!validateDataInput(phoneNumber, request.getPassword())) return;
 
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);

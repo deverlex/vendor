@@ -12,23 +12,22 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
-import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResp;
-import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
-import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResp;
-import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoReq;
-import vn.needy.vendor.repository.remote.store.response.StoreInfoResp;
-import vn.needy.vendor.repository.remote.user.request.LoginReq;
-import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
-import vn.needy.vendor.repository.remote.user.response.LoginResp;
+import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResponse;
+import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResponse;
+import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoRequest;
+import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
+import vn.needy.vendor.repository.remote.user.request.LoginRequest;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
-import vn.needy.vendor.repository.remote.category.response.CategoriesResp;
+import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
-import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoReq;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
-import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
+import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.repository.remote.user.response.CompanyResp;
+import vn.needy.vendor.repository.remote.user.response.CompanyResponse;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
 /**
@@ -38,17 +37,17 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface VendorApi {
 
     @POST("v1/authentications")
-    Observable<ResponseWrapper<LoginResp>> login(@Body RequestWrapper<LoginReq> request);
+    Observable<ResponseWrapper<LoginResponse>> login(@Body RequestWrapper<LoginRequest> request);
 
     @POST("v1/users")
-    Observable<ResponseWrapper<TokenResponse>> registerUser(@Body RequestWrapper<RegisterUserReq> request);
+    Observable<ResponseWrapper<TokenResponse>> registerUser(@Body RequestWrapper<RegisterUserRequest> request);
 
     @GET("v1/users/finds")
     Observable<ResponseWrapper> findUserExist(@Query("username") String phoneNumber);
 
     @POST("v1/users/resets")
     Observable<ResponseWrapper<TokenResponse>> resetPassword(@Query("username") String phoneNumber,
-                                                             @Body RequestWrapper<ResetAccountReq> request);
+                                                             @Body RequestWrapper<ResetAccountRequest> request);
 
     @GET("v1/users/informations/details")
     Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
@@ -57,37 +56,37 @@ public interface VendorApi {
     Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
 
     @GET("v1/users/businesses/informations")
-    Observable<ResponseWrapper<BusinessInfoResp>> getBusinessInformation();
+    Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();
 
     @GET("v1/companies/users")
-    Observable<ResponseWrapper<CompanyResp>> findOurCompany();
+    Observable<ResponseWrapper<CompanyResponse>> findOurCompany();
 
     @GET("v1/companies/{company_id}/informations/details")
-    Observable<ResponseWrapper<CompanyInfoResp>> getCompanyInformation(@Path(value = "company_id") String companyId);
+    Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInformation(@Path(value = "company_id") String companyId);
 
     @PUT("v1/companies/{company_id}/informations/details")
     Observable<ResponseWrapper> updateCompanyInformation(@Path(value = "company_id") String companyId,
-                                                         @Body RequestWrapper<UpdateCompanyInfoReq> infoRequest);
+                                                         @Body RequestWrapper<UpdateCompanyInfoRequest> infoRequest);
 
     @POST("v1/companies")
-    Observable<ResponseWrapper<CompanyInfoResp>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
+    Observable<ResponseWrapper<CompanyInfoResponse>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
 
     @GET("v1/categories/{category}/childs")
-    Observable<ResponseWrapper<CategoriesResp>> getCategories(@Path("category") String category);
+    Observable<ResponseWrapper<CategoriesResponse>> getCategories(@Path("category") String category);
 
     @GET("v1/categories/{category}/childs")
-    Observable<ResponseWrapper<CategoriesResp>> getCompanyCategories(@Path("category") String category,
-                                                                     @Query("company_id") String companyId);
+    Observable<ResponseWrapper<CategoriesResponse>> getCompanyCategories(@Path("category") String category,
+                                                                         @Query("company_id") String companyId);
 
     @GET("v1/attributes/lists")
-    Observable<ResponseWrapper<AttributeInfoResp>> getAttributesCategory(@Query("category_name") String category);
+    Observable<ResponseWrapper<AttributeInfoResponse>> getAttributesCategory(@Query("category_name") String category);
 
     @GET("v1/stores/{store_id}/infomations/details")
-    Observable<ResponseWrapper<StoreInfoResp>> getStoreInfo(@Path(value = "store_id") String storeId);
+    Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(@Path(value = "store_id") String storeId);
 
     @PUT("v1/stores/{store_id}/infomations/details")
     Observable<ResponseWrapper> updateStoreInfo(@Path("store_id") String storeId,
-                                                @Body RequestWrapper<UpdateStoreInfoReq> infoReq);
+                                                @Body RequestWrapper<UpdateStoreInfoRequest> infoReq);
     /**************************************************************************************/
 
     @PUT("v1/companies/{company_id}/staffs/fcm_tokens")
@@ -105,7 +104,7 @@ public interface VendorApi {
             @Body RequestWrapper<Object> request);
 
     @GET("v1/pn/products")
-    Observable<ResponseWrapper<ProductPnInfoResp>> getAllProductsPnOfCompany(
+    Observable<ResponseWrapper<ProductPnInfoResponse>> getAllProductsPnOfCompany(
             @Query("company_id") String companyId,
             @Query("category") String category);
 

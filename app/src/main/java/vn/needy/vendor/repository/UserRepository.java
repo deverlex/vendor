@@ -3,13 +3,13 @@ package vn.needy.vendor.repository;
 import io.reactivex.Observable;
 import retrofit2.Response;
 import vn.needy.vendor.domain.User;
-import vn.needy.vendor.repository.remote.user.request.LoginReq;
+import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
-import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.port.message.ResponseWrapper;
-import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
-import vn.needy.vendor.repository.remote.user.response.LoginResp;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
@@ -27,7 +27,7 @@ public class UserRepository {
         mLocal = local;
     }
 
-    public Observable<ResponseWrapper<LoginResp>> login(LoginReq request) {
+    public Observable<ResponseWrapper<LoginResponse>> login(LoginRequest request) {
         return mRemote.login(request);
     }
 
@@ -39,7 +39,7 @@ public class UserRepository {
         return mRemote.logout();
     }
 
-    public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserReq request) {
+    public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request) {
         return mRemote.registerUser(request);
     }
 
@@ -47,7 +47,7 @@ public class UserRepository {
         return mRemote.findUserExist(phoneNumber);
     }
 
-    public Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request) {
+    public Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountRequest request) {
         return mRemote.resetPassword(phoneNumber, request);
     }
 
@@ -59,7 +59,7 @@ public class UserRepository {
         return mRemote.updateUserInformation(request);
     }
 
-    public Observable<ResponseWrapper<BusinessInfoResp>> getBusinessInformation() {
+    public Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation() {
         return mRemote.getBusinessInformation();
     }
 

@@ -26,7 +26,7 @@ import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.store.StoreDataRemote;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
-import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
@@ -110,12 +110,12 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 })
                 .observeOn(Schedulers.computation())
-                .map(new Function<ResponseWrapper<BusinessInfoResp>, ResponseWrapper<BusinessInfoResp>>() {
+                .map(new Function<ResponseWrapper<BusinessInfoResponse>, ResponseWrapper<BusinessInfoResponse>>() {
                     @Override
-                    public ResponseWrapper<BusinessInfoResp> apply(ResponseWrapper<BusinessInfoResp> resp) throws Exception {
+                    public ResponseWrapper<BusinessInfoResponse> apply(ResponseWrapper<BusinessInfoResponse> resp) throws Exception {
                         // save company & store response
                         if (resp.getStatus().equals(BaseStatus.OK)) {
-                            BusinessInfoResp data = resp.getData();
+                            BusinessInfoResponse data = resp.getData();
                             mCompanyRepository.saveCompanySync(new Company(data.getCompany()));
                             // save store into realm
                             mStoreRepository.saveStoreSync(new Store(data.getStore()));
@@ -124,9 +124,9 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseWrapper<BusinessInfoResp>>() {
+                .subscribe(new Consumer<ResponseWrapper<BusinessInfoResponse>>() {
                     @Override
-                    public void accept(ResponseWrapper<BusinessInfoResp> resp) throws Exception {
+                    public void accept(ResponseWrapper<BusinessInfoResponse> resp) throws Exception {
                         if (resp.getStatus().equals(BaseStatus.OK)) {
                             mainPage();
                         } else {

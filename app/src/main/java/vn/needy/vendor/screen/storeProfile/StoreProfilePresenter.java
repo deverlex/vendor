@@ -21,8 +21,8 @@ import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.StoreRepository;
 import vn.needy.vendor.repository.local.StoreDataLocal;
 import vn.needy.vendor.repository.remote.store.StoreDataRemote;
-import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoReq;
-import vn.needy.vendor.repository.remote.store.response.StoreInfoResp;
+import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoRequest;
+import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
 
 /**
  * Created by lion on 12/12/2017.
@@ -67,7 +67,7 @@ public class StoreProfilePresenter implements StoreProfileContract.Presenter {
 
     @Override
     public void updateStoreInfo(Store store) {
-        UpdateStoreInfoReq infoReq = new UpdateStoreInfoReq(store);
+        UpdateStoreInfoRequest infoReq = new UpdateStoreInfoRequest(store);
         mStoreRepository.updateStoreInfo(store.getId(), infoReq)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -127,10 +127,10 @@ public class StoreProfilePresenter implements StoreProfileContract.Presenter {
         mStoreRepository.getStoreInfo(storeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map(new Function<ResponseWrapper<StoreInfoResp>, Store>() {
+                .map(new Function<ResponseWrapper<StoreInfoResponse>, Store>() {
                     @Override
-                    public Store apply(ResponseWrapper<StoreInfoResp> storeInfoRespResponseWrapper) throws Exception {
-                        StoreInfoResp storeInfoResp = storeInfoRespResponseWrapper.getData();
+                    public Store apply(ResponseWrapper<StoreInfoResponse> storeInfoRespResponseWrapper) throws Exception {
+                        StoreInfoResponse storeInfoResp = storeInfoRespResponseWrapper.getData();
                         if (storeInfoResp != null) {
                             Store store = new Store(storeInfoResp.getStore());
                             store.setTotalStaff(storeInfoResp.getTotalStaff());

@@ -5,7 +5,7 @@ import java.util.List;
 import vn.needy.vendor.model.Image;
 import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.port.wrapper.ProductPnWrapper;
-import vn.needy.vendor.repository.remote.product.request.AddProductPlReq;
+import vn.needy.vendor.repository.remote.product.request.AddProductPlRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -42,8 +42,8 @@ public interface CreateProductPlContract {
     }
 
     interface Presenter extends BasePresenter {
-        void uploadProduct(AddProductPlReq request, List<Image> images);
+        void uploadProduct(AddProductPlRequest request, List<Image> images);
 
-        boolean validateDataInput(AddProductPlReq request);
+        boolean validateDataInput(AddProductPlRequest request);
     }
 }

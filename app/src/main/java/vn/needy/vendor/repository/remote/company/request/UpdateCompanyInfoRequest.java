@@ -14,7 +14,7 @@ import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
  * Created by truongpq on 08/12/2017.
  */
 
-public class UpdateCompanyInfoReq {
+public class UpdateCompanyInfoRequest {
     @Expose
     @SerializedName("name")
     private String mName;
@@ -52,11 +52,11 @@ public class UpdateCompanyInfoReq {
     @SerializedName("removeFeeTransportId")
     private List<Long> mRemoveFeeTransportIds;
 
-    public UpdateCompanyInfoReq() {
+    public UpdateCompanyInfoRequest() {
         super();
     }
 
-    public UpdateCompanyInfoReq(Company company) {
+    public UpdateCompanyInfoRequest(Company company) {
         mName = company.getName();
         mAddress = company.getAddress();
         mDescription = company.getDescription();

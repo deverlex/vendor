@@ -15,7 +15,7 @@ import vn.needy.vendor.port.error.SafetyError;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
 
 /**
  * Created by lion on 07/10/2017.
@@ -57,10 +57,10 @@ public class RegisterCompanyPresenter implements RegisterCompanyContract.Present
                 }
             })
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<ResponseWrapper<CompanyInfoResp>>() {
+            .subscribe(new Consumer<ResponseWrapper<CompanyInfoResponse>>() {
                 @Override
-                public void accept(ResponseWrapper<CompanyInfoResp> companyResponse) throws Exception {
-                    CompanyInfoResp data = companyResponse.getData();
+                public void accept(ResponseWrapper<CompanyInfoResponse> companyResponse) throws Exception {
+                    CompanyInfoResponse data = companyResponse.getData();
                     if (data != null && data.getCompany() != null) {
                         mViewModel.onRegisterSuccess();
                         mViewModel.onHideProgressBar();

@@ -11,7 +11,7 @@ import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
  * Created by truongpq on 28/12/2017.
  */
 
-public class AddProductPlReq {
+public class AddProductPlRequest {
     @Expose
     @SerializedName("category")
     private String mCategory;

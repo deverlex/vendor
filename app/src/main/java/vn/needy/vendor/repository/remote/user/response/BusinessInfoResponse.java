@@ -10,7 +10,7 @@ import vn.needy.vendor.port.wrapper.StoreWrapper;
  * Created by lion on 13/12/2017.
  */
 
-public class BusinessInfoResp {
+public class BusinessInfoResponse {
 
     @Expose
     @SerializedName("company")

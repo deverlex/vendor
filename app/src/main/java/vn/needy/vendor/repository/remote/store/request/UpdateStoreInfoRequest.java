@@ -9,7 +9,7 @@ import vn.needy.vendor.domain.Store;
  * Created by lion on 12/12/2017.
  */
 
-public class UpdateStoreInfoReq {
+public class UpdateStoreInfoRequest {
     @Expose
     @SerializedName("name")
     private String mName;
@@ -42,7 +42,7 @@ public class UpdateStoreInfoReq {
     @SerializedName("closingTime")
     private String mClosingTime;
 
-    public UpdateStoreInfoReq(Store store) {
+    public UpdateStoreInfoRequest(Store store) {
         mName = store.getName();
         mAddress = store.getAddress();
         mDescription = store.getDescription();

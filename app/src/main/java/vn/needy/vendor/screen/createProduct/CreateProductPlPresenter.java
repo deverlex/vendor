@@ -2,13 +2,11 @@ package vn.needy.vendor.screen.createProduct;
 
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
@@ -26,7 +24,7 @@ import vn.needy.vendor.repository.local.ProductDataLocal;
 import vn.needy.vendor.repository.local.StoreDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.product.ProductDataRemote;
-import vn.needy.vendor.repository.remote.product.request.AddProductPlReq;
+import vn.needy.vendor.repository.remote.product.request.AddProductPlRequest;
 import vn.needy.vendor.repository.remote.store.StoreDataRemote;
 import vn.needy.vendor.utils.Constant;
 
@@ -70,7 +68,7 @@ public class CreateProductPlPresenter implements CreateProductPlContract.Present
     }
 
     @Override
-    public void uploadProduct(final AddProductPlReq request, final List<Image> images) {
+    public void uploadProduct(final AddProductPlRequest request, final List<Image> images) {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -112,7 +110,7 @@ public class CreateProductPlPresenter implements CreateProductPlContract.Present
     }
 
     @Override
-    public boolean validateDataInput(AddProductPlReq request) {
+    public boolean validateDataInput(AddProductPlRequest request) {
         boolean isValidate = true;
 
         if (TextUtils.isEmpty(request.getName())) {

@@ -12,7 +12,7 @@ import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
  * Created by lion on 10/11/2017.
  */
 
-public class AddProductPnReq {
+public class AddProductPnRequest {
 
     @Expose
     @SerializedName("category")
