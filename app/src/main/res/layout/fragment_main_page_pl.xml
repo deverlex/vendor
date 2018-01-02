@@ -67,7 +67,6 @@
                 android:background="@color/gray12"
                 android:orientation="vertical"
                 app:spanCount="2"
-                android:layout_marginTop="@dimen/dp_10"
                 app:recyclerAdapter="@{viewModel.productPlAdapter}"
                 app:layoutManager="GridLayoutManager"
                 />
