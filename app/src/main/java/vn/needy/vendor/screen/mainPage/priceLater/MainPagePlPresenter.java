@@ -1,12 +1,11 @@
 package vn.needy.vendor.screen.mainPage.priceLater;
 
-import vn.needy.vendor.screen.mainPage.priceNow.MainPagePnContract;
 
 /**
  * Created by truongpq on 02/01/2018.
  */
 
-public class MainPagePlPresenter implements MainPagePnContract.Presenter{
+public class MainPagePlPresenter implements MainPagePlContract.Presenter{
     private MainPagePlContract.ViewModel mViewModel;
 
     public MainPagePlPresenter(MainPagePlContract.ViewModel viewModel) {

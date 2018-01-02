@@ -61,24 +61,16 @@
             android:layout_below="@+id/top_product"
             android:background="@color/color_white">
 
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginBottom="@dimen/dp_1"-->
-                <!--android:layout_marginEnd="@dimen/dp_2"-->
-                <!--android:layout_marginLeft="@dimen/dp_1"-->
-                <!--android:layout_marginRight="@dimen/dp_1"-->
-                <!--android:layout_marginStart="@dimen/dp_1"-->
-                <!--android:layout_marginTop="@dimen/dp_5"-->
-                <!--android:orientation="vertical"-->
-                <!--app:layoutManager="LinearLayoutManager" />-->
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true" />
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray12"
+                android:orientation="vertical"
+                app:spanCount="2"
+                android:layout_marginTop="@dimen/dp_10"
+                app:recyclerAdapter="@{viewModel.productPnAdapter}"
+                app:layoutManager="GridLayoutManager"
+                />
         </RelativeLayout>
     </RelativeLayout>
 </layout>

@@ -11,7 +11,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_320"
+        android:layout_height="@dimen/dp_250"
         android:foreground="?android:attr/selectableItemBackground"
         android:padding="@dimen/dp_3"
         app:cardCornerRadius="@dimen/dp_3"
@@ -29,7 +29,7 @@
                 <ImageView
                     android:id="@+id/image_product"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_200"
+                    android:layout_height="@dimen/dp_150"
                     android:background="@drawable/ic_placeholder"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
@@ -56,7 +56,7 @@
                 android:layout_below="@+id/image_container"
                 android:ellipsize="marquee"
                 android:maxLines="2"
-                android:text="Product name"
+                android:text="@{viewModel.name}"
                 android:lineSpacingExtra="@dimen/dp_4"
                 android:padding="@dimen/dp_5"
                 android:textColor="@color/black"
@@ -68,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/extras_info">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -75,7 +76,7 @@
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_5"
-                    android:text="đ 209.000"
+                    android:text="@{viewModel.price}"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/sp_17"
                     tools:ignore="UnusedAttribute" />

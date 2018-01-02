@@ -1,6 +1,9 @@
 package vn.needy.vendor.screen.mainPage.priceNow;
 
+import java.util.List;
+
 import vn.needy.vendor.port.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.ProductPnWrapper;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -13,9 +16,11 @@ public interface MainPagePnContract {
         void onClickCategories();
 
         void updateCategory(CategoryWrapper category);
+
+        void onUpdateProducts(List<ProductPnWrapper> productPns);
     }
 
     interface Presenter extends BasePresenter {
-
+        void getProductByCategory(String category);
     }
 }
