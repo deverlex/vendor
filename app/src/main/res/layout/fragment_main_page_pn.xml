@@ -1,0 +1,84 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.mainPage.priceNow.MainPagePnViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        tools:ignore="ScrollViewSize">
+
+        <LinearLayout
+            android:id="@+id/top_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/app_bar"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@{@drawable/ic_label}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableStart="@{@drawable/ic_label}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="start|center_vertical"
+                android:padding="@dimen/dp_10"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="UnusedAttribute"
+                android:text="@{viewModel.category}"
+                android:onClick="@{() -> viewModel.onClickCategories()}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@{@drawable/ic_next_right}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableRight="@{@drawable/ic_next_right}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="end|center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="Bán chạy nhất"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="UnusedAttribute" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top_product"
+            android:background="@color/color_white">
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginBottom="@dimen/dp_1"-->
+                <!--android:layout_marginEnd="@dimen/dp_2"-->
+                <!--android:layout_marginLeft="@dimen/dp_1"-->
+                <!--android:layout_marginRight="@dimen/dp_1"-->
+                <!--android:layout_marginStart="@dimen/dp_1"-->
+                <!--android:layout_marginTop="@dimen/dp_5"-->
+                <!--android:orientation="vertical"-->
+                <!--app:layoutManager="LinearLayoutManager" />-->
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
