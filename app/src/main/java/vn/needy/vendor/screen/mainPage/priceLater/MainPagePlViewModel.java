@@ -7,10 +7,15 @@ import android.databinding.Bindable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import java.util.List;
+
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.port.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.ProductPlWrapper;
 import vn.needy.vendor.screen.category.CategoriesActivity;
+import vn.needy.vendor.screen.mainPage.itemProduct.ProductPlAdapter;
+import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -22,18 +27,21 @@ public class MainPagePlViewModel extends BaseObservable implements MainPagePlCon
     private final Navigator mNavigator;
     private Context mContext;
     private Fragment mFragment;
+    private ProductPlAdapter mProductPlAdapter;
 
     private CategoryWrapper mCategory;
 
-    public MainPagePlViewModel(Context context, Fragment fragment, Navigator navigator) {
+    public MainPagePlViewModel(Context context, Fragment fragment, Navigator navigator, ProductPlAdapter productPlAdapter) {
         mContext = context;
         mFragment = fragment;
         this.mNavigator = navigator;
+        mProductPlAdapter = productPlAdapter;
     }
 
     @Override
     public void onStart() {
-
+        // Get All products Pl of company
+        mPresenter.getProductByCategory(Constant.PRICE_LATER);
     }
 
     @Override
@@ -60,6 +68,12 @@ public class MainPagePlViewModel extends BaseObservable implements MainPagePlCon
     public void updateCategory(CategoryWrapper category) {
         mCategory = category;
         notifyPropertyChanged(BR.category);
+        mPresenter.getProductByCategory(category.getName());
+    }
+
+    @Override
+    public void onUpdateProducts(List<ProductPlWrapper> productPls) {
+        mProductPlAdapter.setData(productPls);
     }
 
     @Bindable
@@ -69,5 +83,10 @@ public class MainPagePlViewModel extends BaseObservable implements MainPagePlCon
             return mCategory.getName();
         }
         return mContext.getString(R.string.all_category);
+    }
+
+    @Bindable
+    public ProductPlAdapter getProductPlAdapter() {
+        return mProductPlAdapter;
     }
 }
