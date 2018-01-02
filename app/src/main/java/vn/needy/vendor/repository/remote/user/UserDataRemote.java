@@ -4,14 +4,14 @@ import io.reactivex.Observable;
 import retrofit2.Response;
 import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
-import vn.needy.vendor.repository.remote.user.request.LoginReq;
-import vn.needy.vendor.repository.remote.user.response.BusinessInfoResp;
-import vn.needy.vendor.repository.remote.user.response.LoginResp;
+import vn.needy.vendor.repository.remote.user.request.LoginRequest;
+import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.UserData;
 import vn.needy.vendor.port.api.VendorApi;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
-import vn.needy.vendor.repository.remote.user.request.ResetAccountReq;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
+import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 import vn.needy.vendor.repository.remote.BaseDataRemote;
@@ -27,8 +27,8 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper<LoginResp>> login(LoginReq request) {
-        return mApi.login(new RequestWrapper<LoginReq>().setData(request));
+    public Observable<ResponseWrapper<LoginResponse>> login(LoginRequest request) {
+        return mApi.login(new RequestWrapper<LoginRequest>().setData(request));
     }
 
     @Override
@@ -42,8 +42,8 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserReq request) {
-        return mApi.registerUser(new RequestWrapper<RegisterUserReq>().setData(request));
+    public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request) {
+        return mApi.registerUser(new RequestWrapper<RegisterUserRequest>().setData(request));
     }
 
     @Override
@@ -52,8 +52,8 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountReq request) {
-        return mApi.resetPassword(phoneNumber, new RequestWrapper<ResetAccountReq>().setData(request));
+    public Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountRequest request) {
+        return mApi.resetPassword(phoneNumber, new RequestWrapper<ResetAccountRequest>().setData(request));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper<BusinessInfoResp>> getBusinessInformation() {
+    public Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation() {
         return mApi.getBusinessInformation();
     }
 }

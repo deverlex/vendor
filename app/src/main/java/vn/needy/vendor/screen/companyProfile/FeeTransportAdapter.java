@@ -12,7 +12,7 @@ import java.util.List;
 import io.realm.RealmList;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ItemFeeTransportBinding;
-import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.domain.FeeTransport;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

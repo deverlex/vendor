@@ -2,7 +2,7 @@ package vn.needy.vendor.screen.listorder;
 
 import android.databinding.BaseObservable;
 
-import vn.needy.vendor.model.Order;
+import vn.needy.vendor.domain.Order;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

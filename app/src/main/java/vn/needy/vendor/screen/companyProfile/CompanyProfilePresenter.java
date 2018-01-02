@@ -1,12 +1,9 @@
 package vn.needy.vendor.screen.companyProfile;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -17,16 +14,16 @@ import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import vn.needy.vendor.database.realm.RealmApi;
-import vn.needy.vendor.model.FeeTransport;
-import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
+import vn.needy.vendor.domain.FeeTransport;
+import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
-import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoReq;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
-import vn.needy.vendor.model.Company;
+import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.domain.Company;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
 
@@ -102,10 +99,10 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
         mCompanyRepository.getCompanyInformation(companyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map(new Function<ResponseWrapper<CompanyInfoResp>, Company>() {
+                .map(new Function<ResponseWrapper<CompanyInfoResponse>, Company>() {
                          @Override
-                         public Company apply(ResponseWrapper<CompanyInfoResp> resp) throws Exception {
-                             CompanyInfoResp data = resp.getData();
+                         public Company apply(ResponseWrapper<CompanyInfoResponse> resp) throws Exception {
+                             CompanyInfoResponse data = resp.getData();
                              if (data != null) {
                                  Company company = new Company(data.getCompany());
                                  // save total staff
@@ -170,7 +167,7 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
                 }
             }
         }
-        UpdateCompanyInfoReq request = new UpdateCompanyInfoReq(company);
+        UpdateCompanyInfoRequest request = new UpdateCompanyInfoRequest(company);
         request.setmRemoveFeeTransportIds(removeFeeTransportIds);
         mCompanyRepository.updateCompanyInformation(company.getId(), request)
                 .subscribeOn(Schedulers.io())

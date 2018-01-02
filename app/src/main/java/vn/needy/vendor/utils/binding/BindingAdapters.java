@@ -13,9 +13,11 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.TransformationMethod;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,7 +28,8 @@ import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.views.BannerSlider;
-import vn.needy.vendor.model.wrapper.AttributeWrapper.DataType;
+import vn.needy.vendor.R;
+import vn.needy.vendor.port.wrapper.AttributeWrapper.DataType;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.utils.ViewUtil;
@@ -63,6 +66,11 @@ public class BindingAdapters {
         editText.setError(text);
     }
 
+    @BindingAdapter("errorText")
+    public static void setErrorTextForTextView(TextView textView, String text) {
+        textView.setError(text);
+    }
+
     @BindingAdapter("htmlText")
     public static void setHtmlText(TextView textView, String text) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -75,6 +83,16 @@ public class BindingAdapters {
     @BindingAdapter("srcVector")
     public static void setSrcVector(ImageButton view, @DrawableRes int drawable) {
         view.setImageResource(drawable);
+    }
+
+    @BindingAdapter("srcDrawableRight")
+    public static void setDrawableRightTextView(TextView view, int drawable) {
+        view.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0);
+    }
+
+    @BindingAdapter("srcDrawableLeft")
+    public static void setDrawableLeftTextView(TextView view, int drawable) {
+        view.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
     }
 
 
@@ -151,5 +169,14 @@ public class BindingAdapters {
     @BindingAdapter("addOnPageChangeListener")
     public static void addOnPageChangeListenerForViewPager(ViewPager viewPager, ViewPager.OnPageChangeListener onPageChangeListener) {
         viewPager.addOnPageChangeListener(onPageChangeListener);
+    }
+
+    @BindingAdapter("spinnerAdapter")
+    public static void setSpinnerAdapter(Spinner spinner, List<Object> objects) {
+        if (objects != null) {
+            ArrayAdapter<Object> adapter = new ArrayAdapter<>(spinner.getContext(), R.layout.attribute_spinner_item, objects);
+            adapter.setDropDownViewResource(R.layout.attribute_spinner_item);
+            spinner.setAdapter(adapter);
+        }
     }
 }

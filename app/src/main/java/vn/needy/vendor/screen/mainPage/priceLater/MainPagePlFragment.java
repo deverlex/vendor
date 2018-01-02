@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.FragmentMainPagePlBinding;
 import vn.needy.vendor.databinding.FragmentMainPagePnBinding;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.screen.category.CategoriesActivity;
 import vn.needy.vendor.screen.mainPage.priceNow.MainPagePnContract;
 import vn.needy.vendor.screen.mainPage.priceNow.MainPagePnViewModel;

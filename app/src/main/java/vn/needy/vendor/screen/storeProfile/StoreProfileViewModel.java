@@ -6,7 +6,6 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.location.Location;
-import android.util.Log;
 import android.widget.TimePicker;
 
 import com.google.android.gms.location.LocationServices;
@@ -27,7 +26,7 @@ import java.util.Locale;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.Store;
+import vn.needy.vendor.domain.Store;
 
 /**
  * Created by lion on 12/12/2017.

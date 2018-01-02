@@ -9,11 +9,12 @@ import android.util.Log;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
+import vn.needy.vendor.screen.createProduct.CreateProductPlActivity;
 import vn.needy.vendor.screen.createProduct.CreateProductPnActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.screen.mainPage.priceLater.MainPagePlFragment;
@@ -63,9 +64,14 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
             // from add product pn
             Log.w(TAG, "from add product pn");
             mPresenter.getCategoryPriceNow();
-        } else {
+        } else if (mFromClass.equals(CreateProductPlActivity.class.getSimpleName())){
             // from add product pl
             Log.w(TAG, "from add product pl");
+            mPresenter.getCategoryPriceLater();
+        } else {
+            // from add child product
+            Log.w(TAG, "from add child product");
+            mPresenter.getCategoryPriceNow();
         }
     }
 

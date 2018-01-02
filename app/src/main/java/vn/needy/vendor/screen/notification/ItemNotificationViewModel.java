@@ -2,7 +2,7 @@ package vn.needy.vendor.screen.notification;
 
 import android.databinding.BaseObservable;
 
-import vn.needy.vendor.model.Notification;
+import vn.needy.vendor.domain.Notification;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

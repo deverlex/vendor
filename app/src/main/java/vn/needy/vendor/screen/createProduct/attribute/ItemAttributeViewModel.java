@@ -2,9 +2,12 @@ package vn.needy.vendor.screen.createProduct.attribute;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.widget.Spinner;
 
-import vn.needy.vendor.model.wrapper.AttributeWrapper;
-import vn.needy.vendor.model.wrapper.AttributeWrapper.DataType;
+import java.util.List;
+
+import vn.needy.vendor.port.wrapper.AttributeWrapper;
+import vn.needy.vendor.port.wrapper.AttributeWrapper.DataType;
 
 /**
  * Created by lion on 04/12/2017.
@@ -48,5 +51,14 @@ public class ItemAttributeViewModel extends BaseObservable {
             return mAttribute.getDataType();
         }
         return DataType.STRING;
+    }
+
+    @Bindable
+    public List<Object> getValues() {
+        return mAttribute.getValues();
+    }
+
+    public void onItemSelected(Spinner spinner) {
+        mAttribute.setValue(mAttribute.getValues().get(spinner.getSelectedItemPosition()));
     }
 }

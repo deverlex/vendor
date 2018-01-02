@@ -2,10 +2,10 @@ package vn.needy.vendor.screen.createProduct;
 
 import java.util.List;
 
-import vn.needy.vendor.model.wrapper.AttributeWrapper;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.AttributeWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
-import vn.needy.vendor.repository.remote.product.request.AddProductPnReq;
+import vn.needy.vendor.repository.remote.product.request.AddProductPnRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -25,6 +25,10 @@ interface CreateProductPnContract {
 
         void onInputPriceError(int msg);
 
+        void onInputCategoryError(int msg);
+
+        void onInputAttributesError(int msg);
+
         void onChooseCategory();
 
         void onClickAddImage();
@@ -40,12 +44,16 @@ interface CreateProductPnContract {
         void updateCategory(CategoryWrapper category);
 
         void onSelectedListAttribute(List<AttributeWrapper> attributes);
+
+        void onBackPressed();
+
+        void addFeeTransport();
     }
 
     interface Presenter extends BasePresenter {
 
-        void uploadProduct(AddProductPnReq request, List<Image> images);
+        void uploadProduct(AddProductPnRequest request, List<Image> images);
 
-        boolean validateDataInput(AddProductPnReq request);
+        boolean validateDataInput(AddProductPnRequest request);
     }
 }

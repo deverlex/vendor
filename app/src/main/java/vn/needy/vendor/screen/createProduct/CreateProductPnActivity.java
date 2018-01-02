@@ -15,11 +15,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.realm.RealmList;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityCreateProductPnBinding;
-import vn.needy.vendor.model.wrapper.AttributeWrapper;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.domain.FeeTransport;
+import vn.needy.vendor.port.wrapper.AttributeWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.model.Image;
+import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.ImageAdapter;
 import vn.needy.vendor.screen.createProduct.attribute.AttributeFragment;
@@ -40,6 +44,7 @@ public class CreateProductPnActivity extends BaseActivity
     public static final int RC_CHOOSE_CATEGORY = 1782;
 
     private Navigator mNavigator;
+    private VendorApi mVendorApi;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -47,9 +52,16 @@ public class CreateProductPnActivity extends BaseActivity
         ImageAdapter imageAdapter = new ImageAdapter(this, images);
 
         mNavigator = new Navigator(this);
+        mVendorApi = VendorServiceClient.getInstance();
 
-        mViewModel = new CreateProductPnViewModel(this, mNavigator, imageAdapter);
-        CreateProductPnContract.Presenter presenter = new CreateProductPnPresenter(this, mViewModel);
+        List<AttributeWrapper> attributeWrappers = new ArrayList<>();
+        AttributeProductPnAdapter attributeResultPnAdapter = new AttributeProductPnAdapter(this, attributeWrappers);
+
+        RealmList<FeeTransport> feeTransports = new RealmList<>();
+        FeeTransportPnAdapter feeTransportAdapter = new FeeTransportPnAdapter(this, feeTransports);
+
+        mViewModel = new CreateProductPnViewModel(this, mNavigator, imageAdapter, attributeResultPnAdapter, feeTransportAdapter);
+        CreateProductPnContract.Presenter presenter = new CreateProductPnPresenter(this, mViewModel, mVendorApi);
         mViewModel.setPresenter(presenter);
 
         ActivityCreateProductPnBinding binding =

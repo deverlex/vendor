@@ -5,7 +5,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
@@ -15,7 +15,7 @@ import vn.needy.vendor.repository.CategoryRepository;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
 import vn.needy.vendor.repository.remote.category.CategoryDataRemote;
-import vn.needy.vendor.repository.remote.category.response.CategoriesResp;
+import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.utils.Constant;
 
@@ -60,10 +60,10 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
         mCategoryRepository.getCompanyCategories(Constant.PRICE_NOW, mCompanyId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<ResponseWrapper<CategoriesResp>>() {
+            .subscribe(new Consumer<ResponseWrapper<CategoriesResponse>>() {
                 @Override
-                public void accept(ResponseWrapper<CategoriesResp> resp) throws Exception {
-                    CategoriesResp data = resp.getData();
+                public void accept(ResponseWrapper<CategoriesResponse> resp) throws Exception {
+                    CategoriesResponse data = resp.getData();
                     if (data != null) {
                         List<CategoryWrapper> categories = data.getCategories();
                         if (categories != null && categories.size() > 0) {
@@ -86,10 +86,10 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
         mCategoryRepository.getCompanyCategories(Constant.PRICE_LATER, mCompanyId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<ResponseWrapper<CategoriesResp>>() {
+            .subscribe(new Consumer<ResponseWrapper<CategoriesResponse>>() {
                 @Override
-                public void accept(ResponseWrapper<CategoriesResp> resp) throws Exception {
-                    CategoriesResp data = resp.getData();
+                public void accept(ResponseWrapper<CategoriesResponse> resp) throws Exception {
+                    CategoriesResponse data = resp.getData();
                     if (data != null) {
                         List<CategoryWrapper> categories = data.getCategories();
                         if (categories != null && categories.size() > 0) {
@@ -112,10 +112,10 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
         mCategoryRepository.getCategories(Constant.PRICE_NOW)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<ResponseWrapper<CategoriesResp>>() {
+            .subscribe(new Consumer<ResponseWrapper<CategoriesResponse>>() {
                 @Override
-                public void accept(ResponseWrapper<CategoriesResp> resp) throws Exception {
-                    CategoriesResp data = resp.getData();
+                public void accept(ResponseWrapper<CategoriesResponse> resp) throws Exception {
+                    CategoriesResponse data = resp.getData();
                     if (data != null) {
                         List<CategoryWrapper> categories = data.getCategories();
                         if (categories != null && categories.size() > 0) {
@@ -135,7 +135,28 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void getCategoryPriceLater() {
-
+        mCategoryRepository.getCategories(Constant.PRICE_LATER)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseWrapper<CategoriesResponse>>() {
+                    @Override
+                    public void accept(ResponseWrapper<CategoriesResponse> resp) throws Exception {
+                        CategoriesResponse data = resp.getData();
+                        if (data != null) {
+                            List<CategoryWrapper> categories = data.getCategories();
+                            if (categories != null && categories.size() > 0) {
+                                mViewModel.onUpdateListCategory(categories);
+                            } else if (categories == null) {
+                                mViewModel.backActivity();
+                            }
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onUpdateListCategoryError(error);
+                    }
+                });
     }
 
     @Override
@@ -143,10 +164,10 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
         mCategoryRepository.getCompanyCategories(category, mCompanyId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<ResponseWrapper<CategoriesResp>>() {
+            .subscribe(new Consumer<ResponseWrapper<CategoriesResponse>>() {
                 @Override
-                public void accept(ResponseWrapper<CategoriesResp> resp) throws Exception {
-                    CategoriesResp data = resp.getData();
+                public void accept(ResponseWrapper<CategoriesResponse> resp) throws Exception {
+                    CategoriesResponse data = resp.getData();
                     if (data != null) {
                         List<CategoryWrapper> categories = data.getCategories();
                         if (categories != null && categories.size() > 0) {
@@ -169,10 +190,10 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
         mCategoryRepository.getCategories(category)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<ResponseWrapper<CategoriesResp>>() {
+            .subscribe(new Consumer<ResponseWrapper<CategoriesResponse>>() {
                 @Override
-                public void accept(ResponseWrapper<CategoriesResp> resp) throws Exception {
-                    CategoriesResp data = resp.getData();
+                public void accept(ResponseWrapper<CategoriesResponse> resp) throws Exception {
+                    CategoriesResponse data = resp.getData();
                     if (data != null) {
                         List<CategoryWrapper> categories = data.getCategories();
                         if (categories != null && categories.size() > 0) {

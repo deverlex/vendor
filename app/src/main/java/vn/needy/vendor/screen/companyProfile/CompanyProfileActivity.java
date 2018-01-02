@@ -8,7 +8,7 @@ import io.realm.RealmList;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.databinding.ActivityCompanyProfileBinding;
-import vn.needy.vendor.model.FeeTransport;
+import vn.needy.vendor.domain.FeeTransport;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;

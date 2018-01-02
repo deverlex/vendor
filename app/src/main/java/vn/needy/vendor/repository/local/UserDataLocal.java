@@ -2,13 +2,12 @@ package vn.needy.vendor.repository.local;
 
 import android.util.Log;
 
-import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.functions.BiConsumer;
 import io.realm.Realm;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
-import vn.needy.vendor.model.User;
+import vn.needy.vendor.domain.User;
 import vn.needy.vendor.repository.UserData;
 import vn.needy.vendor.database.realm.RealmApi;
 
