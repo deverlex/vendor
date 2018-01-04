@@ -18,7 +18,7 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  * Created by minh_dai on 29/12/2017.
  */
 
-public class BlackListSettingAdapter extends BaseRecyclerViewAdapter<BlackListSettingAdapter.ItemViewHoder> {
+public class BlackListSettingAdapter extends BaseRecyclerViewAdapter<BlackListSettingAdapter.ItemViewHolder> {
 
     private int mPosition;
     private Context mContext;
@@ -32,15 +32,14 @@ public class BlackListSettingAdapter extends BaseRecyclerViewAdapter<BlackListSe
     }
 
     @Override
-    public ItemViewHoder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemBlockedBinding itemBlockedBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext())
-                , R.layout.item_blocked , parent , false);
-
-        return new BlackListSettingAdapter.ItemViewHoder(mItemClickListener, itemBlockedBinding );
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ItemBlockedBinding itemBlockedBinding =
+                DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_blocked, parent , false);
+        return new ItemViewHolder(mItemClickListener, itemBlockedBinding );
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHoder holder, int position) {
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
         holder.bind(mListUser.get(position));
     }
 
@@ -82,19 +81,22 @@ public class BlackListSettingAdapter extends BaseRecyclerViewAdapter<BlackListSe
         notifyDataSetChanged();
     }
 
-    public class ItemViewHoder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemCLickListener;
         private  ItemBlockedBinding mItemBinding;
 
-        public ItemViewHoder(OnRecyclerViewItemClickListener<Object> mItemCLickListener, ItemBlockedBinding itemBlockedBinding) {
+        public ItemViewHolder(OnRecyclerViewItemClickListener<Object> mItemCLickListener,
+                              ItemBlockedBinding itemBlockedBinding) {
+
             super(itemBlockedBinding.getRoot());
             this.mItemCLickListener = mItemCLickListener;
             this.mItemBinding = itemBlockedBinding;
         }
 
         void bind(BlockUser user ) {
-            mItemBinding.setViewModel(new ItemBlackListSettingViewModel(mContext , user , mItemCLickListener, BlackListSettingAdapter.this ));
+            mItemBinding.setViewModel(new ItemBlackListSettingViewModel(mContext, user,
+                    mItemCLickListener, BlackListSettingAdapter.this ));
             mItemBinding.executePendingBindings();
         }
     }

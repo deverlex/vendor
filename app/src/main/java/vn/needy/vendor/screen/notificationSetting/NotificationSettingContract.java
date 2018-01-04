@@ -11,41 +11,35 @@ interface NotificationSettingContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void onNotificationCLick();
-
-        void onNotificationEmailCLick();
-
         void onBackPressed();
 
-        void onNotification();
+        void onNotificationCLick();
 
-        void onNotificationSettingEmail();
+        void onReceiveEmailCLick();
 
-        void onNotificationSetting();
+        void onTurnOnReceiveEmail();
+
+        void onReceiveNotificationClick();
 
         void onNotificationUpdateProductClick();
 
-        void onNotificationChatClick();
+        void onReceiveChatNotifyClick();
 
         void onNotificationProductPromotionClick();
 
         void onNotificationFollowCLick();
 
-        void onNotificationProductEndCLick();
+        void onNotifyEmptyWarehouseClick();
 
-        void onNotificationUpdateAppClick();
+        void onReceiveAppUpdateClick();
 
-        void onNotificationProductClick();
+        void onReceiveUpdateOrderAndPaymentClick();
 
-        void notificationEmailApp();
+        void onReceiveInfoStoreAndCompany();
 
-        void notificationNewClick();
+        void onReceiveNewsClick();
 
-        void onNotificationPersonalClick();
-
-        void onNotificationGroupClick();
-
-        void onNotificationSave();
+        void onReceivePersonalInfoClick();
     }
 
     interface Presenter extends BasePresenter {

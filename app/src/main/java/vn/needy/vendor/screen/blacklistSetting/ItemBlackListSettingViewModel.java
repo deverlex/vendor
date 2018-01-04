@@ -42,7 +42,6 @@ public class ItemBlackListSettingViewModel extends BaseObservable{
         if (mItemclickListener == null)
             return;
         mItemclickListener.onItemRecyclerViewClick(mBlockUser);
-
     }
 
     private void showDialog() {

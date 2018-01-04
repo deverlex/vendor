@@ -40,14 +40,6 @@
                 android:text="@string/notification_tab"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/sp_18" />
-
-            <ImageButton
-                android:onClick="@{() -> viewModel.onNotificationSave()}"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_alignParentRight="true"
-                android:background="@color/transparent"
-                app:srcCompat="@drawable/ic_check" />
         </RelativeLayout>
 
         <ScrollView
@@ -57,8 +49,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/color_gray_white"
                 android:orientation="vertical">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -67,7 +59,7 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/dp_50"
                         android:layout_marginTop="@dimen/dp_0_mid"
                         android:background="@color/color_white"
                         android:drawablePadding="@dimen/dp_10"
@@ -78,6 +70,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/color_black"
                         android:textSize="@dimen/sp_16"
+                        android:gravity="center|left"
                         app:srcDrawableRight="@{viewModel.iconNotification}"
                         tools:ignore="UnusedAttribute" />
 
@@ -85,32 +78,32 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="@{viewModel.getShowNotificationSetting == true ? View.VISIBLE : View.GONE}">
+                        android:visibility="@{viewModel.showNotificationSetting == true ? View.VISIBLE : View.GONE}">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:onClick="@{()->viewModel.onNotificationSetting()}">
+                            android:layout_height="@dimen/dp_50"
+                            android:background="@color/color_white"
+                            android:layout_marginTop="@dimen/dp_0_mid"
+                            android:onClick="@{()->viewModel.onReceiveNotificationClick()}">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@string/font_serif"
                                 android:paddingLeft="@dimen/dp_10"
-                                android:paddingTop="@dimen/dp_10"
                                 android:text="@string/notification_tab"
                                 android:textAllCaps="false"
                                 android:textColor="@color/color_black"
-                                android:textSize="@dimen/sp_13" />
+                                android:layout_centerVertical="true"
+                                android:textSize="@dimen/sp_14" />
 
                             <android.support.v7.widget.SwitchCompat
-                                android:onClick="@{()->viewModel.onNotificationSetting()}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:layout_gravity="center_horizontal"
-                                android:background="@color/transparent"
-                                android:checked="@{viewModel.Notification}"
+                                android:layout_centerVertical="true"
+                                android:checked="@{viewModel.receiveNotification}"
                                 android:padding="@dimen/dp_10" />
                         </RelativeLayout>
 
@@ -118,106 +111,58 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:visibility="@{viewModel.Notification == true ? View.VISIBLE : View.GONE}">
-
-
-                            <LinearLayout
-                                android:onClick="@{() -> viewModel.onNotificationGroupClick()}"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:weightSum="8">
-
-                                <LinearLayout
-
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="6"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@string/font_serif"
-                                        android:paddingLeft="@dimen/dp_10"
-                                        android:paddingTop="@dimen/dp_10"
-                                        android:text="@string/notification_setting_group_name"
-                                        android:textAllCaps="false"
-                                        android:textColor="@color/color_black"
-                                        android:textSize="@dimen/sp_13" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:paddingBottom="@dimen/dp_10"
-                                        android:paddingLeft="@dimen/dp_10"
-                                        android:paddingRight="@dimen/dp_8"
-                                        android:text="@string/notification_setting_group"
-                                        android:textAllCaps="false"
-                                        android:textSize="@dimen/sp_13" />
-                                </LinearLayout>
-
-                                <android.support.v7.widget.SwitchCompat
-                                    android:onClick="@{() -> viewModel.onNotificationGroupClick()}"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_weight="2"
-                                    android:background="@color/transparent"
-                                    android:checked="@{viewModel.notificationGroup}"
-                                    android:padding="@dimen/dp_10" />
-                            </LinearLayout>
+                            android:visibility="@{viewModel.receiveNotification == true ? View.VISIBLE : View.GONE}">
 
                             <RelativeLayout
                                 android:onClick="@{() ->viewModel.onNotificationUpdateProductClick()}"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@string/font_serif"
                                     android:paddingLeft="@dimen/dp_10"
-                                    android:paddingTop="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
                                     android:text="@string/update_order"
-                                    android:textAllCaps="false"
                                     android:textColor="@color/color_black"
-                                    android:textSize="@dimen/sp_13" />
+                                    android:textSize="@dimen/sp_14" />
 
                                 <android.support.v7.widget.SwitchCompat
                                     android:onClick="@{() ->viewModel.onNotificationUpdateProductClick()}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:layout_gravity="center_horizontal"
-                                    android:background="@color/transparent"
+                                    android:layout_centerVertical="true"
                                     android:checked="@{viewModel.notificationUpdateProduct}"
                                     android:padding="@dimen/dp_10" />
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:onClick="@{()->viewModel.onNotificationChatClick()}"
+                                android:onClick="@{()->viewModel.onReceiveChatNotifyClick()}"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid" >
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@string/font_serif"
                                     android:paddingLeft="@dimen/dp_10"
-                                    android:paddingTop="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
                                     android:text="@string/notification_setting_chat"
                                     android:textAllCaps="false"
                                     android:textColor="@color/color_black"
-                                    android:textSize="@dimen/sp_13" />
+                                    android:textSize="@dimen/sp_14" />
 
                                 <android.support.v7.widget.SwitchCompat
-                                    android:onClick="@{()->viewModel.onNotificationChatClick()}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:layout_gravity="center_horizontal"
-                                    android:background="@color/transparent"
+                                    android:layout_centerVertical="true"
                                     android:checked="@{viewModel.notificationChat}"
                                     android:padding="@dimen/dp_10" />
                             </RelativeLayout>
@@ -225,26 +170,26 @@
                             <RelativeLayout
                                 android:onClick="@{()->viewModel.onNotificationProductPromotionClick()}"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid" >
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@string/font_serif"
                                     android:paddingLeft="@dimen/dp_10"
-                                    android:paddingTop="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
                                     android:text="@string/product_promotion"
                                     android:textAllCaps="false"
                                     android:textColor="@color/color_black"
-                                    android:textSize="@dimen/sp_13" />
+                                    android:textSize="@dimen/sp_14" />
 
                                 <android.support.v7.widget.SwitchCompat
-                                    android:onClick="@{()->viewModel.onNotificationProductPromotionClick()}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:layout_gravity="center_horizontal"
-                                    android:background="@color/transparent"
+                                    android:layout_centerVertical="true"
                                     android:checked="@{viewModel.notificationPromotion}"
                                     android:padding="@dimen/dp_10" />
                             </RelativeLayout>
@@ -252,61 +197,63 @@
                             <RelativeLayout
                                 android:onClick="@{() -> viewModel.onNotificationFollowCLick()}"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid" >
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@string/font_serif"
                                     android:paddingLeft="@dimen/dp_10"
-                                    android:paddingTop="@dimen/dp_10"
                                     android:text="@string/notification_setting_follow"
                                     android:textAllCaps="false"
                                     android:textColor="@color/color_black"
-                                    android:textSize="@dimen/sp_13" />
+                                    android:textSize="@dimen/sp_14"
+                                    android:layout_centerVertical="true" />
 
                                 <android.support.v7.widget.SwitchCompat
-                                    android:onClick="@{() -> viewModel.onNotificationFollowCLick()}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:layout_gravity="center_horizontal"
-                                    android:background="@color/transparent"
+                                    android:layout_centerVertical="true"
                                     android:checked="@{viewModel.notificationFollow}"
                                     android:padding="@dimen/dp_10" />
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:onClick="@{() -> viewModel.onNotificationProductEndCLick()}"
+                                android:onClick="@{() -> viewModel.onNotifyEmptyWarehouseClick()}"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid" >
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@string/font_serif"
                                     android:paddingLeft="@dimen/dp_10"
-                                    android:paddingTop="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
                                     android:text="@string/notification_setting_product_end"
                                     android:textAllCaps="false"
                                     android:textColor="@color/color_black"
-                                    android:textSize="@dimen/sp_13" />
+                                    android:textSize="@dimen/sp_14" />
 
                                 <android.support.v7.widget.SwitchCompat
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:layout_gravity="center_horizontal"
-                                    android:background="@color/transparent"
-                                    android:checked="@{viewModel.notificationProducEnd}"
-                                    android:onClick="@{() -> viewModel.onNotificationProductEndCLick()}"
+                                    android:checked="@{viewModel.notifyEmptyWarehouse}"
                                     android:padding="@dimen/dp_10" />
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:onClick="@{() ->viewModel.onNotificationUpdateAppClick()}"
+                                android:onClick="@{() ->viewModel.onReceiveAppUpdateClick()}"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -314,19 +261,19 @@
                                     android:fontFamily="@string/font_serif"
                                     android:paddingLeft="@dimen/dp_10"
                                     android:paddingTop="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
                                     android:text="@string/notification_setting_update"
                                     android:textAllCaps="false"
                                     android:textColor="@color/color_black"
-                                    android:textSize="@dimen/sp_13" />
+                                    android:textSize="@dimen/sp_14"
+                                    android:gravity="center|left" />
 
                                 <android.support.v7.widget.SwitchCompat
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:layout_gravity="center_horizontal"
-                                    android:background="@color/transparent"
-                                    android:checked="@{viewModel.notificationUpdateApp}"
-                                    android:onClick="@{() ->viewModel.onNotificationUpdateAppClick()}"
+                                    android:layout_centerVertical="true"
+                                    android:checked="@{viewModel.receiveAppUpdate}"
                                     android:padding="@dimen/dp_10" />
                             </RelativeLayout>
                         </LinearLayout>
@@ -340,17 +287,18 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_0_mid"
+                        android:layout_height="@dimen/dp_50"
                         android:background="@color/color_white"
+                        android:layout_marginTop="@dimen/dp_0_mid"
                         android:drawablePadding="@dimen/dp_10"
                         android:fontFamily="@string/font_serif"
-                        android:onClick="@{() -> viewModel.onNotificationEmailCLick()}"
+                        android:onClick="@{() -> viewModel.onReceiveEmailCLick()}"
                         android:padding="@dimen/dp_10"
                         android:text="@string/notification_email"
                         android:textAllCaps="false"
                         android:textColor="@color/color_black"
                         android:textSize="@dimen/sp_16"
+                        android:layout_gravity="center|left"
                         app:srcDrawableRight="@{viewModel.iconNotificationEmail}"
                         tools:ignore="UnusedAttribute" />
 
@@ -358,32 +306,34 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="@{viewModel.getShowNotificationEmailSetting == true ? View.VISIBLE : View.GONE}">
+                        android:visibility="@{viewModel.showReceiveEmailSetting == true ? View.VISIBLE : View.GONE}">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:onClick="@{() -> viewModel.onNotificationSettingEmail()}">
+                            android:layout_height="@dimen/dp_50"
+                            android:background="@color/color_white"
+                            android:layout_marginTop="@dimen/dp_0_mid"
+                            android:onClick="@{() -> viewModel.onTurnOnReceiveEmail()}">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@string/font_serif"
                                 android:paddingLeft="@dimen/dp_10"
-                                android:paddingTop="@dimen/dp_10"
                                 android:text="@string/notification_email_order"
                                 android:textAllCaps="false"
                                 android:textColor="@color/color_black"
-                                android:textSize="@dimen/sp_13" />
+                                android:textSize="@dimen/sp_14"
+                                android:layout_centerVertical="true"/>
 
                             <android.support.v7.widget.SwitchCompat
-                                android:onClick="@{() -> viewModel.onNotificationSettingEmail()}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@color/transparent"
-                                android:checked="@{viewModel.notificationEmail}"
+                                android:checked="@{viewModel.receiveEmail}"
+                                android:layout_centerVertical="true"
                                 android:padding="@dimen/dp_10" />
                         </RelativeLayout>
 
@@ -391,13 +341,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:visibility="@{viewModel.notificationEmail == true ? View.VISIBLE : View.GONE}">
+                            android:visibility="@{viewModel.receiveEmail == true ? View.VISIBLE : View.GONE}">
 
                             <LinearLayout
-                                android:onClick="@{()->viewModel.onNotificationProductClick()}"
+                                android:onClick="@{()->viewModel.onReceiveUpdateOrderAndPaymentClick()}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid"
                                 android:weightSum="8">
 
                                 <LinearLayout
@@ -415,7 +367,7 @@
                                         android:text="@string/notification_email_update_product"
                                         android:textAllCaps="false"
                                         android:textColor="@color/color_black"
-                                        android:textSize="@dimen/sp_13" />
+                                        android:textSize="@dimen/sp_14" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -425,25 +377,26 @@
                                         android:paddingRight="@dimen/dp_8"
                                         android:text="@string/notification_email_product_detail"
                                         android:textAllCaps="false"
-                                        android:textSize="@dimen/sp_13" />
+                                        android:textSize="@dimen/sp_14" />
                                 </LinearLayout>
 
                                 <android.support.v7.widget.SwitchCompat
-                                    android:onClick="@{()->viewModel.onNotificationProductClick()}"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_weight="2"
                                     android:background="@color/transparent"
-                                    android:checked="@{viewModel.notificationProduct}"
+                                    android:checked="@{viewModel.receiveUpdateOrderAndPayment}"
                                     android:padding="@dimen/dp_10" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:onClick="@{() -> viewModel.notificationEmailApp()}"
+                                android:onClick="@{() -> viewModel.onReceiveInfoStoreAndCompany()}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid"
                                 android:weightSum="8">
 
                                 <LinearLayout
@@ -461,7 +414,7 @@
                                         android:text="@string/notification_email_app"
                                         android:textAllCaps="false"
                                         android:textColor="@color/color_black"
-                                        android:textSize="@dimen/sp_13" />
+                                        android:textSize="@dimen/sp_14" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -471,25 +424,26 @@
                                         android:paddingRight="@dimen/dp_8"
                                         android:text="@string/notification_email_app_detail"
                                         android:textAllCaps="false"
-                                        android:textSize="@dimen/sp_13" />
+                                        android:textSize="@dimen/sp_14" />
                                 </LinearLayout>
 
                                 <android.support.v7.widget.SwitchCompat
-                                    android:onClick="@{() -> viewModel.notificationEmailApp()}"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_weight="2"
                                     android:background="@color/transparent"
-                                    android:checked="@{viewModel.notificationApp}"
+                                    android:checked="@{viewModel.receiveInfoStoreAndCompany}"
                                     android:padding="@dimen/dp_10" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:onClick="@{()->viewModel.notificationNewClick()}"
+                                android:onClick="@{()->viewModel.onReceiveNewsClick()}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid"
                                 android:weightSum="8">
 
                                 <LinearLayout
@@ -507,7 +461,7 @@
                                         android:text="@string/notification_email_news"
                                         android:textAllCaps="false"
                                         android:textColor="@color/color_black"
-                                        android:textSize="@dimen/sp_13" />
+                                        android:textSize="@dimen/sp_14" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -517,25 +471,26 @@
                                         android:paddingRight="@dimen/dp_8"
                                         android:text="@string/notificatino_email_news_detail"
                                         android:textAllCaps="false"
-                                        android:textSize="@dimen/sp_13" />
+                                        android:textSize="@dimen/sp_14" />
                                 </LinearLayout>
 
                                 <android.support.v7.widget.SwitchCompat
-                                    android:onClick="@{()->viewModel.notificationNewClick()}"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_weight="2"
                                     android:background="@color/transparent"
-                                    android:checked="@{viewModel.notificationNew}"
+                                    android:checked="@{viewModel.receiveNews}"
                                     android:padding="@dimen/dp_10" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:onClick="@{() -> viewModel.onNotificationPersonalClick()}"
+                                android:onClick="@{() -> viewModel.onReceivePersonalInfoClick()}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid"
                                 android:weightSum="8">
 
                                 <LinearLayout
@@ -553,7 +508,7 @@
                                         android:text="@string/notification_email_personal"
                                         android:textAllCaps="false"
                                         android:textColor="@color/color_black"
-                                        android:textSize="@dimen/sp_13" />
+                                        android:textSize="@dimen/sp_14" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -563,17 +518,14 @@
                                         android:paddingRight="@dimen/dp_8"
                                         android:text="@string/notification_email_personal_detail"
                                         android:textAllCaps="false"
-                                        android:textSize="@dimen/sp_13" />
+                                        android:textSize="@dimen/sp_14" />
                                 </LinearLayout>
 
                                 <android.support.v7.widget.SwitchCompat
-                                    android:onClick="@{() -> viewModel.onNotificationPersonalClick()}"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
-                                    android:layout_gravity="center_horizontal"
                                     android:layout_weight="2"
-                                    android:background="@color/transparent"
-                                    android:checked="@{viewModel.notificationPersonal}"
+                                    android:checked="@{viewModel.receivePersonalInfo}"
                                     android:padding="@dimen/dp_10" />
                             </LinearLayout>
                         </LinearLayout>

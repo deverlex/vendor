@@ -67,6 +67,4 @@ public class BlacklistSettingViewModel implements BlacklistSettingContract.ViewM
     public void onItemRecyclerViewClick(Object item) {
 
     }
-
-
 }
