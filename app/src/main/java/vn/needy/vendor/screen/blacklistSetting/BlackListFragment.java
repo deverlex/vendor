@@ -32,9 +32,11 @@ public class BlackListFragment extends Fragment{
     private List<BlockUser> mListUser;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
-        FragmentBlackListSettingBinding binding = DataBindingUtil.inflate(inflater , R.layout.fragment_black_list_setting , container , false);
+        FragmentBlackListSettingBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.fragment_black_list_setting, container ,false);
         mListUser = new ArrayList<>();
 
         mAdapter = new BlackListSettingAdapter(getActivity() , mListUser);

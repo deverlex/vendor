@@ -23,7 +23,6 @@ public class BlackListPresenter implements BlacklistSettingContract.Presenter{
         this.mContext = mContext;
     }
 
-
     @Override
     public void onStart() {
 
@@ -33,7 +32,6 @@ public class BlackListPresenter implements BlacklistSettingContract.Presenter{
     public void onStop() {
 
     }
-
 
     @Override
     public void getUserList() {

@@ -17,13 +17,10 @@ interface BlacklistSettingContract {
         void onBackPressed();
 
         void setListBlockUser(List<BlockUser> listBlockUser);
-
     }
 
     interface Presenter extends BasePresenter {
 
         void getUserList();
-
     }
-
 }
