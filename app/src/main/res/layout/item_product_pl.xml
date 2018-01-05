@@ -79,7 +79,7 @@
                     android:paddingLeft="@dimen/dp_5"
                     android:text="Gồm 4 vật tư"
                     android:textColor="@color/color_green"
-                    android:textSize="@dimen/sp_17"
+                    android:textSize="@dimen/sp_14"
                     tools:ignore="UnusedAttribute" />
 
                 <TextView
