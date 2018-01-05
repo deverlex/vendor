@@ -7,7 +7,6 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.location.Location;
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
@@ -31,9 +30,8 @@ import java.util.Locale;
 import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.Company;
-import vn.needy.vendor.model.FeeTransport;
-import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
+import vn.needy.vendor.domain.Company;
+import vn.needy.vendor.domain.FeeTransport;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

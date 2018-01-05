@@ -1,12 +1,12 @@
 package vn.needy.vendor.repository;
 
 import io.reactivex.Observable;
-import vn.needy.vendor.model.Company;
-import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoReq;
+import vn.needy.vendor.domain.Company;
+import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.port.message.ResponseWrapper;
-import vn.needy.vendor.repository.remote.company.response.CompanyInfoResp;
-import vn.needy.vendor.repository.remote.user.response.CompanyResp;
+import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.CompanyResponse;
 
 /**
  * Created by lion on 07/10/2017.
@@ -22,15 +22,15 @@ public class CompanyRepository {
         mLocal = local;
     }
 
-    public Observable<ResponseWrapper<CompanyResp>> findOurCompany() {
+    public Observable<ResponseWrapper<CompanyResponse>> findOurCompany() {
         return mRemote.findOurCompany();
     }
 
-    public Observable<ResponseWrapper<CompanyInfoResp>> getCompanyInformation(String companyId) {
+    public Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInformation(String companyId) {
         return mRemote.getCompanyInformation(companyId);
     }
 
-    public Observable<ResponseWrapper<CompanyInfoResp>> registerCompany(RegisterCompanyRequest request) {
+    public Observable<ResponseWrapper<CompanyInfoResponse>> registerCompany(RegisterCompanyRequest request) {
         return mRemote.registerCompany(request);
     }
 
@@ -38,7 +38,7 @@ public class CompanyRepository {
         return mRemote.updateStaffFcmToken(companyId, fcmToken);
     }
 
-    public Observable<ResponseWrapper> updateCompanyInformation(String companyId, UpdateCompanyInfoReq infoRequest) {
+    public Observable<ResponseWrapper> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest) {
         return mRemote.updateCompanyInformation(companyId, infoRequest);
     }
 

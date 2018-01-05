@@ -1,9 +1,26 @@
 package vn.needy.vendor.screen.personalSetting;
 
+import vn.needy.vendor.screen.BasePresenter;
+import vn.needy.vendor.screen.BaseViewModel;
+
 /**
- * Created by lion on 25/12/2017.
+ * Created by minh_dai on 30/12/2017.
  */
 
-interface PersonalSettingContract {
+public interface PersonalSettingContract {
 
+    interface ViewModel extends BaseViewModel<Presenter> {
+
+        void onBackPressed();
+
+        void onCheckedEmail();
+
+        void onCheckedBirthday();
+
+        void onCheckedSex();
+    }
+
+    interface Presenter extends BasePresenter {
+
+    }
 }

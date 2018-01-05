@@ -4,12 +4,13 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.FragmentMainPageBinding;
 import vn.needy.vendor.screen.category.CategoriesActivity;
@@ -43,15 +44,17 @@ public class MainPageFragment extends Fragment {
 
         // create navigator instance for this activity
         Navigator navigator = new Navigator(this);
+
+        MainPagerAdapter viewPagerAdapter = new MainPagerAdapter(getChildFragmentManager());
         mViewModel = new MainPageViewModel(getContext(), navigator,
-                SharedPrefsImpl.getInstance(), category);
+                SharedPrefsImpl.getInstance(), category, viewPagerAdapter);
 
         // data binding
         FragmentMainPageBinding binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_main_page, container, false);
+        mViewModel.onStart();
         binding.setViewModel((MainPageViewModel) mViewModel);
 
         return binding.getRoot();
     }
-
 }

@@ -9,13 +9,16 @@ import android.util.Log;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
+import vn.needy.vendor.screen.createProduct.CreateProductPlActivity;
 import vn.needy.vendor.screen.createProduct.CreateProductPnActivity;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
+import vn.needy.vendor.screen.mainPage.priceLater.MainPagePlFragment;
+import vn.needy.vendor.screen.mainPage.priceNow.MainPagePnFragment;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -51,25 +54,24 @@ public class CategoriesViewModel extends BaseObservable implements CategoriesCon
     public void onStart() {
         // check add product or getAsync product
         // previous activity will send an name class to bundle
-        if (mFromClass.equals(MainPageFragment.class.getSimpleName())) {
-            // check source of category
-            int productType = mPrefsApi.get(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, Integer.class);
-            if (productType == R.id.price_now) {
-                // getAsync category from pn
-                Log.w(TAG, "getAsync category from pn");
-                mPresenter.getCompanyCategoryPriceNow();
-            } else {
-                // getAsync category from pl
-                Log.w(TAG, "getAsync category from pl");
-                mPresenter.getCompanyCategoryPriceLater();
-            }
+        if (mFromClass.equals(MainPagePnFragment.class.getSimpleName())) {
+            // from main page pn
+            mPresenter.getCompanyCategoryPriceNow();
+        } else if (mFromClass.equals(MainPagePlFragment.class.getSimpleName())) {
+            // from main page pl
+            mPresenter.getCompanyCategoryPriceLater();
         } else if (mFromClass.equals(CreateProductPnActivity.class.getSimpleName())) {
             // from add product pn
             Log.w(TAG, "from add product pn");
             mPresenter.getCategoryPriceNow();
-        } else {
+        } else if (mFromClass.equals(CreateProductPlActivity.class.getSimpleName())){
             // from add product pl
             Log.w(TAG, "from add product pl");
+            mPresenter.getCategoryPriceLater();
+        } else {
+            // from add child product
+            Log.w(TAG, "from add child product");
+            mPresenter.getCategoryPriceNow();
         }
     }
 

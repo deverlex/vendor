@@ -12,7 +12,7 @@ import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.repository.remote.user.request.RegisterUserReq;
+import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
 import vn.needy.vendor.utils.Utils;
@@ -100,7 +100,7 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     @Override
     public void onVerificationSuccess(String firebaseUid, String firebaseToken) {
         mDialogManager.dismissProgressDialog();
-        RegisterUserReq request = new RegisterUserReq();
+        RegisterUserRequest request = new RegisterUserRequest();
         request.setPhoneNumber(Utils.PhoneNumberUtils.formatPhoneNumber(mPhoneNumber));
         request.setPassword(mPassword);
         request.setFirebaseUid(firebaseUid);

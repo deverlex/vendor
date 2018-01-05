@@ -4,10 +4,13 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.RadioGroup;
 
+import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
-import vn.needy.vendor.model.wrapper.CategoryWrapper;
+import vn.needy.vendor.port.wrapper.CategoryWrapper;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.screen.createProduct.CreateProductPlActivity;
@@ -31,13 +34,19 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
     private SharedPrefsApi mPrefsApi;
 
+    private MainPagerAdapter mPagerAdapter;
+
     private int mProductType;
     private boolean mIsPlChecked;
+    private int mCurrentTab;
+    private ViewPager.OnPageChangeListener mOnPageChangeListener;
 
     public MainPageViewModel(Context context, Navigator navigator,
-                             SharedPrefsApi prefsApi, final CategoryWrapper category) {
+                             final SharedPrefsApi prefsApi, final CategoryWrapper category, MainPagerAdapter viewPagerAdapter) {
         mContext = context;
         mNavigator = navigator;
+        mPagerAdapter = viewPagerAdapter;
+
         // default of product type is pn - because UI set it is checked.
         mPrefsApi = prefsApi;
         int productType = mPrefsApi.get(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, Integer.class);
@@ -46,6 +55,29 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         prefsApi.put(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, mProductType);
 
         mIsPlChecked = mProductType == R.id.price_later;
+        if (mIsPlChecked) {
+            mCurrentTab = MainPagerAdapter.PRICE_LATER_POSITION;
+        } else {
+            mCurrentTab = MainPagerAdapter.PRICE_NOW_POSITION;
+        }
+
+        mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mIsPlChecked = position == MainPagerAdapter.PRICE_LATER_POSITION;
+                notifyPropertyChanged(BR.plChecked);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        };
 
         // when getAsync category from result activity
         if (category != null) {
@@ -60,7 +92,6 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
 
     @Override
     public void onStart() {
-
     }
 
     @Override
@@ -76,6 +107,15 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
         mProductType = id;
+        // Navigation ViewPager
+        if (mProductType == R.id.price_now) {
+            mCurrentTab = MainPagerAdapter.PRICE_NOW_POSITION;
+            notifyPropertyChanged(BR.currentTab);
+        } else {
+            mCurrentTab = MainPagerAdapter.PRICE_LATER_POSITION;
+            notifyPropertyChanged(BR.currentTab);
+        }
+
         // save setting product type into db
         mPrefsApi.put(SharedPrefsKey.PRODUCT_TYPE_CHOOSE, mProductType);
     }
@@ -89,14 +129,6 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         }
     }
 
-    @Override
-    public void onClickCategories() {
-        Bundle extras = new Bundle();
-        // put simple name thought bundle
-        extras.putString(CategoriesActivity.FROM_CLASS, MainPageFragment.class.getSimpleName());
-        mNavigator.startActivityForResult(CategoriesActivity.class, extras, MainPageFragment.RC_CHOOSE_CATEGORY);
-    }
-
     @Bindable
     public String getCategoryTitle() {
         if (mCategory != null) {
@@ -105,11 +137,23 @@ public class MainPageViewModel extends BaseObservable implements MainPageConstra
         return mContext.getString(R.string.all_category);
     }
 
+    @Bindable
+    public MainPagerAdapter getPagerAdapter() {
+        return mPagerAdapter;
+    }
+
+    @Bindable
+    public int getCurrentTab() {
+        return mCurrentTab;
+    }
+
+    @Bindable
     public boolean isPlChecked() {
         return mIsPlChecked;
     }
 
-    public void setPlChecked(boolean plChecked) {
-        mIsPlChecked = plChecked;
+    @Bindable
+    public ViewPager.OnPageChangeListener getOnPageChangeListener() {
+        return mOnPageChangeListener;
     }
 }

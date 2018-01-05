@@ -3,7 +3,7 @@ package vn.needy.vendor.screen.listorder;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.needy.vendor.model.Order;
+import vn.needy.vendor.domain.Order;
 
 /**
  * Created by lion on 21/10/2017.

@@ -19,7 +19,7 @@ import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
-import vn.needy.vendor.model.User;
+import vn.needy.vendor.domain.User;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;

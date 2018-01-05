@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.createProduct.ItemFeeTransportPnViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        android:background="@color/color_white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="@{() -> viewModel.onRemoveClicked()}"
+            android:padding="@dimen/dp_18"
+            app:srcCompat="@drawable/ic_remove_item" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_36"
+                    android:layout_height="@dimen/dp_36"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dp_8"
+                    app:srcCompat="@drawable/ic_directional_sign" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:minEms="2"
+                    android:text="Từ"
+                    android:textColor="@color/color_black" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="end|center_vertical"
+                    android:hint="Km"
+                    android:inputType="number"
+                    android:padding="@dimen/dp_10"
+                    android:singleLine="true"
+                    android:text='@={viewModel.from}'
+                    android:textColor="@color/color_black"
+                    android:textColorHint="@color/gray10" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/gray10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_36"
+                    android:layout_height="@dimen/dp_36"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dp_8"
+                    app:srcCompat="@drawable/ic_to_distance" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:minEms="2"
+                    android:text="Đến"
+                    android:textColor="@color/color_black" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="end|center_vertical"
+                    android:hint="Km"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/dp_10"
+                    android:singleLine="true"
+                    android:text='@={viewModel.to}'
+                    android:textColor="@color/color_black"
+                    android:textColorHint="@color/gray10" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/gray10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_36"
+                    android:layout_height="@dimen/dp_36"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dp_8"
+                    app:srcCompat="@drawable/ic_price" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:minEms="2"
+                    android:text="Giá"
+                    android:textColor="@color/color_black" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="end|center_vertical"
+                    android:hint="Đồng"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/dp_10"
+                    android:singleLine="true"
+                    android:text='@={viewModel.fee}'
+                    android:textColor="@color/color_black"
+                    android:textColorHint="@color/gray10" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -7,7 +7,7 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.functions.BiConsumer;
 import io.realm.Realm;
 import vn.needy.vendor.database.realm.RealmApi;
-import vn.needy.vendor.model.Company;
+import vn.needy.vendor.domain.Company;
 import vn.needy.vendor.repository.CompanyData;
 
 /**

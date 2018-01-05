@@ -167,6 +167,7 @@
     <string name="bank_account">Tài khoản / Thẻ Ngân hàng</string>
     <string name="setting">Cài đặt</string>
     <string name="setting_notifications">Cài đặt thông báo</string>
+    <string name="setting_private">Cài đặt riêng tư</string>
     <string name="block_user">Người dùng bị chặn</string>
     <string name="language">Ngôn ngữ</string>
     <string name="tips_and_tricks">Mẹo và thủ thuật</string>
@@ -221,4 +222,54 @@
     <string name="staff">Nhân viên</string>
     <string name="staff_manager">Quản lý nhân viên</string>
     <string name="choose_category">Lựa chọn danh mục</string>
+
+    <string name="personal_setting_email">Ẩn email của tôi</string>
+    <string name="hint_note_mail">Người khác sẽ không thể thấy email của bạn trong hồ sơ nếu kích hoạt</string>
+    <string name="personal_setting_birthday">Ẩn ngày sinh của tôi</string>
+    <string name="hint_note_birthday">Người khác sẽ không thể thấy ngày sinh của bạn trong hồ sơ nếu kích hoạt</string>
+    <string name="personal_setting_sex">Ẩn giới tính của tôi</string>
+    <string name="hint_note_sex">Người khác sẽ không thể thấy giới tính của bạn trong hồ sơ nếu kích hoạt</string>
+    <string name="dialog_personal_email">Những người theo dõi bạn sẽ có thể thấy email của bạn </string>
+    <string name="dialog_personal_birthday">Những người theo dõi bạn sẽ có thể thấy ngày sinh của bạn </string>
+    <string name="dialog_personal_sex">Những người theo dõi bạn sẽ có thể thấy giới tính của bạn </string>
+
+    <string name="select_languge">Chọn ngôn ngữ</string>
+    <string name="languge_vietnam">Tiếng Việt</string>
+    <string name="languge_thai">ประเทศไทย</string>
+    <string name="languge_english">English</string>
+    <string name="languge_china">中国</string>
+
+    <string name="notification_setting_group">Bật để nhận được thông báo theo nhóm , mỗi hai giờ từ 08:00-22:00. Đề xuất
+    cho người bán hàng lớn</string>
+    <string name="notification_setting_group_name">Thông báo theo nhóm</string>
+    <string name="notification_setting_chat">Chat</string>
+    <string name="notification_setting_follow">Theo dõi và Bình luận</string>
+    <string name="notification_setting_product_end">Sản phẩm hết hàng</string>
+    <string name="notification_setting_update">Cập nhật app</string>
+    <string name="notification_email">Email Thông báo</string>
+    <string name="notification_email_order">Email nhận đơn</string>
+    <string name="notification_email_update_product">Thông tin đơn hàng</string>
+    <string name="notification_email_product_detail">Thông báo khi có cập nhật về đơn hàng , bao gồm cập nhật về thanh toán</string>
+    <string name="notification_email_app">Thông tin công ty/cửa hàng</string>
+    <string name="notification_email_app_detail">Thông tin của công ty hoặc cửa hàng</string>
+    <string name="notification_email_news">Bản tin</string>
+    <string name="notificatino_email_news_detail">Gửi cho tôi cập nhật về những thông báo, xu hướng và giảm giá mới nhất</string>
+    <string name="notification_email_personal">Nội dung Cá nhân</string>
+    <string name="notification_email_personal_detail">Gửi thông báo cá nhân cho tôi(VD: quá sinh nhật)</string>
+
+    <string name="text_block">Người dùng đã bị chặn sẽ không thể gọi hoặc gửi tin nhắn cho bạn.</string>
+    <string name="unblock">BỎ CHẶN</string>
+    <string name="personal_block">Chưa có ai bị chặn</string>
+    <string name="dialog_block">Bỏ chặn ? \n"Bỏ chặn sẽ chấp nhận để chat , bình luận và mua sản phẩm của bạn.\n"Bạn có muốn bỏ chặn không ?\</string>
+
+    <string name="button_ok">OK</string>
+    <string name="button_cancel" >Cancel</string>
+
+
+    <string name="name_product_empty">Tên sản phẩm trống</string>
+    <string name="description_product_higher_60">Mô tả sản phẩm ít nhất 60 ký tự</string>
+    <string name="quantity_prduct_empty">Nhập số lượng sản phẩm</string>
+    <string name="price_product_empty">Nhập giá sản phẩm</string>
+    <string name="product_category_empty">Chọn danh mục</string>
+    <string name="product_attributes_empty">Thêm thuộc tính cho sản phẩm</string>
 </resources>

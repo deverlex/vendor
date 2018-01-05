@@ -8,16 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ItemAttributeBinding;
-import vn.needy.vendor.model.wrapper.AttributeWrapper;
+import vn.needy.vendor.port.wrapper.AttributeWrapper;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
@@ -74,11 +72,6 @@ public class AttributeAdapter extends BaseRecyclerViewAdapter<AttributeAdapter.I
         @SuppressLint("ResourceType")
         public ItemViewHolder(ItemAttributeBinding binding) {
             super(binding.getRoot());
-            // set ID for edit_text in each item
-            LinearLayout layout = (LinearLayout) binding.getRoot();
-            int id = (new Random()).nextInt(1000) + 10;
-            layout.getChildAt(1).setId(id);
-
             mBinding = binding;
         }
 

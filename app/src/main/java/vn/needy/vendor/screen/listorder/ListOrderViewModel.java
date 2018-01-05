@@ -6,7 +6,7 @@ import android.databinding.Bindable;
 
 import java.util.List;
 
-import vn.needy.vendor.model.Order;
+import vn.needy.vendor.domain.Order;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**

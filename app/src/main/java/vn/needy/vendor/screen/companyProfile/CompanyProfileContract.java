@@ -4,9 +4,8 @@ import java.util.List;
 
 import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
-import vn.needy.vendor.model.Company;
-import vn.needy.vendor.model.FeeTransport;
-import vn.needy.vendor.model.wrapper.FeeTransportWrapper;
+import vn.needy.vendor.domain.Company;
+import vn.needy.vendor.domain.FeeTransport;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 

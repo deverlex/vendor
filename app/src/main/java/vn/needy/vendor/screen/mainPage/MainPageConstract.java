@@ -16,8 +16,6 @@ public interface MainPageConstract {
         void onCheckedChanged(RadioGroup radioGroup, int id);
 
         void onClickAddProduct();
-
-        void onClickCategories();
     }
 
     interface Presenter extends BasePresenter {
