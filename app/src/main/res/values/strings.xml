@@ -272,4 +272,17 @@
     <string name="price_product_empty">Nhập giá sản phẩm</string>
     <string name="product_category_empty">Chọn danh mục</string>
     <string name="product_attributes_empty">Thêm thuộc tính cho sản phẩm</string>
+
+
+    <string name="personal_note_coin">Xu đang có</string>
+    <string name="personal_coin">Nhà phân phối tin cậy </string>
+    <string name="money_unit">VND</string>
+
+    <string name="personal_history_all">Tất cả lịch sử</string>
+    <string name="personal_recharge">Đã nạp</string>
+    <string name="personal_coin_subtract">Phí trừ</string>
+
+    <string name="personal_earns">Làm sao để săn Deedy Xu</string>
+    <string name="personal_not_coin">Bạn chưa có Needy Xu. Bạn chỉ nhận được \n Needy Xu khi đơn hàng đã hoàn thành (sau khi \nbạn ấn Đã nhận được hàng).</string>
+
 </resources>

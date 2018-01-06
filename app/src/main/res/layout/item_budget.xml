@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.budget.ItemBudgetRecyclerView" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:onClick="@{() -> viewModel.onProductCLick()}"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <RelativeLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/ic_help_circle" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textColor="@color/color_black_transparent_mos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/font_serif"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="@{viewModel.coin.coinName}"
+                    android:textSize="@dimen/sp_13"/>
+
+                <TextView
+                    android:textColor="@color/color_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dp_5"
+                    android:text="@{viewModel.coin.coinStatus}"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:textColor="@color/color_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:paddingTop="@dimen/dp_5"
+                    android:text="@{viewModel.coin.coidDate}"
+                    android:textSize="@dimen/sp_12" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@{viewModel.coin.coin}"
+                    android:textColor="@color/color_orange"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_gray_white" />
+    </LinearLayout>
+
+</layout>
