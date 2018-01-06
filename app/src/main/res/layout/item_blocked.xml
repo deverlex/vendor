@@ -10,84 +10,87 @@
         <import type="android.view.View" />
     </data>
 
-    <LinearLayout
-        android:background="@color/color_white"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <LinearLayout
+            android:layout_marginBottom="@dimen/dp_3"
+            android:paddingTop="@dimen/dp_7"
+            android:paddingBottom="@dimen/dp_7"
+            android:background="@color/color_white"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="6">
-
-            <RelativeLayout
-                android:onClick="@{() -> viewModel.onPersonalInfoBlockClick()}"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_centerInParent="true"
-                    android:layout_width="@dimen/sp_40"
-                    android:layout_height="@dimen/sp_40"
-                    app:srcCompat="@drawable/ic_account_gray" />
-            </RelativeLayout>
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:onClick="@{() -> viewModel.onPersonalInfoBlockClick()}"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:weightSum="6">
 
-                <TextView
-                    android:textSize="@dimen/sp_20"
-                    android:paddingLeft="@dimen/dp_20"
-                    android:hint="asdf"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginBottom="@dimen/dp_4"
-                    android:textStyle="bold"
-                    android:fontFamily="@string/font_serif"
+                <RelativeLayout
+                    android:onClick="@{() -> viewModel.onPersonalInfoBlockClick()}"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.blockUser.nameUser}" />
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:paddingLeft="@dimen/dp_5"
+                        android:paddingRight="@dimen/dp_5"
+                        android:paddingTop="@dimen/dp_5"
+                        android:paddingBottom="@dimen/dp_5"
+                        android:layout_centerInParent="true"
+                        android:layout_width="@dimen/dp_70"
+                        android:layout_height="@dimen/dp_70"
+                        app:srcCompat="@drawable/ic_account" />
+                </RelativeLayout>
 
-                <TextView
-                    android:fontFamily="@string/font_serif"
-                    android:textSize="@dimen/sp_15"
-                    android:paddingLeft="@dimen/dp_20"
-                    android:hint="******4531"
-                    android:layout_marginBottom="@dimen/dp_4"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:onClick="@{() -> viewModel.onPersonalInfoBlockClick()}"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.blockUser.numberUser}" />
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:hint="No name"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/dp_4"
+                        android:fontFamily="@string/font_serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.blockUser.nameUser}" />
+
+                    <TextView
+                        android:textColor="@color/color_gray"
+                        android:fontFamily="@string/font_serif"
+                        android:textSize="@dimen/sp_16"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:hint="******4531"
+                        android:layout_marginBottom="@dimen/dp_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.blockUser.numberUser}" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginRight="@dimen/dp_12"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:onClick="@{() -> viewModel.onUnBlockClick()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/border_block"
+                        android:textColor="@color/color_orange"
+                        android:textSize="@dimen/sp_13"
+                        android:text="@string/unblock"
+                        tools:ignore="RelativeOverlap"/>
+                </RelativeLayout>
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-                <TextView
-                    android:onClick="@{() -> viewModel.onUnBlockClick()}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dp_8"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/border_price"
-                    android:padding="@dimen/dp_7"
-                    android:textColor="@color/color_orange"
-                    android:textSize="@dimen/sp_12"
-                    android:text="@string/unblock"
-                    tools:ignore="RelativeOverlap"
-                    />
-            </RelativeLayout>
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@color/color_black" />
-    </LinearLayout>
 </layout>
 
