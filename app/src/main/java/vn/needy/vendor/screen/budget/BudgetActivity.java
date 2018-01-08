@@ -21,8 +21,6 @@ public class BudgetActivity extends BaseActivity{
     private BudgetContract.Presenter mPresenter;
     private BudgetContract.ViewModel mViewModel;
     private BudgetSectionsAdapter mSectionsAdapter;
-    /*private BudgetRecyclerViewAdapter mAdapter;
-    private List<Coin> mList;*/
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {

@@ -16,11 +16,11 @@ import vn.needy.vendor.screen.budget.historySubtract.BudgetHistorySubtractFragme
 
 public class BudgetSectionsAdapter extends FragmentPagerAdapter{
 
-        private static final int CONTACTS = 0;
-        private static final int CALLS = 1;
-        private static final int CHATS = 2;
+        private static final int mBudgetHistoryIncome = 0;
+        private static final int mBudgetHistoryRecharge = 1;
+        private static final int mBudgetHistorySubtract = 2;
 
-        private final int[] TABS = new int[]{CONTACTS, CALLS ,CHATS};
+        private final int[] TABS = new int[]{mBudgetHistoryIncome, mBudgetHistoryRecharge, mBudgetHistorySubtract};
 
         private Context mContext;
 
@@ -33,12 +33,15 @@ public class BudgetSectionsAdapter extends FragmentPagerAdapter{
         public Fragment getItem(int position) {
             switch (TABS[position]) {
 
-                case CONTACTS:
+                case mBudgetHistoryIncome:
                     return BudgetHistoryIncomeFragment.getInstance();
-                case CALLS:
+
+                case mBudgetHistoryRecharge:
                     return BudgetHistoryRechargeFragment.getInstance();
-                case CHATS:
+
+                case mBudgetHistorySubtract:
                     return BudgetHistorySubtractFragment.getInstance();
+
             }
             return null;
         }
@@ -51,12 +54,12 @@ public class BudgetSectionsAdapter extends FragmentPagerAdapter{
         @Override
         public CharSequence getPageTitle(int position) {
             switch (TABS[position]) {
-                case CONTACTS:
-                    return mContext.getResources().getString(R.string.personal_history_all);
-                case CALLS:
-                    return mContext.getResources().getString(R.string.personal_recharge);
-                case CHATS:
-                    return mContext.getResources().getString(R.string.personal_coin_subtract);
+                case mBudgetHistoryIncome:
+                    return mContext.getResources().getString(R.string.personal_history_income);
+                case mBudgetHistoryRecharge:
+                    return mContext.getResources().getString(R.string.personal_history_recharge);
+                case mBudgetHistorySubtract:
+                    return mContext.getResources().getString(R.string.personal_history_subtract);
             }
             return null;
         }

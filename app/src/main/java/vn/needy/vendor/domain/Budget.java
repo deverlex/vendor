@@ -7,8 +7,13 @@ import io.realm.RealmObject;
  */
 
 public class Budget extends RealmObject {
+
     private String amount;
     private String hold;
+
+    public Budget() {
+        super();
+    }
 
     public String getAmount() {
         return amount;
