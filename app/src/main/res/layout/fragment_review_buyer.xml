@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.review.buyer.ReviewBuyerViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="@color/color_white_light"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8">
+
+
+                <TextView
+                    android:paddingTop="@dimen/dp_7"
+                    android:paddingBottom="@dimen/dp_7"
+                    android:background="@{viewModel.reviewAll == true ? @drawable/button_background_orange : @drawable/button_background_gray}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:id="@+id/reviewAll"
+                    android:onClick="@{() -> viewModel.onViewReviewByRatingClicked(reviewAll)}"
+                    android:gravity="center"
+                    android:text="@string/review_all"
+                    android:textColor="@{viewModel.reviewTextColorAll == false ? @color/color_gray : @color/color_white}" />
+
+                <TextView
+                    android:paddingTop="@dimen/dp_7"
+                    android:paddingBottom="@dimen/dp_7"
+                    android:background="@{viewModel.review5Star == true ? @drawable/button_background_orange : @drawable/button_background_gray}"
+                    android:onClick="@{() -> viewModel.onViewReviewByRatingClicked(review5Star)}"
+                    android:id="@+id/review5Star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/review_5star"
+                    android:textColor="@{viewModel.reviewTextColor5Star == false ? @color/color_gray : @color/color_white}" />
+
+                <TextView
+                    android:paddingTop="@dimen/dp_7"
+                    android:paddingBottom="@dimen/dp_7"
+                    android:background="@{viewModel.review4Star == true ? @drawable/button_background_orange : @drawable/button_background_gray}"
+                    android:onClick="@{() -> viewModel.onViewReviewByRatingClicked(review4Star)}"
+                    android:id="@+id/review4Star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/review_4star"
+                    android:textColor="@{viewModel.reviewTextColor4Star == false ? @color/color_gray : @color/color_white}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="@dimen/dp_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8">
+
+
+                <TextView
+                    android:paddingTop="@dimen/dp_7"
+                    android:paddingBottom="@dimen/dp_7"
+                    android:background="@{viewModel.review3Star == true ? @drawable/button_background_orange : @drawable/button_background_gray}"
+                    android:onClick="@{() -> viewModel.onViewReviewByRatingClicked(review3Star)}"
+                    android:id="@+id/review3Star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/review_3star"
+                    android:textColor="@{viewModel.reviewTextColor3Star == false ? @color/color_gray : @color/color_white}" />
+
+                <TextView
+                    android:paddingTop="@dimen/dp_7"
+                    android:paddingBottom="@dimen/dp_7"
+                    android:background="@{viewModel.review2Star == true ? @drawable/button_background_orange : @drawable/button_background_gray}"
+                    android:onClick="@{() -> viewModel.onViewReviewByRatingClicked(review2Star)}"
+                    android:id="@+id/review2Star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/review_2star"
+                    android:textColor="@{viewModel.reviewTextColor2Star == false ? @color/color_gray : @color/color_white}" />
+
+                <TextView
+                    android:paddingTop="@dimen/dp_7"
+                    android:paddingBottom="@dimen/dp_7"
+                    android:background="@{viewModel.review1Star == true ? @drawable/button_background_orange : @drawable/button_background_gray}"
+                    android:onClick="@{() -> viewModel.onViewReviewByRatingClicked(review1Star)}"
+                    android:id="@+id/review1Star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/review_1star"
+                    android:textColor="@{viewModel.reviewTextColor1Star == false ? @color/color_gray : @color/color_white}" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:visibility="@{viewModel.reviewPersonal == false ? View.VISIBLE : View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="ahihihi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:visibility="@{viewModel.reviewPersonal == true ? View.VISIBLE : View.GONE}"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                app:srcCompat="@drawable/ic_cart"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40" />
+
+            <TextView
+                android:gravity="center"
+                android:text="@string/review_personal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
