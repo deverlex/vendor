@@ -24,6 +24,8 @@ public class PersonalConstract {
         void onClickViewSupport();
 
         void onClickHeader();
+
+        void onReviewActivityClick();
     }
 
     interface Presenter extends BasePresenter {

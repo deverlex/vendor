@@ -272,4 +272,29 @@
     <string name="price_product_empty">Nhập giá sản phẩm</string>
     <string name="product_category_empty">Chọn danh mục</string>
     <string name="product_attributes_empty">Thêm thuộc tính cho sản phẩm</string>
+
+    <string name="review_buyer">Đánh giá Buyer</string>
+    <string name="review_vendor">Đánh giá Vendor</string>
+    <string name="review">Đánh giá của tôi</string>
+    <string name="review_watch">Xem đánh giá của tôi</string>
+
+    <string name="attitude">Thái độ</string>
+    <string name="value">Giá trị</string>
+    <string name="quality">Chất lượng</string>
+
+    <string name="review_all">Tất cả (0)</string>
+    <string name="review_5star">5 sao (0)</string>
+    <string name="review_4star">4 sao (0)</string>
+    <string name="review_3star">3 sao (0)</string>
+    <string name="review_2star">2 sao (0)</string>
+    <string name="review_1star">1 sao (0)</string>
+
+    <string name="personal_comment">Bình luận</string>
+    <string name="review_personal">Chưa có đánh giá nào từ Người bán hàng dành cho \nbạn</string>
+    <string name="shops_thanks">Cảm ơn bạn đã ủng hộ ạ!</string>
+    <string name="reviews_cargo">Không tìm thấy đánh giá nào</string>
+
+    <string name="personal_feedback">Phản Hồi Của Bạn</string>
+    <string name="personal_note_feedback">Bạn chỉ có thể phản hồi 1 lần</string>
+
 </resources>

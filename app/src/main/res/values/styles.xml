@@ -45,4 +45,15 @@
         <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
 
+    <style name="RatingBar" parent="Base.Widget.AppCompat.RatingBar.Small">
+        <item name="colorControlNormal">@color/gray50</item>
+        <item name="colorControlActivated">@color/color_orange_mos</item>
+    </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+
 </resources>

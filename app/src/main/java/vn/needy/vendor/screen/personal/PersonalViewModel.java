@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 
 import vn.needy.vendor.screen.account.AccountActivity;
 import vn.needy.vendor.screen.companyProfile.CompanyProfileActivity;
+import vn.needy.vendor.screen.review.ReviewActivity;
 import vn.needy.vendor.screen.storeProfile.StoreProfileActivity;
 import vn.needy.vendor.screen.userProfile.UserProfileActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -77,6 +78,11 @@ public class PersonalViewModel extends BaseObservable implements PersonalConstra
     @Override
     public void onClickHeader() {
         mNavigator.startActivity(UserProfileActivity.class);
+    }
+
+    @Override
+    public void onReviewActivityClick() {
+        mNavigator.startActivity(ReviewActivity.class);
     }
 
     @Bindable

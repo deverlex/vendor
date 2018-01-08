@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -154,10 +155,16 @@ public class BindingAdapters {
         }
     }
 
+
     @BindingAdapter({"viewPagerAdapter"})
     public static void setAdapterForViewPager(ViewPager viewPager,
                                               FragmentPagerAdapter adapter) {
         viewPager.setAdapter(adapter);
+    }
+
+    @BindingAdapter("viewPager")
+    public static void setViewPagerForTablayout(TabLayout tablayout , ViewPager viewPager){
+        tablayout.setupWithViewPager(viewPager);
     }
 
     @BindingAdapter({"currentTab"})
