@@ -1,6 +1,5 @@
 package vn.needy.vendor.service;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,50 +11,44 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Map;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.VendorApplication;
+import vn.needy.vendor.domain.Notification;
 
 /**
  * Created by lion on 05/01/2018.
  */
 
-public class VendorService extends FirebaseMessagingService {
-
-    private static final String GCM_NOTIFICATION_TITLE = "google.c.a.c_l";
-    private static final String GCM_NOTIFICATION_BODY = "gcm.notification.body";
+public class VendorService extends FirebaseMessagingService{
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.e(getClass().getName(), "onMessageReceived");
-    }
 
-    @Override
-    public void handleIntent(Intent intent) {
-        vn.needy.vendor.domain.Notification notification =new vn.needy.vendor.domain.Notification();
-        try {
-            JSONObject notificationInfoJson = new JSONObject(intent.getStringExtra(GCM_NOTIFICATION_BODY));
-            notification.setTitle(notificationInfoJson.getString("title"));
-            notification.setHtmlContent(notificationInfoJson.getString("html_content"));
-            notification.setReferenceGUI(notificationInfoJson.getString("refecence_gui"));
-        } catch (JSONException e) {
-            e.printStackTrace();
+        Notification notification = new Notification();
+        Map<String, String> data = remoteMessage.getData();
+        notification.setTitle(data.get("title"));
+        notification.setHtmlContent(data.get("body"));
+        notification.setReferenceGUI("reference_gui");
+
+        if (((VendorApplication)getApplication()).getActiveActivity() == null) {
+            // App is Background, show notification
+            Log.e(getClass().getName(), "is Background");
+
+            showNotification(notification);
+        } else {
+            // App is Foceground
+            Log.e(getClass().getName(), "is Foceground");
         }
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        assert notificationManager != null;
-        notificationManager.notify(0 /* ID of notification */, createNotification(notification));
     }
 
-    private Notification createNotification(vn.needy.vendor.domain.Notification notification) {
+    private void showNotification(Notification notification) {
         Intent notiIntent;
         PendingIntent pendingIntent = null;
         try {
-            notiIntent = new Intent(this, Class.forName(getPackageName() + "." + notification.getReferenceGUI()));
+            notiIntent = new Intent(this, Class.forName(getPackageName() + notification.getReferenceGUI()));
             notiIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, notiIntent,
                     PendingIntent.FLAG_ONE_SHOT);
@@ -78,6 +71,10 @@ public class VendorService extends FirebaseMessagingService {
 
         notificationBuilder.setStyle(bigTextStyle);
 
-        return notificationBuilder.build();
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        assert notificationManager != null;
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 }
