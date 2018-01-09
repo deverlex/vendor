@@ -162,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@{@drawable/ic_cash}"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@{@drawable/ic_credit_card}"
+                    android:drawableStart="@{@drawable/ic_cash}"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
