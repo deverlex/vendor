@@ -87,8 +87,8 @@
     <string name="order_by">Sắp xếp th</string>
     <string name="store_manager">Quản lý cửa hàng</string>
 
-    <string name="budget">Ví Needy</string>
-    <string name="view_budget">Xem ví của tôi</string>
+    <string name="budget">Ngân sách</string>
+    <string name="view_budget">Xem ngân sách của tôi</string>
     <string name="account">Tài khoản</string>
     <string name="info_personal">Thông tin cá nhân</string>
     <string name="info_new_company">Công ty mới</string>
@@ -258,7 +258,7 @@
     <string name="notification_email_personal_detail">Gửi thông báo cá nhân cho tôi(VD: quá sinh nhật)</string>
 
     <string name="text_block">Người dùng đã bị chặn sẽ không thể gọi hoặc gửi tin nhắn cho bạn.</string>
-    <string name="unblock">BỎ CHẶN</string>
+    <string name="unblock">Bỏ chặn</string>
     <string name="personal_block">Chưa có ai bị chặn</string>
     <string name="dialog_block">Bỏ chặn ? \n"Bỏ chặn sẽ chấp nhận để chat , bình luận và mua sản phẩm của bạn.\n"Bạn có muốn bỏ chặn không ?\</string>
 

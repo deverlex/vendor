@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.InputType;
@@ -109,7 +111,7 @@ public class BindingAdapters {
         // check image load from server
         if (url.contains("http")) {
             String token = SharedPrefsImpl.getInstance()
-                    .get(SharedPrefsKey.TOKEN_KEY, String.class);
+                    .get(SharedPrefsKey.ACCESS_TOKEN, String.class);
 
             GlideUrl gUri = new GlideUrl(url, new LazyHeaders.Builder()
                     .setHeader("Authorization", token).build());
@@ -149,6 +151,23 @@ public class BindingAdapters {
         } else {
             editText.setInputType(InputType.TYPE_CLASS_TEXT);
         }
+    }
+
+    @BindingAdapter({"viewPagerAdapter"})
+    public static void setAdapterForViewPager(ViewPager viewPager,
+                                              FragmentPagerAdapter adapter) {
+        viewPager.setAdapter(adapter);
+    }
+
+    @BindingAdapter({"currentTab"})
+    public static void setCurrentItemForViewPager(ViewPager viewPager,
+                                              int position) {
+        viewPager.setCurrentItem(position);
+    }
+
+    @BindingAdapter("addOnPageChangeListener")
+    public static void addOnPageChangeListenerForViewPager(ViewPager viewPager, ViewPager.OnPageChangeListener onPageChangeListener) {
+        viewPager.addOnPageChangeListener(onPageChangeListener);
     }
 
     @BindingAdapter("spinnerAdapter")
