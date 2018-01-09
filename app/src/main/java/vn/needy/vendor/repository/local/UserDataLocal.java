@@ -38,12 +38,12 @@ public class UserDataLocal implements UserData.Local {
 
     @Override
     public void saveTokenSync(String token) {
-        mPrefsApi.put(SharedPrefsKey.TOKEN_KEY, token);
+        mPrefsApi.put(SharedPrefsKey.ACCESS_TOKEN, token);
     }
 
     @Override
     public void clearToken() {
-        mPrefsApi.remove(SharedPrefsKey.TOKEN_KEY);
+        mPrefsApi.remove(SharedPrefsKey.ACCESS_TOKEN);
     }
 
     @Override
