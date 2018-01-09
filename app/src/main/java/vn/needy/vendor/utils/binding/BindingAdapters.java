@@ -12,7 +12,6 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.TransformationMethod;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -112,7 +111,7 @@ public class BindingAdapters {
         // check image load from server
         if (url.contains("http")) {
             String token = SharedPrefsImpl.getInstance()
-                    .get(SharedPrefsKey.TOKEN_KEY, String.class);
+                    .get(SharedPrefsKey.ACCESS_TOKEN, String.class);
 
             GlideUrl gUri = new GlideUrl(url, new LazyHeaders.Builder()
                     .setHeader("Authorization", token).build());
