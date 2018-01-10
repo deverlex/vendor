@@ -188,8 +188,9 @@
                     tools:ignore="UnusedAttribute" />
             </RelativeLayout>
 
+
             <RelativeLayout
-                android:onClick="@{() -> viewModel.onClickViewCompany()}"
+                android:onClick="@{() -> viewModel.onClickViewBusiness()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_white"
@@ -205,7 +206,7 @@
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
-                    android:text="@string/company"
+                    android:text="@string/business"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_14"
                     tools:ignore="UnusedAttribute" />
@@ -221,46 +222,7 @@
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_10"
-                    android:text="@string/view_company"
-                    android:textColor="@color/gray78"
-                    android:textSize="@dimen/sp_12"
-                    tools:ignore="UnusedAttribute" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1"
-                android:onClick="@{() -> viewModel.onClickViewStore()}"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@{@drawable/ic_store}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@{@drawable/ic_store}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/store"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableEnd="@{@drawable/ic_next_right}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableRight="@{@drawable/ic_next_right}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/view_store"
+                    android:text="@string/view_business"
                     android:textColor="@color/gray78"
                     android:textSize="@dimen/sp_12"
                     tools:ignore="UnusedAttribute" />

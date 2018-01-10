@@ -98,8 +98,8 @@
     <string name="view_order_history">Xem lịch sử đơn hàng</string>
     <string name="support">Trợ giúp</string>
     <string name="view_support">Xem trợ giúp</string>
-    <string name="company">Công ty</string>
-    <string name="view_company">Xem công ty của tôi</string>
+    <string name="business">Quản lý kinh doanh</string>
+    <string name="view_business">Xem Quản lý kinh doanh</string>
     <string name="store">Cửa hàng</string>
     <string name="view_store">Xem cửa hàng của tôi</string>
 
