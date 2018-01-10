@@ -1,6 +1,9 @@
 package vn.needy.vendor.screen.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -26,6 +29,7 @@ import vn.needy.vendor.screen.listorder.ListOrderFragment;
 import vn.needy.vendor.screen.mainPage.MainPageFragment;
 import vn.needy.vendor.screen.notification.NotificationFragment;
 import vn.needy.vendor.screen.personal.PersonalFragment;
+import vn.needy.vendor.service.VendorService;
 import vn.needy.vendor.utils.ViewUtil;
 
 public class MainActivity extends BaseActivity {
@@ -37,9 +41,21 @@ public class MainActivity extends BaseActivity {
     private BottomBar mBottomBar;
     private MainContract.ViewModel mViewModel;
 
+    BroadcastReceiver mReceiverNewNotification = null;
+
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        mReceiverNewNotification = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                mPresenter.getCountNotificationsNotView();
+            }
+        };
+
+        IntentFilter intentFilter = new IntentFilter(VendorService.ACTION_NEW_NOTIFICATION);
+        registerReceiver(mReceiverNewNotification, intentFilter);
 
         mVendorApi = VendorServiceClient.getInstance();
         mPrefsApi = SharedPrefsImpl.getInstance();
@@ -99,6 +115,12 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
+        mViewModel.onResume();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiverNewNotification);
+    }
 }

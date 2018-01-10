@@ -39,14 +39,11 @@ public class NotificationPresenter implements NotificationConstract.Presenter{
 
     @Override
     public void onReadAll(List<Notification> notifications) {
-        for (Notification notification : notifications) {
-            notification.setIsReaded(true);
-        }
+        mNotificationRepository.readAllNotification();
     }
 
     @Override
     public void onReadedNotification(Notification notification) {
-        notification.setIsReaded(true);
-        mNotificationRepository.saveNotificationSync(notification);
+        mNotificationRepository.readedNotification(notification);
     }
 }

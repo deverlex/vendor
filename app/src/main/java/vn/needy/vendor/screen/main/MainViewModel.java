@@ -22,7 +22,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
 
     @Override
     public void onStart() {
-
+        mPresenter.getCountNotificationsNotView();
     }
 
     @Override
@@ -44,5 +44,10 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     public void onChangeNotification(int count) {
         mNotificationCount = count;
         notifyPropertyChanged(BR.notificationCount);
+    }
+
+    @Override
+    public void onResume() {
+        mPresenter.getCountNotificationsNotView();
     }
 }

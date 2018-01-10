@@ -1,5 +1,6 @@
 package vn.needy.vendor.service;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -24,6 +25,7 @@ import vn.needy.vendor.repository.local.NotificationDataLocal;
  */
 
 public class VendorService extends FirebaseMessagingService{
+    public static final String ACTION_NEW_NOTIFICATION = "vn.need.vendor.NEW_NOTIFICATION";
 
     private NotificationRepository mNotificationRepository;
 
@@ -44,18 +46,23 @@ public class VendorService extends FirebaseMessagingService{
         notification.setReferenceGUI(data.get("reference_gui"));
         notification.setCreateTime(data.get("create_time"));
 
+        // Save notification to local
+        mNotificationRepository.saveNotificationSync(notification);
+
         // Check Active Activity
-        if (((VendorApplication)getApplication()).getActiveActivity().getLocalClassName().equals("Focegroundscreen.main.MainActivity")) {
+        Activity activity = ((VendorApplication)getApplication()).getActiveActivity();
+        if (activity != null && activity.getLocalClassName().equals("screen.main.MainActivity")) {
+            // App is Foceground and Active Activity is MainActivity
+
+            // Send broadcast new notification to MainActivity
+            Intent intent = new Intent();
+            intent.setAction(ACTION_NEW_NOTIFICATION);
+            sendBroadcast(intent);
+        } else {
             // Active Activity is'n MainActivity or App in Background -> show notification
             Log.e(getClass().getName(), "is Background");
 
             showNotification(notification);
-        } else {
-            // App is Foceground and Active Activity is MainActivity
-            Log.e(getClass().getName(), "is Foceground" + ((VendorApplication)getApplication()).getActiveActivity().getLocalClassName() );
-
-            // Save notification to local
-            mNotificationRepository.saveNotificationSync(notification);
         }
     }
 

@@ -17,5 +17,9 @@ public interface NotificatonData {
         List<Notification> getNotificationsNotView();
 
         void viewAllNotification();
+
+        void readedNotification(Notification notification);
+
+        void readAllNotification();
     }
 }

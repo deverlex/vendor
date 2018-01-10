@@ -45,4 +45,29 @@ public class NotificationDataLocal implements NotificatonData.Local{
             }
         });
     }
+
+    @Override
+    public void readedNotification(final Notification notification) {
+        RealmApi.getSync().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                notification.setIsReaded(true);
+                realm.insertOrUpdate(notification);
+            }
+        });
+    }
+
+    @Override
+    public void readAllNotification() {
+        final List<Notification> notifications = RealmApi.getSync().where(Notification.class).equalTo("mIsReaded", false).findAll();
+        RealmApi.getSync().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                for (Notification n : notifications) {
+                    n.setIsReaded(true);
+                    realm.insertOrUpdate(n);
+                }
+            }
+        });
+    }
 }

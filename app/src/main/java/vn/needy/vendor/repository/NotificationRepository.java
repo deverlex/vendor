@@ -34,4 +34,12 @@ public class NotificationRepository {
     public void viewAllNotification() {
         mLocal.viewAllNotification();
     }
+
+    public void readedNotification(Notification notification) {
+        mLocal.readedNotification(notification);
+    }
+
+    public void readAllNotification() {
+        mLocal.readAllNotification();
+    }
 }

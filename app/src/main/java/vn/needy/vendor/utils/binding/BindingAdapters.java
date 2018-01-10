@@ -184,7 +184,6 @@ public class BindingAdapters {
 
     @BindingAdapter("badgesNotification")
     public static void setBadgesCountForNotificationTab(BottomBar bottomBar, int count) {
-        Log.e("XXX", "XXX");
         BottomBarTab notiTab = bottomBar.getTabWithId(R.id.notification);
         if (count > 0) {
             notiTab.setBadgeCount(count);

@@ -11,6 +11,8 @@ public interface MainContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
         void onChangeNotification(int count);
+
+        void onResume();
     }
 
     interface Presenter extends BasePresenter {
@@ -20,5 +22,7 @@ public interface MainContract {
         void loadNotifications();
 
         void viewAllNotification();
+
+        void getCountNotificationsNotView();
     }
 }

@@ -22,7 +22,7 @@ import vn.needy.vendor.repository.remote.user.UserDataRemote;
  * Created by lion on 30/10/2017.
  */
 
-public class MainPresenter implements MainContract.Presenter, RealmChangeListener<RealmResults<Notification>> {
+public class MainPresenter implements MainContract.Presenter {
 
     private static final String TAG = MainPresenter.class.getName();
 
@@ -48,9 +48,6 @@ public class MainPresenter implements MainContract.Presenter, RealmChangeListene
         mCompositeDisposable = new CompositeDisposable();
 
         mNotificationRepository = new NotificationRepository(new NotificationDataLocal());
-
-        // change listener for notification
-        RealmApi.getSync().where(Notification.class).findAllAsync().addChangeListener(this);
     }
 
     @Override
@@ -80,7 +77,7 @@ public class MainPresenter implements MainContract.Presenter, RealmChangeListene
     }
 
     @Override
-    public void onChange(RealmResults<Notification> notifications) {
+    public void getCountNotificationsNotView() {
         mViewModel.onChangeNotification(mNotificationRepository.getNotificationsNotView().size());
     }
 }
