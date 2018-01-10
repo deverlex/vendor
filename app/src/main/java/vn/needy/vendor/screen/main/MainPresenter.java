@@ -1,12 +1,19 @@
 package vn.needy.vendor.screen.main;
 
+import android.util.Log;
+
 import io.reactivex.disposables.CompositeDisposable;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
 import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.domain.Notification;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;
+import vn.needy.vendor.repository.NotificationRepository;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.repository.local.CompanyDataLocal;
+import vn.needy.vendor.repository.local.NotificationDataLocal;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.company.CompanyRemoteData;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
@@ -15,7 +22,7 @@ import vn.needy.vendor.repository.remote.user.UserDataRemote;
  * Created by lion on 30/10/2017.
  */
 
-public class MainPresenter implements MainContract.Presenter {
+public class MainPresenter implements MainContract.Presenter, RealmChangeListener<RealmResults<Notification>> {
 
     private static final String TAG = MainPresenter.class.getName();
 
@@ -23,8 +30,13 @@ public class MainPresenter implements MainContract.Presenter {
 
     private final UserRepository mUserRepository;
     private final CompanyRepository mCompanyRepository;
+    private final NotificationRepository mNotificationRepository;
 
-    public MainPresenter(VendorApi vendorApi, SharedPrefsApi prefsApi) {
+    private MainContract.ViewModel mViewModel;
+
+    public MainPresenter(MainContract.ViewModel viewModel, VendorApi vendorApi, SharedPrefsApi prefsApi) {
+        mViewModel = viewModel;
+
         mUserRepository = new UserRepository(
                 new UserDataRemote(vendorApi),
                 new UserDataLocal(prefsApi)
@@ -34,6 +46,11 @@ public class MainPresenter implements MainContract.Presenter {
                 new CompanyDataLocal()
         );
         mCompositeDisposable = new CompositeDisposable();
+
+        mNotificationRepository = new NotificationRepository(new NotificationDataLocal());
+
+        // change listener for notification
+        RealmApi.getSync().where(Notification.class).findAllAsync().addChangeListener(this);
     }
 
     @Override
@@ -54,5 +71,16 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void loadNotifications() {
 
+    }
+
+    @Override
+    public void viewAllNotification() {
+        mNotificationRepository.viewAllNotification();
+        mViewModel.onChangeNotification(0);
+    }
+
+    @Override
+    public void onChange(RealmResults<Notification> notifications) {
+        mViewModel.onChangeNotification(mNotificationRepository.getNotificationsNotView().size());
     }
 }

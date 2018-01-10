@@ -9,10 +9,16 @@ import vn.needy.vendor.screen.BaseViewModel;
 
 public interface MainContract {
 
+    interface ViewModel extends BaseViewModel<Presenter> {
+        void onChangeNotification(int count);
+    }
+
     interface Presenter extends BasePresenter {
 
         void loadCartList();
 
         void loadNotifications();
+
+        void viewAllNotification();
     }
 }

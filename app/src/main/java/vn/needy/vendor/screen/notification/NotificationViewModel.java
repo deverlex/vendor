@@ -33,7 +33,7 @@ public class NotificationViewModel extends BaseObservable implements Notificatio
 
     @Override
     public void onStart() {
-        mPresenter.onGetNotification();
+        mPresenter.getNotificationsLocal();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class NotificationViewModel extends BaseObservable implements Notificatio
     @Override
     public void onItemRecyclerViewClick(Object item) {
         Notification notification = (Notification) item;
-        notification.setIsReaded(true);
+        mPresenter.onReadedNotification(notification);
         mAdapter.notifyItemChanged(mAdapter.getPosition(notification));
 
         Intent intent=new Intent();

@@ -16,6 +16,8 @@ import java.util.Map;
 import vn.needy.vendor.R;
 import vn.needy.vendor.VendorApplication;
 import vn.needy.vendor.domain.Notification;
+import vn.needy.vendor.repository.NotificationRepository;
+import vn.needy.vendor.repository.local.NotificationDataLocal;
 
 /**
  * Created by lion on 05/01/2018.
@@ -23,24 +25,37 @@ import vn.needy.vendor.domain.Notification;
 
 public class VendorService extends FirebaseMessagingService{
 
+    private NotificationRepository mNotificationRepository;
+
+    public VendorService() {
+        super();
+        mNotificationRepository = new NotificationRepository(new NotificationDataLocal());
+    }
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
         Notification notification = new Notification();
         Map<String, String> data = remoteMessage.getData();
+        notification.setId(Long.valueOf(data.get("id")));
         notification.setTitle(data.get("title"));
         notification.setHtmlContent(data.get("body"));
-        notification.setReferenceGUI("reference_gui");
+        notification.setReferenceGUI(data.get("reference_gui"));
+        notification.setCreateTime(data.get("create_time"));
 
-        if (((VendorApplication)getApplication()).getActiveActivity() == null) {
-            // App is Background, show notification
+        // Check Active Activity
+        if (((VendorApplication)getApplication()).getActiveActivity().getLocalClassName().equals("Focegroundscreen.main.MainActivity")) {
+            // Active Activity is'n MainActivity or App in Background -> show notification
             Log.e(getClass().getName(), "is Background");
 
             showNotification(notification);
         } else {
-            // App is Foceground
-            Log.e(getClass().getName(), "is Foceground");
+            // App is Foceground and Active Activity is MainActivity
+            Log.e(getClass().getName(), "is Foceground" + ((VendorApplication)getApplication()).getActiveActivity().getLocalClassName() );
+
+            // Save notification to local
+            mNotificationRepository.saveNotificationSync(notification);
         }
     }
 
