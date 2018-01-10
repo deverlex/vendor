@@ -29,8 +29,8 @@ public class BudgetViewModel extends BaseObservable implements BudgetContract.Vi
 
     @Override
     public void onStart() {
-        mBudget.setAmount("0");
-        mBudget.setHold("2 000 000");
+        mBudget.setAmount(0);
+        mBudget.setHold(2000000);
     }
 
     @Override
@@ -49,8 +49,13 @@ public class BudgetViewModel extends BaseObservable implements BudgetContract.Vi
     }
 
     @Bindable
-    public Budget getBudget() {
-        return mBudget;
+    public String getAmount() {
+        return mBudget.getAmount() + "";
+    }
+
+    @Bindable
+    public String getHold() {
+        return mBudget.getHold() + "";
     }
 
     @Bindable

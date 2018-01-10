@@ -8,26 +8,26 @@ import io.realm.RealmObject;
 
 public class Budget extends RealmObject {
 
-    private String amount;
-    private String hold;
+    private float amount;
+    private float hold;
 
     public Budget() {
         super();
     }
 
-    public String getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
-    public String getHold() {
+    public float getHold() {
         return hold;
     }
 
-    public void setHold(String hold) {
+    public void setHold(float hold) {
         this.hold = hold;
     }
 }

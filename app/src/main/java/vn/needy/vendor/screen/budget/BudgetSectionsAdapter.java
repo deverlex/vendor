@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.screen.budget.historyIncome.BudgetHistoryIncomeFragment;
-import vn.needy.vendor.screen.budget.historyRecharge.BudgetHistoryRechargeFragment;
-import vn.needy.vendor.screen.budget.historySubtract.BudgetHistorySubtractFragment;
+import vn.needy.vendor.screen.budget.incomeHistory.BudgetHistoryIncomeFragment;
+import vn.needy.vendor.screen.budget.rechargeHistory.BudgetHistoryRechargeFragment;
+import vn.needy.vendor.screen.budget.subtractHistory.BudgetHistorySubtractFragment;
 
 /**
  * Created by minh_dai on 02/01/2018.
