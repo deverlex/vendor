@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.budget.historyRecharge;
+package vn.needy.vendor.screen.budget.rechargeHistory;
 
 import android.content.Context;
 
@@ -31,7 +31,7 @@ public class BudgetHistoryRechargePresenter implements BudgetHistoryRechargeCont
     }
 
     @Override
-    public void getListProduct(){
+    public void setListCoin(){
 
         List<BudgetActivity.Coin> mList;
         BudgetActivity.Coin cargo = new BudgetActivity.Coin("Set 10 đôi tất Uni cổ thấp loại đẹp"
@@ -46,6 +46,6 @@ public class BudgetHistoryRechargePresenter implements BudgetHistoryRechargeCont
         mList.add(cargo);
         mList.add(cargo);
 
-        mViewModel.getCoinList(mList);
+        mViewModel.getListCoin(mList);
     }
 }

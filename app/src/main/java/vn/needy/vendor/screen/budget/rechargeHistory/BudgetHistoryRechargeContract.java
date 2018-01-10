@@ -1,8 +1,7 @@
-package vn.needy.vendor.screen.budget.historyRecharge;
+package vn.needy.vendor.screen.budget.rechargeHistory;
 
 import java.util.List;
 
-import vn.needy.vendor.domain.Budget;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 import vn.needy.vendor.screen.budget.BudgetActivity;
@@ -15,15 +14,15 @@ interface BudgetHistoryRechargeContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void getCoinList(List<BudgetActivity.Coin> coins);
+        void getListCoin(List<BudgetActivity.Coin> coins);
 
-        void onPersonalEarnsCoinClick();
+        void onClickPersonalEarnsCoins();
 
     }
 
     interface Presenter extends BasePresenter{
 
-        void getListProduct();
+        void setListCoin();
 
     }
 }

@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.budget.historyRecharge;
+package vn.needy.vendor.screen.budget.rechargeHistory;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import java.util.List;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.FragmentBudbgetHistoryRechargeBinding;
-import vn.needy.vendor.domain.Budget;
 import vn.needy.vendor.screen.budget.BudgetActivity;
 import vn.needy.vendor.screen.budget.BudgetRecyclerViewAdapter;
 
