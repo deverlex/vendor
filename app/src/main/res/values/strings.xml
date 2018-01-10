@@ -272,4 +272,13 @@
     <string name="price_product_empty">Nhập giá sản phẩm</string>
     <string name="product_category_empty">Chọn danh mục</string>
     <string name="product_attributes_empty">Thêm thuộc tính cho sản phẩm</string>
+
+    <string name="business_number_product">Product</string>
+    <string name="business_product">Sản phẩm</string>
+    <string name="business_cup">Chỉ Số Bán Hàng</string>
+    <string name="business_employees">Khách hàng</string>
+    <string name="business_setting">Thiết lập Shop</string>
+    <string name="business_company">Công Ty Của Tôi</string>
+    <string name="business_store">Cửa hàng Của Tôi</string>
+    <string name="business_channels">Kênh người bán</string>
 </resources>

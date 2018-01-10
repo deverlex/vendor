@@ -30,11 +30,11 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:onClick="@{ () -> viewModel.onBackPressed()}"
                     android:id="@+id/back"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/transparent"
+                    android:onClick="@{ () -> viewModel.onBackPressed()}"
                     app:srcCompat="@drawable/ic_back_left" />
 
                 <TextView
@@ -64,260 +64,210 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_60"
                     android:layout_marginBottom="@dimen/dp_2"
                     android:layout_marginTop="@dimen/dp_2"
-                    android:background="@color/color_white">
-
-                    <LinearLayout
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dp_15"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="@dimen/dp_40"
-                            android:layout_height="@dimen/dp_40"
-                            app:srcCompat="@drawable/ic_gift_border" />
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical">
 
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Sản phẩm"
-                            android:textColor="@color/color_black"
-                            android:textSize="@dimen/sp_14" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:text="1 Product"
-                            android:textColor="@color/color_gray_mos"
-                            android:textSize="@dimen/sp_12" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_2"
-                    android:background="@color/color_white">
-
-                    <LinearLayout
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dp_15"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="@dimen/dp_40"
-                            android:layout_height="@dimen/dp_40"
-                            app:srcCompat="@drawable/ic_cup" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                    <ImageView
+                        android:id="@+id/imageProduct"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_alignParentLeft="true"
                         android:layout_marginLeft="@dimen/dp_15"
-                        android:layout_weight="4"
-                        android:gravity="center_vertical"
+                        app:srcCompat="@drawable/ic_gift_border" />
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_toRightOf="@id/imageProduct"
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@string/font_serif"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/business_product"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/sp_14" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Chỉ Số Bán Hàng"
-                            android:textColor="@color/color_black"
-                            android:textSize="@dimen/sp_14" />
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:fontFamily="@string/font_serif"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:text="@{viewModel.numberProduct}"
+                                android:textColor="@color/color_gray_mos"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:fontFamily="@string/font_serif"
+                                android:layout_marginLeft="@dimen/dp_5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:text="@string/business_number_product"
+                                android:textColor="@color/color_gray_mos"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
 
                     </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_60"
                     android:layout_marginBottom="@dimen/dp_2"
                     android:background="@color/color_white">
 
-                    <LinearLayout
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dp_15"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_weight="1"
-                        android:gravity="center">
+                    <ImageView
+                        android:id="@+id/imgCup"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        app:srcCompat="@drawable/ic_cup" />
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_40"
-                            android:layout_height="@dimen/dp_40"
-                            app:srcCompat="@drawable/ic_business" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:fontFamily="@string/font_serif"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_toRightOf="@id/imgCup"
+                        android:text="@string/business_cup"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Khách Hàng"
-                            android:textColor="@color/color_black"
-                            android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
 
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_60"
                     android:layout_marginBottom="@dimen/dp_2"
                     android:background="@color/color_white">
 
-                    <LinearLayout
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dp_15"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_weight="1"
-                        android:gravity="center">
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_40"
-                            android:layout_height="@dimen/dp_40"
-                            app:srcCompat="@drawable/ic_setting" />
+                    <ImageView
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:id="@+id/imgBusiness"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
+                        app:srcCompat="@drawable/ic_business" />
 
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:fontFamily="@string/font_serif"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_toRightOf="@id/imgBusiness"
+                        android:text="@string/business_employees"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Thiết lập Shop"
-                            android:textColor="@color/color_black"
-                            android:textSize="@dimen/sp_14" />
-
-                    </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
 
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_60"
                     android:layout_marginBottom="@dimen/dp_2"
                     android:background="@color/color_white">
 
-                    <LinearLayout
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dp_15"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_weight="1"
-                        android:gravity="center">
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_40"
-                            android:layout_height="@dimen/dp_40"
-                            app:srcCompat="@drawable/ic_company" />
+                    <ImageView
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:id="@+id/imgSetting"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
+                        app:srcCompat="@drawable/ic_setting" />
 
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:fontFamily="@string/font_serif"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_toRightOf="@id/imgSetting"
+                        android:text="@string/business_setting"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Công Ty Của Tôi"
-                            android:textColor="@color/color_black"
-                            android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
 
-                    </LinearLayout>
-                </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_60"
                     android:layout_marginBottom="@dimen/dp_2"
                     android:background="@color/color_white">
 
-                    <LinearLayout
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dp_15"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_weight="1"
-                        android:gravity="center">
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_40"
-                            android:layout_height="@dimen/dp_40"
-                            app:srcCompat="@drawable/ic_store" />
+                    <ImageView
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:id="@+id/imgCompany"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
+                        app:srcCompat="@drawable/ic_company" />
 
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:fontFamily="@string/font_serif"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_toRightOf="@id/imgCompany"
+                        android:text="@string/business_company"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Store Của Tôi"
-                            android:textColor="@color/color_black"
-                            android:textSize="@dimen/sp_14" />
-                    </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginBottom="@dimen/dp_2"
+                    android:background="@color/color_white">
+
+
+                    <ImageView
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:id="@+id/imgStore"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
+                        app:srcCompat="@drawable/ic_store" />
+
+                    <TextView
+                        android:fontFamily="@string/font_serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_toRightOf="@id/imgStore"
+                        android:text="@string/business_store"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_14" />
+
+                </RelativeLayout>
 
 
                 <LinearLayout
@@ -328,37 +278,39 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:layout_marginBottom="@dimen/dp_15"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_10">
 
                         <TextView
-                            android:layout_marginLeft="@dimen/dp_15"
+                            android:fontFamily="@string/font_serif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
-                            android:text="Kênh người bán"
+                            android:layout_marginLeft="@dimen/dp_15"
+                            android:text="@string/business_channels"
                             android:textColor="@color/color_black"
                             android:textSize="@dimen/sp_15" />
 
                         <TextView
-                            android:layout_marginRight="@dimen/dp_15"
+                            android:fontFamily="@string/font_serif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="Kênh người bán"
+                            android:layout_marginRight="@dimen/dp_15"
+                            android:text="@{viewModel.channels}"
                             android:textColor="@color/color_green_blue"
                             android:textSize="@dimen/sp_15" />
                     </RelativeLayout>
 
                     <ImageView
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_350"
                         android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginRight="@dimen/dp_15"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_350" />
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_login" />
 
                 </LinearLayout>
             </LinearLayout>
