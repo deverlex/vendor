@@ -1,10 +1,10 @@
-package vn.needy.vendor.screen.budget.historyIncome;
+package vn.needy.vendor.screen.budget.incomeHistory;
 
 import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
-import vn.needy.vendor.domain.Budget;
+
 import vn.needy.vendor.screen.budget.BudgetActivity;
 
 /**
@@ -32,7 +32,7 @@ public class BudgetHistoryIncomePresenter implements BudgetHistoryIncomeContract
     }
 
     @Override
-    public void getListProduct(){
+    public void setListCoin(){
 
         List<BudgetActivity.Coin> mList;
         BudgetActivity.Coin cargo = new BudgetActivity.Coin("Set 10 đôi tất Uni cổ thấp loại đẹp"
@@ -47,6 +47,6 @@ public class BudgetHistoryIncomePresenter implements BudgetHistoryIncomeContract
         mList.add(cargo);
         mList.add(cargo);
 
-        mViewModel.getCoinList(mList);
+        mViewModel.getListCoin(mList);
     }
 }

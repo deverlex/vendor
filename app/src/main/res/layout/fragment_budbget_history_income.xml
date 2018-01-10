@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.budget.historyIncome.BudgetHistoryIncomeViewModel"/>
+            type="vn.needy.vendor.screen.budget.incomeHistory.BudgetHistoryIncomeViewModel"/>
         <import type="android.view.View"/>
     </data>
 
@@ -23,7 +23,7 @@
         </android.support.v7.widget.RecyclerView>
 
         <RelativeLayout
-            android:visibility="@{viewModel.visibilityRecyclerView == false ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.visibilityRecyclerView == true ?  View.GONE : View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -32,7 +32,7 @@
                 android:layout_marginRight="@dimen/dp_15"
                 android:layout_centerInParent="true"
                 android:id="@+id/txt_personal"
-                android:text="@string/personal_not_coin"
+                android:text="@string/personal_dialog_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -44,8 +44,8 @@
                 android:paddingTop="@dimen/dp_10"
                 android:paddingBottom="@dimen/dp_10"
                 android:layout_below="@id/txt_personal"
-                android:text="@string/personal_earns"
-                android:onClick="@{()->viewModel.onPersonalEarnsCoinClick()}"
+                android:text="@string/personal_earns_coin"
+                android:onClick="@{()->viewModel.onClickPersonalEarnsCoins()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_60"
