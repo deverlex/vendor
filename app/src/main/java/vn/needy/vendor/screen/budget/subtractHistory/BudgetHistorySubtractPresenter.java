@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.budget.historySubtract;
+package vn.needy.vendor.screen.budget.subtractHistory;
 
 import android.content.Context;
 
@@ -32,7 +32,7 @@ public class BudgetHistorySubtractPresenter implements BudgetHistorySubtractCont
     }
 
     @Override
-    public void getListProduct(){
+    public void setListCoin(){
 
         List<BudgetActivity.Coin> mList;
         BudgetActivity.Coin cargo = new BudgetActivity.Coin("Set 10 đôi tất Uni cổ thấp loại đẹp"
@@ -41,6 +41,6 @@ public class BudgetHistorySubtractPresenter implements BudgetHistorySubtractCont
 
         mList = new ArrayList<>();
 
-        mViewModel.getCoinList(mList);
+        mViewModel.getListCoin(mList);
     }
 }

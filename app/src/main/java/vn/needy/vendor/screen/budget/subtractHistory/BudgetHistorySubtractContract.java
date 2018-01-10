@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.budget.historySubtract;
+package vn.needy.vendor.screen.budget.subtractHistory;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ interface BudgetHistorySubtractContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void getCoinList(List<BudgetActivity.Coin> coins);
+        void getListCoin(List<BudgetActivity.Coin> coins);
 
-        void onPersonalEarnsCoinClick();
+        void onClickPersonalEarnsCoins();
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void getListProduct();
+        void setListCoin();
     }
 }

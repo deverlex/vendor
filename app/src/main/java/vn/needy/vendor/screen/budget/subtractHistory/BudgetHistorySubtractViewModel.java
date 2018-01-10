@@ -1,4 +1,4 @@
-package vn.needy.vendor.screen.budget.historySubtract;
+package vn.needy.vendor.screen.budget.subtractHistory;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
@@ -6,7 +6,6 @@ import android.databinding.Bindable;
 
 import java.util.List;
 
-import vn.needy.vendor.domain.Budget;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.budget.BudgetActivity;
 import vn.needy.vendor.screen.budget.BudgetRecyclerViewAdapter;
@@ -34,7 +33,7 @@ public class BudgetHistorySubtractViewModel extends BaseObservable implements Bu
 
     @Override
     public void onStart() {
-        mPresenter.getListProduct();
+        mPresenter.setListCoin();
 
     }
 
@@ -59,13 +58,13 @@ public class BudgetHistorySubtractViewModel extends BaseObservable implements Bu
     }
 
     @Override
-    public void getCoinList(List<BudgetActivity.Coin> coins) {
+    public void getListCoin(List<BudgetActivity.Coin> coins) {
         mAdapter.updateData(coins);
         mVisibilityRecyclerView = coins.size() == 0 ? false : true;
     }
 
     @Override
-    public void onPersonalEarnsCoinClick() {
+    public void onClickPersonalEarnsCoins() {
 
     }
 
