@@ -1,0 +1,8 @@
+package vn.needy.vendor.screen.violateStatistic;
+
+/**
+ * Created by lion on 11/01/2018.
+ */
+
+public class ViolateStatisticViewModel {
+}
