@@ -1,13 +1,7 @@
 package vn.needy.vendor.screen.main;
 
-import android.util.Log;
-
 import io.reactivex.disposables.CompositeDisposable;
-import io.realm.RealmChangeListener;
-import io.realm.RealmResults;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
-import vn.needy.vendor.domain.Notification;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.NotificationRepository;

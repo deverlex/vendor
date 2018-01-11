@@ -23,6 +23,6 @@ public interface NotificationConstract {
 
         void onReadAll(List<Notification> notifications);
 
-        void onReadedNotification(Notification notification);
+        void onReadNotification(Notification notification);
     }
 }

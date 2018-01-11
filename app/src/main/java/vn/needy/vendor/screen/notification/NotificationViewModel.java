@@ -65,7 +65,7 @@ public class NotificationViewModel extends BaseObservable implements Notificatio
     @Override
     public void onItemRecyclerViewClick(Object item) {
         Notification notification = (Notification) item;
-        mPresenter.onReadedNotification(notification);
+        mPresenter.onReadNotification(notification);
         mAdapter.notifyItemChanged(mAdapter.getPosition(notification));
 
         Intent intent=new Intent();

@@ -43,7 +43,7 @@ public class NotificationPresenter implements NotificationConstract.Presenter{
     }
 
     @Override
-    public void onReadedNotification(Notification notification) {
+    public void onReadNotification(Notification notification) {
         mNotificationRepository.readedNotification(notification);
     }
 }
