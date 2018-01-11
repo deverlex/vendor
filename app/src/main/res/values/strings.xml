@@ -281,4 +281,13 @@
     <string name="business_company">Công Ty Của Tôi</string>
     <string name="business_store">Cửa hàng Của Tôi</string>
     <string name="business_channels">Kênh người bán</string>
+    
+    <string name="saleindex_salesman_achievement">Hiệu quả hoạt ộđng người bán</string>
+    <string name="saleindex_achievement">Hiệu quả người bán</string>
+
+    <string name="saleindex_ratio">Tỉ lệ phản hồi</string>
+    <string name="saleindex_time">Thời gian phản hồi</string>
+    <string name="saleindex_ratio_prosperous">Tỉ lệ không thành công</string>
+    <string name="saleindex_index_weigh">Hệ số sao quả tạ</string>
+    <string name="saleindex_vote">Đánh giá</string>
 </resources>
