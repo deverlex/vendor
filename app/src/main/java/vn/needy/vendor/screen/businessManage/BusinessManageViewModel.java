@@ -22,7 +22,7 @@ public class BusinessManageViewModel extends BaseObservable implements BusinessM
         this.mContext = mContext;
 
         mNumberProduct = 1;
-        mChannels = mContext.getString(R.string.business_channels);
+        mChannels = mContext.getString(R.string.business_channel_seller);
     }
 
     @Override

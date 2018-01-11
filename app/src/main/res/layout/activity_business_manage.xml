@@ -118,7 +118,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_5"
-                                android:text="@string/business_number_product"
+                                android:text="@string/business_name_product"
                                 android:textColor="@color/color_gray_mos"
                                 android:textSize="@dimen/sp_12" />
                         </LinearLayout>
@@ -149,7 +149,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp_15"
                         android:layout_toRightOf="@id/imgCup"
-                        android:text="@string/business_cup"
+                        android:text="@string/business_index"
                         android:textColor="@color/color_black"
                         android:textSize="@dimen/sp_14" />
 
@@ -177,7 +177,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp_15"
                         android:layout_toRightOf="@id/imgBusiness"
-                        android:text="@string/business_employees"
+                        android:text="@string/business_customer"
                         android:textColor="@color/color_black"
                         android:textSize="@dimen/sp_14" />
 
@@ -289,7 +289,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_marginLeft="@dimen/dp_15"
-                            android:text="@string/business_channels"
+                            android:text="@string/business_channel_seller"
                             android:textColor="@color/color_black"
                             android:textSize="@dimen/sp_15" />
 
