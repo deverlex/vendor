@@ -10,14 +10,33 @@ import com.google.gson.annotations.SerializedName;
 public class RegisterUserRequest {
 
     @Expose
-    @SerializedName("firebaseUid")
-    private String mFirebaseUid;
+    @SerializedName("scope")
+    private String mScope;
+
     @Expose
-    @SerializedName("firebaseToken")
+    @SerializedName("instance_id")
+    private String mInstanceId;
+
+    @Expose
+    @SerializedName("firebase_token")
     private String mFirebaseToken;
+
+    @Expose
+    @SerializedName("language")
+    private String mLanguage;
+
+    @Expose
+    @SerializedName("firebase_phone_uid")
+    private String mFirebasePhoneUid;
+
+    @Expose
+    @SerializedName("firebase_phone_token")
+    private String mFirebasePhoneToken;
+
     @Expose
     @SerializedName("username")
     private String mPhoneNumber;
+
     @Expose
     @SerializedName("password")
     private String mPassword;
@@ -26,12 +45,20 @@ public class RegisterUserRequest {
         super();
     }
 
-    public String getFirebaseUid() {
-        return mFirebaseUid;
+    public String getScope() {
+        return mScope;
     }
 
-    public void setFirebaseUid(String firebaseUid) {
-        mFirebaseUid = firebaseUid;
+    public void setScope(String scope) {
+        mScope = scope;
+    }
+
+    public String getInstanceId() {
+        return mInstanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        mInstanceId = instanceId;
     }
 
     public String getFirebaseToken() {
@@ -42,12 +69,36 @@ public class RegisterUserRequest {
         mFirebaseToken = firebaseToken;
     }
 
+    public String getLanguage() {
+        return mLanguage;
+    }
+
+    public void setLanguage(String language) {
+        mLanguage = language;
+    }
+
+    public String getFirebasePhoneUid() {
+        return mFirebasePhoneUid;
+    }
+
+    public void setFirebasePhoneUid(String firebasePhoneUid) {
+        mFirebasePhoneUid = firebasePhoneUid;
+    }
+
+    public String getFirebasePhoneToken() {
+        return mFirebasePhoneToken;
+    }
+
+    public void setFirebasePhoneToken(String firebasePhoneToken) {
+        mFirebasePhoneToken = firebasePhoneToken;
+    }
+
     public String getPhoneNumber() {
         return mPhoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.mPhoneNumber = phoneNumber;
+        mPhoneNumber = phoneNumber;
     }
 
     public String getPassword() {
@@ -55,7 +106,6 @@ public class RegisterUserRequest {
     }
 
     public void setPassword(String password) {
-        this.mPassword = password;
+        mPassword = password;
     }
-
 }

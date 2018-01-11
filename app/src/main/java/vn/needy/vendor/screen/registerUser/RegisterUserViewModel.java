@@ -10,11 +10,15 @@ import android.text.method.TransformationMethod;
 import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.Locale;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
+import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
@@ -101,10 +105,14 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     public void onVerificationSuccess(String firebaseUid, String firebaseToken) {
         mDialogManager.dismissProgressDialog();
         RegisterUserRequest request = new RegisterUserRequest();
+        request.setScope(Constant.SCOPE);
+        request.setInstanceId(Utils.getDeviceId(mContext));
+        request.setFirebaseToken(FirebaseInstanceId.getInstance().getToken());
+        request.setLanguage(Locale.getDefault().getLanguage());
         request.setPhoneNumber(Utils.PhoneNumberUtils.formatPhoneNumber(mPhoneNumber));
         request.setPassword(mPassword);
-        request.setFirebaseUid(firebaseUid);
-        request.setFirebaseToken(firebaseToken);
+        request.setFirebasePhoneUid(firebaseUid);
+        request.setFirebasePhoneToken(firebaseToken);
         mPresenter.registerUser(request);
     }
 
@@ -151,12 +159,14 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     }
 
     @Override
-    public void onSendVerificationSuccess() {
+    public void onSendVerificationSuccess(String otpCode) {
         mDialogManager.dismissProgressDialog();
         // change intro content for add otp code
         mIntroContent = mContext.getString(R.string.intro_validate_opt);
         mVisibleOptCode = true;
+        mOtpCode = otpCode;
 
+        notifyPropertyChanged(BR.otpCode);
         notifyPropertyChanged(BR.visibleOptCode);
         notifyPropertyChanged(BR.introContent);
     }
@@ -269,12 +279,12 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     }
 
     @Bindable
-    public String getOptCode() {
+    public String getOtpCode() {
         return mOtpCode;
     }
 
-    public void setOptCode(String optCode) {
-        this.mOtpCode = optCode;
+    public void setOtpCode(String otpCode) {
+        mOtpCode = otpCode;
     }
 
     @Bindable

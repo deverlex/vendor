@@ -194,7 +194,7 @@
                     android:drawablePadding="@dimen/dp_20"
                     android:drawableStart="@drawable/ic_code_gray"
                     android:fontFamily="@string/font_serif"
-                    android:text="@={viewModel.optCode}"
+                    android:text="@{viewModel.otpCode}"
                     android:hint="@string/otp_code"
                     android:inputType="phone"
                     android:textAllCaps="false"

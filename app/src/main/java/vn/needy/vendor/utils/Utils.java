@@ -1,7 +1,10 @@
 package vn.needy.vendor.utils;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.provider.Settings;
 import android.util.Base64;
 
 import com.google.i18n.phonenumbers.NumberParseException;
@@ -45,6 +48,12 @@ public class Utils {
 
     public static class DateTimeUtils {
 
+    }
+
+    @SuppressLint("HardwareIds")
+    public static String getDeviceId(Context context) {
+        return Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
     }
 
     public static class ImageUtils {

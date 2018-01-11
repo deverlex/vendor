@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
@@ -43,7 +45,7 @@ import vn.needy.vendor.utils.Utils;
 
 public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
-    private static final int TIME_DURATION = 15;
+    private static final int TIME_DURATION = 120;
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String mVerificationId;
@@ -61,8 +63,8 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
-            mViewModel.onSendVerificationSuccess();
-            signInWithPhoneAuthCredential(credential);
+            mViewModel.onSendVerificationSuccess(credential.getSmsCode());
+//            signInWithPhoneAuthCredential(credential);
             mDuration = -1;
         }
 
@@ -90,6 +92,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         mViewModel = viewModel;
         mActivity = activity;
         mAuth = FirebaseAuth.getInstance();
+
         mDuration = 0;
         mUserRepository = new UserRepository(
                 new UserDataRemote(vendorApi),
@@ -220,7 +223,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         mViewModel.onShowProgressBar();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
-                TIME_DURATION,                 // Timeout duration
+                TIME_DURATION,      // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 mActivity,          // Activity (for callback binding)
                 mCallbacks,         // OnVerificationStateChangedCallbacks

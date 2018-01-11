@@ -29,7 +29,7 @@ public class RegisterUserContract {
         /**For action send verification to Firebase*/
         void onWaitingTimeForResend(int duration);
 
-        void onSendVerificationSuccess();
+        void onSendVerificationSuccess(String otpCode);
 
         // send verify
         void onSendVerificationClick();
