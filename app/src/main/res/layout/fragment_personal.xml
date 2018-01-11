@@ -64,282 +64,290 @@
                 app:srcCompat="@drawable/ic_white_message" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <ScrollView
             android:layout_below="@+id/header"
-            android:background="@color/gray12"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/dp_10"
-                android:background="@color/color_white"
-                android:onClick="@{() -> viewModel.onClickViewAccount()}"
-                >
+                android:layout_height="match_parent"
+                android:background="@color/gray12"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:drawableLeft="@{@drawable/ic_account}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@{@drawable/ic_account}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/account"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/color_white"
+                    android:onClick="@{() -> viewModel.onClickViewAccount()}"
+                    android:paddingTop="@dimen/dp_10">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:drawableEnd="@{@drawable/ic_next_right}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableRight="@{@drawable/ic_next_right}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/account"
-                    android:textColor="@color/gray78"
-                    android:textSize="@dimen/sp_12"
-                    tools:ignore="UnusedAttribute" />
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:drawableLeft="@{@drawable/ic_account}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@{@drawable/ic_account}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/account"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1"
-                >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:drawableEnd="@{@drawable/ic_next_right}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableRight="@{@drawable/ic_next_right}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/account"
+                        android:textColor="@color/gray78"
+                        android:textSize="@dimen/sp_12"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@{@drawable/ic_history_order}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@{@drawable/ic_history_order}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/order_history"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableEnd="@{@drawable/ic_next_right}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableRight="@{@drawable/ic_next_right}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/view_order_history"
-                    android:textColor="@color/gray78"
-                    android:textSize="@dimen/sp_12"
-                    tools:ignore="UnusedAttribute" />
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@{@drawable/ic_history_order}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@{@drawable/ic_history_order}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/order_history"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1"
-                >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableEnd="@{@drawable/ic_next_right}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableRight="@{@drawable/ic_next_right}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/view_order_history"
+                        android:textColor="@color/gray78"
+                        android:textSize="@dimen/sp_12"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@{@drawable/ic_cash}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@{@drawable/ic_cash}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/budget"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableEnd="@{@drawable/ic_next_right}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableRight="@{@drawable/ic_next_right}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/view_budget"
-                    android:textColor="@color/gray78"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@{@drawable/ic_cash}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@{@drawable/ic_cash}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/budget"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableEnd="@{@drawable/ic_next_right}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableRight="@{@drawable/ic_next_right}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/view_budget"
+                        android:textColor="@color/gray78"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
 
 
-            <RelativeLayout
-                android:onClick="@{() -> viewModel.onClickViewBusiness()}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white"
+                    android:onClick="@{() -> viewModel.onClickViewBusiness()}">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@{@drawable/ic_company}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@{@drawable/ic_company}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/business"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@{@drawable/ic_company}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@{@drawable/ic_company}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/business"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableEnd="@{@drawable/ic_next_right}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableRight="@{@drawable/ic_next_right}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/view_business"
-                    android:textColor="@color/gray78"
-                    android:textSize="@dimen/sp_12"
-                    tools:ignore="UnusedAttribute" />
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableEnd="@{@drawable/ic_next_right}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableRight="@{@drawable/ic_next_right}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/view_business"
+                        android:textColor="@color/gray78"
+                        android:textSize="@dimen/sp_12"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:onClick="@{() -> viewModel.onClickSaleIndex()}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white"
+                    android:onClick="@{() -> viewModel.onClickSaleIndex()}">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@{@drawable/ic_saleindex}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@{@drawable/ic_saleindex}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/saleindex_salesman_achievement"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_13"
-                    tools:ignore="UnusedAttribute" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@{@drawable/ic_saleindex}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@{@drawable/ic_saleindex}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/saleindex_salesman_achievement"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_12"
+                        tools:ignore="UnusedAttribute" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableEnd="@{@drawable/ic_next_right}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableRight="@{@drawable/ic_next_right}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/saleindex_achievement"
-                    android:textColor="@color/gray78"
-                    android:textSize="@dimen/sp_12"
-                    tools:ignore="UnusedAttribute" />
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableEnd="@{@drawable/ic_next_right}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableRight="@{@drawable/ic_next_right}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/saleindex_achievement"
+                        android:textColor="@color/gray78"
+                        android:textSize="@dimen/sp_10"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1"
-                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@{@drawable/ic_account_multiple}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@{@drawable/ic_account_multiple}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/staff"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@{@drawable/ic_account_multiple}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@{@drawable/ic_account_multiple}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/staff"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableEnd="@{@drawable/ic_next_right}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableRight="@{@drawable/ic_next_right}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/staff_manager"
-                    android:textColor="@color/gray78"
-                    android:textSize="@dimen/sp_12"
-                    tools:ignore="UnusedAttribute" />
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableEnd="@{@drawable/ic_next_right}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableRight="@{@drawable/ic_next_right}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/staff_manager"
+                        android:textColor="@color/gray78"
+                        android:textSize="@dimen/sp_12"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1"
-                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@{@drawable/ic_help_circle}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@{@drawable/ic_help_circle}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/support"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp_14"
-                    tools:ignore="UnusedAttribute" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@{@drawable/ic_help_circle}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@{@drawable/ic_help_circle}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/support"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableEnd="@{@drawable/ic_next_right}"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableRight="@{@drawable/ic_next_right}"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/view_support"
-                    android:textColor="@color/gray78"
-                    android:textSize="@dimen/sp_12"
-                    tools:ignore="UnusedAttribute" />
-            </RelativeLayout>
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableEnd="@{@drawable/ic_next_right}"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableRight="@{@drawable/ic_next_right}"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/view_support"
+                        android:textColor="@color/gray78"
+                        android:textSize="@dimen/sp_12"
+                        tools:ignore="UnusedAttribute" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
     </RelativeLayout>
 </layout>

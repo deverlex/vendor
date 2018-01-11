@@ -45,6 +45,13 @@
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/sp_18" />
 
+                <ImageButton
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/transparent"
+                    app:srcCompat="@drawable/ic_message_white" />
+
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
@@ -58,9 +65,9 @@
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@{@drawable/ic_message}"
+                android:drawableLeft="@{@drawable/ic_chat_white}"
                 android:drawablePadding="@dimen/dp_10"
-                android:drawableStart="@{@drawable/ic_message}"
+                android:drawableStart="@{@drawable/ic_chat_white}"
                 android:fontFamily="@string/font_serif"
                 android:gravity="center_vertical"
                 android:padding="@dimen/dp_10"
