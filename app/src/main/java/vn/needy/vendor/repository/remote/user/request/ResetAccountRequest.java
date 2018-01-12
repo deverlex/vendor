@@ -10,11 +10,40 @@ import com.google.gson.annotations.SerializedName;
 public class ResetAccountRequest {
 
     @Expose
-    @SerializedName("firebaseToken")
+    @SerializedName("scope")
+    private String mScope;
+
+    @Expose
+    @SerializedName("instance_id")
+    private String mInstanceId;
+
+    @Expose
+    @SerializedName("firebase_token")
     private String mFirebaseToken;
+
+    @Expose
+    @SerializedName("phone_token")
+    private String mPhoneToken;
+
     @Expose
     @SerializedName(("password"))
     private String mPassword;
+
+    public String getScope() {
+        return mScope;
+    }
+
+    public void setScope(String scope) {
+        mScope = scope;
+    }
+
+    public String getInstanceId() {
+        return mInstanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        mInstanceId = instanceId;
+    }
 
     public String getFirebaseToken() {
         return mFirebaseToken;
@@ -22,6 +51,14 @@ public class ResetAccountRequest {
 
     public void setFirebaseToken(String firebaseToken) {
         mFirebaseToken = firebaseToken;
+    }
+
+    public String getPhoneToken() {
+        return mPhoneToken;
+    }
+
+    public void setPhoneToken(String phoneToken) {
+        mPhoneToken = phoneToken;
     }
 
     public String getPassword() {

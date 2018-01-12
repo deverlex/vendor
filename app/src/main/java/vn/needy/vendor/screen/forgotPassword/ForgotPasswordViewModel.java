@@ -10,11 +10,15 @@ import android.text.method.TransformationMethod;
 import android.util.Log;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.main.MainActivity;
+import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
+import vn.needy.vendor.utils.Constant;
+import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.dialog.DialogManager;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -181,8 +185,11 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     public void onResetPasswordClick() {
         Log.d(TAG, "TOKEN? " + mFirebaseToken);
         ResetAccountRequest request = new ResetAccountRequest();
-        request.setFirebaseToken(mFirebaseToken);
+        request.setPhoneToken(mFirebaseToken);
         request.setPassword(mPassword);
+        request.setScope(Constant.SCOPE);
+        request.setInstanceId(Utils.getDeviceId(mContext));
+        request.setFirebaseToken(FirebaseInstanceId.getInstance().getToken());
         mPresenter.resetPassword(mPhoneNumber, request);
 
         Log.d(TAG, "onResetPasswordClick");
@@ -219,16 +226,28 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     }
 
     @Override
-    public void onResetPasswordError(String message) {
-
+    public void onResetPassSuccess() {
+        mDialogManager.dismissProgressDialog();
+        VendorServiceClient.initialize(mApplication);
+        mPresenter.checkCompany();
     }
 
     @Override
-    public void onResetPasswordSuccess() {
-        mDialogManager.dismissProgressDialog();
-        VendorServiceClient.initialize(mApplication);
+    public void onToMainPage() {
         mNavigator.startActivity(MainActivity.class);
         mNavigator.finishActivity();
+    }
+
+    @Override
+    public void onToRegisterCompany() {
+        mNavigator.startActivity(RegisterCompanyActivity.class);
+        mNavigator.finishActivity();
+    }
+
+    @Override
+    public void onResetPasswordError(String message) {
+        mDialogManager.dismissProgressDialog();
+        mNavigator.showToastCenterText(message);
     }
 
     @Override

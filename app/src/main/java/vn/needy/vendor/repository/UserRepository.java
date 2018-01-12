@@ -9,7 +9,6 @@ import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
-import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 

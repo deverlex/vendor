@@ -15,8 +15,6 @@ public class ForgotPasswordContract {
         /**For reset password*/
         void onResetPasswordError(String message);
 
-        void onResetPasswordSuccess();
-
         /**For result of verification*/
         void onVerificationSuccess(String firebaseToken);
 
@@ -65,6 +63,12 @@ public class ForgotPasswordContract {
         void onHideProgressBar();
 
         boolean isFocusPhoneNumber();
+
+        void onResetPassSuccess();
+
+        void onToMainPage();
+
+        void onToRegisterCompany();
     }
 
     interface Presenter extends BasePresenter {
@@ -80,5 +84,7 @@ public class ForgotPasswordContract {
         void resetPassword(String phoneNumber, ResetAccountRequest request);
 
         boolean validateDataInput(String phoneNumber, String password);
+
+        void checkCompany();
     }
 }

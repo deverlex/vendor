@@ -18,7 +18,6 @@ import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoRequest;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
 import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
-import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
@@ -45,8 +44,8 @@ public interface VendorApi {
     @GET("v1/users/{username}/exist")
     Observable<ResponseWrapper> findUserExist(@Path("username") String phoneNumber);
 
-    @POST("v1/users/resets")
-    Observable<ResponseWrapper<TokenResponse>> resetPassword(@Query("username") String phoneNumber,
+    @POST("v1/users/{username}/password")
+    Observable<ResponseWrapper<TokenResponse>> resetPassword(@Path("username") String phoneNumber,
                                                              @Body RequestWrapper<ResetAccountRequest> request);
 
     @GET("v1/users/informations/details")

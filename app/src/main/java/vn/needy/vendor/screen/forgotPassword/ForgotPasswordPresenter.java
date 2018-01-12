@@ -21,9 +21,11 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
+import vn.needy.vendor.port.message.BaseStatus;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
 import vn.needy.vendor.port.service.VendorServiceClient;
@@ -42,7 +44,7 @@ import vn.needy.vendor.utils.Utils;
 
 public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter {
 
-    private static final int TIME_DURATION = 15;
+    private static final int TIME_DURATION = 120;
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String mVerificationId;
@@ -196,6 +198,43 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     }
 
     @Override
+    public void checkCompany() {
+        updateRepositoryAfterResetApi();
+
+        // check company
+        mUserRepository.checkOwnCompanyExist()
+                .subscribeOn(Schedulers.io())
+                .doAfterTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
+                .doOnError(new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onResetPasswordError(error.getMessage());
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseWrapper>() {
+                    @Override
+                    public void accept(ResponseWrapper responseWrapper) throws Exception {
+                        if (responseWrapper.getStatus().equals(BaseStatus.OK)) {
+                            mViewModel.onToMainPage();
+                        } else {
+                            mViewModel.onToRegisterCompany();
+                        }
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onResetPasswordError(error.getMessage());
+                    }
+                });
+    }
+
+    @Override
     public void resetPassword(String phoneNumber, ResetAccountRequest request) {
         if (!validateDataInput(phoneNumber, request.getPassword())) return;
 
@@ -215,7 +254,10 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                     TokenResponse data = certification.getData();
                     if (data != null && !TextUtils.isEmpty(data.getTokenAccess())) {
                         mUserRepository.saveAccessTokenSync(data.getTokenAccess());
-                        mViewModel.onResetPasswordSuccess();
+                        mUserRepository.saveRefreshTokenSync(data.getRefreshToken());
+                        mUserRepository.saveExpiresIn(data.getExpiresIn());
+
+                        mViewModel.onResetPassSuccess();
                     } else {
                         mViewModel.onResetPasswordError(certification.getMessage());
                     }
@@ -305,5 +347,13 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                 }
             }
         });
+    }
+
+    private void updateRepositoryAfterResetApi() {
+        // update API
+        mUserRepository = new UserRepository(
+                new UserDataRemote(VendorServiceClient.getInstance()),
+                new UserDataLocal(SharedPrefsImpl.getInstance())
+        );
     }
 }
