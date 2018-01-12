@@ -33,7 +33,7 @@ public class RetrofitInterceptor implements Interceptor {
                 .header("Accept", "application/json;charset=utf-8")
                 .addHeader("Cache-Control", "no-cache")
                 .addHeader("Cache-Control", "no-store")
-                .header("Authorization", mToken)
+                .header("Authorization", "Bearer " + mToken)
                 .method(originRequest.method(), originRequest.body());
     }
 }
