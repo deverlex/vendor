@@ -41,6 +41,9 @@ public interface VendorApi {
     @POST("v1/users")
     Observable<ResponseWrapper<TokenResponse>> registerUser(@Body RequestWrapper<RegisterUserRequest> request);
 
+    @GET("v1/users/tokens/refresh")
+    Observable<ResponseWrapper<TokenResponse>> refreshToken(@Query("refresh_token") String refreshToken);
+
     @GET("v1/users/{username}/exist")
     Observable<ResponseWrapper> findUserExist(@Path("username") String phoneNumber);
 

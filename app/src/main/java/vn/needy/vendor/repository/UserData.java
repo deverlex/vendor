@@ -21,7 +21,7 @@ public interface UserData {
     interface Remote {
         Observable<ResponseWrapper<TokenResponse>> login(LoginRequest request);
 
-        Observable<ResponseWrapper<TokenResponse>> refresh();
+        Observable<ResponseWrapper<TokenResponse>> refreshToken(String refreshToken);
 
         Observable<Response<Void>> logout();
 

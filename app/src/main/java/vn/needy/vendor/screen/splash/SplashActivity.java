@@ -32,6 +32,7 @@ import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
+import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.screen.login.LoginActivity;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.registerCompany.RegisterCompanyActivity;
@@ -76,6 +77,7 @@ public class SplashActivity extends AppCompatActivity {
                 new StoreDataRemote(mVendorApi),
                 new StoreDataLocal()
         );
+
         final String token = getToken(mPrefsApi);
 
         mNavigator = new Navigator(this);
@@ -203,6 +205,30 @@ public class SplashActivity extends AppCompatActivity {
 
     // We will getAsync it and refresh, if fail -> re-login
     private String getToken(SharedPrefsApi prefsApi) {
+        long expiresIn = prefsApi.get(SharedPrefsKey.EXPIRES_TOKEN_IN, Long.class);
+        if (expiresIn - System.currentTimeMillis() / 1000 < 60 * 60 * 24) {
+            // refresh token
+            String refreshToken = prefsApi.get(SharedPrefsKey.REFRESH_TOKEN, String.class);
+            mUserRepository.refreshToken(refreshToken)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Consumer<ResponseWrapper<TokenResponse>>() {
+                        @Override
+                        public void accept(ResponseWrapper<TokenResponse> tokenResponseResponseWrapper) throws Exception {
+                            TokenResponse data = tokenResponseResponseWrapper.getData();
+                            if (data != null && data.getTokenAccess() != null) {
+                                mUserRepository.saveAccessTokenSync(data.getTokenAccess());
+                                mUserRepository.saveRefreshTokenSync(data.getRefreshToken());
+                                mUserRepository.saveExpiresIn(data.getExpiresIn());
+                            }
+                        }
+                    }, new SafetyError() {
+                        @Override
+                        public void onSafetyError(BaseException error) {
+
+                        }
+                    });
+        }
+
         return prefsApi.get(SharedPrefsKey.ACCESS_TOKEN, String.class);
     }
 

@@ -31,8 +31,8 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper<TokenResponse>> refresh() {
-        return null;
+    public Observable<ResponseWrapper<TokenResponse>> refreshToken(String refreshToken) {
+        return mApi.refreshToken(refreshToken);
     }
 
     @Override

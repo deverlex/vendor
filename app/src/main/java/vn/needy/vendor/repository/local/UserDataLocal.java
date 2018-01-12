@@ -48,7 +48,7 @@ public class UserDataLocal implements UserData.Local {
 
     @Override
     public void saveExpiresIn(long expiresIn) {
-        mPrefsApi.put(SharedPrefsKey.EXPIRES_TOKEN_IN, expiresIn);
+        mPrefsApi.put(SharedPrefsKey.EXPIRES_TOKEN_IN, expiresIn + System.currentTimeMillis() / 1000);
     }
 
     @Override

@@ -30,10 +30,6 @@ public class UserRepository {
         return mRemote.login(request);
     }
 
-    public Observable<ResponseWrapper<TokenResponse>> refresh() {
-        return mRemote.refresh();
-    }
-
     public Observable<Response<Void>> logout() {
         return mRemote.logout();
     }
@@ -64,6 +60,10 @@ public class UserRepository {
 
     public Observable<ResponseWrapper> checkOwnCompanyExist() {
         return mRemote.checkOwnCompanyExist();
+    }
+
+    public Observable<ResponseWrapper<TokenResponse>> refreshToken(String refreshToken) {
+        return mRemote.refreshToken(refreshToken);
     }
 
     public void saveUserSync(User user) {
