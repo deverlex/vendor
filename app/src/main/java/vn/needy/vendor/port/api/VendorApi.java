@@ -36,8 +36,8 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
 public interface VendorApi {
 
-    @POST("v1/authentications")
-    Observable<ResponseWrapper<LoginResponse>> login(@Body RequestWrapper<LoginRequest> request);
+    @POST("v1/users/tokens")
+    Observable<ResponseWrapper<TokenResponse>> login(@Body RequestWrapper<LoginRequest> request);
 
     @POST("v1/users")
     Observable<ResponseWrapper<TokenResponse>> registerUser(@Body RequestWrapper<RegisterUserRequest> request);
@@ -54,6 +54,9 @@ public interface VendorApi {
 
     @PUT("v1/users/informations/details")
     Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
+
+    @GET("v1/companies/employees/own")
+    Observable<ResponseWrapper> checkOwnCompanyExist();
 
     @GET("v1/users/businesses/informations")
     Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();

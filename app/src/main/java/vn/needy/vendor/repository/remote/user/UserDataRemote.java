@@ -27,7 +27,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper<LoginResponse>> login(LoginRequest request) {
+    public Observable<ResponseWrapper<TokenResponse>> login(LoginRequest request) {
         return mApi.login(new RequestWrapper<LoginRequest>().setData(request));
     }
 
@@ -44,6 +44,11 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     @Override
     public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request) {
         return mApi.registerUser(new RequestWrapper<RegisterUserRequest>().setData(request));
+    }
+
+    @Override
+    public Observable<ResponseWrapper> checkOwnCompanyExist() {
+        return mApi.checkOwnCompanyExist();
     }
 
     @Override

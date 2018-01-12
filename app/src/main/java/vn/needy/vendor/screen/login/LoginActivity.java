@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity {
         DialogManager dialogManager = new DialogManager(this);
         mViewModel = new LoginViewModel(this, getApplication(), mNavigator, dialogManager);
 
-        LoginContract.Presenter presenter = new LoginPresenter(mViewModel, mNavigator);
+        LoginContract.Presenter presenter = new LoginPresenter(this, mViewModel, mNavigator);
 
         mViewModel.setPresenter(presenter);
 

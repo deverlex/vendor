@@ -20,13 +20,15 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface UserData {
 
     interface Remote {
-        Observable<ResponseWrapper<LoginResponse>> login(LoginRequest request);
+        Observable<ResponseWrapper<TokenResponse>> login(LoginRequest request);
 
         Observable<ResponseWrapper<TokenResponse>> refresh();
 
         Observable<Response<Void>> logout();
 
         Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request);
+
+        Observable<ResponseWrapper> checkOwnCompanyExist();
 
         Observable<ResponseWrapper> findUserExist(String phoneNumber);
 

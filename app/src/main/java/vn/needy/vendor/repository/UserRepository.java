@@ -27,7 +27,7 @@ public class UserRepository {
         mLocal = local;
     }
 
-    public Observable<ResponseWrapper<LoginResponse>> login(LoginRequest request) {
+    public Observable<ResponseWrapper<TokenResponse>> login(LoginRequest request) {
         return mRemote.login(request);
     }
 
@@ -61,6 +61,10 @@ public class UserRepository {
 
     public Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation() {
         return mRemote.getBusinessInformation();
+    }
+
+    public Observable<ResponseWrapper> checkOwnCompanyExist() {
+        return mRemote.checkOwnCompanyExist();
     }
 
     public void saveUserSync(User user) {

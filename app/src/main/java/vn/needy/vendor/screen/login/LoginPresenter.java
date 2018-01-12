@@ -1,8 +1,12 @@
 package vn.needy.vendor.screen.login;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -31,6 +35,8 @@ import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
 import vn.needy.vendor.repository.remote.user.response.LoginResponse;
+import vn.needy.vendor.repository.remote.user.response.TokenResponse;
+import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.Utils;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -43,6 +49,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     private static final String TAG = LoginPresenter.class.getName();
 
     private final LoginContract.ViewModel mViewModel;
+    private Context mContext;
 
     private Navigator mNavigator;
     private UserRepository mUserRepository;
@@ -50,7 +57,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     private CompanyRepository mCompanyRepository;
     private StoreRepository mStoreRepository;
 
-    LoginPresenter(LoginContract.ViewModel viewModel, Navigator navigator) {
+    LoginPresenter(Context context, LoginContract.ViewModel viewModel, Navigator navigator) {
+        mContext = context;
         mViewModel = viewModel;
         mNavigator = navigator;
         mUserRepository = new UserRepository(
@@ -75,6 +83,9 @@ public class LoginPresenter implements LoginContract.Presenter {
             return;
         }
         final LoginRequest request = new LoginRequest(phoneNumber, passWord);
+        request.setScope(Constant.SCOPE);
+        request.setInstanceId(Utils.getDeviceId(mContext));
+        request.setFirebaseToken(FirebaseInstanceId.getInstance().getToken());
         mUserRepository.login(request)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe(new Consumer<Disposable>() {
@@ -89,40 +100,39 @@ public class LoginPresenter implements LoginContract.Presenter {
                     mNavigator.showToastCenterText(error.getMessage());
                 }
             }).observeOn(Schedulers.computation())
-            .map(new Function<ResponseWrapper<LoginResponse>, ResponseWrapper<LoginResponse>>() {
-                @Override
-                public ResponseWrapper<LoginResponse> apply(ResponseWrapper<LoginResponse> resp) throws Exception {
-                    LoginResponse data = resp.getData();
-                    if (data != null && data.getToken() != null) {
-                        // save user info & token to database
-                        User user = new User(data.getUser());
-                        // save user to realm
-                        mUserRepository.saveUserSync(user);
-                        mUserRepository.saveAccessTokenSync(data.getToken());
+                .map(new Function<ResponseWrapper<TokenResponse>, ResponseWrapper<TokenResponse>>() {
+                    @Override
+                    public ResponseWrapper<TokenResponse> apply(ResponseWrapper<TokenResponse> tokenResponseResponseWrapper) throws Exception {
+                        TokenResponse data = tokenResponseResponseWrapper.getData();
+                        if (data != null && data.getTokenAccess() != null) {
+                            mUserRepository.saveAccessTokenSync(data.getTokenAccess());
+                            mUserRepository.saveRefreshTokenSync(data.getRefreshToken());
+                            mUserRepository.saveExpiresIn(data.getExpiresIn());
+
+                        }
+                        return tokenResponseResponseWrapper;
                     }
-                    return resp;
-                }
-            })
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<ResponseWrapper<LoginResponse>>() {
-                @Override
-                public void accept(ResponseWrapper<LoginResponse> resp) throws Exception {
-                    mViewModel.onHideProgressBar();
-                    Log.d(TAG, resp.getStatus());
-                    if (resp.getStatus().equals(BaseStatus.ERROR)) {
-                        mViewModel.onLoginError(resp.getMessage());
-                    }  else {
-                        mViewModel.onLoginSuccess();
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseWrapper<TokenResponse>>() {
+                    @Override
+                    public void accept(ResponseWrapper<TokenResponse> tokenResponseResponseWrapper) throws Exception {
+                        mViewModel.onHideProgressBar();
+                        Log.d(TAG, tokenResponseResponseWrapper.getStatus());
+                        if (tokenResponseResponseWrapper.getStatus().equals(BaseStatus.ERROR)) {
+                            mViewModel.onLoginError(tokenResponseResponseWrapper.getMessage());
+                        } else {
+                            mViewModel.onLoginSuccess();
+                        }
                     }
-                }
-            }, new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onHideProgressBar();
-                    Log.d(TAG, error.getMessage());
-                    mViewModel.onLoginError(R.string.error_credential);
-                }
-            });
-//        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onHideProgressBar();
+                        Log.d(TAG, error.getMessage());
+                        mViewModel.onLoginError(R.string.error_credential);
+                    }
+                });
     }
 
     @Override
@@ -154,8 +164,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void findCompany() {
         updateRepositoryAfterResetApi();
-        // check company & store info
-        mUserRepository.getBusinessInformation()
+        // check company
+        mUserRepository.checkOwnCompanyExist()
                 .subscribeOn(Schedulers.io())
                 .doAfterTerminate(new Action() {
                     @Override
@@ -169,28 +179,13 @@ public class LoginPresenter implements LoginContract.Presenter {
                         mViewModel.onLoginError(error.getMessage());
                     }
                 })
-                .observeOn(Schedulers.computation())
-                .map(new Function<ResponseWrapper<BusinessInfoResponse>, ResponseWrapper<BusinessInfoResponse>>() {
-                    @Override
-                    public ResponseWrapper<BusinessInfoResponse> apply(ResponseWrapper<BusinessInfoResponse> resp) throws Exception {
-                        // save company & store response
-                        BusinessInfoResponse data = resp.getData();
-                        if (data != null && resp.getStatus().equals(BaseStatus.OK)) {
-                            mCompanyRepository.saveCompanySync(new Company(data.getCompany()));
-                            // save store into realm
-                            mStoreRepository.saveStoreSync(new Store(data.getStore()));
-                        }
-                        return resp;
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseWrapper<BusinessInfoResponse>>() {
+                .subscribe(new Consumer<ResponseWrapper>() {
                     @Override
-                    public void accept(ResponseWrapper<BusinessInfoResponse> resp) throws Exception {
-                        if (resp.getStatus().equals(BaseStatus.OK)) {
+                    public void accept(ResponseWrapper responseWrapper) throws Exception {
+                        if (responseWrapper.getStatus().equals(BaseStatus.OK)) {
                             mViewModel.onToMainPage();
                         } else {
-                            mNavigator.showToastBottom(resp.getMessage());
                             mViewModel.onToRegisterCompany();
                         }
                     }
@@ -201,48 +196,6 @@ public class LoginPresenter implements LoginContract.Presenter {
                         mViewModel.onLoginError(error.getMessage());
                     }
                 });
-
-        // check company
-//        mCompanyRepository.findOurCompany()
-//            .subscribeOn(Schedulers.io())
-//            .doAfterTerminate(new Action() {
-//                @Override
-//                public void run() throws Exception {
-//                    mViewModel.onHideProgressBar();
-//                }
-//            }).doOnError(new SafetyError() {
-//                @Override
-//                public void onSafetyError(BaseException error) {
-//                    mViewModel.onLoginError(error.getMessage());
-//                }
-//            }).observeOn(Schedulers.computation())
-//            .map(new Function<CompanyResp, CompanyResp>() {
-//                @Override
-//                public CompanyResp apply(CompanyResp resp) throws Exception {
-//                    // save company & store response
-//                    if (resp.getCompany() != null) {
-//                        mCompanyRepository.saveCompanySync(new Company(resp.getCompany()));
-//                    }
-//                    return resp;
-//                }
-//            })
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(new Consumer<CompanyResp>() {
-//                @Override
-//                public void accept(CompanyResp response) throws Exception {
-//                    if (response.getStatus().equals("OK")) {
-//                        mViewModel.onToMainPage();
-//                    } else {
-//                        mNavigator.showToastBottom(response.getMessage());
-//                        mViewModel.onToRegisterCompany();
-//                    }
-//                }
-//            }, new SafetyError() {
-//                @Override
-//                public void onSafetyError(BaseException error) {
-//                    mViewModel.onLoginError(error.getMessage());
-//                }
-//            });
     }
 
     private void updateRepositoryAfterResetApi() {
