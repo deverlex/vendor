@@ -43,7 +43,11 @@ public interface UserData {
 
         void saveUserSync(User user);
 
-        void saveTokenSync(String token);
+        void saveAccessTokenSync(String token);
+
+        void saveRefreshTokenSync(String token);
+
+        void saveExpiresIn(long expiresIn);
 
         void clearToken();
 

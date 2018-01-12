@@ -98,7 +98,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                         User user = new User(data.getUser());
                         // save user to realm
                         mUserRepository.saveUserSync(user);
-                        mUserRepository.saveTokenSync(data.getToken());
+                        mUserRepository.saveAccessTokenSync(data.getToken());
                     }
                     return resp;
                 }

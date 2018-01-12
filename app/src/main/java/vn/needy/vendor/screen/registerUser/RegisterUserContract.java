@@ -57,6 +57,12 @@ public class RegisterUserContract {
         void onShowProgressBar();
 
         void onHideProgressBar();
+
+        void onShowOtpCodeView();
+
+        void onHideOtpCodeView();
+
+        void countDownTimeOtpCode(int time);
     }
 
     interface Presenter extends BasePresenter {

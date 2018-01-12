@@ -42,8 +42,8 @@ public interface VendorApi {
     @POST("v1/users")
     Observable<ResponseWrapper<TokenResponse>> registerUser(@Body RequestWrapper<RegisterUserRequest> request);
 
-    @GET("v1/users/finds")
-    Observable<ResponseWrapper> findUserExist(@Query("username") String phoneNumber);
+    @GET("v1/users/{username}/exist")
+    Observable<ResponseWrapper> findUserExist(@Path("username") String phoneNumber);
 
     @POST("v1/users/resets")
     Observable<ResponseWrapper<TokenResponse>> resetPassword(@Query("username") String phoneNumber,

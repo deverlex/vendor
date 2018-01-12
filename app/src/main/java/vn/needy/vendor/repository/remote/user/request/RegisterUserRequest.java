@@ -26,12 +26,8 @@ public class RegisterUserRequest {
     private String mLanguage;
 
     @Expose
-    @SerializedName("firebase_phone_uid")
-    private String mFirebasePhoneUid;
-
-    @Expose
-    @SerializedName("firebase_phone_token")
-    private String mFirebasePhoneToken;
+    @SerializedName("phone_token")
+    private String mPhoneToken;
 
     @Expose
     @SerializedName("username")
@@ -77,20 +73,12 @@ public class RegisterUserRequest {
         mLanguage = language;
     }
 
-    public String getFirebasePhoneUid() {
-        return mFirebasePhoneUid;
+    public String getPhoneToken() {
+        return mPhoneToken;
     }
 
-    public void setFirebasePhoneUid(String firebasePhoneUid) {
-        mFirebasePhoneUid = firebasePhoneUid;
-    }
-
-    public String getFirebasePhoneToken() {
-        return mFirebasePhoneToken;
-    }
-
-    public void setFirebasePhoneToken(String firebasePhoneToken) {
-        mFirebasePhoneToken = firebasePhoneToken;
+    public void setPhoneToken(String phoneToken) {
+        mPhoneToken = phoneToken;
     }
 
     public String getPhoneNumber() {

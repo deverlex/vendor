@@ -213,8 +213,8 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                 @Override
                 public void accept(ResponseWrapper<TokenResponse> certification) throws Exception {
                     TokenResponse data = certification.getData();
-                    if (data != null && !TextUtils.isEmpty(data.getToken())) {
-                        mUserRepository.saveTokenSync(data.getToken());
+                    if (data != null && !TextUtils.isEmpty(data.getTokenAccess())) {
+                        mUserRepository.saveAccessTokenSync(data.getTokenAccess());
                         mViewModel.onResetPasswordSuccess();
                     } else {
                         mViewModel.onResetPasswordError(certification.getMessage());

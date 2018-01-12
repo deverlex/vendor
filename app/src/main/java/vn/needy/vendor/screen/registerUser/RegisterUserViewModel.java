@@ -53,6 +53,8 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
     private boolean mVisibleOptCode;
 
+    private int mCountDown;
+
     public RegisterUserViewModel(Context context, Application application, Navigator navigator, DialogManager dialogManager) {
         mContext = context;
         mApplication = application;
@@ -111,8 +113,7 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
         request.setLanguage(Locale.getDefault().getLanguage());
         request.setPhoneNumber(Utils.PhoneNumberUtils.formatPhoneNumber(mPhoneNumber));
         request.setPassword(mPassword);
-        request.setFirebasePhoneUid(firebaseUid);
-        request.setFirebasePhoneToken(firebaseToken);
+        request.setPhoneToken(firebaseToken);
         mPresenter.registerUser(request);
     }
 
@@ -160,15 +161,8 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
     @Override
     public void onSendVerificationSuccess(String otpCode) {
-        mDialogManager.dismissProgressDialog();
-        // change intro content for add otp code
-        mIntroContent = mContext.getString(R.string.intro_validate_opt);
-        mVisibleOptCode = true;
         mOtpCode = otpCode;
-
         notifyPropertyChanged(BR.otpCode);
-        notifyPropertyChanged(BR.visibleOptCode);
-        notifyPropertyChanged(BR.introContent);
     }
 
     @Override
@@ -198,6 +192,31 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
     @Override
     public void onHideProgressBar() {
         mDialogManager.dismissProgressDialog();
+    }
+
+    @Override
+    public void onShowOtpCodeView() {
+        // change intro content for add otp code
+        mIntroContent = mContext.getString(R.string.intro_validate_opt);
+        mVisibleOptCode = true;
+
+        notifyPropertyChanged(BR.visibleOptCode);
+        notifyPropertyChanged(BR.introContent);
+    }
+
+    @Override
+    public void onHideOtpCodeView() {
+        mIntroContent = mContext.getString(R.string.intro_validate_phone);
+        mVisibleOptCode = false;
+
+        notifyPropertyChanged(BR.visibleOptCode);
+        notifyPropertyChanged(BR.introContent);
+    }
+
+    @Override
+    public void countDownTimeOtpCode(int time) {
+        mCountDown = time;
+        notifyPropertyChanged(BR.countDown);
     }
 
     @Override
@@ -285,6 +304,15 @@ public class RegisterUserViewModel extends BaseObservable implements RegisterUse
 
     public void setOtpCode(String otpCode) {
         mOtpCode = otpCode;
+    }
+
+    @Bindable
+    public String getCountDown() {
+        if (mCountDown > 0) {
+            return String.format(Locale.getDefault(), "(%d)", mCountDown);
+        } else {
+            return "";
+        }
     }
 
     @Bindable

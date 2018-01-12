@@ -67,7 +67,15 @@ public class UserRepository {
         mLocal.saveUserSync(user);
     }
 
-    public void saveTokenSync(String token) {
-        mLocal.saveTokenSync(token);
+    public void saveAccessTokenSync(String token) {
+        mLocal.saveAccessTokenSync(token);
+    }
+
+    public void saveRefreshTokenSync(String token) {
+        mLocal.saveRefreshTokenSync(token);
+    }
+
+    public void saveExpiresIn(long expiresIn) {
+        mLocal.saveExpiresIn(expiresIn);
     }
 }
