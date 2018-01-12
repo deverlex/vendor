@@ -288,6 +288,18 @@
     <string name="saleindex_ratio">Tỉ lệ phản hồi</string>
     <string name="saleindex_time">Thời gian phản hồi</string>
     <string name="saleindex_ratio_prosperous">Tỉ lệ không thành công</string>
-    <string name="saleindex_index_weigh">Hệ số sao quả tạ</string>
     <string name="saleindex_vote">Đánh giá</string>
+
+    <string name="violate_statistic">Điểm phạt</string>
+    <string name="violate_rule">Quy định</string>
+    <string name="violate_view_statistic">Xem điểm phạt</string>
+    <string name="violate_statistic_level">Các mức phạt hiện tại</string>
+    <string name="violate_statistic_history">Lịch sử phạt</string>
+    <string name="violate_statistic_dialog">Shop bạn không bị điểm phạt nào trong quý này.\nHãy giữ vững thành tích này nhé </string>
+    <string name="violate_statistic_counterfeiting">Hàng giả , hàng nhái</string>
+    <string name="violate_statistic_parrot">Sản phẩm trùng lặp</string>
+    <string name="violate_product_disallowance">Các sản phẩm cấm</string>
+    <string name="violate_ratio_prosper">Tỉ lệ đơn hàng không thành công cao</string>
+    <string name="violate_ratio_late">Tỉ lệ giao hàng trễ</string>
+    <string name="violate_ratio_unreal">Giao dịch ảo</string>
 </resources>

@@ -12,6 +12,8 @@ public interface SaleIndexContract {
     interface ViewModel extends BaseViewModel<Presenter>{
 
         void onBackPressed();
+
+        void onClickViolateStatistic();
     }
 
     interface Presenter extends BasePresenter{

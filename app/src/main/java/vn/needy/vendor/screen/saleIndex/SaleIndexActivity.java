@@ -2,6 +2,9 @@ package vn.needy.vendor.screen.saleIndex;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivitySaleIndexBinding;
@@ -27,5 +30,19 @@ public class SaleIndexActivity extends BaseActivity {
 
         ActivitySaleIndexBinding binding = DataBindingUtil.setContentView(this , R.layout.activity_sale_index);
         binding.setViewModel((SaleIndexViewModel) mViewModel);
+    }
+
+    @Override
+    protected <T extends Fragment> T initFragment(int target, @NonNull T fragment) {
+        return super.initFragment(target, fragment);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        else {
+            super.onBackPressed();
+        }
     }
 }

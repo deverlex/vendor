@@ -5,6 +5,9 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import vn.needy.vendor.screen.main.MainActivity;
+import vn.needy.vendor.screen.violateStatistic.ViolateStatisticFragment;
+
 /**
  * Created by lion on 11/01/2018.
  */
@@ -57,5 +60,10 @@ public class SaleIndexViewModel extends BaseObservable implements SaleIndexContr
     @Bindable
     public String getVoteSaleIndex() {
         return mVoteSaleIndex;
+    }
+
+    @Override
+    public void onClickViolateStatistic(){
+        ((SaleIndexActivity) mContext).initFragment(android.R.id.content , ViolateStatisticFragment.getInstance());
     }
 }

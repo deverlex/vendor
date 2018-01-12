@@ -216,6 +216,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_60"
+            android:onClick="@{() -> viewModel.onClickViolateStatistic()}"
             android:background="@color/color_white"
             android:layout_marginTop="@dimen/dp_2">
 
@@ -229,7 +230,7 @@
                 android:fontFamily="@string/font_serif"
                 android:gravity="center_vertical"
                 android:padding="@dimen/dp_10"
-                android:text="@string/saleindex_index_weigh"
+                android:text="@string/violate_statistic"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_13"
                 tools:ignore="UnusedAttribute" />
