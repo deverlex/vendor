@@ -35,9 +35,7 @@ public class BudgetActivity extends BaseActivity{
 
         ActivityBudgetBinding binding = DataBindingUtil.setContentView(this , R.layout.activity_budget);
         binding.setViewModel((BudgetViewModel) mViewModel);
-
     }
-
 
     public static class Coin extends BaseObservable{
 
@@ -63,7 +61,6 @@ public class BudgetActivity extends BaseActivity{
             return coinStatus;
         }
 
-
         @Bindable
         public String getCoidDate() {
             return coidDate;
@@ -74,6 +71,4 @@ public class BudgetActivity extends BaseActivity{
             return coin;
         }
     }
-
-
 }

@@ -32,16 +32,12 @@ public class BudgetSectionsAdapter extends FragmentPagerAdapter{
         @Override
         public Fragment getItem(int position) {
             switch (TABS[position]) {
-
                 case mBudgetHistoryIncome:
                     return BudgetHistoryIncomeFragment.getInstance();
-
                 case mBudgetHistoryRecharge:
                     return BudgetHistoryRechargeFragment.getInstance();
-
                 case mBudgetHistorySubtract:
                     return BudgetHistorySubtractFragment.getInstance();
-
             }
             return null;
         }
@@ -63,5 +59,4 @@ public class BudgetSectionsAdapter extends FragmentPagerAdapter{
             }
             return null;
         }
-
 }

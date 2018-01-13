@@ -20,8 +20,6 @@ public class BudgetHistoryIncomeViewModel extends BaseObservable implements Budg
     private Context mContext;
     private BudgetRecyclerViewAdapter mAdapter;
     private boolean mVisibilityRecyclerView;
-    private  BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
-            mItemClickListener;
     private BudgetHistoryIncomeContract.Presenter mPresenter;
 
     public BudgetHistoryIncomeViewModel(Context mContext, BudgetRecyclerViewAdapter adapter) {
@@ -34,7 +32,6 @@ public class BudgetHistoryIncomeViewModel extends BaseObservable implements Budg
     @Override
     public void onStart() {
         mPresenter.setListCoin();
-
     }
 
     @Override

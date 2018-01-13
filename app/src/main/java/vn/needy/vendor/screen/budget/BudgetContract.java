@@ -12,7 +12,6 @@ public interface BudgetContract {
     interface ViewModel extends BaseViewModel<Presenter>{
 
         void onBackPressed();
-
     }
 
     interface Presenter extends BasePresenter{

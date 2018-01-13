@@ -17,7 +17,6 @@ public interface BudgetHistoryIncomeContract {
         void getListCoin(List<BudgetActivity.Coin> coins);
 
         void onClickPersonalEarnsCoins();
-
     }
 
     interface Presenter extends BasePresenter{

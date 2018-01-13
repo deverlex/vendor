@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.databinding.FragmentBudbgetHistorySubtractBinding;
+import vn.needy.vendor.databinding.FragmentBudgetHistorySubtractBinding;
 import vn.needy.vendor.screen.budget.BudgetActivity;
 import vn.needy.vendor.screen.budget.BudgetRecyclerViewAdapter;
 
@@ -45,8 +45,8 @@ public class BudgetHistorySubtractFragment extends Fragment {
         mViewModel.setPresenter(mPresenter);
         mViewModel.onStart();
 
-        FragmentBudbgetHistorySubtractBinding binding = DataBindingUtil.inflate(inflater , R.layout.fragment_budbget_history_subtract
-                , container , false);
+        FragmentBudgetHistorySubtractBinding binding = DataBindingUtil.inflate(inflater ,
+                R.layout.fragment_budget_history_subtract, container , false);
 
         binding.setViewModel((BudgetHistorySubtractViewModel) mViewModel);
 

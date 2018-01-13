@@ -20,8 +20,6 @@ public class BudgetHistorySubtractViewModel extends BaseObservable implements Bu
     private Context mContext;
     private BudgetRecyclerViewAdapter mAdapter;
     private boolean mVisibilityRecyclerView;
-    private  BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
-            mItemClickListener;
     private BudgetHistorySubtractContract.Presenter mPresenter;
 
     public BudgetHistorySubtractViewModel(Context mContext, BudgetRecyclerViewAdapter adapter) {

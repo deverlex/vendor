@@ -40,7 +40,6 @@ public class BudgetHistorySubtractPresenter implements BudgetHistorySubtractCont
                 ,  "+11");
 
         mList = new ArrayList<>();
-
         mViewModel.getListCoin(mList);
     }
 }

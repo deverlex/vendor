@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.databinding.FragmentBudbgetHistoryRechargeBinding;
+import vn.needy.vendor.databinding.FragmentBudgetHistoryRechargeBinding;
 import vn.needy.vendor.screen.budget.BudgetActivity;
 import vn.needy.vendor.screen.budget.BudgetRecyclerViewAdapter;
 
@@ -23,8 +23,7 @@ import vn.needy.vendor.screen.budget.BudgetRecyclerViewAdapter;
 public class BudgetHistoryRechargeFragment extends Fragment {
 
 
-    public static BudgetHistoryRechargeFragment getInstance()
-    {
+    public static BudgetHistoryRechargeFragment getInstance() {
         return new BudgetHistoryRechargeFragment();
     }
 
@@ -46,9 +45,8 @@ public class BudgetHistoryRechargeFragment extends Fragment {
         mViewModel.setPresenter(mPresenter);
         mViewModel.onStart();;
 
-
-        FragmentBudbgetHistoryRechargeBinding binding = DataBindingUtil.inflate(inflater , R.layout.fragment_budbget_history_recharge
-                , container , false);
+        FragmentBudgetHistoryRechargeBinding binding = DataBindingUtil.inflate(inflater ,
+                R.layout.fragment_budget_history_recharge, container , false);
         binding.setViewModel((BudgetHistoryRechargeViewModel) mViewModel);
 
         return binding.getRoot();

@@ -17,12 +17,10 @@ interface BudgetHistoryRechargeContract {
         void getListCoin(List<BudgetActivity.Coin> coins);
 
         void onClickPersonalEarnsCoins();
-
     }
 
     interface Presenter extends BasePresenter{
 
         void setListCoin();
-
     }
 }
