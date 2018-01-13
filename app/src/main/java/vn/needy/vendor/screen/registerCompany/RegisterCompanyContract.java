@@ -1,5 +1,6 @@
 package vn.needy.vendor.screen.registerCompany;
 
+import vn.needy.vendor.model.Place;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
@@ -28,13 +29,27 @@ interface RegisterCompanyContract {
 
         void onRegisterClick();
 
-        void onPositionClick();
+        void onCompanyPositionClick();
+
+        void onStorePositionClick();
 
         void onShowProgressBar();
 
         void onHideProgressBar();
 
         void onBackPressed();
+
+        void onClickEditCompanyAddress();
+
+        void onClickEditStoreAddress();
+
+        void updateCompanyAddress(Place place);
+
+        void updateStoreAddress(Place place);
+
+        void onClickOpeningTime();
+
+        void onClickClosingTime();
     }
 
     interface Presenter extends BasePresenter {
