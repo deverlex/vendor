@@ -34,8 +34,12 @@
             </intent-filter>
         </activity>
 
+        <!--<meta-data-->
+            <!--android:name="com.google.android.maps.v2.API_KEY"-->
+            <!--android:value="AIzaSyB9wj6vjyohBMxuvv3083rP6OTGsfBzlrE"/>-->
+
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
+            android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB9wj6vjyohBMxuvv3083rP6OTGsfBzlrE"/>
 
         <activity android:name=".screen.main.MainActivity"
@@ -104,6 +108,12 @@
             />
 
         <activity android:name=".screen.storeProfile.StoreProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
+        <activity android:name=".screen.place.PlaceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"

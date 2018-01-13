@@ -17,7 +17,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -118,6 +118,8 @@ dependencies {
     compile dependencies.imageCrop
 
     compile dependencies.material
+
+    compile dependencies.places
 
     testCompile dependencies.junit
     testCompile dependencies.mockito
