@@ -1,6 +1,7 @@
 ext {
   dependencies = [junit             : 'junit:junit:4.12',
                   mockito           : 'org.mockito:mockito-core:2.7.7',
+                  multidex          : 'com.android.support:multidex:1.0.1',
 
                   constraintLayout  : 'com.android.support.constraint:constraint-layout:1.0.1',
                   appcompat         : 'com.android.support:appcompat-v7:25.2.0',

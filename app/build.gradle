@@ -19,6 +19,7 @@ android {
         versionName rootProject.ext.versionName
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
 
     dataBinding {
@@ -96,6 +97,8 @@ dependencies {
     compile dependencies.supportDesign
     compile dependencies.constraintLayout
     compile dependencies.cardView
+
+    compile dependencies.multidex
 
     compile dependencies.rxJava
     compile dependencies.rxAndroid
