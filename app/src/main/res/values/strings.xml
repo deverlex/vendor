@@ -285,4 +285,30 @@
     <string name="personal_earns_coin">Làm sao để săn Deedy Xu</string>
     <string name="personal_dialog_coin">Bạn chưa có Needy Xu. Bạn chỉ nhận được \n Needy Xu khi đơn hàng đã hoàn thành (sau khi \nbạn ấn Đã nhận được hàng).</string>
 
+
+    <string name="review_buyer">Đánh giá Buyer</string>
+    <string name="review_vendor">Đánh giá Vendor</string>
+    <string name="review">Đánh giá của tôi</string>
+    <string name="review_watch">Xem đánh giá của tôi</string>
+
+    <string name="attitude">Thái độ</string>
+    <string name="value">Giá trị</string>
+    <string name="quality">Chất lượng</string>
+
+    <string name="review_all">Tất cả (0)</string>
+    <string name="review_5star">5 sao (0)</string>
+    <string name="review_4star">4 sao (0)</string>
+    <string name="review_3star">3 sao (0)</string>
+    <string name="review_2star">2 sao (0)</string>
+    <string name="review_1star">1 sao (0)</string>
+
+    <string name="personal_comment">Bình luận</string>
+    <string name="review_vendor_info">Chưa có đánh giá nào từ người mua hàng dành cho bạn</string>
+    <string name="review_buyer_info">Chưa có đánh giá nào từ người bán hàng dành cho bạn</string>
+    <string name="shops_thanks">Cảm ơn bạn đã ủng hộ ạ!</string>
+    <string name="reviews_cargo">Không tìm thấy đánh giá nào</string>
+
+    <string name="personal_feedback">Phản Hồi Của Bạn</string>
+    <string name="personal_note_feedback">Bạn chỉ có thể phản hồi 1 lần</string>
+
 </resources>

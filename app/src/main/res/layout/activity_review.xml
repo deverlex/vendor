@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.review.ReviewViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_gray_white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                android:onClick="@{() -> viewModel.onBackPressed()}"
+                app:srcCompat="@drawable/ic_back_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/back"
+                android:text="@string/review"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_18" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white_light"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_1"
+                    android:background="@drawable/circle_background_white"
+                    android:gravity="center"
+                    android:padding="@dimen/sp_16"
+                    android:text="5.0" />
+
+                <RatingBar
+                    style="@style/RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="4.5"
+                    android:stepSize="0.5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:fontFamily="@string/font_serif"
+                    android:text="@string/value"
+                    android:textSize="@dimen/sp_12"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/circle_background_white"
+                    android:gravity="center"
+                    android:padding="@dimen/sp_16"
+                    android:text="5.0" />
+
+                <RatingBar
+                    style="@style/RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="4.5"
+                    android:stepSize="0.5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:fontFamily="@string/font_serif"
+                    android:text="@string/quality"
+                    android:textSize="@dimen/sp_12"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/circle_background_white"
+                    android:gravity="center"
+                    android:padding="@dimen/sp_16"
+                    android:text="5.0" />
+
+                <RatingBar
+                    style="@style/RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="4.5"
+                    android:stepSize="0.5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:fontFamily="@string/font_serif"
+                    android:text="@string/attitude"
+                    android:textSize="@dimen/sp_12"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@string/font_serif"
+            android:layout_marginTop="@dimen/dp_1"
+            android:layout_marginBottom="@dimen/dp_0_mid"
+            android:background="@color/color_white_light"
+            app:tabGravity="fill"
+            app:tabSelectedTextColor="@color/color_red_light"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="@color/color_gray"
+            app:viewPager="@{reviewViewPager}"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/reviewViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:viewPagerAdapter="@{viewModel.adapter}"/>
+    </LinearLayout>
+</layout>

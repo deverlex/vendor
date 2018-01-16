@@ -1,20 +1,21 @@
-package vn.needy.vendor.screen.review;
+package vn.needy.vendor.screen.review.vendor;
 
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
 /**
- * Created by lion on 18/12/2017.
+ * Created by minh_dai on 03/01/2018.
  */
 
-interface ReviewContract {
+public interface ReviewVendorContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onViewReviewByRatingClicked(int item);
 
-        void onBackPressed();
     }
 
     interface Presenter extends BasePresenter {
 
     }
+
 }

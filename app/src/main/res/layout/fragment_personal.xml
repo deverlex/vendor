@@ -155,8 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_white"
-                android:layout_marginTop="@dimen/dp_1"
-                >
+                android:layout_marginTop="@dimen/dp_1"  >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -186,6 +185,44 @@
                     android:text="@string/view_budget"
                     android:textColor="@color/gray78"
                     android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:onClick="@{() -> viewModel.onReviewActivityClick()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_1"
+                android:background="@color/color_white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@{@drawable/ic_circle_star}"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:drawableStart="@{@drawable/ic_circle_star}"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/review"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawableEnd="@{@drawable/ic_next_right}"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:drawableRight="@{@drawable/ic_next_right}"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/review_watch"
+                    android:textColor="@color/gray78"
+                    android:textSize="@dimen/sp_12"
                     tools:ignore="UnusedAttribute" />
             </RelativeLayout>
 
