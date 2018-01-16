@@ -23,7 +23,7 @@ public class ForgotPasswordContract {
         void onVerificationError(int errorMsg);
 
         // when click on verify phone number
-        void onSendVerificationSuccess();
+        void onSendVerificationSuccess(String optCode);
 
         /**For action send verification to Firebase*/
         void onWaitingTimeForResend(int duration);
@@ -69,6 +69,11 @@ public class ForgotPasswordContract {
         void onToMainPage();
 
         void onToRegisterCompany();
+
+        void countDownTimeOtpCode(int time);
+
+        void onShowOtpCodeView();
+
     }
 
     interface Presenter extends BasePresenter {

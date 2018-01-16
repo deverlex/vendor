@@ -12,6 +12,8 @@ import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.Locale;
+
 import vn.needy.vendor.R;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.port.service.VendorServiceClient;
@@ -55,6 +57,8 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
 
     private boolean mVisibleOtpCode;
     private boolean mVisiblePassword;
+
+    private int mCountDown;
 
     public ForgotPasswordViewModel(Context context, Application application, Navigator navigator, DialogManager dialogManager) {
         mContext = context;
@@ -154,13 +158,9 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     }
 
     @Override
-    public void onSendVerificationSuccess() {
-        // change intro content for add otp code
-        mIntroContent = mContext.getString(R.string.intro_validate_opt);
-        mVisibleOtpCode = true;
-        notifyPropertyChanged(BR.visibleOtpCode);
-        notifyPropertyChanged(BR.introContent);
-        notifyPropertyChanged(BR.focusPhoneNumber);
+    public void onSendVerificationSuccess(String otpCode) {
+        mOtpCode = otpCode;
+        notifyPropertyChanged(BR.otpCode);
     }
 
     @Override
@@ -242,6 +242,21 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     public void onToRegisterCompany() {
         mNavigator.startActivity(RegisterCompanyActivity.class);
         mNavigator.finishActivity();
+    }
+
+    @Override
+    public void countDownTimeOtpCode(int time) {
+        mCountDown = time;
+        notifyPropertyChanged(BR.countDown);
+    }
+
+    @Override
+    public void onShowOtpCodeView() {
+        mIntroContent = mContext.getString(R.string.intro_validate_opt);
+        mVisibleOtpCode = true;
+        notifyPropertyChanged(BR.visibleOtpCode);
+        notifyPropertyChanged(BR.introContent);
+        notifyPropertyChanged(BR.focusPhoneNumber);
     }
 
     @Override
@@ -354,5 +369,14 @@ public class ForgotPasswordViewModel extends BaseObservable implements ForgotPas
     @Bindable
     public boolean isVisibleShowPassword() {
         return mVisibleShowPassword;
+    }
+
+    @Bindable
+    public String getCountDown() {
+        if (mCountDown > 0) {
+            return String.format(Locale.getDefault(), "(%d)", mCountDown);
+        } else {
+            return "";
+        }
     }
 }

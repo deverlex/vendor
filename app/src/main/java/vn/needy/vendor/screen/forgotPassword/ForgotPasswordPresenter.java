@@ -25,6 +25,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
+import vn.needy.vendor.port.message.BaseCode;
 import vn.needy.vendor.port.message.BaseStatus;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
@@ -44,7 +45,7 @@ import vn.needy.vendor.utils.Utils;
 
 public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter {
 
-    private static final int TIME_DURATION = 120;
+    private static final int TIME_DURATION = 60;
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String mVerificationId;
@@ -61,10 +62,8 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
 
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
-            mViewModel.onHideProgressBar();
-            mViewModel.onSendVerificationSuccess();
+            mViewModel.onSendVerificationSuccess(credential.getSmsCode());
             signInWithPhoneAuthCredential(credential);
-            mDuration = -1;
         }
 
         @Override
@@ -125,7 +124,12 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
             .subscribe(new Consumer<ResponseWrapper>() {
                 @Override
                 public void accept(ResponseWrapper baseResponse) throws Exception {
-                    mViewModel.onFindPhoneNumberExistSuccess();
+                    mViewModel.onHideProgressBar();
+                    if (baseResponse.getCode() == BaseCode.OK) {
+                        mViewModel.onFindPhoneNumberExistSuccess();
+                    } else {
+                        mViewModel.onFindPhoneNumberExistError(R.string.find_user_exist_error);
+                    }
                 }
             }, new SafetyError() {
                 @Override
@@ -140,8 +144,8 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     public void sendVerifyPhoneNumber(String phoneNumber) {
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
         sendVerificationPhone(phoneNumber);
-        mViewModel.onShowProgressBar();
         waitingForResend();
+        mViewModel.onShowOtpCodeView();
     }
 
     @Override
@@ -151,7 +155,6 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         } else if (mResendToken != null) {
             phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
             resendVerificationCode(phoneNumber, mResendToken);
-            mViewModel.onShowProgressBar();
             waitingForResend();
         }
     }
@@ -331,20 +334,27 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
             public void run() {
                 while (mDuration > 0) {
                     mDuration -= 1;
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                    }
-                }
-                if (mDuration == 0) {
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mViewModel.onHideProgressBar();
-                            mViewModel.onVerificationError(R.string.validation_error);
+                            mViewModel.countDownTimeOtpCode(mDuration);
                         }
                     });
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+
+                    }
                 }
+//                if (mDuration == 0) {
+//                    mActivity.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            mViewModel.onHideProgressBar();
+//                            mViewModel.onVerificationError(R.string.validation_error);
+//                        }
+//                    });
+//                }
             }
         });
     }
