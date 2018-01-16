@@ -6,7 +6,9 @@ import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.StoreData;
 import vn.needy.vendor.repository.remote.BaseDataRemote;
+import vn.needy.vendor.repository.remote.store.request.CreateStoreRequest;
 import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoRequest;
+import vn.needy.vendor.repository.remote.store.response.CreateStoreRespone;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
 
 /**
@@ -27,5 +29,10 @@ public class StoreDataRemote extends BaseDataRemote<VendorApi> implements StoreD
     @Override
     public Observable<ResponseWrapper> updateStoreInfo(String storeId, UpdateStoreInfoRequest infoReq) {
         return mApi.updateStoreInfo(storeId, new RequestWrapper<UpdateStoreInfoRequest>().setData(infoReq));
+    }
+
+    @Override
+    public Observable<ResponseWrapper<CreateStoreRespone>> createStore(long companyId, CreateStoreRequest request) {
+        return mApi.createStore(companyId, new RequestWrapper<CreateStoreRequest>().setData(request));
     }
 }

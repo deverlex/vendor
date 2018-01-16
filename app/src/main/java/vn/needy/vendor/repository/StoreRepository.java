@@ -3,7 +3,9 @@ package vn.needy.vendor.repository;
 import io.reactivex.Observable;
 import vn.needy.vendor.domain.Store;
 import vn.needy.vendor.port.message.ResponseWrapper;
+import vn.needy.vendor.repository.remote.store.request.CreateStoreRequest;
 import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoRequest;
+import vn.needy.vendor.repository.remote.store.response.CreateStoreRespone;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
 
 /**
@@ -28,6 +30,10 @@ public class StoreRepository {
         return mRemote.updateStoreInfo(storeId, infoReq);
     }
 
+    public Observable<ResponseWrapper<CreateStoreRespone>> createStore(long companyId, CreateStoreRequest request) {
+        return mRemote.createStore(companyId, request);
+    }
+
     /** LOCAL */
     public Observable<Store> getOurStoreAsync() {
         return mLocal.getOurCompanyAsync();
@@ -39,5 +45,9 @@ public class StoreRepository {
 
     public String getOurStoreIdSync() {
         return mLocal.getOurStoreIdSync();
+    }
+
+    public void saveStoreId(long storeId) {
+        mLocal.saveStoreId(storeId);
     }
 }

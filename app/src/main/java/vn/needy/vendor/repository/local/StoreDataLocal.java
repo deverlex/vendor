@@ -7,6 +7,8 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.functions.BiConsumer;
 import io.realm.Realm;
 import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsKey;
 import vn.needy.vendor.domain.Store;
 import vn.needy.vendor.repository.StoreData;
 
@@ -17,6 +19,16 @@ import vn.needy.vendor.repository.StoreData;
 public class StoreDataLocal implements StoreData.Local {
 
     private static final String TAG = StoreDataLocal.class.getName();
+
+    private SharedPrefsApi mPrefsApi;
+
+    public StoreDataLocal() {
+
+    }
+
+    public StoreDataLocal(SharedPrefsApi prefsApi) {
+        mPrefsApi = prefsApi;
+    }
 
     @Override
     public Observable<Store> getOurCompanyAsync() {
@@ -39,6 +51,11 @@ public class StoreDataLocal implements StoreData.Local {
                 Log.w(TAG, "INSERT COMPANY SUCCESS.................OOOOOT");
             }
         });
+    }
+
+    @Override
+    public void saveStoreId(long storeId) {
+        mPrefsApi.put(SharedPrefsKey.STORE_ID, storeId);
     }
 
     @Override

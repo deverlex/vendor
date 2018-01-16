@@ -3,7 +3,6 @@ package vn.needy.vendor.screen.registerCompany;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.util.Log;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityRegisterCompanyBinding;
@@ -38,7 +37,7 @@ public class RegisterCompanyActivity extends BaseActivity {
 
         mViewModel = new RegisterCompanyViewModel(this, navigator, mDialogManager);
         RegisterCompanyContract.Presenter presenter =
-                new RegisterCompanyPresenter(mViewModel, mVendorApi);
+                new RegisterCompanyPresenter(this, mViewModel, mVendorApi);
 
         mViewModel.setPresenter(presenter);
 

@@ -6,6 +6,7 @@ import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoReques
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.company.response.RegisterComapnyRespone;
 import vn.needy.vendor.repository.remote.user.response.CompanyResponse;
 
 /**
@@ -30,7 +31,7 @@ public class CompanyRepository {
         return mRemote.getCompanyInformation(companyId);
     }
 
-    public Observable<ResponseWrapper<CompanyInfoResponse>> registerCompany(RegisterCompanyRequest request) {
+    public Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(RegisterCompanyRequest request) {
         return mRemote.registerCompany(request);
     }
 
@@ -53,5 +54,9 @@ public class CompanyRepository {
 
     public String getCompanyIdSync() {
         return mLocal.getOurCompanyIdSync();
+    }
+
+    public void saveCompanyId(long companyId) {
+        mLocal.saveCompanyId(companyId);
     }
 }

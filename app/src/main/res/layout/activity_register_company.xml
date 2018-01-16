@@ -172,6 +172,102 @@
                     </RelativeLayout>
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:onClick="@{() -> viewModel.onClickOpeningTimeCompany()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/opeing_time_company_expand"
+                        android:layout_toStartOf="@+id/opeing_time_company_expand"
+                        android:id="@+id/headerOpenTimeCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Thời gian mở cửa"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/opeing_time_company_expand"
+                        android:layout_toStartOf="@+id/opeing_time_company_expand"
+                        errorText="@{viewModel.openingTimeCompanyError}"
+                        android:text="@{viewModel.openingTimeCompany}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerOpenTimeCompany"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:hint="@string/not_set"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:id="@+id/opeing_time_company_expand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:onClick="@{() -> viewModel.onClickClosingTimeCompany()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/closing_time_company_expand"
+                        android:layout_toStartOf="@+id/closing_time_company_expand"
+                        android:id="@+id/headerClosingTimeCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Thời gian đóng cửa"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/closing_time_company_expand"
+                        android:layout_toStartOf="@+id/closing_time_company_expand"
+                        errorText="@{viewModel.closingTimeCompanyError}"
+                        android:text="@{viewModel.closingTimeCompany}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerClosingTimeCompany"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:hint="@string/not_set"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:id="@+id/closing_time_company_expand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -277,14 +373,14 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:onClick="@{() -> viewModel.onClickOpeningTime()}"
+                    android:onClick="@{() -> viewModel.onClickOpeningTimeStore()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_1"
                     android:background="@color/color_white">
 
                     <TextView
-                        android:id="@+id/headerOpenTime"
+                        android:id="@+id/headerOpenTimeStore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@string/font_serif"
@@ -296,10 +392,13 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
-                        android:text="@{viewModel.openingTime}"
+                        android:layout_toLeftOf="@+id/opeing_time_store_expand"
+                        android:layout_toStartOf="@+id/opeing_time_store_expand"
+                        errorText="@{viewModel.openingTimeStoreError}"
+                        android:text="@{viewModel.openingTimeStore}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/headerOpenTime"
+                        android:layout_below="@+id/headerOpenTimeStore"
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
@@ -309,6 +408,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <ImageButton
+                        android:id="@+id/opeing_time_store_expand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -319,14 +419,14 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:onClick="@{() -> viewModel.onClickClosingTime()}"
+                    android:onClick="@{() -> viewModel.onClickClosingTimeStore()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_1"
                     android:background="@color/color_white">
 
                     <TextView
-                        android:id="@+id/headerClosingTime"
+                        android:id="@+id/headerClosingTimeStore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@string/font_serif"
@@ -338,10 +438,13 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
-                        android:text="@{viewModel.closingTime}"
+                        android:layout_toLeftOf="@+id/closing_time_store_expand"
+                        android:layout_toStartOf="@+id/closing_time_store_expand"
+                        errorText="@{viewModel.closingTimeStoreError}"
+                        android:text="@{viewModel.closingTimeStore}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/headerClosingTime"
+                        android:layout_below="@+id/headerClosingTimeStore"
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
@@ -351,6 +454,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <ImageButton
+                        android:id="@+id/closing_time_store_expand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

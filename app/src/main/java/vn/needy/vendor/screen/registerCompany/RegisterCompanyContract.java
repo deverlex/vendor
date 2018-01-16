@@ -2,6 +2,7 @@ package vn.needy.vendor.screen.registerCompany;
 
 import vn.needy.vendor.model.Place;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
+import vn.needy.vendor.repository.remote.store.request.CreateStoreRequest;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -16,6 +17,14 @@ interface RegisterCompanyContract {
         void onInputCompanyError(int errorMsg);
 
         void onInputOfficeAddressError(int errorMsg);
+
+        void onInputOpeningTimeComanyError(int msg);
+
+        void onInputClosingTimeComanyError(int msg);
+
+        void onInputOpeningTimeStoreError(int msg);
+
+        void onInputClosingTimeStoreError(int msg);
 
         void onInputStoreNameError(int errorMsg);
 
@@ -47,15 +56,19 @@ interface RegisterCompanyContract {
 
         void updateStoreAddress(Place place);
 
-        void onClickOpeningTime();
+        void onClickOpeningTimeCompany();
 
-        void onClickClosingTime();
+        void onClickClosingTimeCompany();
+
+        void onClickOpeningTimeStore();
+
+        void onClickClosingTimeStore();
     }
 
     interface Presenter extends BasePresenter {
 
-        void registerCompany(RegisterCompanyRequest request);
+        void registerCompany(RegisterCompanyRequest companyRequest, CreateStoreRequest storeRequest);
 
-        boolean validateDataInput(RegisterCompanyRequest request);
+        boolean validateDataInput(RegisterCompanyRequest request, CreateStoreRequest storeRequest);
     }
 }

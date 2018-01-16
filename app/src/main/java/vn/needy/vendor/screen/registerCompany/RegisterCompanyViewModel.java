@@ -23,6 +23,7 @@ import java.util.Locale;
 import vn.needy.vendor.R;
 import vn.needy.vendor.model.Place;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
+import vn.needy.vendor.repository.remote.store.request.CreateStoreRequest;
 import vn.needy.vendor.screen.main.MainActivity;
 import vn.needy.vendor.screen.place.PlaceActivity;
 import vn.needy.vendor.utils.dialog.DialogManager;
@@ -43,16 +44,24 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     private String mCompanyNameError;
     private String mOfficeAddressError;
+    private String mOpeningTimeCompanyError;
+    private String mClosingTimeCompanyError;
+
     private String mStoreNameError;
     private String mStoreAddressError;
+    private String mOpeningTimeStoreError;
+    private String mClosingTimeStoreError;
 
     private String mCompanyName;
     private String mOfficeAddress;
     private String mStoreName;
     private String mStoreAddress;
 
-    private String mOpeningTime;
-    private String mClosingTime;
+    private String mOpeningTimeCompany;
+    private String mClosingTimeCompany;
+
+    private String mOpeningTimeStore;
+    private String mClosingTimeStore;
 
     private Place mCompanyPlace;
     private Place mStorePlace;
@@ -97,6 +106,30 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
     }
 
     @Override
+    public void onInputOpeningTimeComanyError(int msg) {
+        mOpeningTimeCompanyError = mContext.getString(msg);
+        notifyPropertyChanged(BR.openingTimeCompanyError);
+    }
+
+    @Override
+    public void onInputClosingTimeComanyError(int msg) {
+        mClosingTimeCompanyError = mContext.getString(msg);
+        notifyPropertyChanged(BR.closingTimeCompanyError);
+    }
+
+    @Override
+    public void onInputOpeningTimeStoreError(int msg) {
+        mOpeningTimeStoreError = mContext.getString(msg);
+        notifyPropertyChanged(BR.openingTimeStoreError);
+    }
+
+    @Override
+    public void onInputClosingTimeStoreError(int msg) {
+        mClosingTimeStoreError = mContext.getString(msg);
+        notifyPropertyChanged(BR.closingTimeStoreError);
+    }
+
+    @Override
     public void onInputStoreNameError(int errorMsg) {
         mStoreNameError = mContext.getString(errorMsg);
         notifyPropertyChanged(BR.storeNameError);
@@ -126,18 +159,18 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
 
     @Override
     public void onRegisterClick() {
-        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+        RegisterCompanyRequest companyRequest = new RegisterCompanyRequest();
+        companyRequest.setCompanyName(mCompanyName);
+        companyRequest.setCompanyAddress(mOfficeAddress);
+        companyRequest.setOpeningTime(mOpeningTimeCompany);
+        companyRequest.setClosingTime(mClosingTimeCompany);
 
-        RegisterCompanyRequest request = new RegisterCompanyRequest();
-        request.setCompanyName(mCompanyName);
-        request.setOfficeAddress(mOfficeAddress);
-        request.setStoreName(mStoreName);
-        request.setStoreAddress(mStoreAddress);
-        request.setFcmToken(deviceToken);
-        request.setLat(mLat);
-        request.setLng(mLng);
-
-        mPresenter.registerCompany(request);
+        CreateStoreRequest storeRequest = new CreateStoreRequest();
+        storeRequest.setStoreName(mStoreName);
+        storeRequest.setAddress(mStoreAddress);
+        storeRequest.setOpeningTime(mOpeningTimeStore);
+        storeRequest.setClosingTime(mClosingTimeStore);
+        mPresenter.registerCompany(companyRequest, storeRequest);
     }
 
     @Override
@@ -208,28 +241,56 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
     }
 
     @Override
-    public void onClickOpeningTime() {
+    public void onClickOpeningTimeCompany() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, R.style.DatePickerDialogTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 Calendar calendar = new GregorianCalendar(0, 0, 0, hourOfDay, minute);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                mOpeningTime = dateFormat.format(calendar.getTime());
-                notifyPropertyChanged(BR.openingTime);
+                mOpeningTimeCompany = dateFormat.format(calendar.getTime());
+                notifyPropertyChanged(BR.openingTimeCompany);
             }
         }, 0, 0, true);
         timePickerDialog.show();
     }
 
     @Override
-    public void onClickClosingTime() {
+    public void onClickClosingTimeCompany() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, R.style.DatePickerDialogTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 Calendar calendar = new GregorianCalendar(0, 0, 0, hourOfDay, minute);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                mClosingTime = dateFormat.format(calendar.getTime());
-                notifyPropertyChanged(BR.closingTime);
+                mClosingTimeCompany = dateFormat.format(calendar.getTime());
+                notifyPropertyChanged(BR.closingTimeCompany);
+            }
+        }, 0, 0, true);
+        timePickerDialog.show();
+    }
+
+    @Override
+    public void onClickOpeningTimeStore() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, R.style.DatePickerDialogTheme, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                Calendar calendar = new GregorianCalendar(0, 0, 0, hourOfDay, minute);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                mOpeningTimeStore = dateFormat.format(calendar.getTime());
+                notifyPropertyChanged(BR.openingTimeStore);
+            }
+        }, 0, 0, true);
+        timePickerDialog.show();
+    }
+
+    @Override
+    public void onClickClosingTimeStore() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, R.style.DatePickerDialogTheme, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                Calendar calendar = new GregorianCalendar(0, 0, 0, hourOfDay, minute);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                mClosingTimeStore = dateFormat.format(calendar.getTime());
+                notifyPropertyChanged(BR.closingTimeStore);
             }
         }, 0, 0, true);
         timePickerDialog.show();
@@ -292,12 +353,42 @@ public class RegisterCompanyViewModel extends BaseObservable implements Register
     }
 
     @Bindable
-    public String getOpeningTime() {
-        return mOpeningTime;
+    public String getOpeningTimeCompany() {
+        return mOpeningTimeCompany;
     }
 
     @Bindable
-    public String getClosingTime() {
-        return mClosingTime;
+    public String getClosingTimeCompany() {
+        return mClosingTimeCompany;
+    }
+
+    @Bindable
+    public String getOpeningTimeStore() {
+        return mOpeningTimeStore;
+    }
+
+    @Bindable
+    public String getClosingTimeStore() {
+        return mClosingTimeStore;
+    }
+
+    @Bindable
+    public String getOpeningTimeCompanyError() {
+        return mOpeningTimeCompanyError;
+    }
+
+    @Bindable
+    public String getClosingTimeCompanyError() {
+        return mClosingTimeCompanyError;
+    }
+
+    @Bindable
+    public String getOpeningTimeStoreError() {
+        return mOpeningTimeStoreError;
+    }
+
+    @Bindable
+    public String getClosingTimeStoreError() {
+        return mClosingTimeStoreError;
     }
 }
