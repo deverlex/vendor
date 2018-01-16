@@ -3,12 +3,10 @@ package vn.needy.vendor.screen.review.vendor;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.widget.TextView;
 
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
-import vn.needy.vendor.screen.replyReview.ReplyReviewActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -19,7 +17,7 @@ public class ReviewVendorViewModel extends BaseObservable implements ReviewVendo
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>{
 
     private Navigator mNavigator;
-    private boolean reviewPersonal;
+    private boolean hasReview;
     private Context mContext;
     private ReviewVendorContract.Presenter mPresenter;
 
@@ -34,7 +32,7 @@ public class ReviewVendorViewModel extends BaseObservable implements ReviewVendo
         this.mNavigator = navigator;
         personalAnswer = mContext.getString(R.string.shops_thanks);
 
-        reviewPersonal = false;
+        hasReview = false;
         personalName = "2Bra";
 
         mItemFocus = 0;
@@ -56,8 +54,8 @@ public class ReviewVendorViewModel extends BaseObservable implements ReviewVendo
     }
 
     @Bindable
-    public boolean isReviewPersonal() {
-        return reviewPersonal;
+    public boolean isHasReview() {
+        return hasReview;
     }
 
     @Override

@@ -290,7 +290,8 @@
     <string name="review_1star">1 sao (0)</string>
 
     <string name="personal_comment">Bình luận</string>
-    <string name="review_personal">Chưa có đánh giá nào từ Người bán hàng dành cho \nbạn</string>
+    <string name="review_vendor_info">Chưa có đánh giá nào từ người mua hàng dành cho bạn</string>
+    <string name="review_buyer_info">Chưa có đánh giá nào từ người bán hàng dành cho bạn</string>
     <string name="shops_thanks">Cảm ơn bạn đã ủng hộ ạ!</string>
     <string name="reviews_cargo">Không tìm thấy đánh giá nào</string>
 

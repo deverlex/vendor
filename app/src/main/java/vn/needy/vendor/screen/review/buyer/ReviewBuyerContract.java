@@ -11,14 +11,12 @@ import vn.needy.vendor.screen.BaseViewModel;
 
 public interface ReviewBuyerContract {
 
-    interface ViewModel extends BaseViewModel<Presenter>{
+    interface ViewModel extends BaseViewModel<Presenter> {
 
         void onViewReviewByRatingClicked(int item);
-
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter extends BasePresenter {
 
     }
-
 }

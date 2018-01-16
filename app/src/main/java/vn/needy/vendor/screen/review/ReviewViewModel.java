@@ -40,7 +40,6 @@ public class ReviewViewModel extends BaseObservable implements ReviewContract.Vi
         ((Activity) mContext).onBackPressed();
     }
 
-
     @Bindable
     public ReviewSectionAdapter getAdapter() {
         return mAdapter;

@@ -31,13 +31,10 @@ public class ReviewSectionAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (TABS[position]) {
-
             case mReviewBuyer:
                 return ReviewBuyerFragment.getInstance();
-
             case mReviewVendor:
                 return ReviewVendorFragment.getInstance();
-
         }
         return null;
     }
@@ -50,15 +47,11 @@ public class ReviewSectionAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (TABS[position]) {
-
             case mReviewBuyer:
                 return mContext.getResources().getString(R.string.review_buyer);
-
             case mReviewVendor:
                 return mContext.getResources().getString(R.string.review_vendor);
-
         }
         return null;
     }
-
 }

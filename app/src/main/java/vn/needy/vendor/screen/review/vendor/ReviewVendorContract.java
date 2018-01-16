@@ -1,7 +1,5 @@
 package vn.needy.vendor.screen.review.vendor;
 
-import android.widget.TextView;
-
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -11,13 +9,12 @@ import vn.needy.vendor.screen.BaseViewModel;
 
 public interface ReviewVendorContract {
 
-    interface ViewModel extends BaseViewModel<Presenter>{
-
+    interface ViewModel extends BaseViewModel<Presenter> {
         void onViewReviewByRatingClicked(int item);
 
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter extends BasePresenter {
 
     }
 

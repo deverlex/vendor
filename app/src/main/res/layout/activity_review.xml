@@ -6,14 +6,15 @@
 
         <variable
             name="viewModel"
-            type="vn.needy.vendor.screen.review.ReviewViewModel"/>
+            type="vn.needy.vendor.screen.review.ReviewViewModel" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_gray_white"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -40,27 +41,26 @@
         </RelativeLayout>
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_white_light"
             android:orientation="horizontal">
 
             <LinearLayout
-
-                android:layout_marginTop="@dimen/dp_10"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:padding="@dimen/sp_16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_1"
                     android:background="@drawable/circle_background_white"
                     android:gravity="center"
+                    android:padding="@dimen/sp_16"
                     android:text="5.0" />
 
                 <RatingBar
@@ -73,30 +73,30 @@
                     android:stepSize="0.5" />
 
                 <TextView
-
-                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:fontFamily="@string/font_serif"
                     android:text="@string/value"
-                    android:fontFamily="@string/font_serif"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/sp_12"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/dp_10"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:padding="@dimen/sp_16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:background="@drawable/circle_background_white"
                     android:gravity="center"
+                    android:padding="@dimen/sp_16"
                     android:text="5.0" />
 
                 <RatingBar
@@ -109,31 +109,31 @@
                     android:stepSize="0.5" />
 
                 <TextView
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
                     android:fontFamily="@string/font_serif"
-                    android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/quality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/sp_12"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/dp_10"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:padding="@dimen/sp_16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:background="@drawable/circle_background_white"
                     android:gravity="center"
+                    android:padding="@dimen/sp_16"
                     android:text="5.0" />
 
                 <RatingBar
@@ -146,44 +146,32 @@
                     android:stepSize="0.5" />
 
                 <TextView
-                    android:fontFamily="@string/font_serif"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:text="@string/attitude"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:fontFamily="@string/font_serif"
+                    android:text="@string/attitude"
+                    android:textSize="@dimen/sp_12"/>
             </LinearLayout>
-
         </LinearLayout>
-
-        <View
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@color/color_gray_white" />
 
         <android.support.design.widget.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@string/font_serif"
+            android:layout_marginTop="@dimen/dp_1"
+            android:layout_marginBottom="@dimen/dp_0_mid"
+            android:background="@color/color_white_light"
             app:tabGravity="fill"
             app:tabSelectedTextColor="@color/color_red_light"
             app:tabTextAppearance="@style/TabLayoutTextStyle"
             app:tabTextColor="@color/color_gray"
-            app:viewPager="@{reviewViewPager}">
-        </android.support.design.widget.TabLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@color/color_gray_white" />
+            app:viewPager="@{reviewViewPager}"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/reviewViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:viewPagerAdapter="@{viewModel.adapter}">
-
-        </android.support.v4.view.ViewPager>
+            app:viewPagerAdapter="@{viewModel.adapter}"/>
     </LinearLayout>
-
 </layout>

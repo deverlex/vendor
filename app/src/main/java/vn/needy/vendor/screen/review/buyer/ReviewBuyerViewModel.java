@@ -3,10 +3,8 @@ package vn.needy.vendor.screen.review.buyer;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.widget.TextView;
 
 import vn.needy.vendor.BR;
-import vn.needy.vendor.R;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 
 /**
@@ -14,17 +12,16 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  */
 
 public class ReviewBuyerViewModel extends BaseObservable implements ReviewBuyerContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>{
-
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
     private int mItemFocus;
-    private boolean reviewPersonal;
+    private boolean hasReview;
     private Context mContext;
     private ReviewBuyerContract.Presenter mPresenter;
 
     public ReviewBuyerViewModel(Context mContext) {
         this.mContext = mContext;
-        reviewPersonal = true;
+        hasReview = false;
 
         mItemFocus = 0;
     }
@@ -45,8 +42,8 @@ public class ReviewBuyerViewModel extends BaseObservable implements ReviewBuyerC
     }
 
     @Bindable
-    public boolean isReviewPersonal() {
-        return reviewPersonal;
+    public boolean isHasReview() {
+        return hasReview;
     }
 
     @Override
