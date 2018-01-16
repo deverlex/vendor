@@ -17,7 +17,6 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-
         
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -120,8 +119,6 @@ dependencies {
     compile dependencies.map
     compile dependencies.imagePicker
     compile dependencies.imageCrop
-
-    compile dependencies.ArcProgress
 
     compile dependencies.material
 
