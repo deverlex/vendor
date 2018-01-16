@@ -109,6 +109,18 @@
             android:windowSoftInputMode="stateHidden"
             />
 
+        <activity android:name=".screen.businessManage.BusinessManageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
+        <activity android:name=".screen.saleIndex.SaleIndexActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+            />
+
         <activity android:name=".screen.budget.BudgetActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

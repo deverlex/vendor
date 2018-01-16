@@ -98,8 +98,8 @@
     <string name="view_order_history">Xem lịch sử đơn hàng</string>
     <string name="support">Trợ giúp</string>
     <string name="view_support">Xem trợ giúp</string>
-    <string name="company">Công ty</string>
-    <string name="view_company">Xem công ty của tôi</string>
+    <string name="business">Quản lý kinh doanh</string>
+    <string name="view_business">Chi tiết</string>
     <string name="store">Cửa hàng</string>
     <string name="view_store">Xem cửa hàng của tôi</string>
 
@@ -311,4 +311,33 @@
     <string name="personal_feedback">Phản Hồi Của Bạn</string>
     <string name="personal_note_feedback">Bạn chỉ có thể phản hồi 1 lần</string>
 
+    <string name="business_name_product">Product</string>
+    <string name="business_product">Sản phẩm</string>
+    <string name="business_index">Chỉ số bán hàng</string>
+    <string name="business_customer">Khách hàng</string>
+    <string name="business_store_setting">Thiết lập cửa hàng</string>
+    <string name="business_company">Hồ sơ công ty</string>
+    <string name="business_store">Hồ sơ cửa hàng</string>
+    <string name="business_channel_seller">Kênh người bán</string>
+    
+    <string name="sale_performance">Hiệu quả bán hàng</string>
+    <string name="saleindex_achievement">Chi tiết</string>
+
+    <string name="saleindex_ratio">Tỉ lệ phản hồi</string>
+    <string name="saleindex_time">Thời gian phản hồi</string>
+    <string name="saleindex_ratio_prosperous">Tỉ lệ không thành công</string>
+    <string name="saleindex_vote">Đánh giá</string>
+
+    <string name="violate_statistic">Điểm phạt</string>
+    <string name="violate_rule">Quy định</string>
+    <string name="violate_view_statistic">Xem điểm phạt</string>
+    <string name="violate_statistic_level">Các mức phạt hiện tại</string>
+    <string name="violate_statistic_history">Lịch sử phạt</string>
+    <string name="violate_statistic_dialog">Shop bạn không bị điểm phạt nào trong quý này.\nHãy giữ vững thành tích này nhé </string>
+    <string name="violate_statistic_counterfeiting">Hàng giả , hàng nhái</string>
+    <string name="violate_statistic_parrot">Sản phẩm trùng lặp</string>
+    <string name="violate_product_disallowance">Các sản phẩm cấm</string>
+    <string name="violate_ratio_prosper">Tỉ lệ đơn hàng không thành công cao</string>
+    <string name="violate_ratio_late">Tỉ lệ giao hàng trễ</string>
+    <string name="violate_ratio_unreal">Giao dịch ảo</string>
 </resources>

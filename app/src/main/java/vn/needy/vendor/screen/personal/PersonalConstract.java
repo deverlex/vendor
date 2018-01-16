@@ -11,23 +11,21 @@ public class PersonalConstract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
+        void onClickHeader();
+
         void onClickViewAccount();
 
         void onClickViewOrderHistory();
 
-        void onClickViewBudget();
-
-        void onClickViewCompany();
-
-        void onClickViewStore();
-
         void onClickViewSupport();
 
-        void onClickHeader();
+        void onClickViewBusinessManage();
 
-        void onClickBudgetActivity();
+        void onClickSaleIndex();
 
-        void onReviewActivityClick();
+        void onClickViewBudget();
+
+        void onClickReview();
     }
 
     interface Presenter extends BasePresenter {

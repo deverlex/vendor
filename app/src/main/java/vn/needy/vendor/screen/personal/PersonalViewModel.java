@@ -4,8 +4,10 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import vn.needy.vendor.screen.account.AccountActivity;
+import vn.needy.vendor.screen.businessManage.BusinessManageActivity;
 import vn.needy.vendor.screen.budget.BudgetActivity;
 import vn.needy.vendor.screen.companyProfile.CompanyProfileActivity;
+import vn.needy.vendor.screen.saleIndex.SaleIndexActivity;
 import vn.needy.vendor.screen.review.ReviewActivity;
 import vn.needy.vendor.screen.storeProfile.StoreProfileActivity;
 import vn.needy.vendor.screen.userProfile.UserProfileActivity;
@@ -22,10 +24,6 @@ public class PersonalViewModel extends BaseObservable implements PersonalConstra
     private String mAvatarUrl;
     private String mCoverPictureUrl;
     private String mNameUser;
-
-    private boolean mVisibleViewCompany;
-    private boolean mVisibleViewStore;
-    private boolean mVisibleViewBudget;
 
     public PersonalViewModel(Navigator navigator) {
         mNavigator = navigator;
@@ -58,17 +56,7 @@ public class PersonalViewModel extends BaseObservable implements PersonalConstra
 
     @Override
     public void onClickViewBudget() {
-
-    }
-
-    @Override
-    public void onClickViewCompany() {
-        mNavigator.startActivity(CompanyProfileActivity.class);
-    }
-
-    @Override
-    public void onClickViewStore() {
-        mNavigator.startActivity(StoreProfileActivity.class);
+        mNavigator.startActivity(BudgetActivity.class);
     }
 
     @Override
@@ -82,28 +70,13 @@ public class PersonalViewModel extends BaseObservable implements PersonalConstra
     }
 
     @Override
-    public void onClickBudgetActivity() {
-        mNavigator.startActivity(BudgetActivity.class);
+    public void onClickViewBusinessManage() {
+        mNavigator.startActivity(BusinessManageActivity.class);
     }
 
     @Override
-    public void onReviewActivityClick() {
+    public void onClickReview() {
         mNavigator.startActivity(ReviewActivity.class);
-    }
-
-    @Bindable
-    public boolean isVisibleViewCompany() {
-        return mVisibleViewCompany;
-    }
-
-    @Bindable
-    public boolean isVisibleViewStore() {
-        return mVisibleViewStore;
-    }
-
-    @Bindable
-    public boolean isVisibleViewBudget() {
-        return mVisibleViewBudget;
     }
 
     @Bindable
@@ -119,5 +92,10 @@ public class PersonalViewModel extends BaseObservable implements PersonalConstra
     @Bindable
     public String getNameUser() {
         return mNameUser;
+    }
+
+    @Override
+    public void onClickSaleIndex(){
+        mNavigator.startActivity(SaleIndexActivity.class);
     }
 }

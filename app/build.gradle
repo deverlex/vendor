@@ -18,6 +18,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
+        
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -120,10 +121,13 @@ dependencies {
     compile dependencies.imagePicker
     compile dependencies.imageCrop
 
+    compile dependencies.ArcProgress
+
     compile dependencies.material
 
     testCompile dependencies.junit
     testCompile dependencies.mockito
+
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
