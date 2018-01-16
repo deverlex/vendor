@@ -21,6 +21,7 @@ import vn.needy.vendor.domain.User;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.port.message.BaseStatus;
 import vn.needy.vendor.port.service.VendorServiceClient;
+import vn.needy.vendor.port.wrapper.EmployeeWrapper;
 import vn.needy.vendor.repository.CompanyRepository;
 import vn.needy.vendor.repository.StoreRepository;
 import vn.needy.vendor.repository.UserRepository;
@@ -33,6 +34,7 @@ import vn.needy.vendor.repository.remote.user.UserDataRemote;
 import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
+import vn.needy.vendor.repository.remote.user.response.CheckOwnCompanyExistRespone;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.Utils;
@@ -63,6 +65,16 @@ public class LoginPresenter implements LoginContract.Presenter {
                 new UserDataRemote(VendorServiceClient.getInstance()),
                 new UserDataLocal(SharedPrefsImpl.getInstance())
         );
+
+        mCompanyRepository = new CompanyRepository(
+                new CompanyRemoteData(VendorServiceClient.getInstance()),
+                new CompanyDataLocal(SharedPrefsImpl.getInstance())
+        );
+
+        mStoreRepository = new StoreRepository(
+                new StoreDataRemote(VendorServiceClient.getInstance()),
+                new StoreDataLocal(SharedPrefsImpl.getInstance())
+        );
     }
 
     @Override
@@ -85,19 +97,19 @@ public class LoginPresenter implements LoginContract.Presenter {
         request.setInstanceId(Utils.getDeviceId(mContext));
         request.setFirebaseToken(FirebaseInstanceId.getInstance().getToken());
         mUserRepository.login(request)
-            .subscribeOn(Schedulers.io())
-            .doOnSubscribe(new Consumer<Disposable>() {
-                @Override
-                public void accept(Disposable disposable) throws Exception {
-                    mViewModel.onShowProgressBar();
-                }
-            })
-            .doOnError(new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mNavigator.showToastCenterText(error.getMessage());
-                }
-            }).observeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .doOnError(new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mNavigator.showToastCenterText(error.getMessage());
+                    }
+                }).observeOn(Schedulers.computation())
                 .map(new Function<ResponseWrapper<TokenResponse>, ResponseWrapper<TokenResponse>>() {
                     @Override
                     public ResponseWrapper<TokenResponse> apply(ResponseWrapper<TokenResponse> tokenResponseResponseWrapper) throws Exception {
@@ -178,10 +190,15 @@ public class LoginPresenter implements LoginContract.Presenter {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseWrapper>() {
+                .subscribe(new Consumer<ResponseWrapper<CheckOwnCompanyExistRespone>>() {
                     @Override
-                    public void accept(ResponseWrapper responseWrapper) throws Exception {
-                        if (responseWrapper.getStatus().equals(BaseStatus.OK)) {
+                    public void accept(ResponseWrapper<CheckOwnCompanyExistRespone> response) throws Exception {
+                        if (response.getStatus().equals(BaseStatus.OK)) {
+                            if (response.getData() != null && response.getData().getEmployee() != null) {
+                                EmployeeWrapper employeeWrapper = response.getData().getEmployee();
+                                mCompanyRepository.saveCompanyId(employeeWrapper.getCompanyId());
+                                mStoreRepository.saveStoreId(employeeWrapper.getStoreId());
+                            }
                             mViewModel.onToMainPage();
                         } else {
                             mViewModel.onToRegisterCompany();
@@ -204,11 +221,11 @@ public class LoginPresenter implements LoginContract.Presenter {
         );
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(VendorServiceClient.getInstance()),
-                new CompanyDataLocal()
+                new CompanyDataLocal(SharedPrefsImpl.getInstance())
         );
         mStoreRepository = new StoreRepository(
                 new StoreDataRemote(VendorServiceClient.getInstance()),
-                new StoreDataLocal()
+                new StoreDataLocal(SharedPrefsImpl.getInstance())
         );
     }
 }

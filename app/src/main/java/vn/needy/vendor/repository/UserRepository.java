@@ -9,6 +9,7 @@ import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.CheckOwnCompanyExistRespone;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
@@ -58,7 +59,7 @@ public class UserRepository {
         return mRemote.getBusinessInformation();
     }
 
-    public Observable<ResponseWrapper> checkOwnCompanyExist() {
+    public Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist() {
         return mRemote.checkOwnCompanyExist();
     }
 

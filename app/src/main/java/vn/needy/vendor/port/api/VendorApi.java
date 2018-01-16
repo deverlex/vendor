@@ -21,6 +21,7 @@ import vn.needy.vendor.repository.remote.store.response.CreateStoreRespone;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
 import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.CheckOwnCompanyExistRespone;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
@@ -61,7 +62,7 @@ public interface VendorApi {
     Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
 
     @GET("v1/companies/employees/own")
-    Observable<ResponseWrapper> checkOwnCompanyExist();
+    Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist();
 
     @GET("v1/users/businesses/informations")
     Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();
