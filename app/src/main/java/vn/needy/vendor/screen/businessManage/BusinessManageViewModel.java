@@ -14,7 +14,7 @@ import vn.needy.vendor.R;
 public class BusinessManageViewModel extends BaseObservable implements BusinessManageContract.ViewModel {
 
     private int mNumberProduct;
-    private String mChannels;
+    private String mSiteUrl;
     private Context mContext;
     private BusinessManageContract.Presenter mPresenter;
 
@@ -22,7 +22,7 @@ public class BusinessManageViewModel extends BaseObservable implements BusinessM
         this.mContext = mContext;
 
         mNumberProduct = 1;
-        mChannels = mContext.getString(R.string.business_channels);
+        mSiteUrl = "http://sales.needy.vn";
     }
 
     @Override
@@ -46,12 +46,12 @@ public class BusinessManageViewModel extends BaseObservable implements BusinessM
     }
 
     @Bindable
-    public String getChannels() {
-        return mChannels;
+    public String getSiteUrl() {
+        return mSiteUrl;
     }
 
     @Bindable
     public String getNumberProduct() {
-        return mNumberProduct + "";
+        return String.format("%s %s", mNumberProduct, mContext.getString(R.string.business_product));
     }
 }
