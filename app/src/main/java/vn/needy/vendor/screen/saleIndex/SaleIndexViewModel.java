@@ -24,7 +24,7 @@ public class SaleIndexViewModel extends BaseObservable implements SaleIndexContr
 
         mRatio = "57%";
         mIndexWeigh = 0;
-        mVoteSaleIndex = "5.0 / 5.0";
+        mVoteSaleIndex = "5.0/5.0";
     }
 
     @Override
@@ -54,7 +54,7 @@ public class SaleIndexViewModel extends BaseObservable implements SaleIndexContr
 
     @Bindable
     public String getIndexWeigh() {
-        return mIndexWeigh + "";
+        return String.format("%s", mIndexWeigh);
     }
 
     @Bindable

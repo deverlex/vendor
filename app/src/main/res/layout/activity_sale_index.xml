@@ -41,9 +41,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/back"
-                    android:text="@string/saleindex_salesman_achievement"
+                    android:text="@string/sale_performance"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/sp_18" />
+                    android:textSize="@dimen/sp_16" />
 
                 <ImageButton
                     android:layout_width="?attr/actionBarSize"
@@ -57,10 +57,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
-            android:background="@color/color_white"
-            android:layout_marginTop="@dimen/dp_2">
-
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_white">
             <TextView
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
@@ -73,7 +71,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="@string/saleindex_ratio"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_15"
+                android:textSize="@dimen/sp_13"
                 tools:ignore="UnusedAttribute" />
 
             <TextView
@@ -93,9 +91,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/color_white"
-            android:layout_marginTop="@dimen/dp_2">
+            android:layout_marginTop="@dimen/dp_1">
 
             <TextView
                 android:drawableStart="@{@drawable/ic_alarmclock}"
@@ -120,17 +118,17 @@
                 android:fontFamily="@string/font_serif"
                 android:gravity="center_vertical"
                 android:padding="@dimen/dp_20"
-                android:text="Trong vòng vài ngày"
-                android:textColor="@color/color_red_mos"
+                android:text="Trong vòng vài phút"
+                android:textColor="@color/color_orange_mos"
                 android:textSize="@dimen/sp_12"
                 tools:ignore="UnusedAttribute" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/color_white"
-            android:layout_marginTop="@dimen/dp_2">
+            android:layout_marginTop="@dimen/dp_1">
 
             <TextView
                 android:layout_centerVertical="true"
@@ -152,7 +150,7 @@
                 android:layout_centerVertical="true"
                 android:hint="5.0 / 5.0"
                 android:text="@{viewModel.voteSaleIndex}"
-                android:textColor="@color/color_red_mos"
+                android:textColor="@color/color_orange_mos"
                 android:layout_toLeftOf="@id/txtVote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -177,9 +175,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/color_white"
-            android:layout_marginTop="@dimen/dp_2">
+            android:layout_marginTop="@dimen/dp_1">
 
             <TextView
                 android:layout_centerVertical="true"
@@ -206,8 +204,8 @@
                 android:drawableRight="@{@drawable/ic_next_right}"
                 android:fontFamily="@string/font_serif"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_10"
-                android:text="Chưa có tỉ lệ đo ít hơn đơn hàng"
+                android:padding="@dimen/dp_11"
+                android:text="Chưa có tỉ lệ"
                 android:textColor="@color/gray78"
                 android:textSize="@dimen/sp_10"
                 tools:ignore="UnusedAttribute" />
@@ -215,10 +213,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
+            android:layout_height="?attr/actionBarSize"
             android:onClick="@{() -> viewModel.onClickViolateStatistic()}"
             android:background="@color/color_white"
-            android:layout_marginTop="@dimen/dp_2">
+            android:layout_marginTop="@dimen/dp_1">
 
             <TextView
                 android:layout_centerVertical="true"
