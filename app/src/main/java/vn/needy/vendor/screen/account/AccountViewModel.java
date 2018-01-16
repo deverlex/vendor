@@ -13,6 +13,7 @@ import io.realm.Realm;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.screen.blacklistSetting.BlackListFragment;
 import vn.needy.vendor.screen.languageSetting.LanguageSettingFragment;
+import vn.needy.vendor.screen.login.LoginActivity;
 import vn.needy.vendor.screen.notificationSetting.NotificationSettingFragment;
 import vn.needy.vendor.screen.personalSetting.PersonalSettingFragment;
 import vn.needy.vendor.screen.userProfile.UserProfileActivity;
@@ -154,7 +155,19 @@ public class AccountViewModel extends BaseObservable implements AccountContract.
 
     @Override
     public void onLogout() {
+        mPresenter.logout();
+    }
 
+    @Override
+    public void goToLogin() {
+        mNavigator.startActivity(LoginActivity.class);
+        mNavigator.finishActivity();
+    }
+
+    @Override
+    public void onLogoutError(int msg) {
+        String message = mContext.getString(msg);
+        mNavigator.showToastBottom(message);
     }
 
 }

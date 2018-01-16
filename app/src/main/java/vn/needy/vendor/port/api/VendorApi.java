@@ -55,6 +55,9 @@ public interface VendorApi {
     Observable<ResponseWrapper<TokenResponse>> resetPassword(@Path("username") String phoneNumber,
                                                              @Body RequestWrapper<ResetAccountRequest> request);
 
+    @GET("v1/users/tokens/logout")
+    Observable<ResponseWrapper> logout(@Query("refresh_token") String refreshToken);
+
     @GET("v1/users/informations/details")
     Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
 

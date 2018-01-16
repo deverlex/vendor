@@ -31,8 +31,8 @@ public class UserRepository {
         return mRemote.login(request);
     }
 
-    public Observable<Response<Void>> logout() {
-        return mRemote.logout();
+    public Observable<ResponseWrapper> logout(String refreshToken) {
+        return mRemote.logout(refreshToken);
     }
 
     public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request) {

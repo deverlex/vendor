@@ -24,7 +24,7 @@ public interface UserData {
 
         Observable<ResponseWrapper<TokenResponse>> refreshToken(String refreshToken);
 
-        Observable<Response<Void>> logout();
+        Observable<ResponseWrapper> logout(String refreshToken);
 
         Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request);
 

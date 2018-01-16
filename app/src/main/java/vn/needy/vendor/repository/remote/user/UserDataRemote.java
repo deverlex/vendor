@@ -37,8 +37,8 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<Response<Void>> logout() {
-        return null;
+    public Observable<ResponseWrapper> logout(String refreshToken) {
+        return mApi.logout(refreshToken);
     }
 
     @Override
