@@ -1,5 +1,6 @@
 package vn.needy.vendor.utils.binding;
 
+import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.TransformationMethod;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -183,6 +185,20 @@ public class BindingAdapters {
             adapter.setDropDownViewResource(R.layout.attribute_spinner_item);
             spinner.setAdapter(adapter);
         }
+    }
+
+    @BindingAdapter("spinnerAdapter")
+    public static void setAdapterForSpinner(Spinner spinner, List<String> titles) {
+        if (titles != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(spinner.getContext(), android.R.layout.simple_spinner_item, titles);
+            adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+            spinner.setAdapter(adapter);
+        }
+    }
+
+    @BindingAdapter("spinnerSelection")
+    public static void setSpinnerSelection(Spinner spinner, int position) {
+        spinner.setSelection(position);
     }
 
 }
