@@ -48,7 +48,7 @@ public class UserRepository {
     }
 
     public Observable<ResponseWrapper<UserInfoResponse>> getUserInformation() {
-        return mRemote.getUserInformation();
+        return mRemote.getUserInfo();
     }
 
     public Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request) {

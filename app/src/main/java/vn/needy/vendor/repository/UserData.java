@@ -34,7 +34,7 @@ public interface UserData {
 
         Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountRequest request);
 
-        Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
+        Observable<ResponseWrapper<UserInfoResponse>> getUserInfo();
 
         Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request);
 

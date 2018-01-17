@@ -58,8 +58,8 @@ public interface VendorApi {
     @GET("v1/users/tokens/logout")
     Observable<ResponseWrapper> logout(@Query("refresh_token") String refreshToken);
 
-    @GET("v1/users/informations/details")
-    Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
+    @GET("v1/users/")
+    Observable<ResponseWrapper<UserInfoResponse>> getUserInfo();
 
     @PUT("v1/users/informations/details")
     Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);

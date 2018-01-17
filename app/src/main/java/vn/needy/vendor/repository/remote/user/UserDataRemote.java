@@ -62,8 +62,8 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper<UserInfoResponse>> getUserInformation() {
-        return mApi.getUserInformation();
+    public Observable<ResponseWrapper<UserInfoResponse>> getUserInfo() {
+        return mApi.getUserInfo();
     }
 
     @Override

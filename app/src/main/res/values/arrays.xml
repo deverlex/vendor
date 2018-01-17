@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="gender_title">
+        <item>Nam</item>
+        <item>Nữ</item>
+        <item>Khác</item>
+    </array>
+</resources>
