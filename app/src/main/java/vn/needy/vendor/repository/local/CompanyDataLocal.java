@@ -59,7 +59,8 @@ public class CompanyDataLocal implements CompanyData.Local {
 
     @Override
     public String getOurCompanyIdSync() {
-        return RealmApi.getSync().where(Company.class)
-                .findFirst().getId();
+//        return RealmApi.getSync().where(Company.class)
+//                .findFirst().getId();
+        return "";
     }
 }

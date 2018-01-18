@@ -14,6 +14,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".VendorApplication"
         android:allowBackup="true"
@@ -151,6 +153,13 @@
 
         <!--<activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"-->
             <!--android:theme="@style/AppTheme"/>-->
+
+        <service
+            android:name=".service.VendorService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

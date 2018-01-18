@@ -10,7 +10,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 21/10/2017.
  */
 
-public class NotificationConstract {
+public interface NotificationConstract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
         void onSetNotifications(List<Notification> notifications);
@@ -19,7 +19,10 @@ public class NotificationConstract {
     }
 
     interface Presenter extends BasePresenter {
-        void onGetNotification();
+        void getNotificationsLocal();
+
         void onReadAll(List<Notification> notifications);
+
+        void onReadNotification(Notification notification);
     }
 }

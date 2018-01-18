@@ -25,6 +25,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.BottomBarTab;
 
 import java.util.List;
 
@@ -184,6 +186,16 @@ public class BindingAdapters {
             ArrayAdapter<Object> adapter = new ArrayAdapter<>(spinner.getContext(), R.layout.attribute_spinner_item, objects);
             adapter.setDropDownViewResource(R.layout.attribute_spinner_item);
             spinner.setAdapter(adapter);
+        }
+    }
+
+    @BindingAdapter("badgesNotification")
+    public static void setBadgesCountForNotificationTab(BottomBar bottomBar, int count) {
+        BottomBarTab notiTab = bottomBar.getTabWithId(R.id.notification);
+        if (count > 0) {
+            notiTab.setBadgeCount(count);
+        } else {
+            notiTab.removeBadge();
         }
     }
 

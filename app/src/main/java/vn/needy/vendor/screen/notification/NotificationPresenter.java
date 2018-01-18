@@ -1,10 +1,10 @@
 package vn.needy.vendor.screen.notification;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import vn.needy.vendor.domain.Notification;
+import vn.needy.vendor.repository.NotificationRepository;
+import vn.needy.vendor.repository.local.NotificationDataLocal;
 
 /**
  * Created by lion on 21/10/2017.
@@ -14,8 +14,11 @@ public class NotificationPresenter implements NotificationConstract.Presenter{
 
     private NotificationConstract.ViewModel mViewModel;
 
+    private NotificationRepository mNotificationRepository;
+
     public NotificationPresenter(NotificationConstract.ViewModel viewModel) {
         this.mViewModel = viewModel;
+        mNotificationRepository = new NotificationRepository(new NotificationDataLocal());
     }
 
     @Override
@@ -29,27 +32,18 @@ public class NotificationPresenter implements NotificationConstract.Presenter{
     }
 
     @Override
-    public void onGetNotification() {
-        List<Notification> notifications = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            Notification notification = new Notification();
-            notification.setId(i);
-            notification.setSenderId("senderId");
-            notification.setCreateTime("09:21 19-12-17");
-            notification.setTitle("Khuyến mãi hấp dẫn");
-            notification.setHtmlContent("<font color=\"red\">Mua một tặng một </font> cho tất cả các sản phẩm gas<br/><font color=\"red\">Miễn phí vẫn chuyển</font>  cho đơn hàng từ 500k trở lên");
-            notification.setReferenceGUI(".screen.category.CategoriesActivity");
-            notifications.add(notification);
-            Random random = new Random();
-            notification.setIsReaded(random.nextBoolean());
-        }
+    public void getNotificationsLocal() {
+        List<Notification> notifications = mNotificationRepository.getAllNotifications();
         mViewModel.onSetNotifications(notifications);
     }
 
     @Override
     public void onReadAll(List<Notification> notifications) {
-        for (Notification notification : notifications) {
-            notification.setIsReaded(true);
-        }
+        mNotificationRepository.readAllNotification();
+    }
+
+    @Override
+    public void onReadNotification(Notification notification) {
+        mNotificationRepository.readedNotification(notification);
     }
 }
