@@ -162,10 +162,10 @@
                         <ImageButton
                             android:id="@+id/position_company"
                             android:layout_centerVertical="true"
-                            android:layout_width="@dimen/dp_30"
-                            android:layout_height="@dimen/dp_30"
-                            app:srcCompat="@drawable/ic_get_location"
-                            android:background="@drawable/border_transparent"
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            app:srcCompat="@drawable/ic_map_marker"
+                            android:background="@color/color_white"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentEnd="true"
                             android:onClick="@{() -> viewModel.onCompanyPositionClick()}"/>
@@ -362,10 +362,10 @@
                         <ImageButton
                             android:id="@+id/position_store"
                             android:layout_centerVertical="true"
-                            android:layout_width="@dimen/dp_30"
-                            android:layout_height="@dimen/dp_30"
-                            app:srcCompat="@drawable/ic_get_location"
-                            android:background="@drawable/border_transparent"
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            app:srcCompat="@drawable/ic_map_marker"
+                            android:background="@color/color_white"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentEnd="true"
                             android:onClick="@{() -> viewModel.onStorePositionClick()}"/>
