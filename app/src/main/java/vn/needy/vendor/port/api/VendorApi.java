@@ -18,7 +18,6 @@ import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoRequest;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
 import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
-import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
@@ -36,17 +35,20 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
 public interface VendorApi {
 
-    @POST("v1/authentications")
-    Observable<ResponseWrapper<LoginResponse>> login(@Body RequestWrapper<LoginRequest> request);
+    @POST("v1/users/tokens")
+    Observable<ResponseWrapper<TokenResponse>> login(@Body RequestWrapper<LoginRequest> request);
 
     @POST("v1/users")
     Observable<ResponseWrapper<TokenResponse>> registerUser(@Body RequestWrapper<RegisterUserRequest> request);
 
-    @GET("v1/users/finds")
-    Observable<ResponseWrapper> findUserExist(@Query("username") String phoneNumber);
+    @GET("v1/users/tokens/refresh")
+    Observable<ResponseWrapper<TokenResponse>> refreshToken(@Query("refresh_token") String refreshToken);
 
-    @POST("v1/users/resets")
-    Observable<ResponseWrapper<TokenResponse>> resetPassword(@Query("username") String phoneNumber,
+    @GET("v1/users/{username}/exist")
+    Observable<ResponseWrapper> findUserExist(@Path("username") String phoneNumber);
+
+    @POST("v1/users/{username}/password")
+    Observable<ResponseWrapper<TokenResponse>> resetPassword(@Path("username") String phoneNumber,
                                                              @Body RequestWrapper<ResetAccountRequest> request);
 
     @GET("v1/users/informations/details")
@@ -54,6 +56,9 @@ public interface VendorApi {
 
     @PUT("v1/users/informations/details")
     Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
+
+    @GET("v1/companies/employees/own")
+    Observable<ResponseWrapper> checkOwnCompanyExist();
 
     @GET("v1/users/businesses/informations")
     Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();

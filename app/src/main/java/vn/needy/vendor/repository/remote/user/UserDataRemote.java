@@ -6,7 +6,6 @@ import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
-import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.UserData;
 import vn.needy.vendor.port.api.VendorApi;
@@ -27,13 +26,13 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper<LoginResponse>> login(LoginRequest request) {
+    public Observable<ResponseWrapper<TokenResponse>> login(LoginRequest request) {
         return mApi.login(new RequestWrapper<LoginRequest>().setData(request));
     }
 
     @Override
-    public Observable<ResponseWrapper<TokenResponse>> refresh() {
-        return null;
+    public Observable<ResponseWrapper<TokenResponse>> refreshToken(String refreshToken) {
+        return mApi.refreshToken(refreshToken);
     }
 
     @Override
@@ -44,6 +43,11 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     @Override
     public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request) {
         return mApi.registerUser(new RequestWrapper<RegisterUserRequest>().setData(request));
+    }
+
+    @Override
+    public Observable<ResponseWrapper> checkOwnCompanyExist() {
+        return mApi.checkOwnCompanyExist();
     }
 
     @Override

@@ -10,6 +10,18 @@ import com.google.gson.annotations.SerializedName;
 public class LoginRequest {
 
     @Expose
+    @SerializedName("scope")
+    private String mScope;
+
+    @Expose
+    @SerializedName("instance_id")
+    private String mInstanceId;
+
+    @Expose
+    @SerializedName("firebase_token")
+    private String mFirebaseToken;
+
+    @Expose
     @SerializedName("username")
     private String mPhoneNumber;
 
@@ -40,5 +52,29 @@ public class LoginRequest {
 
     public void setPassWord(String passWord) {
         this.mPassWord = passWord;
+    }
+
+    public String getScope() {
+        return mScope;
+    }
+
+    public void setScope(String scope) {
+        mScope = scope;
+    }
+
+    public String getInstanceId() {
+        return mInstanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        mInstanceId = instanceId;
+    }
+
+    public String getFirebaseToken() {
+        return mFirebaseToken;
+    }
+
+    public void setFirebaseToken(String firebaseToken) {
+        mFirebaseToken = firebaseToken;
     }
 }

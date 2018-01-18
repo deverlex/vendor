@@ -29,7 +29,7 @@ public class RegisterUserContract {
         /**For action send verification to Firebase*/
         void onWaitingTimeForResend(int duration);
 
-        void onSendVerificationSuccess();
+        void onSendVerificationSuccess(String otpCode);
 
         // send verify
         void onSendVerificationClick();
@@ -57,6 +57,12 @@ public class RegisterUserContract {
         void onShowProgressBar();
 
         void onHideProgressBar();
+
+        void onShowOtpCodeView();
+
+        void onHideOtpCodeView();
+
+        void countDownTimeOtpCode(int time);
     }
 
     interface Presenter extends BasePresenter {

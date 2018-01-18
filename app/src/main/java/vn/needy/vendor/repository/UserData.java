@@ -6,7 +6,6 @@ import vn.needy.vendor.domain.User;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
-import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
@@ -20,13 +19,15 @@ import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 public interface UserData {
 
     interface Remote {
-        Observable<ResponseWrapper<LoginResponse>> login(LoginRequest request);
+        Observable<ResponseWrapper<TokenResponse>> login(LoginRequest request);
 
-        Observable<ResponseWrapper<TokenResponse>> refresh();
+        Observable<ResponseWrapper<TokenResponse>> refreshToken(String refreshToken);
 
         Observable<Response<Void>> logout();
 
         Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request);
+
+        Observable<ResponseWrapper> checkOwnCompanyExist();
 
         Observable<ResponseWrapper> findUserExist(String phoneNumber);
 
@@ -43,7 +44,11 @@ public interface UserData {
 
         void saveUserSync(User user);
 
-        void saveTokenSync(String token);
+        void saveAccessTokenSync(String token);
+
+        void saveRefreshTokenSync(String token);
+
+        void saveExpiresIn(long expiresIn);
 
         void clearToken();
 

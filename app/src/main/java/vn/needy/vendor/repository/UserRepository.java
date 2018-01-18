@@ -9,7 +9,6 @@ import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
-import vn.needy.vendor.repository.remote.user.response.LoginResponse;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
@@ -27,12 +26,8 @@ public class UserRepository {
         mLocal = local;
     }
 
-    public Observable<ResponseWrapper<LoginResponse>> login(LoginRequest request) {
+    public Observable<ResponseWrapper<TokenResponse>> login(LoginRequest request) {
         return mRemote.login(request);
-    }
-
-    public Observable<ResponseWrapper<TokenResponse>> refresh() {
-        return mRemote.refresh();
     }
 
     public Observable<Response<Void>> logout() {
@@ -63,11 +58,27 @@ public class UserRepository {
         return mRemote.getBusinessInformation();
     }
 
+    public Observable<ResponseWrapper> checkOwnCompanyExist() {
+        return mRemote.checkOwnCompanyExist();
+    }
+
+    public Observable<ResponseWrapper<TokenResponse>> refreshToken(String refreshToken) {
+        return mRemote.refreshToken(refreshToken);
+    }
+
     public void saveUserSync(User user) {
         mLocal.saveUserSync(user);
     }
 
-    public void saveTokenSync(String token) {
-        mLocal.saveTokenSync(token);
+    public void saveAccessTokenSync(String token) {
+        mLocal.saveAccessTokenSync(token);
+    }
+
+    public void saveRefreshTokenSync(String token) {
+        mLocal.saveRefreshTokenSync(token);
+    }
+
+    public void saveExpiresIn(long expiresIn) {
+        mLocal.saveExpiresIn(expiresIn);
     }
 }

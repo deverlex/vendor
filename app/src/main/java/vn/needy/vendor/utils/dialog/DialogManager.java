@@ -111,6 +111,8 @@ public class DialogManager implements DialogInterfaceImp {
 
     @Override
     public void dismissProgressDialog() {
-        mProgressDialog.dismiss();
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
     }
 }

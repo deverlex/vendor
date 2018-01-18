@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
@@ -27,6 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.port.api.VendorApi;
+import vn.needy.vendor.port.message.BaseCode;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.port.error.BaseException;
@@ -43,7 +46,7 @@ import vn.needy.vendor.utils.Utils;
 
 public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
-    private static final int TIME_DURATION = 15;
+    private static final int TIME_DURATION = 120;
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String mVerificationId;
@@ -61,9 +64,8 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
-            mViewModel.onSendVerificationSuccess();
+            mViewModel.onSendVerificationSuccess(credential.getSmsCode());
             signInWithPhoneAuthCredential(credential);
-            mDuration = -1;
         }
 
         @Override
@@ -90,6 +92,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
         mViewModel = viewModel;
         mActivity = activity;
         mAuth = FirebaseAuth.getInstance();
+
         mDuration = 0;
         mUserRepository = new UserRepository(
                 new UserDataRemote(vendorApi),
@@ -107,13 +110,46 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
     }
 
     @Override
-    public void sendVerification(String phoneNumber, String password) {
+    public void sendVerification(final String phoneNumber, String password) {
         if (!validateDataInput(phoneNumber, password)) {
             return;
         }
-        phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
-        sendVerificationPhone(phoneNumber);
-        waitingForResend();
+
+        final String phoneNumberFormat = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
+
+        // Check phone number is exist before send Verification Phone
+        mUserRepository.findUserExist(phoneNumberFormat)
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe(new Consumer<Disposable>() {
+                @Override
+                public void accept(Disposable disposable) throws Exception {
+
+                }
+            }).doOnError(new SafetyError() {
+        @Override
+        public void onSafetyError(BaseException error) {
+            mViewModel.onRegisterError(R.string.error_service);
+            }
+        }).observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Consumer<ResponseWrapper>() {
+            @Override
+            public void accept(ResponseWrapper responseWrapper) throws Exception {
+                if (responseWrapper.getCode() == BaseCode.OK) {
+                    // Phone number is exits
+                    mViewModel.onRegisterError(responseWrapper.getMessage());
+                } else {
+                    // Phone number isn't exits
+                    mViewModel.onShowOtpCodeView();
+                    waitingForResend();
+                    sendVerificationPhone(phoneNumberFormat);
+                }
+            }
+        }, new SafetyError() {
+            @Override
+            public void onSafetyError(BaseException error) {
+                mViewModel.onRegisterError(error.getMessage());
+            }
+        });
     }
 
     @Override
@@ -148,35 +184,39 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
             .doOnSubscribe(new Consumer<Disposable>() {
                 @Override
                 public void accept(Disposable disposable) throws Exception {
-                   mViewModel.onShowProgressBar();
+
                 }
             }).doOnError(new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onRegisterError(R.string.error_service);
-                }
-            })
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<ResponseWrapper<TokenResponse>>() {
-                @Override
-                public void accept(ResponseWrapper<TokenResponse> certification) throws Exception {
-                    TokenResponse data = certification.getData();
-                    if (data != null) {
-                        String token = data.getToken();
-                        if (!TextUtils.isEmpty(token)) {
-                            mUserRepository.saveTokenSync(token);
-                            mViewModel.onRegisterSuccess();
-                        } else {
-                            mViewModel.onRegisterError(certification.getMessage());
-                        }
+        @Override
+        public void onSafetyError(BaseException error) {
+            mViewModel.onHideProgressBar();
+            mViewModel.onRegisterError(R.string.error_service);
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Consumer<ResponseWrapper<TokenResponse>>() {
+            @Override
+            public void accept(ResponseWrapper<TokenResponse> certification) throws Exception {
+                mViewModel.onHideProgressBar();
+                TokenResponse data = certification.getData();
+                if (data != null) {
+                    String token = data.getTokenAccess();
+                    if (!TextUtils.isEmpty(token)) {
+                        mUserRepository.saveAccessTokenSync(token);
+                        mUserRepository.saveRefreshTokenSync(data.getRefreshToken());
+                        mUserRepository.saveExpiresIn(data.getExpiresIn());
+                        mViewModel.onRegisterSuccess();
+                    } else {
+                        mViewModel.onRegisterError(certification.getMessage());
                     }
                 }
-            }, new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onRegisterError(error.getMessage());
-                }
-            });
+            }
+        }, new SafetyError() {
+            @Override
+            public void onSafetyError(BaseException error) {
+                mViewModel.onRegisterError(error.getMessage());
+            }
+        });
     }
 
     @Override
@@ -206,7 +246,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
     }
 
     private void sendVerificationPhone(String phoneNumber) {
-        mViewModel.onShowProgressBar();
+        mViewModel.countDownTimeOtpCode(TIME_DURATION);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 TIME_DURATION,                 // Timeout duration
@@ -217,10 +257,10 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
 
     private void resendVerificationCode(String phoneNumber,
                                         PhoneAuthProvider.ForceResendingToken token) {
-        mViewModel.onShowProgressBar();
+        mViewModel.countDownTimeOtpCode(TIME_DURATION);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
-                TIME_DURATION,                 // Timeout duration
+                TIME_DURATION,      // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 mActivity,          // Activity (for callback binding)
                 mCallbacks,         // OnVerificationStateChangedCallbacks
@@ -228,20 +268,29 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mViewModel.onShowProgressBar();
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // getAsync token access of user
-                            getUserTokenId(task.getResult().getUser());
-                        } else {
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                mViewModel.onInputOtpCodeError(R.string.otp_code_invalid);
-                            }
+            .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // getAsync token access of user
+                        getUserTokenId(task.getResult().getUser());
+                    } else {
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            mViewModel.onInputOtpCodeError(R.string.otp_code_invalid);
                         }
+                        mViewModel.onHideProgressBar();
                     }
-                });
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    mViewModel.onHideProgressBar();
+                    mViewModel.onVerificationError(R.string.validation_error);
+                }
+            });
     }
 
     private void getUserTokenId(final FirebaseUser user) {
@@ -254,6 +303,7 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
                     mViewModel.onVerificationSuccess(user.getUid(), idToken);
                 } else {
                     mViewModel.onVerificationError(R.string.validation_error);
+                    mViewModel.onHideProgressBar();
                 }
             }
         });
@@ -266,18 +316,16 @@ public class RegisterUserPresenter implements RegisterUserContract.Presenter {
             public void run() {
                 while (mDuration > 0) {
                     mDuration -= 1;
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mViewModel.countDownTimeOtpCode(mDuration);
+                        }
+                    });
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
-                }
-                if (mDuration == 0) {
-                    mActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mViewModel.onVerificationError(R.string.validation_error);
-                        }
-                    });
                 }
             }
         });

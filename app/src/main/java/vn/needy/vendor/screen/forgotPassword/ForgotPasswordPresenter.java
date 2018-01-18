@@ -21,9 +21,12 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import vn.needy.vendor.R;
+import vn.needy.vendor.port.message.BaseCode;
+import vn.needy.vendor.port.message.BaseStatus;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
 import vn.needy.vendor.port.service.VendorServiceClient;
@@ -42,7 +45,7 @@ import vn.needy.vendor.utils.Utils;
 
 public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter {
 
-    private static final int TIME_DURATION = 15;
+    private static final int TIME_DURATION = 60;
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String mVerificationId;
@@ -59,10 +62,8 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
 
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
-            mViewModel.onHideProgressBar();
-            mViewModel.onSendVerificationSuccess();
+            mViewModel.onSendVerificationSuccess(credential.getSmsCode());
             signInWithPhoneAuthCredential(credential);
-            mDuration = -1;
         }
 
         @Override
@@ -123,7 +124,12 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
             .subscribe(new Consumer<ResponseWrapper>() {
                 @Override
                 public void accept(ResponseWrapper baseResponse) throws Exception {
-                    mViewModel.onFindPhoneNumberExistSuccess();
+                    mViewModel.onHideProgressBar();
+                    if (baseResponse.getCode() == BaseCode.OK) {
+                        mViewModel.onFindPhoneNumberExistSuccess();
+                    } else {
+                        mViewModel.onFindPhoneNumberExistError(R.string.find_user_exist_error);
+                    }
                 }
             }, new SafetyError() {
                 @Override
@@ -138,8 +144,8 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     public void sendVerifyPhoneNumber(String phoneNumber) {
         phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
         sendVerificationPhone(phoneNumber);
-        mViewModel.onShowProgressBar();
         waitingForResend();
+        mViewModel.onShowOtpCodeView();
     }
 
     @Override
@@ -149,7 +155,6 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         } else if (mResendToken != null) {
             phoneNumber = Utils.PhoneNumberUtils.formatPhoneNumber(phoneNumber);
             resendVerificationCode(phoneNumber, mResendToken);
-            mViewModel.onShowProgressBar();
             waitingForResend();
         }
     }
@@ -196,6 +201,43 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     }
 
     @Override
+    public void checkCompany() {
+        updateRepositoryAfterResetApi();
+
+        // check company
+        mUserRepository.checkOwnCompanyExist()
+            .subscribeOn(Schedulers.io())
+            .doAfterTerminate(new Action() {
+                @Override
+                public void run() throws Exception {
+                    mViewModel.onHideProgressBar();
+                }
+            })
+            .doOnError(new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onResetPasswordError(error.getMessage());
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<ResponseWrapper>() {
+                @Override
+                public void accept(ResponseWrapper responseWrapper) throws Exception {
+                    if (responseWrapper.getStatus().equals(BaseStatus.OK)) {
+                        mViewModel.onToMainPage();
+                    } else {
+                        mViewModel.onToRegisterCompany();
+                    }
+                }
+            }, new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onResetPasswordError(error.getMessage());
+                }
+            });
+    }
+
+    @Override
     public void resetPassword(String phoneNumber, ResetAccountRequest request) {
         if (!validateDataInput(phoneNumber, request.getPassword())) return;
 
@@ -213,9 +255,12 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                 @Override
                 public void accept(ResponseWrapper<TokenResponse> certification) throws Exception {
                     TokenResponse data = certification.getData();
-                    if (data != null && !TextUtils.isEmpty(data.getToken())) {
-                        mUserRepository.saveTokenSync(data.getToken());
-                        mViewModel.onResetPasswordSuccess();
+                    if (data != null && !TextUtils.isEmpty(data.getTokenAccess())) {
+                        mUserRepository.saveAccessTokenSync(data.getTokenAccess());
+                        mUserRepository.saveRefreshTokenSync(data.getRefreshToken());
+                        mUserRepository.saveExpiresIn(data.getExpiresIn());
+
+                        mViewModel.onResetPassSuccess();
                     } else {
                         mViewModel.onResetPasswordError(certification.getMessage());
                     }
@@ -250,20 +295,20 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // getAsync token access of user
-                            getUserTokenId(task.getResult().getUser());
-                        } else {
-                            mViewModel.onHideProgressBar();
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                mViewModel.onInputOtpCodeError(R.string.otp_code_invalid);
-                            }
+            .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // getAsync token access of user
+                        getUserTokenId(task.getResult().getUser());
+                    } else {
+                        mViewModel.onHideProgressBar();
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            mViewModel.onInputOtpCodeError(R.string.otp_code_invalid);
                         }
                     }
-                });
+                }
+            });
     }
 
     private void getUserTokenId(final FirebaseUser user) {
@@ -289,21 +334,26 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
             public void run() {
                 while (mDuration > 0) {
                     mDuration -= 1;
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mViewModel.countDownTimeOtpCode(mDuration);
+                        }
+                    });
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
                 }
-                if (mDuration == 0) {
-                    mActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mViewModel.onHideProgressBar();
-                            mViewModel.onVerificationError(R.string.validation_error);
-                        }
-                    });
-                }
             }
         });
+    }
+
+    private void updateRepositoryAfterResetApi() {
+        // update API
+        mUserRepository = new UserRepository(
+                new UserDataRemote(VendorServiceClient.getInstance()),
+                new UserDataLocal(SharedPrefsImpl.getInstance())
+        );
     }
 }

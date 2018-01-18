@@ -37,8 +37,18 @@ public class UserDataLocal implements UserData.Local {
     }
 
     @Override
-    public void saveTokenSync(String token) {
+    public void saveAccessTokenSync(String token) {
         mPrefsApi.put(SharedPrefsKey.ACCESS_TOKEN, token);
+    }
+
+    @Override
+    public void saveRefreshTokenSync(String token) {
+        mPrefsApi.put(SharedPrefsKey.REFRESH_TOKEN, token);
+    }
+
+    @Override
+    public void saveExpiresIn(long expiresIn) {
+        mPrefsApi.put(SharedPrefsKey.EXPIRES_TOKEN_IN, expiresIn + System.currentTimeMillis() / 1000);
     }
 
     @Override

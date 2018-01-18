@@ -10,15 +10,39 @@ import com.google.gson.annotations.SerializedName;
 public class TokenResponse {
 
     @Expose
-    @SerializedName("token")
-    private String token;
+    @SerializedName("token_access")
+    private String mTokenAccess;
 
-    public String getToken() {
-        return token;
+    @Expose
+    @SerializedName("refresh_token")
+    private String mRefreshToken;
+
+    @Expose
+    @SerializedName("expires_in")
+    private long mExpiresIn;
+
+
+    public String getTokenAccess() {
+        return mTokenAccess;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setTokenAccess(String tokenAccess) {
+        mTokenAccess = tokenAccess;
     }
 
+    public String getRefreshToken() {
+        return mRefreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        mRefreshToken = refreshToken;
+    }
+
+    public long getExpiresIn() {
+        return mExpiresIn;
+    }
+
+    public void setExpiresIn(long expiresIn) {
+        mExpiresIn = expiresIn;
+    }
 }
