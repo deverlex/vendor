@@ -226,27 +226,11 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
 
         // check company
         mUserRepository.checkOwnCompanyExist()
-            .subscribeOn(Schedulers.io())
-            .doAfterTerminate(new Action() {
-                @Override
-                public void run() throws Exception {
-                    mViewModel.onHideProgressBar();
-                }
-            })
-            .doOnError(new SafetyError() {
-                @Override
-                public void onSafetyError(BaseException error) {
-                    mViewModel.onResetPasswordError(error.getMessage());
-                }
-            })
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<ResponseWrapper>() {
-                @Override
-                public void accept(ResponseWrapper responseWrapper) throws Exception {
-                    if (responseWrapper.getStatus().equals(BaseStatus.OK)) {
-                        mViewModel.onToMainPage();
-                    } else {
-                        mViewModel.onToRegisterCompany();
+                .subscribeOn(Schedulers.io())
+                .doAfterTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mViewModel.onHideProgressBar();
                     }
                 })
                 .doOnError(new SafetyError() {
