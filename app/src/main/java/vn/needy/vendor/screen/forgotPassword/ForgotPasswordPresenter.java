@@ -206,35 +206,35 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
 
         // check company
         mUserRepository.checkOwnCompanyExist()
-                .subscribeOn(Schedulers.io())
-                .doAfterTerminate(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        mViewModel.onHideProgressBar();
+            .subscribeOn(Schedulers.io())
+            .doAfterTerminate(new Action() {
+                @Override
+                public void run() throws Exception {
+                    mViewModel.onHideProgressBar();
+                }
+            })
+            .doOnError(new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onResetPasswordError(error.getMessage());
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<ResponseWrapper>() {
+                @Override
+                public void accept(ResponseWrapper responseWrapper) throws Exception {
+                    if (responseWrapper.getStatus().equals(BaseStatus.OK)) {
+                        mViewModel.onToMainPage();
+                    } else {
+                        mViewModel.onToRegisterCompany();
                     }
-                })
-                .doOnError(new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onResetPasswordError(error.getMessage());
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseWrapper>() {
-                    @Override
-                    public void accept(ResponseWrapper responseWrapper) throws Exception {
-                        if (responseWrapper.getStatus().equals(BaseStatus.OK)) {
-                            mViewModel.onToMainPage();
-                        } else {
-                            mViewModel.onToRegisterCompany();
-                        }
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onResetPasswordError(error.getMessage());
-                    }
-                });
+                }
+            }, new SafetyError() {
+                @Override
+                public void onSafetyError(BaseException error) {
+                    mViewModel.onResetPasswordError(error.getMessage());
+                }
+            });
     }
 
     @Override
@@ -295,20 +295,20 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // getAsync token access of user
-                            getUserTokenId(task.getResult().getUser());
-                        } else {
-                            mViewModel.onHideProgressBar();
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                mViewModel.onInputOtpCodeError(R.string.otp_code_invalid);
-                            }
+            .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // getAsync token access of user
+                        getUserTokenId(task.getResult().getUser());
+                    } else {
+                        mViewModel.onHideProgressBar();
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            mViewModel.onInputOtpCodeError(R.string.otp_code_invalid);
                         }
                     }
-                });
+                }
+            });
     }
 
     private void getUserTokenId(final FirebaseUser user) {
@@ -343,18 +343,8 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
-
                     }
                 }
-//                if (mDuration == 0) {
-//                    mActivity.runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            mViewModel.onHideProgressBar();
-//                            mViewModel.onVerificationError(R.string.validation_error);
-//                        }
-//                    });
-//                }
             }
         });
     }
