@@ -7,7 +7,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 05/12/2017.
  */
 
-class AccountContract {
+interface AccountContract {
 
     interface ViewModel extends BaseViewModel<Presenter> {
 
@@ -39,9 +39,12 @@ class AccountContract {
 
         void onLogout();
 
+        void goToLogin();
+
+        void onLogoutError(int msg);
     }
 
     interface Presenter extends BasePresenter {
-
+        void logout();
     }
 }

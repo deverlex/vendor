@@ -13,5 +13,11 @@
         <item>th</item>
         <item>vi</item>
     </string-array>
+    
+    <array name="gender_title">
+            <item>Nam</item>
+            <item>Nữ</item>
+            <item>Khác</item>
+        </array>
 
 </resources>

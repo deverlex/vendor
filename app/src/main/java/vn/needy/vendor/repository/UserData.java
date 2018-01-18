@@ -6,6 +6,7 @@ import vn.needy.vendor.domain.User;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.CheckOwnCompanyExistRespone;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
@@ -23,17 +24,17 @@ public interface UserData {
 
         Observable<ResponseWrapper<TokenResponse>> refreshToken(String refreshToken);
 
-        Observable<Response<Void>> logout();
+        Observable<ResponseWrapper> logout(String refreshToken);
 
         Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request);
 
-        Observable<ResponseWrapper> checkOwnCompanyExist();
+        Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist();
 
         Observable<ResponseWrapper> findUserExist(String phoneNumber);
 
         Observable<ResponseWrapper<TokenResponse>> resetPassword(String phoneNumber, ResetAccountRequest request);
 
-        Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
+        Observable<ResponseWrapper<UserInfoResponse>> getUserInfo();
 
         Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request);
 

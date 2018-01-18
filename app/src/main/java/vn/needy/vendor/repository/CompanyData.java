@@ -6,6 +6,7 @@ import vn.needy.vendor.domain.Company;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
 import vn.needy.vendor.repository.remote.company.request.UpdateCompanyInfoRequest;
 import vn.needy.vendor.repository.remote.company.response.CompanyInfoResponse;
+import vn.needy.vendor.repository.remote.company.response.RegisterComapnyRespone;
 import vn.needy.vendor.repository.remote.user.response.CompanyResponse;
 
 /**
@@ -19,7 +20,7 @@ public interface CompanyData {
 
         Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInformation(String companyId);
 
-        Observable<ResponseWrapper<CompanyInfoResponse>> registerCompany(RegisterCompanyRequest request);
+        Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(RegisterCompanyRequest request);
 
         Observable<ResponseWrapper> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest);
 
@@ -31,6 +32,8 @@ public interface CompanyData {
         Observable<Company> getOurCompanyAsync();
 
         void saveCompanySync(Company company);
+
+        void saveCompanyId(long companyId);
 
         String getOurCompanyIdSync();
     }

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -17,12 +18,15 @@ import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.UserRepository;
 import vn.needy.vendor.repository.local.UserDataLocal;
 import vn.needy.vendor.repository.remote.user.UserDataRemote;
+import vn.needy.vendor.repository.remote.user.context.UserContext;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 import vn.needy.vendor.domain.User;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
+import vn.needy.vendor.utils.Constant;
+import vn.needy.vendor.utils.Utils;
 
 /**
  * Created by lion on 02/12/2017.
@@ -54,11 +58,13 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
     }
 
     @Override
-    public void getCoverPictures() {
+    public void getCoverPictures(List<Long> images) {
         List<Banner> banners = new ArrayList<>();
-        banners.add(new RemoteBanner("https://techent.tv/wp-content/uploads/2015/11/Banner.jpg"));
-        banners.add(new RemoteBanner("http://www.dubaimallsgroup.com/wp-content/uploads/2016/09/web-banner-eid-al-adha-1200-px-x-400-px-Ol.jpg"));
-        banners.add(new RemoteBanner("https://spark.adobe.com/images/landing/examples/fathersday-sale-etsy-banner.jpg"));
+        if (images != null) {
+            for (Long image : images) {
+                banners.add(new RemoteBanner(String.format(Locale.getDefault(), "%sv1/images/products/%d", Constant.API_END_POINT_URL, image)));
+            }
+        }
 
         mViewModel.setBanners(banners);
     }
@@ -73,17 +79,19 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
                     }
                 })
-                .map(new Function<ResponseWrapper<UserInfoResponse>, User>() {
+                .map(new Function<ResponseWrapper<UserInfoResponse>, UserContext>() {
                     @Override
-                    public User apply(ResponseWrapper<UserInfoResponse> response) throws Exception {
+                    public UserContext apply(ResponseWrapper<UserInfoResponse> response) throws Exception {
                         UserInfoResponse resp = response.getData();
+                        getCoverPictures(resp.getImages());
+                        mViewModel.setUserLocations(resp.getLocations());
                         return resp.getUser();
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<User>() {
+                .subscribe(new Consumer<UserContext>() {
                     @Override
-                    public void accept(User userResponse) throws Exception {
+                    public void accept(UserContext userResponse) throws Exception {
                         if (userResponse != null) {
                             mViewModel.setUserInfo(userResponse);
                         }

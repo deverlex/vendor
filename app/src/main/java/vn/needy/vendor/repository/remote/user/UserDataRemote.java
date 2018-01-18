@@ -6,6 +6,7 @@ import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.CheckOwnCompanyExistRespone;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.UserData;
 import vn.needy.vendor.port.api.VendorApi;
@@ -36,8 +37,8 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<Response<Void>> logout() {
-        return null;
+    public Observable<ResponseWrapper> logout(String refreshToken) {
+        return mApi.logout(refreshToken);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper> checkOwnCompanyExist() {
+    public Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist() {
         return mApi.checkOwnCompanyExist();
     }
 
@@ -61,8 +62,8 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper<UserInfoResponse>> getUserInformation() {
-        return mApi.getUserInformation();
+    public Observable<ResponseWrapper<UserInfoResponse>> getUserInfo() {
+        return mApi.getUserInfo();
     }
 
     @Override

@@ -122,6 +122,8 @@ dependencies {
 
     compile dependencies.material
 
+    compile dependencies.places
+
     testCompile dependencies.junit
     testCompile dependencies.mockito
 

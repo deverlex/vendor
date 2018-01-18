@@ -13,11 +13,15 @@ import retrofit2.http.Query;
 import vn.needy.vendor.port.message.RequestWrapper;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.attribute.response.AttributeInfoResponse;
+import vn.needy.vendor.repository.remote.company.response.RegisterComapnyRespone;
 import vn.needy.vendor.repository.remote.product.respone.ProductPnInfoResponse;
+import vn.needy.vendor.repository.remote.store.request.CreateStoreRequest;
 import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoRequest;
+import vn.needy.vendor.repository.remote.store.response.CreateStoreRespone;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
 import vn.needy.vendor.repository.remote.user.request.LoginRequest;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.CheckOwnCompanyExistRespone;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.category.response.CategoriesResponse;
 import vn.needy.vendor.repository.remote.company.request.RegisterCompanyRequest;
@@ -51,14 +55,17 @@ public interface VendorApi {
     Observable<ResponseWrapper<TokenResponse>> resetPassword(@Path("username") String phoneNumber,
                                                              @Body RequestWrapper<ResetAccountRequest> request);
 
-    @GET("v1/users/informations/details")
-    Observable<ResponseWrapper<UserInfoResponse>> getUserInformation();
+    @GET("v1/users/tokens/logout")
+    Observable<ResponseWrapper> logout(@Query("refresh_token") String refreshToken);
+
+    @GET("v1/users/")
+    Observable<ResponseWrapper<UserInfoResponse>> getUserInfo();
 
     @PUT("v1/users/informations/details")
     Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
 
     @GET("v1/companies/employees/own")
-    Observable<ResponseWrapper> checkOwnCompanyExist();
+    Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist();
 
     @GET("v1/users/businesses/informations")
     Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();
@@ -74,7 +81,11 @@ public interface VendorApi {
                                                          @Body RequestWrapper<UpdateCompanyInfoRequest> infoRequest);
 
     @POST("v1/companies")
-    Observable<ResponseWrapper<CompanyInfoResponse>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
+    Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
+
+    @POST("v1/stores")
+    Observable<ResponseWrapper<CreateStoreRespone>> createStore(@Query("company_id") long companyId,
+                                                                @Body RequestWrapper<CreateStoreRequest> request);
 
     @GET("v1/categories/{category}/childs")
     Observable<ResponseWrapper<CategoriesResponse>> getCategories(@Path("category") String category);

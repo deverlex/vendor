@@ -35,10 +35,9 @@ public class AccountActivity extends BaseActivity {
         DialogManager dialogManager = new DialogManager(this);
         mPrefsApi = SharedPrefsImpl.getInstance();
 
-        mPresenter = new AccountPresenter(this);
         mRealm = Realm.getDefaultInstance();
         mAccountViewModel = new AccountViewModel(mNavigator,this,dialogManager,getApplication() , mPrefsApi , mRealm);
-
+        mPresenter = new AccountPresenter(this, mAccountViewModel);
         mAccountViewModel.setPresenter(mPresenter);
         mAccountViewModel.onStart();
 

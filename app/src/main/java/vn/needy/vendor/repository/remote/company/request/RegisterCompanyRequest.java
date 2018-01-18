@@ -9,34 +9,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class RegisterCompanyRequest {
     @Expose
-    @SerializedName("fcmToken")
-    private String mFcmToken;
-    @Expose
-    @SerializedName("companyName")
+    @SerializedName("company_name")
     private String mCompanyName;
-    @Expose
-    @SerializedName("officeAddress")
-    private String mOfficeAddress;
-    @Expose
-    @SerializedName("storeName")
-    private String mStoreName;
-    @Expose
-    @SerializedName("storeAddress")
-    private String mStoreAddress;
-    @Expose
-    @SerializedName("lat")
-    private float mLat;
-    @Expose
-    @SerializedName("lng")
-    private float mLng;
 
-    public String getFcmToken() {
-        return mFcmToken;
-    }
+    @Expose
+    @SerializedName("address")
+    private String mCompanyAddress;
 
-    public void setFcmToken(String mFcmToken) {
-        this.mFcmToken = mFcmToken;
-    }
+    @Expose
+    @SerializedName("opening_time")
+    private String mOpeningTime;
+
+    @Expose
+    @SerializedName("closing_time")
+    private String mClosingTime;
 
     public String getCompanyName() {
         return mCompanyName;
@@ -46,43 +32,27 @@ public class RegisterCompanyRequest {
         this.mCompanyName = mCompanyName;
     }
 
-    public String getOfficeAddress() {
-        return mOfficeAddress;
+    public String getCompanyAddress() {
+        return mCompanyAddress;
     }
 
-    public void setOfficeAddress(String mOfficeAddress) {
-        this.mOfficeAddress = mOfficeAddress;
+    public void setCompanyAddress(String companyAddress) {
+        mCompanyAddress = companyAddress;
     }
 
-    public String getStoreName() {
-        return mStoreName;
+    public String getOpeningTime() {
+        return mOpeningTime;
     }
 
-    public void setStoreName(String mStoreName) {
-        this.mStoreName = mStoreName;
+    public void setOpeningTime(String openingTime) {
+        mOpeningTime = openingTime;
     }
 
-    public String getStoreAddress() {
-        return mStoreAddress;
+    public String getClosingTime() {
+        return mClosingTime;
     }
 
-    public void setStoreAddress(String mStoreAddress) {
-        this.mStoreAddress = mStoreAddress;
-    }
-
-    public float getLat() {
-        return mLat;
-    }
-
-    public void setLat(float mLat) {
-        this.mLat = mLat;
-    }
-
-    public float getLng() {
-        return mLng;
-    }
-
-    public void setLng(float mLng) {
-        this.mLng = mLng;
+    public void setClosingTime(String closingTime) {
+        mClosingTime = closingTime;
     }
 }

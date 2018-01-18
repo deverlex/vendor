@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.userProfile.ItemUserLocation" />
+    </data>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_1"
+        android:background="@color/color_white"
+        android:onClick="@{() -> viewModel.onItemClicked()}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.description}"
+            android:textColor="@color/color_black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@{viewModel.title}" />
+    </LinearLayout>
+</layout>

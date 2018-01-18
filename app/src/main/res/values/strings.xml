@@ -61,8 +61,11 @@
 
     <string name="company_name_empty">Tên công ty rỗng</string>
     <string name="office_address_empty">Địa chỉ công ty rỗng</string>
+    <string name="opening_time_empty">Chưa thiết lập thời gian mở cửa</string>
+    <string name="closing_time_empty">Chưa thiết lập thời gian đóng cửa</string>
     <string name="store_name_empty">Tên cửa hàng rỗng</string>
     <string name="store_address_empty">Địa chỉ cửa hàng rỗng</string>
+
 
     <string name="main_page_tab">Cửa hàng</string>
     <string name="order_tab">Đơn hàng</string>
@@ -340,4 +343,5 @@
     <string name="violate_ratio_prosper">Tỉ lệ đơn hàng không thành công cao</string>
     <string name="violate_ratio_late">Tỉ lệ giao hàng trễ</string>
     <string name="violate_ratio_unreal">Giao dịch ảo</string>
+    <string name="logout_error">Đăng xuất thất bại</string>
 </resources>

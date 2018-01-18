@@ -5,17 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.widget.ScrollView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.realm.RealmApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.databinding.ActivityUserProfileBinding;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.service.VendorServiceClient;
+import vn.needy.vendor.repository.remote.user.context.UserLocationContext;
 import vn.needy.vendor.screen.BaseActivity;
-import vn.needy.vendor.widget.WorkaroundMapFragment;
 
 /**
  * Created by lion on 09/11/2017.
@@ -26,7 +27,6 @@ public class UserProfileActivity extends BaseActivity {
     private static final String TAG = UserProfileActivity.class.getName();
 
     private UserProfileContract.ViewModel mViewModel;
-    private ScrollView mScrollView;
 
     private SharedPrefsApi mPrefsApi;
     private VendorApi mVendorApi;
@@ -39,19 +39,10 @@ public class UserProfileActivity extends BaseActivity {
         mPrefsApi = SharedPrefsImpl.getInstance();
         mVendorApi = VendorServiceClient.getInstance();
 
-        mScrollView = (ScrollView) findViewById(R.id.sv_container);
+        List<UserLocationContext> userLocations = new ArrayList<>();
+        UserLocationAdapter locationAdapter = new UserLocationAdapter(this, userLocations);
 
-        WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
-
-        mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
-            @Override
-            public void onTouch() {
-                mScrollView.requestDisallowInterceptTouchEvent(true);
-            }
-        });
-
-        mViewModel = new UserProfileViewModel(this, mapFragment);
+        mViewModel = new UserProfileViewModel(this, locationAdapter);
 
         UserProfileContract.Presenter presenter =
                 new UserProfilePresenter(mViewModel, mVendorApi, mPrefsApi);

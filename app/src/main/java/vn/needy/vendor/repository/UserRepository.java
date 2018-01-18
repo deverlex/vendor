@@ -9,6 +9,7 @@ import vn.needy.vendor.repository.remote.user.request.RegisterUserRequest;
 import vn.needy.vendor.repository.remote.user.request.ResetAccountRequest;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.remote.user.response.BusinessInfoResponse;
+import vn.needy.vendor.repository.remote.user.response.CheckOwnCompanyExistRespone;
 import vn.needy.vendor.repository.remote.user.response.TokenResponse;
 import vn.needy.vendor.repository.remote.user.response.UserInfoResponse;
 
@@ -30,8 +31,8 @@ public class UserRepository {
         return mRemote.login(request);
     }
 
-    public Observable<Response<Void>> logout() {
-        return mRemote.logout();
+    public Observable<ResponseWrapper> logout(String refreshToken) {
+        return mRemote.logout(refreshToken);
     }
 
     public Observable<ResponseWrapper<TokenResponse>> registerUser(RegisterUserRequest request) {
@@ -47,7 +48,7 @@ public class UserRepository {
     }
 
     public Observable<ResponseWrapper<UserInfoResponse>> getUserInformation() {
-        return mRemote.getUserInformation();
+        return mRemote.getUserInfo();
     }
 
     public Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request) {
@@ -58,7 +59,7 @@ public class UserRepository {
         return mRemote.getBusinessInformation();
     }
 
-    public Observable<ResponseWrapper> checkOwnCompanyExist() {
+    public Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist() {
         return mRemote.checkOwnCompanyExist();
     }
 
