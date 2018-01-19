@@ -397,7 +397,7 @@
                     android:padding="@dimen/dp_10"
                     android:text="Thêm địa chỉ mới"
                     android:textColor="@color/color_black"
-                    android:visibility="@{viewModel.expandLocation ? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{(viewModel.expandLocation &amp;&amp; viewModel.enable) ? View.VISIBLE : View.GONE}" />
 
             </LinearLayout>
         </ScrollView>
