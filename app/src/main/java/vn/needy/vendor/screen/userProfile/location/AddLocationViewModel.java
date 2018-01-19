@@ -61,7 +61,7 @@ public class AddLocationViewModel extends BaseObservable implements AddLocationC
             return;
         }
 
-        mPresenter.getLatLng(mLocation.getTitle());
+        mPresenter.getLatLng(mLocation.getDescription());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class AddLocationViewModel extends BaseObservable implements AddLocationC
 
     @Override
     public void updateAddress(Place place) {
-         mLocation.setTitle(place.getAddress());
+         mLocation.setDescription(place.getAddress());
         notifyPropertyChanged(BR.location);
     }
 

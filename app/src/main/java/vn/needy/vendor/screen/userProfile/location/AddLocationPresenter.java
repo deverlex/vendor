@@ -41,10 +41,10 @@ public class AddLocationPresenter implements AddLocationConstant.Presenter{
     @Override
     public boolean validate(UserLocationContext location) {
         boolean isValidate = true;
-        if (TextUtils.isEmpty(location.getDescription())) {
+        if (TextUtils.isEmpty(location.getTitle())) {
             isValidate = false;
             mViewModel.onInputNameError(R.string.address_name_empty);
-        } else if (TextUtils.isEmpty(location.getTitle())) {
+        } else if (TextUtils.isEmpty(location.getDescription())) {
             isValidate = false;
             mViewModel.onInputAddressError(R.string.address_empty);
         }

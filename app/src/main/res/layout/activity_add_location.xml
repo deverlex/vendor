@@ -69,7 +69,7 @@
 
             <EditText
                 errorText="@{viewModel.nameError}"
-                android:text="@={viewModel.location.description}"
+                android:text="@={viewModel.location.title}"
                 android:maxLines="1"
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/sp_15"
@@ -106,7 +106,7 @@
                 android:layout_toStartOf="@+id/map"
                 android:layout_centerVertical="true"
                 errorText="@{viewModel.addressError}"
-                android:text="@={viewModel.location.title}"
+                android:text="@={viewModel.location.description}"
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/sp_15"
                 android:background="@color/transparent"
