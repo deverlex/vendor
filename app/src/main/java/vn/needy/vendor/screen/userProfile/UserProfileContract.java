@@ -44,6 +44,8 @@ public class UserProfileContract {
         void onClickAddLocation();
 
         void addLocation(UserLocationContext location);
+
+        void updateLocation(int position, UserLocationContext location);
     }
 
     interface Presenter extends BasePresenter {

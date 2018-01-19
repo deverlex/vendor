@@ -85,6 +85,10 @@ public class UserProfileActivity extends BaseActivity {
         } else if (requestCode == ADD_LOCATION && resultCode == AddLocationActivity.RC_OK) {
             UserLocationContext locationContext = data.getExtras().getParcelable(AddLocationActivity.LOCATION);
             mViewModel.addLocation(locationContext);
+        } else if (requestCode == ADD_LOCATION && resultCode == AddLocationActivity.RC_OK_EDIT){
+            UserLocationContext locationContext = data.getExtras().getParcelable(AddLocationActivity.LOCATION);
+            int position = data.getIntExtra(AddLocationActivity.LOCATION_POSITION, -1);
+            mViewModel.updateLocation(position, locationContext);
         }
     }
 }

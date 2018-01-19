@@ -1,6 +1,7 @@
 package vn.needy.vendor.screen.userProfile.location;
 
 import vn.needy.vendor.model.Place;
+import vn.needy.vendor.repository.remote.user.context.UserLocationContext;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -28,7 +29,7 @@ public interface AddLocationConstant {
     }
 
     interface Presenter extends BasePresenter {
-        boolean validate(String name, String address);
+        boolean validate(UserLocationContext location);
 
         void getLatLng(String address);
     }

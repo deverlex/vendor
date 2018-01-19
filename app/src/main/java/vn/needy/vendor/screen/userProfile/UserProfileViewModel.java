@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.DatePicker;
 
@@ -22,6 +23,7 @@ import vn.needy.vendor.repository.remote.user.context.UpdateUserContext;
 import vn.needy.vendor.repository.remote.user.context.UserContext;
 import vn.needy.vendor.repository.remote.user.context.UserLocationContext;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
+import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
 import vn.needy.vendor.screen.place.PlaceActivity;
 import vn.needy.vendor.screen.userProfile.changePassword.ChangePasswordFragment;
 import vn.needy.vendor.screen.userProfile.location.AddLocationActivity;
@@ -32,7 +34,8 @@ import vn.needy.vendor.utils.navigator.Navigator;
  * Created by lion on 09/11/2017.
  */
 
-public class UserProfileViewModel extends BaseObservable implements UserProfileContract.ViewModel {
+public class UserProfileViewModel extends BaseObservable implements UserProfileContract.ViewModel,
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener{
 
     private UserProfileContract.Presenter mPresenter;
     private Navigator mNavigator;
@@ -56,6 +59,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
         mGenderTitle = Arrays.asList(mContext.getResources().getStringArray(R.array.gender_title));
         mAvatar = Constant.API_END_POINT_URL + "v1/images/products/1";
         mUserLocationAdapter = locationAdapter;
+        mUserLocationAdapter.setItemClickListener(this);
         mDrawableExpandLocation = R.drawable.ic_next_right;
     }
 
@@ -166,7 +170,6 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
 
     @Override
     public void onSpinnerItemSelected(int position) {
-        Log.e(getClass().getName(), position + "");
         assert mUser != null;
         // check is initialization view because Spinner onItemSelect alway call on first time
         if (isSpinnerSelection) {
@@ -209,6 +212,13 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
         mUserLocationAdapter.addLocation(location);
     }
 
+    @Override
+    public void updateLocation(int position, UserLocationContext location) {
+        if (position != -1) {
+            mUserLocationAdapter.editLocation(position, location);
+        }
+    }
+
     @Bindable
     public boolean getEnable() {
         return mEnable;
@@ -247,5 +257,16 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     @Bindable
     public int getDrawableExpandLocation() {
         return mDrawableExpandLocation;
+    }
+
+    @Override
+    public void onItemRecyclerViewClick(Object item) {
+        if (item instanceof UserLocationContext) {
+            Bundle args = new Bundle();
+            UserLocationContext location = (UserLocationContext) item;
+            args.putParcelable(AddLocationActivity.LOCATION, location);
+            args.putInt(AddLocationActivity.LOCATION_POSITION, mUserLocationAdapter.indexOf(location));
+            mNavigator.startActivityForResult(AddLocationActivity.class, args, UserProfileActivity.ADD_LOCATION);
+        }
     }
 }

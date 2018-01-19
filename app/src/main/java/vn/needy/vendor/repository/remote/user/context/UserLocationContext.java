@@ -91,6 +91,14 @@ public class UserLocationContext implements Parcelable{
         this.lng = lng;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Override
     public int describeContents() {
         return 0;

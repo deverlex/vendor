@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.repository.remote.user.context.UserLocationContext;
 
 /**
  * Created by truongpq on 19/01/2018.
@@ -38,12 +39,12 @@ public class AddLocationPresenter implements AddLocationConstant.Presenter{
     }
 
     @Override
-    public boolean validate(String name, String address) {
+    public boolean validate(UserLocationContext location) {
         boolean isValidate = true;
-        if (TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(location.getDescription())) {
             isValidate = false;
             mViewModel.onInputNameError(R.string.address_name_empty);
-        } else if (TextUtils.isEmpty(address)) {
+        } else if (TextUtils.isEmpty(location.getTitle())) {
             isValidate = false;
             mViewModel.onInputAddressError(R.string.address_empty);
         }

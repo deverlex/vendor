@@ -22,15 +22,17 @@ public class AddLocationViewModel extends BaseObservable implements AddLocationC
     private AddLocationConstant.Presenter mPresenter;
     private Navigator mNavigator;
 
-    private String mName;
-    private String mAddress;
+    private UserLocationContext mLocation;
+    private int mPosition;
 
     private String mNameError;
     private String mAddressError;
 
-    public AddLocationViewModel(Context context, Navigator navigator) {
+    public AddLocationViewModel(Context context, Navigator navigator, UserLocationContext location, int position) {
         mContext = context;
         mNavigator = navigator;
+        mLocation = location;
+        mPosition = position;
     }
 
     @Override
@@ -55,11 +57,11 @@ public class AddLocationViewModel extends BaseObservable implements AddLocationC
 
     @Override
     public void onClickComplete() {
-        if (!mPresenter.validate(mName, mAddress)) {
+        if (!mPresenter.validate(mLocation)) {
             return;
         }
 
-        mPresenter.getLatLng(mAddress);
+        mPresenter.getLatLng(mLocation.getTitle());
     }
 
     @Override
@@ -81,44 +83,29 @@ public class AddLocationViewModel extends BaseObservable implements AddLocationC
 
     @Override
     public void updateAddress(Place place) {
-        mAddress = place.getAddress();
-        notifyPropertyChanged(BR.address);
+         mLocation.setTitle(place.getAddress());
+        notifyPropertyChanged(BR.location);
     }
 
     @Override
     public void onGetLatLngCompleted(double lat, double lng) {
-        UserLocationContext location = new UserLocationContext();
-        location.setDescription(mName);
-        location.setTitle(mAddress);
-        location.setLat(lat);
-        location.setLng(lng);
-        setResult(location);
+        mLocation.setLat(lat);
+        mLocation.setLng(lng);
+        setResult(mLocation);
     }
 
     @Override
     public void onGetLatLngFailed() {
-        UserLocationContext location = new UserLocationContext();
-        location.setDescription(mName);
-        location.setTitle(mAddress);
-        setResult(location);
+        setResult(mLocation);
     }
 
     @Bindable
-    public String getName() {
-        return mName;
+    public UserLocationContext getLocation() {
+        return mLocation;
     }
 
-    @Bindable
-    public String getAddress() {
-        return mAddress;
-    }
-
-    public void setName(String name) {
-        mName = name;
-    }
-
-    public void setAddress(String address) {
-        mAddress = address;
+    public void setLocation(UserLocationContext location) {
+        mLocation = location;
     }
 
     @Bindable
@@ -135,8 +122,16 @@ public class AddLocationViewModel extends BaseObservable implements AddLocationC
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putParcelable(AddLocationActivity.LOCATION, location);
-        intent.putExtras(bundle);
-        mNavigator.finishActivity(PlaceActivity.RC_OK, intent);
+        if (mPosition == -1) {
+            // Add new location
+            intent.putExtras(bundle);
+            mNavigator.finishActivity(AddLocationActivity.RC_OK, intent);
+        } else {
+            // Edit location
+            bundle.putInt(AddLocationActivity.LOCATION_POSITION, mPosition);
+            intent.putExtras(bundle);
+            mNavigator.finishActivity(AddLocationActivity.RC_OK_EDIT, intent);
+        }
     }
 
 }
