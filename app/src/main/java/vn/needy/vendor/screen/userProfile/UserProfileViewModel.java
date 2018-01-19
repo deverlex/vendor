@@ -24,6 +24,7 @@ import vn.needy.vendor.repository.remote.user.context.UserLocationContext;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
 import vn.needy.vendor.screen.place.PlaceActivity;
 import vn.needy.vendor.screen.userProfile.changePassword.ChangePasswordFragment;
+import vn.needy.vendor.screen.userProfile.location.AddLocationActivity;
 import vn.needy.vendor.utils.Constant;
 import vn.needy.vendor.utils.navigator.Navigator;
 
@@ -86,6 +87,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
 
             UpdateUserInfoRequest request = new UpdateUserInfoRequest();
             request.setUser(userContext);
+            request.setLocations(mUserLocationAdapter.getLocations());
             mPresenter.updateUserInformation(request);
         }
 
@@ -195,6 +197,16 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     public void updateCompanyAddress(Place place) {
         mUser.setAddress(place.getAddress());
         notifyPropertyChanged(BR.user);
+    }
+
+    @Override
+    public void onClickAddLocation() {
+        mNavigator.startActivityForResult(AddLocationActivity.class, UserProfileActivity.ADD_LOCATION);
+    }
+
+    @Override
+    public void addLocation(UserLocationContext location) {
+        mUserLocationAdapter.addLocation(location);
     }
 
     @Bindable

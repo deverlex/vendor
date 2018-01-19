@@ -344,4 +344,6 @@
     <string name="violate_ratio_late">Tỉ lệ giao hàng trễ</string>
     <string name="violate_ratio_unreal">Giao dịch ảo</string>
     <string name="logout_error">Đăng xuất thất bại</string>
+    <string name="address_name_empty">Tên trống</string>
+    <string name="address_empty">Địa chỉ trống</string>
 </resources>

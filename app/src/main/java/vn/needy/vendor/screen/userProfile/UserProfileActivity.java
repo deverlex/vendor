@@ -20,6 +20,7 @@ import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.repository.remote.user.context.UserLocationContext;
 import vn.needy.vendor.screen.BaseActivity;
 import vn.needy.vendor.screen.place.PlaceActivity;
+import vn.needy.vendor.screen.userProfile.location.AddLocationActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -30,6 +31,7 @@ public class UserProfileActivity extends BaseActivity {
 
     private static final String TAG = UserProfileActivity.class.getName();
     protected static final int ADDRESS = 1;
+    protected static final int ADD_LOCATION = 2;
 
     private UserProfileContract.ViewModel mViewModel;
 
@@ -80,6 +82,9 @@ public class UserProfileActivity extends BaseActivity {
         if (requestCode == ADDRESS && resultCode == PlaceActivity.RC_OK) {
             Place place = data.getExtras().getParcelable(PlaceActivity.PLACE);
             mViewModel.updateCompanyAddress(place);
+        } else if (requestCode == ADD_LOCATION && resultCode == AddLocationActivity.RC_OK) {
+            UserLocationContext locationContext = data.getExtras().getParcelable(AddLocationActivity.LOCATION);
+            mViewModel.addLocation(locationContext);
         }
     }
 }

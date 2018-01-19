@@ -385,6 +385,8 @@
                     app:recyclerAdapter="@{viewModel.userLocationAdapter}" />
 
                 <TextView
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:onClick="@{() -> viewModel.onClickAddLocation()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_5"

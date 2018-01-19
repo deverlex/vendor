@@ -57,6 +57,15 @@ public class UserLocationAdapter extends BaseRecyclerViewAdapter<UserLocationAda
         }
     }
 
+    public void addLocation(UserLocationContext location) {
+        mUserLocations.add(location);
+        notifyItemInserted(mUserLocations.size());
+    }
+
+    public List<UserLocationContext> getLocations() {
+        return mUserLocations;
+    }
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         private final ItemUserLocationBinding mBinding;
         private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>

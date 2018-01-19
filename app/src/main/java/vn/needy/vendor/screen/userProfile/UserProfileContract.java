@@ -40,6 +40,10 @@ public class UserProfileContract {
         void onClickAddress();
 
         void updateCompanyAddress(Place place);
+
+        void onClickAddLocation();
+
+        void addLocation(UserLocationContext location);
     }
 
     interface Presenter extends BasePresenter {
