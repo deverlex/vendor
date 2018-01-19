@@ -106,7 +106,7 @@ public class UserProfilePresenter implements UserProfileContract.Presenter {
 
     @Override
     public void updateUserInformation(UpdateUserInfoRequest request) {
-        mUserRepository.updateUserInformation(request)
+        mUserRepository.updateUserInfo(request)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override

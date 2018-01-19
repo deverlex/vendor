@@ -61,6 +61,9 @@ public interface VendorApi {
     @GET("v1/users")
     Observable<ResponseWrapper<UserInfoResponse>> getUserInfo();
 
+    @PUT("v1/users/")
+    Observable<ResponseWrapper> updateUserInfo(@Body RequestWrapper<UpdateUserInfoRequest> request);
+
     @POST("v1/companies")
     Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
 
@@ -72,8 +75,6 @@ public interface VendorApi {
     Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist();
 
     /*************OLD************/
-    @PUT("v1/users/informations/details")
-    Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
 
     @GET("v1/users/businesses/informations")
     Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();

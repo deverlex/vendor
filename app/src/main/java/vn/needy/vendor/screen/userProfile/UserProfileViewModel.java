@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 import android.widget.DatePicker;
 
 import java.text.SimpleDateFormat;
@@ -16,10 +17,15 @@ import java.util.Locale;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
+import vn.needy.vendor.model.Place;
+import vn.needy.vendor.repository.remote.user.context.UpdateUserContext;
 import vn.needy.vendor.repository.remote.user.context.UserContext;
 import vn.needy.vendor.repository.remote.user.context.UserLocationContext;
+import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
+import vn.needy.vendor.screen.place.PlaceActivity;
 import vn.needy.vendor.screen.userProfile.changePassword.ChangePasswordFragment;
 import vn.needy.vendor.utils.Constant;
+import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by lion on 09/11/2017.
@@ -28,7 +34,7 @@ import vn.needy.vendor.utils.Constant;
 public class UserProfileViewModel extends BaseObservable implements UserProfileContract.ViewModel {
 
     private UserProfileContract.Presenter mPresenter;
-
+    private Navigator mNavigator;
     private UserContext mUser;
     private List<Banner> mBanners;
     private boolean mEnable;
@@ -40,8 +46,11 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     private boolean mIsExpandLocation;
     private int mDrawableExpandLocation;
 
-    public UserProfileViewModel(Context context, UserLocationAdapter locationAdapter) {
+    private boolean isSpinnerSelection;
+
+    public UserProfileViewModel(Context context, Navigator navigator, UserLocationAdapter locationAdapter) {
         this.mContext = context;
+        mNavigator = navigator;
         mDrawableEdit = R.drawable.ic_edits_white;
         mGenderTitle = Arrays.asList(mContext.getResources().getStringArray(R.array.gender_title));
         mAvatar = Constant.API_END_POINT_URL + "v1/images/products/1";
@@ -67,15 +76,17 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     @Override
     public void onClickEdit() {
         if (mEnable) {
-//            UpdateUserInfoRequest request = new UpdateUserInfoRequest();
-//            request.setAddress(mUser.getAddress());
-//            request.setEmail(mUser.getEmail());
-//            request.setName(mUser.getFullName());
-//            request.setBirthday(mUser.getBirthday());
-//            request.setGender(mUser.getGender());
-//            request.setLat(mUser.getLat());
-//            request.setLng(mUser.getLng());
-//            mPresenter.updateUserInformation(request);
+            UpdateUserContext userContext = new UpdateUserContext();
+            userContext.setFirstName(mUser.getFirstName());
+            userContext.setLastName(mUser.getLastName());
+            userContext.setBirthday(mUser.getBirthday());
+            userContext.setEmail(mUser.getEmail());
+            userContext.setGender(mUser.getGender());
+            userContext.setAddress(mUser.getAddress());
+
+            UpdateUserInfoRequest request = new UpdateUserInfoRequest();
+            request.setUser(userContext);
+            mPresenter.updateUserInformation(request);
         }
 
         mEnable = !mEnable;
@@ -128,18 +139,6 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     }
 
     @Override
-    public void onClickMale() {
-        mUser.setGender("male");
-        notifyPropertyChanged(BR.user);
-    }
-
-    @Override
-    public void onClickFemale() {
-        mUser.setGender("female");
-        notifyPropertyChanged(BR.user);
-    }
-
-    @Override
     public void setUserInfo(UserContext user) {
         mUser = user;
         notifyPropertyChanged(BR.user);
@@ -161,6 +160,41 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
             mDrawableExpandLocation = R.drawable.ic_next_right;
         }
         notifyPropertyChanged(BR.drawableExpandLocation);
+    }
+
+    @Override
+    public void onSpinnerItemSelected(int position) {
+        Log.e(getClass().getName(), position + "");
+        assert mUser != null;
+        // check is initialization view because Spinner onItemSelect alway call on first time
+        if (isSpinnerSelection) {
+            switch (position) {
+                case 0:
+                    mUser.setGender("male");
+                    break;
+                case 1:
+                    mUser.setGender("female");
+                    break;
+                case 2:
+                    mUser.setGender("other");
+                    break;
+                default:
+                    mUser.setGender("other");
+            }
+        } else {
+            isSpinnerSelection = true;
+        }
+    }
+
+    @Override
+    public void onClickAddress() {
+        mNavigator.startActivityForResult(PlaceActivity.class, UserProfileActivity.ADDRESS);
+    }
+
+    @Override
+    public void updateCompanyAddress(Place place) {
+        mUser.setAddress(place.getAddress());
+        notifyPropertyChanged(BR.user);
     }
 
     @Bindable

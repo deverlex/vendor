@@ -8,7 +8,8 @@
         <variable
             name="viewModel"
             type="vn.needy.vendor.screen.userProfile.UserProfileViewModel" />
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
     </data>
 
     <RelativeLayout
@@ -223,7 +224,8 @@
 
                     <Spinner
                         spinnerAdapter="@{viewModel.genderTitle}"
-                        spinnerSelection='@{viewModel.user.gender.equals("male") ? 0 : (viewModel.user.gender.equals("female") ? 1:2)}'
+                        android:selectedItemPosition='@{viewModel.user.gender.equals("male") ? 0 : (viewModel.user.gender.equals("female") ? 1:2)}'
+                        android:onItemSelected="@{(parent, view, position, id) -> viewModel.onSpinnerItemSelected(position)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -232,7 +234,7 @@
                         android:layout_marginEnd="@dimen/dp_5"
                         android:layout_marginRight="@dimen/dp_5"
                         android:enabled="@{viewModel.enable}"
-                        android:orientation="horizontal"></Spinner>
+                        />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -320,12 +322,14 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_marginTop="@dimen/dp_10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:background="@color/color_white">
 
                     <TextView
+                        android:layout_toLeftOf="@+id/expand_location"
+                        android:layout_toStartOf="@+id/expand_location"
                         android:id="@+id/headerAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -337,7 +341,10 @@
                         android:textSize="@dimen/sp_14"
                         tools:ignore="UnusedAttribute" />
 
-                    <EditText
+                    <TextView
+                        android:onClick="@{() -> viewModel.onClickAddress()}"
+                        android:layout_toLeftOf="@+id/expand_location"
+                        android:layout_toStartOf="@+id/expand_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/headerAddress"
@@ -345,7 +352,6 @@
                         android:enabled="@{viewModel.enable}"
                         android:fontFamily="@string/font_serif"
                         android:hint="@string/not_set"
-                        android:inputType="textCapWords"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
                         android:paddingRight="@dimen/dp_10"
@@ -358,36 +364,37 @@
                         tools:ignore="UnusedAttribute" />
 
                     <ImageButton
-                        android:onClick="@{() -> viewModel.onClickExpandLocation()}"
+                        android:id="@+id/expand_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:background="@color/transparent"
+                        android:onClick="@{() -> viewModel.onClickExpandLocation()}"
                         android:padding="@dimen/dp_10"
                         app:srcVector="@{viewModel.drawableExpandLocation}" />
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:visibility="@{viewModel.expandLocation ? View.VISIBLE : View.GONE}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:visibility="@{viewModel.expandLocation ? View.VISIBLE : View.GONE}"
                     app:layoutManager="LinearLayoutManager"
                     app:recyclerAdapter="@{viewModel.userLocationAdapter}" />
 
                 <TextView
-                    android:textColor="@color/color_black"
-                    android:visibility="@{viewModel.expandLocation ? View.VISIBLE : View.GONE}"
-                    android:drawableRight="@{@drawable/ic_plus}"
-                    android:drawableEnd="@{@drawable/ic_plus}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_5"
                     android:background="@color/color_white"
-                    android:text="Thêm địa chỉ mới"
+                    android:drawableEnd="@{@drawable/ic_plus}"
+                    android:drawableRight="@{@drawable/ic_plus}"
                     android:padding="@dimen/dp_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:text="Thêm địa chỉ mới"
+                    android:textColor="@color/color_black"
+                    android:visibility="@{viewModel.expandLocation ? View.VISIBLE : View.GONE}" />
 
             </LinearLayout>
         </ScrollView>

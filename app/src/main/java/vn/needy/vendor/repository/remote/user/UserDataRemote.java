@@ -67,8 +67,8 @@ public class UserDataRemote extends BaseDataRemote<VendorApi> implements UserDat
     }
 
     @Override
-    public Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request) {
-        return mApi.updateUserInformation(new RequestWrapper<UpdateUserInfoRequest>().setData(request));
+    public Observable<ResponseWrapper> updateUserInfo(UpdateUserInfoRequest request) {
+        return mApi.updateUserInfo(new RequestWrapper<UpdateUserInfoRequest>().setData(request));
     }
 
     @Override

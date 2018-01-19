@@ -207,10 +207,4 @@ public class BindingAdapters {
             spinner.setAdapter(adapter);
         }
     }
-
-    @BindingAdapter("spinnerSelection")
-    public static void setSpinnerSelection(Spinner spinner, int position) {
-        spinner.setSelection(position);
-    }
-
 }

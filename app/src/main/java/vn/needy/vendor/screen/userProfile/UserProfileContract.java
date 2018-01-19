@@ -3,6 +3,7 @@ package vn.needy.vendor.screen.userProfile;
 import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
+import vn.needy.vendor.model.Place;
 import vn.needy.vendor.repository.remote.user.context.UserContext;
 import vn.needy.vendor.repository.remote.user.context.UserLocationContext;
 import vn.needy.vendor.repository.remote.user.request.UpdateUserInfoRequest;
@@ -28,15 +29,17 @@ public class UserProfileContract {
 
         void onClickBirthday();
 
-        void onClickMale();
-
-        void onClickFemale();
-
         void setUserInfo(UserContext user);
 
         void setUserLocations(List<UserLocationContext> userLocations);
 
         void onClickExpandLocation();
+
+        void onSpinnerItemSelected(int position);
+
+        void onClickAddress();
+
+        void updateCompanyAddress(Place place);
     }
 
     interface Presenter extends BasePresenter {
