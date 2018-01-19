@@ -6,6 +6,7 @@ import android.os.Bundle;
 import vn.needy.vendor.R;
 import vn.needy.vendor.databinding.ActivityBusinessManageBinding;
 import vn.needy.vendor.screen.BaseActivity;
+import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by lion on 10/01/2018.
@@ -16,11 +17,14 @@ public class BusinessManageActivity extends BaseActivity {
     private BusinessManageContract.Presenter mPresenter;
     private BusinessManageContract.ViewModel mViewModel;
 
+    private Navigator mNavigator;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
 
-        mViewModel = new BusinessManageViewModel(this);
+        mNavigator = new Navigator(this);
+
+        mViewModel = new BusinessManageViewModel(this, mNavigator);
         mPresenter = new BusinessManagePresenter(mViewModel);
 
         mViewModel.setPresenter(mPresenter);
