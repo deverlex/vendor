@@ -58,14 +58,22 @@ public interface VendorApi {
     @GET("v1/users/tokens/logout")
     Observable<ResponseWrapper> logout(@Query("refresh_token") String refreshToken);
 
-    @GET("v1/users/")
+    @GET("v1/users/details")
     Observable<ResponseWrapper<UserInfoResponse>> getUserInfo();
 
-    @PUT("v1/users/informations/details")
-    Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
+    @POST("v1/companies")
+    Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
+
+    @POST("v1/stores")
+    Observable<ResponseWrapper<CreateStoreRespone>> createStore(@Query("company_id") long companyId,
+                                                                @Body RequestWrapper<CreateStoreRequest> request);
 
     @GET("v1/companies/employees/own")
     Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist();
+
+    /*************OLD************/
+    @PUT("v1/users/informations/details")
+    Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
 
     @GET("v1/users/businesses/informations")
     Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();
@@ -79,13 +87,6 @@ public interface VendorApi {
     @PUT("v1/companies/{company_id}/informations/details")
     Observable<ResponseWrapper> updateCompanyInformation(@Path(value = "company_id") String companyId,
                                                          @Body RequestWrapper<UpdateCompanyInfoRequest> infoRequest);
-
-    @POST("v1/companies")
-    Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
-
-    @POST("v1/stores")
-    Observable<ResponseWrapper<CreateStoreRespone>> createStore(@Query("company_id") long companyId,
-                                                                @Body RequestWrapper<CreateStoreRequest> request);
 
     @GET("v1/categories/{category}/childs")
     Observable<ResponseWrapper<CategoriesResponse>> getCategories(@Path("category") String category);
