@@ -76,6 +76,15 @@ public class UserLocationAdapter extends BaseRecyclerViewAdapter<UserLocationAda
         return mUserLocations;
     }
 
+    public void removeLocation(int position) {
+        mUserLocations.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public UserLocationContext getLocation(int position) {
+        return mUserLocations.get(position);
+    }
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         private final ItemUserLocationBinding mBinding;
         private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>

@@ -99,6 +99,15 @@ public class AddLocationViewModel extends BaseObservable implements AddLocationC
         setResult(mLocation);
     }
 
+    @Override
+    public void onDeleteClick() {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putInt(AddLocationActivity.LOCATION_POSITION, mPosition);
+        intent.putExtras(bundle);
+        mNavigator.finishActivity(AddLocationActivity.RC_DELETE, intent);
+    }
+
     @Bindable
     public UserLocationContext getLocation() {
         return mLocation;
@@ -116,6 +125,11 @@ public class AddLocationViewModel extends BaseObservable implements AddLocationC
     @Bindable
     public String getAddressError() {
         return mAddressError;
+    }
+
+    @Bindable
+    public int getPosition() {
+        return mPosition;
     }
 
     private void setResult(UserLocationContext location) {

@@ -22,6 +22,10 @@ public class UpdateUserInfoRequest {
     @SerializedName("user_location")
     private List<UserLocationContext> locations;
 
+    @Expose
+    @SerializedName("deleted_location")
+    private List<UserLocationContext> deletedlocations;
+
     public UpdateUserContext getUser() {
         return user;
     }
@@ -36,5 +40,13 @@ public class UpdateUserInfoRequest {
 
     public void setLocations(List<UserLocationContext> locations) {
         this.locations = locations;
+    }
+
+    public List<UserLocationContext> getDeletedlocations() {
+        return deletedlocations;
+    }
+
+    public void setDeletedlocations(List<UserLocationContext> deletedlocations) {
+        this.deletedlocations = deletedlocations;
     }
 }

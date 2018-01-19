@@ -94,6 +94,7 @@
             android:layout_height="wrap_content" />
 
         <RelativeLayout
+            android:id="@+id/address"
             android:background="@color/color_white"
             android:padding="@dimen/dp_10"
             android:layout_width="match_parent"
@@ -124,6 +125,20 @@
                 android:layout_alignParentEnd="true"
                 android:onClick="@{() -> viewModel.onPlaceClick()}"/>
         </RelativeLayout>
+
+        <TextView
+            android:visibility="@{viewModel.position != -1 ? View.VISIBLE : View.GONE}"
+            android:onClick="@{() -> viewModel.onDeleteClick()}"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:textSize="@dimen/sp_15"
+            android:background="@color/color_white"
+            android:layout_marginTop="@dimen/dp_8"
+            android:padding="@dimen/dp_10"
+            android:layout_below="@+id/address"
+            android:textColor="@color/color_orange_mos"
+            android:text="Xóa địa chỉ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Button
             android:onClick="@{() -> viewModel.onClickComplete()}"

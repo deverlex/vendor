@@ -26,6 +26,8 @@ public interface AddLocationConstant {
         void onGetLatLngCompleted(double lat, double lng);
 
         void onGetLatLngFailed();
+
+        void onDeleteClick();
     }
 
     interface Presenter extends BasePresenter {

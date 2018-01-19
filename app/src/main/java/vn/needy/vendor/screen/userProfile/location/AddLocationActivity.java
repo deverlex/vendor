@@ -26,6 +26,7 @@ public class AddLocationActivity extends BaseActivity{
     public static final int RC_OK = 1101;
     public static final int RC_NOT_OK = 1102;
     public static final int RC_OK_EDIT = 1103;
+    public static final int RC_DELETE = 1104;
 
     private AddLocationConstant.ViewModel mViewModel;
     private Navigator mNavigator;

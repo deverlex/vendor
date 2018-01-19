@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.DatePicker;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -47,6 +48,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     private String mAvatar;
     private List<String> mGenderTitle;
     private UserLocationAdapter mUserLocationAdapter;
+    private List<UserLocationContext> mDeletedLocation;
     private boolean mIsExpandLocation;
     private int mDrawableExpandLocation;
 
@@ -60,6 +62,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
         mAvatar = Constant.API_END_POINT_URL + "v1/images/products/1";
         mUserLocationAdapter = locationAdapter;
         mUserLocationAdapter.setItemClickListener(this);
+        mDeletedLocation = new ArrayList<>();
         mDrawableExpandLocation = R.drawable.ic_next_right;
     }
 
@@ -92,6 +95,7 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
             UpdateUserInfoRequest request = new UpdateUserInfoRequest();
             request.setUser(userContext);
             request.setLocations(mUserLocationAdapter.getLocations());
+            request.setDeletedlocations(mDeletedLocation);
             mPresenter.updateUserInformation(request);
         }
 
@@ -216,6 +220,14 @@ public class UserProfileViewModel extends BaseObservable implements UserProfileC
     public void updateLocation(int position, UserLocationContext location) {
         if (position != -1) {
             mUserLocationAdapter.editLocation(position, location);
+        }
+    }
+
+    @Override
+    public void onRemoveLocation(int position) {
+        if (position != -1) {
+            mDeletedLocation.add(mUserLocationAdapter.getLocation(position));
+            mUserLocationAdapter.removeLocation(position);
         }
     }
 

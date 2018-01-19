@@ -15,7 +15,7 @@ import vn.needy.vendor.screen.BaseViewModel;
  * Created by lion on 09/11/2017.
  */
 
-public class UserProfileContract {
+public interface UserProfileContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void onClickEdit();
 
@@ -46,6 +46,8 @@ public class UserProfileContract {
         void addLocation(UserLocationContext location);
 
         void updateLocation(int position, UserLocationContext location);
+
+        void onRemoveLocation(int position);
     }
 
     interface Presenter extends BasePresenter {
