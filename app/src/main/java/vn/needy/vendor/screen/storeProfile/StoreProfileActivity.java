@@ -21,27 +21,14 @@ public class StoreProfileActivity extends BaseActivity {
 
     private VendorApi mVendorApi;
 
-    private ScrollView mScrollView;
-
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         super.onCreateActivity(savedInstanceState);
         ActivityStoreProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_store_profile);
 
         mVendorApi = VendorServiceClient.getInstance();
-        mScrollView = (ScrollView) findViewById(R.id.sv_container);
 
-        WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
-
-        mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
-            @Override
-            public void onTouch() {
-                mScrollView.requestDisallowInterceptTouchEvent(true);
-            }
-        });
-
-        mViewModel = new StoreProfileViewModel(this, mapFragment);
+        mViewModel = new StoreProfileViewModel(this);
         StoreProfilePresenter presenter = new StoreProfilePresenter(mViewModel, mVendorApi);
         mViewModel.setPresenter(presenter);
 

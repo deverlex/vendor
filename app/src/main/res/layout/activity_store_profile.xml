@@ -43,6 +43,7 @@
                         app:defaultIndicators="circle" />
 
                     <vn.needy.vendor.widget.CircleImageView
+                        srcUri="@{viewModel.avatar}"
                         android:id="@+id/avatar"
                         android:layout_width="@dimen/dp_56"
                         android:layout_height="@dimen/dp_56"
@@ -59,7 +60,7 @@
                         android:layout_marginLeft="@dimen/dp_20"
                         android:layout_toRightOf="@+id/avatar"
                         android:fontFamily="@string/font_serif"
-                        android:text="@string/not_set"
+                        android:text="@{viewModel.store.name}"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_16" />
 
@@ -236,7 +237,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
-                        android:text="@{Integer.toString(viewModel.store.totalStaff)}"
+                        android:text="@{viewModel.numberOfEmployee}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/headerNumberStaff"
@@ -465,26 +466,6 @@
                         android:textColorHint="@color/gray70"
                         android:textSize="@dimen/sp_14"
                         tools:ignore="UnusedAttribute" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/map"
-                        class="vn.needy.vendor.widget.WorkaroundMapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_250" />
-
-                    <ImageButton
-                        android:onClick="@{() -> viewModel.onClickPosition()}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:background="@color/transparent"
-                        android:padding="@dimen/dp_10"
-                        app:srcCompat="@drawable/ic_get_location" />
                 </RelativeLayout>
             </LinearLayout>
 

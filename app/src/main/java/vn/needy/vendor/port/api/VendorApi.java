@@ -78,6 +78,9 @@ public interface VendorApi {
     Observable<ResponseWrapper<CreateStoreRespone>> createStore(@Query("company_id") long companyId,
                                                                 @Body RequestWrapper<CreateStoreRequest> request);
 
+    @GET("v1/stores/{store_id}/details")
+    Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(@Path(value = "store_id") long storeId);
+
     @GET("v1/companies/employees/own")
     Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist();
 
@@ -101,9 +104,6 @@ public interface VendorApi {
 
     @GET("v1/attributes/lists")
     Observable<ResponseWrapper<AttributeInfoResponse>> getAttributesCategory(@Query("category_name") String category);
-
-    @GET("v1/stores/{store_id}/infomations/details")
-    Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(@Path(value = "store_id") String storeId);
 
     @PUT("v1/stores/{store_id}/infomations/details")
     Observable<ResponseWrapper> updateStoreInfo(@Path("store_id") String storeId,

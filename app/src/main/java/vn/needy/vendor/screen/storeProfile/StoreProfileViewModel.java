@@ -27,6 +27,7 @@ import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.BR;
 import vn.needy.vendor.R;
 import vn.needy.vendor.domain.Store;
+import vn.needy.vendor.repository.remote.store.context.StoreContext;
 
 /**
  * Created by lion on 12/12/2017.
@@ -40,41 +41,23 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     private List<Banner> mBanners;
     private boolean mEnable;
     private int mDrawableEdit;
-    private Store mStore;
+    private StoreContext mStore;
+    private String mAvatar;
+    private int mNumberOfEmployee;
     private boolean mVisibleDescription;
     private int mDrawableExpandDescription;
-    private MapFragment mMapFragment;
     private String mNameError;
     private String mAddressError;
 
-    StoreProfileViewModel(Context context, MapFragment mapFragment) {
+    StoreProfileViewModel(Context context) {
         mContext = context;
-        mMapFragment = mapFragment;
         mDrawableEdit = R.drawable.ic_edits_white;
         mDrawableExpandDescription = R.drawable.ic_next_right;
     }
 
     @Override
     public void onStart() {
-        mPresenter.getCoverPictures();
         mPresenter.getStoreInfo();
-
-        // Settup click map
-        mMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                // Settup click
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        googleMap.clear();
-                        googleMap.addMarker(new MarkerOptions().position(latLng));
-                        mStore.setLat((float) latLng.latitude);
-                        mStore.setLng((float) latLng.longitude);
-                    }
-                });
-            }
-        });
     }
 
     @Override
@@ -98,7 +81,7 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
     }
 
     @Bindable
-    public Store getStore() {
+    public StoreContext getStore() {
         return mStore;
     }
 
@@ -127,6 +110,16 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
         return mEnable;
     }
 
+    @Bindable
+    public String getNumberOfEmployee() {
+        return String.valueOf(mNumberOfEmployee);
+    }
+
+    @Bindable
+    public String getAvatar() {
+        return mAvatar;
+    }
+
     @Override
     public void setBanner(List<Banner> banners) {
         mBanners = banners;
@@ -135,35 +128,31 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
 
     @Override
     public void onClickEdit() {
-        if (mEnable) {
-            boolean isValidate = mPresenter.validateDataInput(mStore.getName(), mStore.getAddress());
-            if (!isValidate) return;
-            // Update
-            mPresenter.updateStoreInfo(mStore);
-        }
-
-        mEnable = !mEnable;
-        notifyPropertyChanged(BR.enable);
-        mDrawableEdit = mEnable ? R.drawable.ic_check : R.drawable.ic_edits_white;
-        notifyPropertyChanged(BR.drawableEdit);
+//        if (mEnable) {
+//            boolean isValidate = mPresenter.validateDataInput(mStore.getName(), mStore.getAddress());
+//            if (!isValidate) return;
+//            // Update
+//            mPresenter.updateStoreInfo(mStore);
+//        }
+//
+//        mEnable = !mEnable;
+//        notifyPropertyChanged(BR.enable);
+//        mDrawableEdit = mEnable ? R.drawable.ic_check : R.drawable.ic_edits_white;
+//        notifyPropertyChanged(BR.drawableEdit);
     }
 
     @Override
-    public void setStoreInfo(Store store) {
+    public void setStoreInfo(StoreContext store, int numberOfEmployee) {
         mStore = store;
+        mNumberOfEmployee = numberOfEmployee;
         notifyPropertyChanged(BR.store);
+        notifyPropertyChanged(BR.numberOfEmployee);
+    }
 
-        //Move to address on Map
-        mMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                // Move to Address
-                googleMap.clear();
-                LatLng addressLatLng = new LatLng(mStore.getLat(), mStore.getLng());
-                googleMap.addMarker(new MarkerOptions().position(addressLatLng));
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(addressLatLng, 13));
-            }
-        });
+    @Override
+    public void setAvatar(String avatarUrl) {
+        mAvatar = avatarUrl;
+        notifyPropertyChanged(BR.avatar);
     }
 
     @Override
@@ -173,30 +162,6 @@ public class StoreProfileViewModel extends BaseObservable implements StoreProfil
 
         mDrawableExpandDescription = mVisibleDescription ? R.drawable.ic_expand : R.drawable.ic_next_right;
         notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.drawableExpandDescription);
-    }
-
-    @Override
-    public void onClickPosition() {
-        mMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                googleMap.clear();
-                LocationServices.getFusedLocationProviderClient(mContext)
-                        .getLastLocation().
-                        addOnSuccessListener((Activity) mContext, new OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                if (location!= null) {
-                                    LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                                    googleMap.addMarker(new MarkerOptions().position(currentPosition));
-                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
-                                    mStore.setLat((float) location.getLatitude());
-                                    mStore.setLng((float) location.getLongitude());
-                                }
-                            }
-                        });
-            }
-        });
     }
 
     @Override

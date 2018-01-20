@@ -4,6 +4,7 @@ import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.domain.Store;
+import vn.needy.vendor.repository.remote.store.context.StoreContext;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -18,11 +19,11 @@ public interface StoreProfileContract {
 
         void onClickEdit();
 
-        void setStoreInfo(Store store);
+        void setStoreInfo(StoreContext store, int numberOfEmployee);
+
+        void setAvatar(String avatarUrl);
 
         void onClickDescription();
-
-        void onClickPosition();
 
         void onBackPressed();
 
@@ -36,7 +37,7 @@ public interface StoreProfileContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getCoverPictures();
+        void getCoverPictures(List<Long> images);
         void getStoreInfo();
         void updateStoreInfo(Store store);
         boolean validateDataInput(String name, String address);

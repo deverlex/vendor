@@ -64,4 +64,9 @@ public class StoreDataLocal implements StoreData.Local {
 //                .findFirst().getId();
         return "";
     }
+
+    @Override
+    public long getStoreId() {
+        return mPrefsApi.get(SharedPrefsKey.STORE_ID, Long.class);
+    }
 }
