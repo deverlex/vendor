@@ -88,13 +88,12 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
 
     @Override
     public void onClickEdit() {
-//        if (mEnable) {
-//           boolean isValidate = mPresenter.validateDataInput(mCompany.getName(), mCompany.getAddress());
-//           if (!isValidate) return;
-//
-//           mPresenter.updateCompanyInfo(mCompany, mRemoveFeeTransportIds);
-//           mFeeTransportAdapter.notifyDataSetChanged();
-//        }
+        if (mEnable) {
+           boolean isValidate = mPresenter.validateDataInput(mCompany.getName(), mCompany.getAddress());
+           if (!isValidate) return;
+
+           mPresenter.updateCompanyInfo(mCompany);
+        }
 
         mEnable = !mEnable;
         notifyPropertyChanged(BR.enable);

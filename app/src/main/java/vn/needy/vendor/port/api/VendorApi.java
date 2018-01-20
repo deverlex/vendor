@@ -71,7 +71,7 @@ public interface VendorApi {
     Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInfo(@Path(value = "company_id") long companyId);
 
     @PUT("v1/companies/{company_id}/details")
-    Observable<ResponseWrapper> updateCompanyInfo(@Path(value = "company_id") String companyId,
+    Observable<ResponseWrapper> updateCompanyInfo(@Path(value = "company_id") long companyId,
                                                          @Body RequestWrapper<UpdateCompanyInfoRequest> infoRequest);
 
     @POST("v1/stores")

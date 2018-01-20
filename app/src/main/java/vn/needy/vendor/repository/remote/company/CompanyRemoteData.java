@@ -43,7 +43,7 @@ public class CompanyRemoteData extends BaseDataRemote<VendorApi> implements Comp
     }
 
     @Override
-    public Observable<ResponseWrapper> updateCompanyInfo(String companyId, UpdateCompanyInfoRequest request) {
+    public Observable<ResponseWrapper> updateCompanyInfo(long companyId, UpdateCompanyInfoRequest request) {
         return mApi.updateCompanyInfo(companyId, new RequestWrapper<UpdateCompanyInfoRequest>().setData(request));
     }
 

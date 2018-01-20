@@ -24,7 +24,7 @@ public interface CompanyData {
 
         Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInfo(long companyId);
 
-        Observable<ResponseWrapper> updateCompanyInfo(String companyId, UpdateCompanyInfoRequest infoRequest);
+        Observable<ResponseWrapper> updateCompanyInfo(long companyId, UpdateCompanyInfoRequest infoRequest);
 
         Observable<ResponseWrapper> updateStaffFcmToken(String companyId, String fcmToken);
     }

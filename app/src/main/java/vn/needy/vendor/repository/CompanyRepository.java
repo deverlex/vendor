@@ -43,7 +43,7 @@ public class CompanyRepository {
         return mRemote.updateStaffFcmToken(companyId, fcmToken);
     }
 
-    public Observable<ResponseWrapper> updateCompanyInfo(String companyId, UpdateCompanyInfoRequest infoRequest) {
+    public Observable<ResponseWrapper> updateCompanyInfo(long companyId, UpdateCompanyInfoRequest infoRequest) {
         return mRemote.updateCompanyInfo(companyId, infoRequest);
     }
 

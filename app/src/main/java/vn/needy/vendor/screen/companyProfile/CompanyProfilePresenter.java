@@ -1,8 +1,12 @@
 package vn.needy.vendor.screen.companyProfile;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,16 +43,22 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
 
     private static final String TAG = CompanyProfilePresenter.class.getName();
 
+    private Context mContext;
     private CompanyProfileContract.ViewModel mViewModel;
 
     private CompanyRepository mCompanyRepository;
 
-    public CompanyProfilePresenter(CompanyProfileContract.ViewModel mViewModel, VendorApi vendorApi) {
+    private Geocoder mGeocoder;
+
+    public CompanyProfilePresenter(Context context, CompanyProfileContract.ViewModel mViewModel, VendorApi vendorApi) {
+        mContext = context;
         this.mViewModel = mViewModel;
         mCompanyRepository = new CompanyRepository(
                 new CompanyRemoteData(vendorApi),
                 new CompanyDataLocal(SharedPrefsImpl.getInstance())
         );
+
+        mGeocoder = new Geocoder(context);
     }
 
     @Override
@@ -73,30 +83,9 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
 
     @Override
     public void getCompanyInfo() {
-        // Get data company from local
-//        getCompanyInfoFromLocal();
         // get company from remote
         getCompanyInfoFromRemote();
     }
-
-//    private void getCompanyInfoFromLocal() {
-//        mCompanyRepository.getOurCompanyAsync()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<Company>() {
-//                    @Override
-//                    public void accept(Company company) throws Exception {
-//                        // We need copy to other object when using model on viewModel update UI
-//                        // Error: cannot modify managed objects outside of a write transaction realm android
-//                        Company com = RealmApi.getSync().copyFromRealm(company);
-//                        mViewModel.setCompanyInfo(com, com.getTotalStaff());
-//                    }
-//                }, new SafetyError() {
-//                    @Override
-//                    public void onSafetyError(BaseException error) {
-//
-//                    }
-//                });
-//    }
 
     private void getCompanyInfoFromRemote() {
         long companyId = mCompanyRepository.getCompanyId();
@@ -120,47 +109,6 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
 
                     }
                 });
-
-//        mCompanyRepository.getCompanyInformation(companyId)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(Schedulers.computation())
-//                .map(new Function<ResponseWrapper<CompanyInfoResponse>, Company>() {
-//                         @Override
-//                         public Company apply(ResponseWrapper<CompanyInfoResponse> resp) throws Exception {
-//                             CompanyInfoResponse data = resp.getData();
-//                             if (data != null) {
-//                                 Company company = new Company(data.getCompany());
-//                                 // save total staff
-//                                 company.setTotalStaff(data.getTotalStaff());
-//
-//                                 // add list fee transport
-//                                 RealmList<FeeTransport> feeTransports = new RealmList<>();
-//                                 for (FeeTransportWrapper wrapper : data.getFeeTransports()) {
-//                                     feeTransports.add(new FeeTransport(company.getId(), wrapper));
-//                                 }
-//                                 company.setFeeTransports(feeTransports);
-//
-//                                 mCompanyRepository.saveCompanySync(company);
-//                                 return company;
-//                             }
-//                             return null;
-//                         }
-//                     }
-//                )
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<Company>() {
-//                    @Override
-//                    public void accept(Company company) throws Exception {
-//                        mViewModel.setCompanyInfo(company, company.getTotalStaff());
-//                        mViewModel.onSetFeeTransport(company.getFeeTransports());
-//                    }
-//                }, new SafetyError() {
-//                    @Override
-//                    public void onSafetyError(BaseException error) {
-//                        // need add notify error show on to screen
-//
-//                    }
-//                });
     }
 
     @Override
@@ -179,28 +127,47 @@ public class CompanyProfilePresenter implements CompanyProfileContract.Presenter
     }
 
     @Override
-    public void updateCompanyInfo(Company company, List<Long> removeFeeTransportIds) {
-//        UpdateCompanyInfoRequest request = new UpdateCompanyInfoRequest(company);
-//        request.setmRemoveFeeTransportIds(removeFeeTransportIds);
-//        mCompanyRepository.updateCompanyInformation(company.getId(), request)
-//                .subscribeOn(Schedulers.io())
-//                .doOnSubscribe(new Consumer<Disposable>() {
-//                    @Override
-//                    public void accept(Disposable disposable) throws Exception {
-//                        // Show ProgressBar
-//                    }
-//                })
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<ResponseWrapper>() {
-//                    @Override
-//                    public void accept(ResponseWrapper baseResponse) throws Exception {
-//
-//                    }
-//                }, new SafetyError() {
-//                    @Override
-//                    public void onSafetyError(BaseException error) {
-//
-//                    }
-//                });
+    public void updateCompanyInfo(CompanyContext company) {
+        UpdateCompanyInfoRequest request = new UpdateCompanyInfoRequest();
+        request.setName(company.getName());
+        request.setAddress(company.getAddress());
+        request.setDescription(company.getDescription());
+        request.setSiteUrl(company.getSiteUrl());
+        request.setFoundedDate(company.getFoundedDate());
+        request.setEmail(company.getEmail());
+        request.setOpeningTime(company.getOpeningTime());
+        request.setClosingTime(company.getClosingTime());
+
+        try {
+            List<Address> addresses = mGeocoder.getFromLocationName(company.getAddress(), 1);
+            if (addresses != null && addresses.size() > 0) {
+                request.setLat(addresses.get(0).getLatitude());
+                request.setLng(addresses.get(0).getLongitude());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        long companyId = mCompanyRepository.getCompanyId();
+        mCompanyRepository.updateCompanyInfo(companyId, request)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        // Show ProgressBar
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseWrapper>() {
+                    @Override
+                    public void accept(ResponseWrapper baseResponse) throws Exception {
+
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+
+                    }
+                });
     }
 }

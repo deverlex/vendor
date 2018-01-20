@@ -35,7 +35,7 @@ public class CompanyProfileActivity extends BaseActivity {
 
         mViewModel = new CompanyProfileViewModel(this, mNavigator);
 
-        CompanyProfileContract.Presenter presenter= new CompanyProfilePresenter(mViewModel, mVendorApi);
+        CompanyProfileContract.Presenter presenter= new CompanyProfilePresenter(this, mViewModel, mVendorApi);
         mViewModel.setPresenter(presenter);
 
         mViewModel.onStart();
