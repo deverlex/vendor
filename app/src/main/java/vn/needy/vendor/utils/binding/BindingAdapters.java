@@ -114,6 +114,7 @@ public class BindingAdapters {
     @BindingAdapter("srcUri")
     public static void loadImageUri(ImageView imageView, String url) {
         // check image load from server
+        if (url == null) return;
         if (url.contains("http")) {
             String token = SharedPrefsImpl.getInstance()
                     .get(SharedPrefsKey.ACCESS_TOKEN, String.class);
@@ -122,7 +123,7 @@ public class BindingAdapters {
                     .setHeader("Authorization", token).build());
 
             Glide.with(imageView.getContext())
-                    .load(gUri).into(imageView);
+                    .load(gUri).placeholder(R.drawable.ic_placeholder).into(imageView);
         } else if (!TextUtils.isEmpty(url)) {
             // for image load from local
             Bitmap bmp = BitmapFactory.decodeFile(url);
