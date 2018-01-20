@@ -14,6 +14,8 @@ interface BusinessManageContract {
         void onBackPressed();
 
         void onClickCompanyProfile();
+
+        void onClickStoreProfile();
     }
 
     interface Presenter extends BasePresenter {

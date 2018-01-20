@@ -60,7 +60,8 @@ public class StoreDataLocal implements StoreData.Local {
 
     @Override
     public String getOurStoreIdSync() {
-        return RealmApi.getSync().where(Store.class)
-                .findFirst().getId();
+//        return RealmApi.getSync().where(Store.class)
+//                .findFirst().getId();
+        return "";
     }
 }

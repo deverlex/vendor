@@ -7,6 +7,7 @@ import android.databinding.Bindable;
 
 import vn.needy.vendor.R;
 import vn.needy.vendor.screen.companyProfile.CompanyProfileActivity;
+import vn.needy.vendor.screen.storeProfile.StoreProfileActivity;
 import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
@@ -53,6 +54,11 @@ public class BusinessManageViewModel extends BaseObservable implements BusinessM
     @Override
     public void onClickCompanyProfile() {
         mNavigator.startActivity(CompanyProfileActivity.class);
+    }
+
+    @Override
+    public void onClickStoreProfile() {
+        mNavigator.startActivity(StoreProfileActivity.class);
     }
 
     @Bindable
