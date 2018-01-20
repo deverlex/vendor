@@ -32,63 +32,42 @@ import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.R;
 import vn.needy.vendor.domain.Company;
 import vn.needy.vendor.domain.FeeTransport;
+import vn.needy.vendor.model.Place;
+import vn.needy.vendor.repository.remote.company.context.CompanyContext;
 import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
+import vn.needy.vendor.screen.place.PlaceActivity;
+import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by truongpq on 04/12/2017.
  */
 
-public class CompanyProfileViewModel extends BaseObservable implements CompanyProfileContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>{
+public class CompanyProfileViewModel extends BaseObservable implements CompanyProfileContract.ViewModel{
     private CompanyProfileContract.Presenter mPresenter;
-
+    private Navigator mNavigator;
     private Context mContext;
     private List<Banner> mBanners;
     private boolean mEnable;
     private int mDrawableEdit;
-    private Company mCompany;
-    private int mStaffCount;
+    private CompanyContext mCompany;
+    private int mNumberOfEmployee;
+    private int mNumberOfStore;
     private String mNameError;
     private String mAddressError;
     private boolean mVisibleDescription;
     private int mDrawableExpandDescription;
-    private FeeTransportAdapter mFeeTransportAdapter;
-    private List<Long> mRemoveFeeTransportIds;
 
-    private MapFragment mMapFragment;
-
-    public CompanyProfileViewModel(Context context, MapFragment mapFragment, FeeTransportAdapter feeTransportAdapter) {
+    public CompanyProfileViewModel(Context context, Navigator navigator) {
         this.mContext = context;
-        this.mMapFragment = mapFragment;
+        mNavigator = navigator;
         mDrawableEdit = R.drawable.ic_edits_white;
         mDrawableExpandDescription = R.drawable.ic_next_right;
-        mFeeTransportAdapter = feeTransportAdapter;
-        mFeeTransportAdapter.setItemClickListener(this);
-        mRemoveFeeTransportIds = new ArrayList<>();
     }
 
     @Override
     public void onStart() {
         mPresenter.getCoverPictures();
         mPresenter.getCompanyInfo();
-
-        // Settup click map
-        mMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                // Settup click
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        googleMap.clear();
-                        googleMap.addMarker(new MarkerOptions().position(latLng));
-                        mCompany.setLat((float) latLng.latitude);
-                        mCompany.setLng((float) latLng.longitude);
-                    }
-                });
-            }
-        });
-
     }
 
     @Override
@@ -109,13 +88,13 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
 
     @Override
     public void onClickEdit() {
-        if (mEnable) {
-           boolean isValidate = mPresenter.validateDataInput(mCompany.getName(), mCompany.getAddress());
-           if (!isValidate) return;
-
-           mPresenter.updateCompanyInfo(mCompany, mRemoveFeeTransportIds);
-           mFeeTransportAdapter.notifyDataSetChanged();
-        }
+//        if (mEnable) {
+//           boolean isValidate = mPresenter.validateDataInput(mCompany.getName(), mCompany.getAddress());
+//           if (!isValidate) return;
+//
+//           mPresenter.updateCompanyInfo(mCompany, mRemoveFeeTransportIds);
+//           mFeeTransportAdapter.notifyDataSetChanged();
+//        }
 
         mEnable = !mEnable;
         notifyPropertyChanged(BR.enable);
@@ -125,24 +104,13 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     }
 
     @Override
-    public void setCompanyInfo(Company company, int totalStaff) {
+    public void setCompanyInfo(CompanyContext company, int numberOfEmployee, int numberOfStore) {
         mCompany = company;
-        mStaffCount = totalStaff;
+        mNumberOfEmployee = numberOfEmployee;
+        mNumberOfStore = numberOfStore;
         notifyPropertyChanged(BR.company);
-        notifyPropertyChanged(BR.staffCount);
-
-        //Move to address on Map
-        mMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                // Move to Address
-                googleMap.clear();
-                LatLng addressLatLng = new LatLng(mCompany.getLat(), mCompany.getLng());
-                googleMap.addMarker(new MarkerOptions().position(addressLatLng));
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(addressLatLng, 13));
-            }
-        });
-
+        notifyPropertyChanged(BR.numberOfEmployee);
+        notifyPropertyChanged(BR.numberOfStore);
     }
 
     @Override
@@ -160,31 +128,6 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     @Override
     public void onBackPressed() {
         ((Activity) mContext).onBackPressed();
-    }
-
-    @Override
-    public void onClickPosition() {
-        mMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                googleMap.clear();
-                LocationServices.getFusedLocationProviderClient(mContext)
-                        .getLastLocation().
-                        addOnSuccessListener((Activity) mContext, new OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                if (location != null) {
-                                    LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                                    googleMap.addMarker(new MarkerOptions().position(currentPosition));
-                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
-                                    mCompany.setLat((float) location.getLatitude());
-                                    mCompany.setLng((float) location.getLongitude());
-                                }
-                            }
-                        });
-            }
-        });
-
     }
 
     @Override
@@ -241,13 +184,14 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     }
 
     @Override
-    public void onSetFeeTransport(RealmList<FeeTransport> feeTransports) {
-        mFeeTransportAdapter.setData(feeTransports);
+    public void updateAddress(Place place) {
+        mCompany.setAddress(place.getAddress());
+        notifyPropertyChanged(BR.company);
     }
 
     @Override
-    public void addFeeTransport() {
-        mFeeTransportAdapter.addItem();
+    public void onPlaceClick() {
+        mNavigator.startActivityForResult(PlaceActivity.class, CompanyProfileActivity.ADDRESS);
     }
 
     @Bindable
@@ -266,7 +210,7 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     }
 
     @Bindable
-    public Company getCompany() {
+    public CompanyContext getCompany() {
         return mCompany;
     }
 
@@ -291,17 +235,12 @@ public class CompanyProfileViewModel extends BaseObservable implements CompanyPr
     }
 
     @Bindable
-    public int getStaffCount() {
-        return mStaffCount;
+    public String getNumberOfEmployee() {
+        return String.valueOf(mNumberOfEmployee);
     }
 
-    public FeeTransportAdapter getFeeTransportAdapter() {
-        return mFeeTransportAdapter;
-    }
-
-    @Override
-    public void onItemRecyclerViewClick(Object item) {
-        mFeeTransportAdapter.removeItem((FeeTransport) item);
-        mRemoveFeeTransportIds.add(((FeeTransport) item).getId());
+    @Bindable
+    public String getNumberOfStore() {
+        return String.valueOf(mNumberOfStore);
     }
 }

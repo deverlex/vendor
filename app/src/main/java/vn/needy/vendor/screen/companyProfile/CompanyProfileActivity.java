@@ -1,18 +1,17 @@
 package vn.needy.vendor.screen.companyProfile;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.widget.ScrollView;
 
-import io.realm.RealmList;
 import vn.needy.vendor.R;
-import vn.needy.vendor.database.sharedprf.SharedPrefsApi;
 import vn.needy.vendor.databinding.ActivityCompanyProfileBinding;
-import vn.needy.vendor.domain.FeeTransport;
+import vn.needy.vendor.model.Place;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.service.VendorServiceClient;
 import vn.needy.vendor.screen.BaseActivity;
-import vn.needy.vendor.widget.WorkaroundMapFragment;
+import vn.needy.vendor.screen.place.PlaceActivity;
+import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by truongpq on 04/12/2017.
@@ -20,11 +19,11 @@ import vn.needy.vendor.widget.WorkaroundMapFragment;
 
 public class CompanyProfileActivity extends BaseActivity {
 
-    private CompanyProfileContract.ViewModel mViewModel;
-    private SharedPrefsApi mPrefsApi;
-    private VendorApi mVendorApi;
+    protected static final int ADDRESS = 1;
 
-    private ScrollView mScrollView;
+    private CompanyProfileContract.ViewModel mViewModel;
+    private VendorApi mVendorApi;
+    private Navigator mNavigator;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
@@ -32,23 +31,9 @@ public class CompanyProfileActivity extends BaseActivity {
         ActivityCompanyProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_company_profile);
 
         mVendorApi = VendorServiceClient.getInstance();
+        mNavigator = new Navigator(this);
 
-        mScrollView = (ScrollView) findViewById(R.id.sv_container);
-
-        WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
-
-        mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
-            @Override
-            public void onTouch() {
-                mScrollView.requestDisallowInterceptTouchEvent(true);
-            }
-        });
-
-
-        RealmList<FeeTransport> feeTransports = new RealmList<>();
-        FeeTransportAdapter feeTransportAdapter = new FeeTransportAdapter(this, feeTransports);
-        mViewModel = new CompanyProfileViewModel(this, mapFragment, feeTransportAdapter);
+        mViewModel = new CompanyProfileViewModel(this, mNavigator);
 
         CompanyProfileContract.Presenter presenter= new CompanyProfilePresenter(mViewModel, mVendorApi);
         mViewModel.setPresenter(presenter);
@@ -56,5 +41,14 @@ public class CompanyProfileActivity extends BaseActivity {
         mViewModel.onStart();
 
         binding.setViewModel((CompanyProfileViewModel) mViewModel);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADDRESS && resultCode == PlaceActivity.RC_OK) {
+            Place place = data.getExtras().getParcelable(PlaceActivity.PLACE);
+            mViewModel.updateAddress(place);
+        }
     }
 }

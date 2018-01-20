@@ -67,6 +67,13 @@ public interface VendorApi {
     @POST("v1/companies")
     Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
 
+    @GET("v1/companies/{company_id}/details")
+    Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInfo(@Path(value = "company_id") long companyId);
+
+    @PUT("v1/companies/{company_id}/details")
+    Observable<ResponseWrapper> updateCompanyInfo(@Path(value = "company_id") String companyId,
+                                                         @Body RequestWrapper<UpdateCompanyInfoRequest> infoRequest);
+
     @POST("v1/stores")
     Observable<ResponseWrapper<CreateStoreRespone>> createStore(@Query("company_id") long companyId,
                                                                 @Body RequestWrapper<CreateStoreRequest> request);
@@ -84,10 +91,6 @@ public interface VendorApi {
 
     @GET("v1/companies/{company_id}/informations/details")
     Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInformation(@Path(value = "company_id") String companyId);
-
-    @PUT("v1/companies/{company_id}/informations/details")
-    Observable<ResponseWrapper> updateCompanyInformation(@Path(value = "company_id") String companyId,
-                                                         @Body RequestWrapper<UpdateCompanyInfoRequest> infoRequest);
 
     @GET("v1/categories/{category}/childs")
     Observable<ResponseWrapper<CategoriesResponse>> getCategories(@Path("category") String category);

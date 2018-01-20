@@ -6,6 +6,8 @@ import io.realm.RealmList;
 import ss.com.bannerslider.banners.Banner;
 import vn.needy.vendor.domain.Company;
 import vn.needy.vendor.domain.FeeTransport;
+import vn.needy.vendor.model.Place;
+import vn.needy.vendor.repository.remote.company.context.CompanyContext;
 import vn.needy.vendor.screen.BasePresenter;
 import vn.needy.vendor.screen.BaseViewModel;
 
@@ -19,15 +21,13 @@ public class CompanyProfileContract {
 
         void onClickEdit();
 
-        void setCompanyInfo(Company company, int totalStaff);
+        void setCompanyInfo(CompanyContext company, int numberOfCompany, int numberOfStore);
 
         void onInputNameError(String errorMsg);
 
         void onInputAddressError(String msg);
 
         void onBackPressed();
-
-        void onClickPosition();
 
         void onClickFoundedDate();
 
@@ -37,9 +37,9 @@ public class CompanyProfileContract {
 
         void onClickDescription();
 
-        void onSetFeeTransport(RealmList<FeeTransport> feeTransports);
+        void updateAddress(Place place);
 
-        void addFeeTransport();
+        void onPlaceClick();
     }
 
     interface Presenter extends BasePresenter {

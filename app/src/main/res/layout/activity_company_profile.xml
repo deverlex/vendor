@@ -238,7 +238,7 @@
                     android:background="@color/color_white">
 
                     <TextView
-                        android:id="@+id/headerNumberStaff"
+                        android:id="@+id/headerNumberEmployee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@string/font_serif"
@@ -250,10 +250,42 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
-                        android:text="@{Integer.toString(viewModel.staffCount)}"
+                        android:text="@{viewModel.numberOfEmployee}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/headerNumberStaff"
+                        android:layout_below="@+id/headerNumberEmployee"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:id="@+id/headerNumberStore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Số cửa hàng"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:text="@{viewModel.numberOfStore}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerNumberStore"
                         android:fontFamily="@string/font_serif"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_10"
@@ -424,45 +456,6 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:onClick="@{() -> viewModel.addFeeTransport()}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_1"
-                    android:background="@color/color_white"
-                    android:clickable="@{viewModel.enable}">
-
-                    <TextView
-                        android:id="@+id/headerFreeTransport"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@string/font_serif"
-                        android:paddingLeft="@dimen/dp_10"
-                        android:paddingTop="@dimen/dp_10"
-                        android:text="Phí vận chuyển"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sp_13"
-                        tools:ignore="UnusedAttribute" />
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:background="@color/transparent"
-                        android:padding="@dimen/dp_10"
-                        app:srcCompat="@drawable/ic_plus" />
-                </RelativeLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    app:layoutManager="LinearLayoutManager"
-                    app:recyclerAdapter="@{viewModel.feeTransportAdapter}"
-                    />
-
-                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_1"
@@ -512,7 +505,7 @@
                         app:srcVector="@{viewModel.drawableExpandDescription}" />
                 </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
@@ -524,6 +517,8 @@
                     android:paddingTop="@dimen/dp_10">
 
                     <TextView
+                        android:layout_toLeftOf="@+id/map"
+                        android:layout_toStartOf="@+id/map"
                         android:id="@+id/headerAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -534,6 +529,9 @@
                         tools:ignore="UnusedAttribute" />
 
                     <EditText
+                        android:layout_toLeftOf="@+id/map"
+                        android:layout_toStartOf="@+id/map"
+                        android:layout_below="@+id/headerAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_text"
@@ -551,26 +549,18 @@
                         android:textSize="@dimen/sp_14"
                         app:errorText="@{viewModel.addressError}"
                         tools:ignore="UnusedAttribute" />
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/map"
-                        class="vn.needy.vendor.widget.WorkaroundMapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_250" />
 
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:clickable="@{viewModel.enable}"
+                        android:id="@+id/map"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_35"
+                        app:srcCompat="@drawable/ic_map_marker"
+                        android:background="@color/color_white"
                         android:layout_alignParentRight="true"
-                        android:background="@color/transparent"
-                        android:onClick="@{() -> viewModel.onClickPosition()}"
-                        android:padding="@dimen/dp_10"
-                        app:srcCompat="@drawable/ic_get_location" />
+                        android:layout_alignParentEnd="true"
+                        android:onClick="@{() -> viewModel.onPlaceClick()}"/>
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>
