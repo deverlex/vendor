@@ -1,42 +1,349 @@
 <resources>
     <string name="app_name">Needy - Quản lý</string>
+    <string name="app_version">Needy v0.0.9</string>
 
+    <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
     <string name="font_serif">serif</string>
 
+    <string name="next">Tiếp theo</string>
+    <string name="action_yes">Có</string>
+    <string name="action_no">Không</string>
+    <string name="OK">Đồng ý</string>
+    <string name="please_wait">Vui lòng chờ..</string>
+    <string name="done">Hoàn tất</string>
+
+    <!--For activity_login-->
     <string name="phone_number">Số điện thoại</string>
     <string name="password">Mật khẩu</string>
-    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="forgot_password"><u>Quên mật khẩu?</u></string>
     <string name="login">Đăng nhập</string>
-    <string name="register_account">Đăng ký</string>
+    <string name="register_account"><u>Đăng ký</u></string>
+    <string name="error_service">Lỗi kết nối dịch vụ</string>
+    <string name="error_credential">Số điện thoại hoặc mật khẩu không chính xác</string>
 
+    <string name="validate_phone">XÁC MINH SỐ ĐIỆN THOẠI</string>
+    <string name="intro_validate_phone">Vui lòng nhập vào số điện thoại và mật khẩu.</string>
+    <string name="intro_validate_opt">Vui lòng nhập vào mã xác minh và nhấn <b>hoàn tất</b></string>
+    <string name="otp_code">Mã xác minh</string>
+    <string name="otp_code_invalid">Mã xác minh không đúng</string>
+    <string name="otp_code_empty">Mã xác minh trống</string>
+    <string name="resend_over_limit">Vượt quá số lần yêu cầu, xin chờ.</string>
+    <string name="validation_error">Có lỗi xảy ra, thử lại.</string>
+    <string name="waiting_otp">Chờ %1$s giây để yêu cầu gửi lại mã xác minh.</string>
+    <string name="error_connection">Vui lòng bật kết nối internet để đăng ký</string>
+
+    <!--For activity_register_user -->
     <string name="create_new_account">TẠO TÀI KHOẢN</string>
-    <string name="first_name">Họ và tên đệm</string>
-    <string name="last_name">Tên</string>
     <string name="gender">Giới tính</string>
     <string name="male">Nam</string>
     <string name="female">Nữ</string>
     <string name="home_address">Địa chỉ nhà riêng</string>
-    <string name="next">Tiếp theo</string>
+    <string name="home_address_empty">Địa chỉ nhà riêng rỗng</string>
 
     <string name="get_new_password">LẤY MẬT KHẨU MỚI</string>
-    <string name="intro_get_new_password">Vui lòng nhập số điện thoại đã đăng ký để\nthiết lập mật khẩu mới</string>
+    <string name="intro_get_new_password">Vui lòng nhập số điện thoại đã đăng ký để thiết lập mật khẩu mới</string>
     <string name="not_have_account">Chưa đăng ký tài khoản?</string>
 
-    <string name="validate_opt">XÁC THỰC TÀI KHOẢN</string>
-    <string name="intro_validate_otp">Vui lòng nhập vào mã xác thực OTP\nnhận được từ hệ thống qua SMS\nđể kích hoạt tài khoản.</string>
-    <string name="otp_code">Nhập mã OTP</string>
-    <string name="done">Hoàn tất</string>
+    <string name="find_user_exist_error">Số điện thoại chưa đăng ký</string>
 
-    <string name="reset_password">ĐẶT LẠI MẬT KHẨU</string>
+    <string name="reset_password">Đặt lại mật khẩu</string>
     <string name="new_password">Mật khẩu mới</string>
-    <string name="intro_reset_password"></string>
-    <string name="get_new_otp">Cấp lại mã OTP</string>
-    <string name="waiting_otp">Chờ %1$s giây</string>
-    
-    <string name="register_company">Đăng ký hệ thống</string>
-    <string name="intro_register_company">Hỗ trợ đăng ký</string>
-    <string name="company_name">Tên công ty/tổ chức</string>
-    <string name="office_address">Địa chỉ công ty/tổ chức</string>
+    <string name="intro_reset_password">Vui lòng nhập mật khẩu mới và nhấn nút hoàn tất</string>
+    <string name="get_new_otp"><u>Cấp lại mã xác minh</u></string>
+
+    <string name="quick_register_company">Đăng ký công ty nhanh</string>
+    <string name="intro_register_company"><b>Hỗ trợ đăng ký</b></string>
+    <string name="company_name">Tên công ty</string>
+    <string name="office_address">Địa chỉ công ty</string>
     <string name="store_name">Tên cửa hàng</string>
     <string name="store_address">Địa chỉ cửa hàng</string>
+    <string name="policies"><u>Điều khoản</u></string>
+
+    <string name="company_name_empty">Tên công ty rỗng</string>
+    <string name="office_address_empty">Địa chỉ công ty rỗng</string>
+    <string name="opening_time_empty">Chưa thiết lập thời gian mở cửa</string>
+    <string name="closing_time_empty">Chưa thiết lập thời gian đóng cửa</string>
+    <string name="store_name_empty">Tên cửa hàng rỗng</string>
+    <string name="store_address_empty">Địa chỉ cửa hàng rỗng</string>
+
+
+    <string name="main_page_tab">Cửa hàng</string>
+    <string name="order_tab">Đơn hàng</string>
+    <string name="notification_tab">Thông báo</string>
+    <string name="personal_tab">Tôi</string>
+
+    <string name="enable_location">Bật vị trí</string>
+    <string name="alert_location">Cài đặt vị trí của bạn bị tắt, vui lòng bật để tiếp tục.</string>
+    <string name="cancel_open_location">Thoát</string>
+    <string name="goto_location_setting">Cài đặt vị trí</string>
+    
+    <string name="phone_number_empty">Số điện thoại rỗng</string>
+    <string name="password_empty">Mật khẩu rỗng</string>
+    <string name="password_over_limit">Tối đa 32 ký tự</string>
+    <string name="is_not_phone_number">Không đúng định dạng</string>
+    <string name="password_miss_length">Mật khẩu cần ít nhất 8 ký tự</string>
+
+    <string name="first_name_empty">Họ và tên đệm rỗng</string>
+    <string name="last_name_empty">Tên rỗng</string>
+
+    <string name="categories">Danh mục</string>
+    <string name="order_by">Sắp xếp th</string>
+    <string name="store_manager">Quản lý cửa hàng</string>
+
+    <string name="budget">Ngân sách</string>
+    <string name="view_budget">Xem ngân sách của tôi</string>
+    <string name="account">Tài khoản</string>
+    <string name="info_personal">Thông tin cá nhân</string>
+    <string name="info_new_company">Công ty mới</string>
+    <string name="register">Đăng ký</string>
+    <string name="view_account">Xem tài khoản của tôi</string>
+    <string name="order_history">Đơn hàng</string>
+    <string name="view_order_history">Xem lịch sử đơn hàng</string>
+    <string name="support">Trợ giúp</string>
+    <string name="view_support">Xem trợ giúp</string>
+    <string name="business">Quản lý kinh doanh</string>
+    <string name="view_business">Chi tiết</string>
+    <string name="store">Cửa hàng</string>
+    <string name="view_store">Xem cửa hàng của tôi</string>
+
+    <string name="view_more">Xem thêm</string>
+
+    <!--Add new product-->
+    <string name="name_product">Tên sản phẩm</string>
+    <string name="limit_length_name_product">120</string>
+    <string name="product_describe">Mô tả sản phẩm</string>
+    <string name="product_promotion">Khuyến mại</string>
+    <string name="product_promotion_input">Thêm khuyến mại</string>
+    <string name="category_choose">Chọn danh mục</string>
+    <string name="product_price_input">Đặt giá</string>
+    <string name="quantity_stock">Kho hàng</string>
+    <string name="quantity">Số lượng</string>
+    <string name="producer">Nhà sản xuất</string>
+    <string name="fee_transport">Phí vận chuyển</string>
+    <string name="fee_transport_expand">Nhập phí vận chuyển cho khoảng cách mỗi Kilômét. Bạn có thể thay đổi phí này trên mỗi đơn hàng của khách.</string>
+    <string name="add_hashtag">Thêm hashtags</string>
+    <string name="attrs">Thuộc tính</string>
+    <string name="add_attrs">Thêm thuộc tính</string>
+    <string name="add_product_pn">Thêm vật tư</string>
+    <string name="input_value_attr">Nhập vào</string>
+    <string name="add_attrs_input">Thiết lập thuộc tính mô tả</string>
+    <string name="add_product">Thêm sản phẩm</string>
+
+    <string name="add_service">Thêm dịch vụ</string>
+    <string name="name_service">Tên dịch vụ</string>
+    <string name="service_describe">Mô tả dịch vụ</string>
+    <string name="fee_move">Phí di chuyển</string>
+    <string name="price">Đơn giá</string>
+    <string name="fee_move_expand">Phí di chuyên có thể áp dụng đối với các dịch vụ tại nhà khách hàng.
+        \nNhập phí di chuyển cho khoảng cách mỗi Kilômét.
+        Bạn có thể thay đổi phí này trên mỗi đơn hàng của khách.</string>
+    <string name="time_service">Thời gian dịch vụ</string>
+    <string name="time_service_input">Thời gian</string>
+    <string name="time_service_undefine">Chưa thiết lập</string>
+    <string name="product_dependency">Sản phẩm</string>
+    <string name="product_dependency_input">Thêm sản phẩm kèm theo</string>
+
+    <!--Thong tin don hang-->
+    <string name="order_detail">Thông tin đơn hàng</string>
+
+    <string name="info_transport">Thông tin vận chuyển</string>
+    <string name="schedule_receive_params">Nhận hàng lúc %1$s</string>
+    <string name="fee_transport_params">Phí vận chuyển <u>đ</u>%1$s</string>
+    <string name="pay_method">Phương thức thanh toán</string>
+    <string name="direct_payment">Thanh toán trực tiếp</string>
+    <string name="transfer_payment">Thanh toán chuyển khoản</string>
+    <string name="get_tax">Lấy hóa đơn VAT</string>
+    <string name="get_bill">Lấy hóa đơn thường</string>
+    <string name="user_review">Đánh giá người mua %1$s (%2$s đánh giá)</string>
+    <string name="order_note">Xem ghi chú của đơn hàng</string>
+    <string name="time_create_order">Đặt hàng lúc</string>
+    <string name="order_confirm">Xác nhận và xử lý</string>
+    <string name="order_cancel">Hủy đơn hàng</string>
+
+    <string name="complete">Hoàn thiện</string>
+    <string name="profile_personal">Hồ sơ cá nhân</string>
+    <string name="profile_company">Hồ sơ công ty</string>
+    <string name="profile_store">Hồ sơ cửa hàng</string>
+    <string name="company_number">Mã số công ty</string>
+    <string name="store_number">Mã số cửa hàng</string>
+    
+    <string name="bank_account">Tài khoản / Thẻ Ngân hàng</string>
+    <string name="setting">Cài đặt</string>
+    <string name="setting_notifications">Cài đặt thông báo</string>
+    <string name="setting_private">Cài đặt riêng tư</string>
+    <string name="block_user">Người dùng bị chặn</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="tips_and_tricks">Mẹo và thủ thuật</string>
+    <string name="community_standards">Tiêu chuẩn cộng đồng</string>
+    <string name="needy_rules">Điều khoản Needy</string>
+    <string name="vote_needy_app">Đánh giá dịch vụ Needy</string>
+    <string name="clear_cache">Xóa bộ nhớ đệm</string>
+    <string name="delete_account">Xóa tài khoản</string>
+    <string name="logout">Đăng xuất</string>
+
+    <string name="support_center">Trung tâm trợ giúp</string>
+    <string name="account_setting">Thiết lập tài khoản</string>
+
+    <string name="busy_state">Trạng thái bận</string>
+    <string name="busy_state_expand">Trạng thái bận cho phép tạm thời ngăn chặn khách hàng đặt đơn hàng mới.</string>
+    <string name="staff_empty">Chưa có nhân viên nào</string>
+    <string name="number_of_staff">Số nhân viên</string>
+    <string name="founded_date">Ngày thành lập</string>
+    <string name="not_set">Chưa thiết lập</string>
+    <string name="auto_generate_after_register">Tự động sinh sau khi đăng ký</string>
+    <string name="company_description">Mô tả công ty</string>
+    <string name="store_description">Mô tả cửa hàng</string>
+
+    <string name="update_order">Cập nhật đơn hàng</string>
+    <string name="read_all">Đọc tất cả</string>
+
+    <string name="complete_user_company_info">Tài khoản chưa kích hoạt, vui lòng hoàn thiện thông tin cá nhân và đăng ký công ty.</string>
+    <string name="complete_user_info">Tài khoản chưa kích hoạt, vui lòng hoàn thiện thông tin cá nhân.</string>
+    <string name="complete_company_info">Chưa có công ty, vui lòng đăng ký công ty.</string>
+
+    <string name="intro_company_name">Vui lòng để trùng tên cửa hàng nếu không có công ty</string>
+    <string name="intro_company_address">Vui lòng để trùng địa chỉ cửa hàng nếu không có công ty</string>
+
+    <string name="quick_active_user">Kích hoạt nhanh tài khoản</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="full_name_empty">Họ và tên rỗng</string>
+
+    <string name="all_category">Tất cả danh mục</string>
+
+    <string name="view">Xem</string>
+    <string name="delete">Xóa</string>
+    <string name="replace_image">Thay ảnh</string>
+    <string name="edit_image">Sửa ảnh</string>
+
+    <string name="complain">Khiếu nại</string>
+    <string name="complain_content">Nội dung khiếu nại</string>
+    <string name="complain_choose_order">Đơn hàng</string>
+    <string name="complain_choose_order_expand">Chọn để khiếu nại</string>
+
+    <string name="complain_add_image">Thêm ảnh mô tả</string>
+
+    <string name="staff">Nhân viên</string>
+    <string name="staff_manager">Quản lý nhân viên</string>
+    <string name="choose_category">Lựa chọn danh mục</string>
+
+    <string name="personal_setting_email">Ẩn email của tôi</string>
+    <string name="hint_note_mail">Người khác sẽ không thể thấy email của bạn trong hồ sơ nếu kích hoạt</string>
+    <string name="personal_setting_birthday">Ẩn ngày sinh của tôi</string>
+    <string name="hint_note_birthday">Người khác sẽ không thể thấy ngày sinh của bạn trong hồ sơ nếu kích hoạt</string>
+    <string name="personal_setting_sex">Ẩn giới tính của tôi</string>
+    <string name="hint_note_sex">Người khác sẽ không thể thấy giới tính của bạn trong hồ sơ nếu kích hoạt</string>
+    <string name="dialog_personal_email">Những người theo dõi bạn sẽ có thể thấy email của bạn </string>
+    <string name="dialog_personal_birthday">Những người theo dõi bạn sẽ có thể thấy ngày sinh của bạn </string>
+    <string name="dialog_personal_sex">Những người theo dõi bạn sẽ có thể thấy giới tính của bạn </string>
+
+    <string name="select_languge">Chọn ngôn ngữ</string>
+    <string name="languge_vietnam">Tiếng Việt</string>
+    <string name="languge_thai">ประเทศไทย</string>
+    <string name="languge_english">English</string>
+    <string name="languge_china">中国</string>
+
+    <string name="notification_setting_group">Bật để nhận được thông báo theo nhóm , mỗi hai giờ từ 08:00-22:00. Đề xuất
+    cho người bán hàng lớn</string>
+    <string name="notification_setting_group_name">Thông báo theo nhóm</string>
+    <string name="notification_setting_chat">Chat</string>
+    <string name="notification_setting_follow">Theo dõi và Bình luận</string>
+    <string name="notification_setting_product_end">Sản phẩm hết hàng</string>
+    <string name="notification_setting_update">Cập nhật app</string>
+    <string name="notification_email">Email Thông báo</string>
+    <string name="notification_email_order">Email nhận đơn</string>
+    <string name="notification_email_update_product">Thông tin đơn hàng</string>
+    <string name="notification_email_product_detail">Thông báo khi có cập nhật về đơn hàng , bao gồm cập nhật về thanh toán</string>
+    <string name="notification_email_app">Thông tin công ty/cửa hàng</string>
+    <string name="notification_email_app_detail">Thông tin của công ty hoặc cửa hàng</string>
+    <string name="notification_email_news">Bản tin</string>
+    <string name="notificatino_email_news_detail">Gửi cho tôi cập nhật về những thông báo, xu hướng và giảm giá mới nhất</string>
+    <string name="notification_email_personal">Nội dung Cá nhân</string>
+    <string name="notification_email_personal_detail">Gửi thông báo cá nhân cho tôi(VD: quá sinh nhật)</string>
+
+    <string name="text_block">Người dùng đã bị chặn sẽ không thể gọi hoặc gửi tin nhắn cho bạn.</string>
+    <string name="unblock">Bỏ chặn</string>
+    <string name="personal_block">Chưa có ai bị chặn</string>
+    <string name="dialog_block">Bỏ chặn ? \n"Bỏ chặn sẽ chấp nhận để chat , bình luận và mua sản phẩm của bạn.\n"Bạn có muốn bỏ chặn không ?\</string>
+
+    <string name="button_ok">OK</string>
+    <string name="button_cancel" >Cancel</string>
+
+
+    <string name="name_product_empty">Tên sản phẩm trống</string>
+    <string name="description_product_higher_60">Mô tả sản phẩm ít nhất 60 ký tự</string>
+    <string name="quantity_prduct_empty">Nhập số lượng sản phẩm</string>
+    <string name="price_product_empty">Nhập giá sản phẩm</string>
+    <string name="product_category_empty">Chọn danh mục</string>
+    <string name="product_attributes_empty">Thêm thuộc tính cho sản phẩm</string>
+
+
+    <string name="personal_view_coin">Xu đang có</string>
+    <string name="personal_distribution">Nhà phân phối tin cậy </string>
+    <string name="money_type">VND</string>
+
+    <string name="personal_history_income">Tất cả lịch sử</string>
+    <string name="personal_history_recharge">Đã nạp</string>
+    <string name="personal_history_subtract">Phí trừ</string>
+
+    <string name="personal_earns_coin">Làm sao để săn Deedy Xu</string>
+    <string name="personal_dialog_coin">Bạn chưa có Needy Xu. Bạn chỉ nhận được \n Needy Xu khi đơn hàng đã hoàn thành (sau khi \nbạn ấn Đã nhận được hàng).</string>
+
+
+    <string name="review_buyer">Đánh giá Buyer</string>
+    <string name="review_vendor">Đánh giá Vendor</string>
+    <string name="review">Đánh giá của tôi</string>
+    <string name="review_watch">Xem đánh giá của tôi</string>
+
+    <string name="attitude">Thái độ</string>
+    <string name="value">Giá trị</string>
+    <string name="quality">Chất lượng</string>
+
+    <string name="review_all">Tất cả (0)</string>
+    <string name="review_5star">5 sao (0)</string>
+    <string name="review_4star">4 sao (0)</string>
+    <string name="review_3star">3 sao (0)</string>
+    <string name="review_2star">2 sao (0)</string>
+    <string name="review_1star">1 sao (0)</string>
+
+    <string name="personal_comment">Bình luận</string>
+    <string name="review_vendor_info">Chưa có đánh giá nào từ người mua hàng dành cho bạn</string>
+    <string name="review_buyer_info">Chưa có đánh giá nào từ người bán hàng dành cho bạn</string>
+    <string name="shops_thanks">Cảm ơn bạn đã ủng hộ ạ!</string>
+    <string name="reviews_cargo">Không tìm thấy đánh giá nào</string>
+
+    <string name="personal_feedback">Phản Hồi Của Bạn</string>
+    <string name="personal_note_feedback">Bạn chỉ có thể phản hồi 1 lần</string>
+
+    <string name="business_name_product">Product</string>
+    <string name="business_product">Sản phẩm</string>
+    <string name="business_index">Chỉ số bán hàng</string>
+    <string name="business_customer">Khách hàng</string>
+    <string name="business_store_setting">Thiết lập cửa hàng</string>
+    <string name="business_company">Hồ sơ công ty</string>
+    <string name="business_store">Hồ sơ cửa hàng</string>
+    <string name="business_channel_seller">Kênh người bán</string>
+    
+    <string name="sale_performance">Hiệu quả bán hàng</string>
+    <string name="saleindex_achievement">Chi tiết</string>
+
+    <string name="saleindex_ratio">Tỉ lệ phản hồi</string>
+    <string name="saleindex_time">Thời gian phản hồi</string>
+    <string name="saleindex_ratio_prosperous">Tỉ lệ không thành công</string>
+    <string name="saleindex_vote">Đánh giá</string>
+
+    <string name="violate_statistic">Điểm phạt</string>
+    <string name="violate_rule">Quy định</string>
+    <string name="violate_view_statistic">Xem điểm phạt</string>
+    <string name="violate_statistic_level">Các mức phạt hiện tại</string>
+    <string name="violate_statistic_history">Lịch sử phạt</string>
+    <string name="violate_statistic_dialog">Shop bạn không bị điểm phạt nào trong quý này.\nHãy giữ vững thành tích này nhé </string>
+    <string name="violate_statistic_counterfeiting">Hàng giả , hàng nhái</string>
+    <string name="violate_statistic_parrot">Sản phẩm trùng lặp</string>
+    <string name="violate_product_disallowance">Các sản phẩm cấm</string>
+    <string name="violate_ratio_prosper">Tỉ lệ đơn hàng không thành công cao</string>
+    <string name="violate_ratio_late">Tỉ lệ giao hàng trễ</string>
+    <string name="violate_ratio_unreal">Giao dịch ảo</string>
+    <string name="logout_error">Đăng xuất thất bại</string>
+    <string name="address_name_empty">Tên trống</string>
+    <string name="address_empty">Địa chỉ trống</string>
 </resources>

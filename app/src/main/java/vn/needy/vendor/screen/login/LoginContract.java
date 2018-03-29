@@ -9,9 +9,13 @@ public interface LoginContract {
 
         void onLoginSuccess();
 
-        void onInputPhoneNumberError();
+        void onLoginError(int errorMsg);
 
-        void onInputPasswordError();
+        void onLoginError(String message);
+
+        void onInputPhoneNumberError(int errorMsg);
+
+        void onInputPasswordError(int errorMsg);
 
         void onLoginClick();
 
@@ -23,11 +27,20 @@ public interface LoginContract {
 
         void onHideProgressBar();
 
+        void onViewPasswordClick();
+
+        void onPasswordTextChanged(CharSequence s, int start, int before, int count);
+
+        void onToMainPage();
+
+        void onToRegisterCompany();
     }
 
     interface Presenter extends BasePresenter {
         void login(String phoneNumber, String passWord);
 
         boolean validateDataInput(String phoneNumber, String passWord);
+
+        void findCompany();
     }
 }

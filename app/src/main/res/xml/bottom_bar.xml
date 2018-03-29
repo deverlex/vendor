@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+
+    <tab
+        id="@+id/store"
+        icon="@drawable/ic_store_24dp"
+        title="@string/main_page_tab"/>
+
+    <tab
+        id="@+id/order"
+        icon="@drawable/ic_cart_24dp"
+        title="@string/order_tab" />
+
+    <tab
+        id="@+id/notification"
+        icon="@drawable/ic_bell_24dp"
+        title="@string/notification_tab" />
+
+    <tab
+        id="@+id/personal"
+        icon="@drawable/ic_account_24dp"
+        title="@string/personal_tab" />
+</tabs>

@@ -1,0 +1,381 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray_white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                app:srcCompat="@drawable/ic_back_left"
+                android:background="@color/transparent"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/back"
+                android:layout_centerVertical="true"
+                android:text="@string/order_detail"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_18"
+                />
+            <ImageButton
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                app:srcCompat="@drawable/ic_copy_white"
+                android:background="@color/transparent"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:drawableLeft="@drawable/ic_shopping"
+        android:background="@color/color_white"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableStart="@drawable/ic_shopping"
+        android:fontFamily="@string/font_serif"
+        android:text="Người đặt hàng đã giao dịch thành công 500 đơn hàng. Tỷ lệ thành công: 96%"
+        android:textSize="@dimen/sp_12"
+        android:textAllCaps="false"
+        android:textColor="@color/color_black"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:drawableLeft="@drawable/ic_star_outline"
+        android:background="@color/color_white"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableStart="@drawable/ic_star_outline"
+        android:drawableRight="@drawable/ic_next_right"
+        android:drawableEnd="@drawable/ic_next_right"
+        android:fontFamily="@string/font_serif"
+        android:textSize="@dimen/sp_12"
+        android:text="Đánh giá người mua: 0/5 (0 đánh giá)"
+        android:textAllCaps="false"
+        android:textColor="@color/color_black"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_15"
+        android:drawableLeft="@drawable/ic_truck_fast"
+        android:background="@color/color_white"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableStart="@drawable/ic_truck_fast"
+        android:fontFamily="@string/font_serif"
+        android:textSize="@dimen/sp_12"
+        android:text="Thông tin vận chuyển"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="@color/color_black"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_20"
+        android:background="@color/color_white"
+        android:drawableLeft="@drawable/ic_map_marker_mini"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableStart="@drawable/ic_map_marker_mini"
+        android:drawableRight="@drawable/ic_google_maps"
+        android:drawableEnd="@drawable/ic_google_maps"
+        android:fontFamily="@string/font_serif"
+        android:textSize="@dimen/sp_12"
+        android:text="Nguyen Van Do\n16 Le Quy Don, Hai Ba Trung"
+        android:textAllCaps="false"
+        android:textColor="@color/gray70"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_10"
+        android:drawableLeft="@drawable/ic_calendar_clock_mini"
+        android:background="@color/color_white"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableStart="@drawable/ic_calendar_clock_mini"
+        android:fontFamily="@string/font_serif"
+        android:text="Nhận hàng lúc 10:00 AM - 06:00 PM 27/10/17"
+        android:textSize="@dimen/sp_12"
+        android:textAllCaps="false"
+        android:textColor="@color/color_black"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_10"
+        android:background="@color/color_white"
+        android:drawableLeft="@drawable/ic_credit_card_mini"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableStart="@drawable/ic_credit_card_mini"
+        android:drawableRight="@drawable/ic_rewrite"
+        android:drawableEnd="@drawable/ic_rewrite"
+        android:fontFamily="@string/font_serif"
+        android:textSize="@dimen/sp_12"
+        android:text="Phí vận chuyển đ 20.000"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:layout_marginTop="@dimen/dp_15"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:fontFamily="@string/font_serif"
+        android:textSize="@dimen/sp_12"
+        android:text="Phương thức thanh toán"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:drawableLeft="@drawable/ic_credit_card"
+        android:background="@color/color_white"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableStart="@drawable/ic_credit_card"
+        android:fontFamily="@string/font_serif"
+        android:textSize="@dimen/sp_12"
+        android:text="Thanh toán trực tiếp"
+        android:textAllCaps="false"
+        android:textColor="@color/color_black"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_5"
+        android:layout_marginLeft="@dimen/dp_2"
+        android:drawableLeft="@drawable/ic_bill"
+        android:background="@color/color_white"
+        android:drawablePadding="@dimen/dp_12"
+        android:drawableStart="@drawable/ic_bill"
+        android:fontFamily="@string/font_serif"
+        android:textSize="@dimen/sp_12"
+        android:text="Lấy hóa đơn VAT"
+        android:textAllCaps="false"
+        android:textColor="@color/color_black"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:layout_marginTop="@dimen/dp_15"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:drawableLeft="@drawable/ic_account"
+            android:drawablePadding="@dimen/dp_10"
+            android:drawableStart="@drawable/ic_account"
+            android:fontFamily="@string/font_serif"
+            android:textSize="@dimen/sp_14"
+            android:text="Nguyen Van Do"
+            android:textAllCaps="false"
+            android:textColor="@color/color_black"
+            android:gravity="center_vertical"
+            tools:ignore="UnusedAttribute"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dp_15"
+            android:background="@color/color_white"
+            android:fontFamily="@string/font_serif"
+            android:textSize="@dimen/sp_16"
+            android:text="đ 20.000.000"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:gravity="end|center_vertical"
+            android:layout_weight="1"
+            tools:ignore="UnusedAttribute"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_1"
+        android:layout_marginBottom="@dimen/dp_1"
+        android:background="@color/color_white"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_10"
+            android:fontFamily="@string/font_serif"
+            android:text="ID Đơn hàng"
+            android:textSize="@dimen/sp_14"
+            android:textAllCaps="false"
+            android:textColor="@color/gray70"
+            tools:ignore="UnusedAttribute"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@string/font_serif"
+            android:text="1562876387JUWH"
+            android:textSize="@dimen/sp_14"
+            android:textAllCaps="false"
+            android:textColor="@color/gray70"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_5"
+            tools:ignore="UnusedAttribute"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_10"
+            android:fontFamily="@string/font_serif"
+            android:text="Thời gian đặt"
+            android:textSize="@dimen/sp_14"
+            android:textAllCaps="false"
+            android:textColor="@color/gray70"
+            tools:ignore="UnusedAttribute"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dp_10"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@string/font_serif"
+            android:text="10:00 AM 27/10/17"
+            android:textSize="@dimen/sp_14"
+            android:textAllCaps="false"
+            android:textColor="@color/gray70"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_5"
+            tools:ignore="UnusedAttribute"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:drawableLeft="@drawable/ic_transcribe"
+        android:background="@color/color_white"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableStart="@drawable/ic_transcribe"
+        android:drawableRight="@drawable/ic_next_right"
+        android:drawableEnd="@drawable/ic_next_right"
+        android:fontFamily="@string/font_serif"
+        android:textSize="@dimen/sp_12"
+        android:text="Ghi chú của đơn hàng"
+        android:textAllCaps="false"
+        android:textColor="@color/color_black"
+        android:gravity="center_vertical"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:padding="@dimen/dp_8"
+        android:background="@drawable/border_button"
+        android:fontFamily="@string/font_serif"
+        android:text="Xác nhận và xử lý"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:padding="@dimen/dp_8"
+        android:background="@drawable/border_button"
+        android:fontFamily="@string/font_serif"
+        android:text="Từ chối đơn hàng"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+</LinearLayout>

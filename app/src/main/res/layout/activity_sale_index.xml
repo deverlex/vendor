@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.saleIndex.SaleIndexViewModel"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_white_light"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/back"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/transparent"
+                    android:onClick="@{ () -> viewModel.onBackPressed()}"
+                    app:srcCompat="@drawable/ic_back_left" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/back"
+                    android:text="@string/sale_performance"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_16" />
+
+                <ImageButton
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/transparent"
+                    app:srcCompat="@drawable/ic_message_white" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_white">
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@{@drawable/ic_chat_white}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableStart="@{@drawable/ic_chat_white}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="@string/saleindex_ratio"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dp_20"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:hint="50%"
+                android:text="@{viewModel.ratio}"
+                android:textColor="@color/color_red_mos"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_white"
+            android:layout_marginTop="@dimen/dp_1">
+
+            <TextView
+                android:drawableStart="@{@drawable/ic_alarmclock}"
+                android:drawableLeft="@{@drawable/ic_alarmclock}"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/dp_10"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="@string/saleindex_time"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_20"
+                android:text="Trong vòng vài phút"
+                android:textColor="@color/color_orange_mos"
+                android:textSize="@dimen/sp_12"
+                tools:ignore="UnusedAttribute" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_white"
+            android:layout_marginTop="@dimen/dp_1">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@{@drawable/ic_rating}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableStart="@{@drawable/ic_rating}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="@string/saleindex_vote"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_centerVertical="true"
+                android:hint="5.0 / 5.0"
+                android:text="@{viewModel.voteSaleIndex}"
+                android:textColor="@color/color_orange_mos"
+                android:layout_toLeftOf="@id/txtVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableEnd="@{@drawable/ic_next_right}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableRight="@{@drawable/ic_next_right}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="(1 đáng giá)"
+                android:textColor="@color/gray78"
+                android:textSize="@dimen/sp_12"
+                tools:ignore="UnusedAttribute" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_white"
+            android:layout_marginTop="@dimen/dp_1">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@{@drawable/ic_bill_color}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableStart="@{@drawable/ic_bill_color}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="@string/saleindex_ratio_prosperous"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableEnd="@{@drawable/ic_next_right}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableRight="@{@drawable/ic_next_right}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_11"
+                android:text="Chưa có tỉ lệ"
+                android:textColor="@color/gray78"
+                android:textSize="@dimen/sp_10"
+                tools:ignore="UnusedAttribute" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:onClick="@{() -> viewModel.onClickViolateStatistic()}"
+            android:background="@color/color_white"
+            android:layout_marginTop="@dimen/dp_1">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@{@drawable/ic_lighting}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableStart="@{@drawable/ic_lighting}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="@string/violate_statistic"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableEnd="@{@drawable/ic_next_right}"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableRight="@{@drawable/ic_next_right}"
+                android:fontFamily="@string/font_serif"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:hint="0"
+                android:text="@{viewModel.indexWeigh}"
+                android:textColor="@color/gray78"
+                android:textSize="@dimen/sp_12"
+                tools:ignore="UnusedAttribute" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

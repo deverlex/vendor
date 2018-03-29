@@ -5,13 +5,16 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.ViewConfiguration;
 
 import java.lang.reflect.Field;
 import java.util.Locale;
+
+import vn.needy.vendor.R;
+
 /**
  * Created by lion on 24/09/2017.
  */
@@ -52,7 +55,7 @@ public class BaseActivity  extends AppCompatActivity {
         }
     }
 
-    protected void prepareCreate(){}
+    protected void prepareCreate() {}
 
     protected void onCreateActivity(Bundle savedInstanceState) {}
 
@@ -60,13 +63,19 @@ public class BaseActivity  extends AppCompatActivity {
 
     protected <T extends Fragment> T initFragment(@IdRes int target,
                                                   @NonNull T fragment) {
-        return initFragment(target, fragment, null);
+        return initFragment(target, fragment, null, null);
     }
 
     protected <T extends Fragment> T initFragment(@IdRes int target,
                                                   @NonNull T fragment,
                                                   @Nullable Locale locale) {
         return initFragment(target, fragment, locale, null);
+    }
+
+    protected <T extends Fragment> T initFragment(@IdRes int target,
+                                                  @NonNull T fragment,
+                                                  @Nullable Bundle extras) {
+        return initFragment(target, fragment, null, extras);
     }
 
     protected <T extends Fragment> T initFragment(@IdRes int target,
@@ -81,9 +90,25 @@ public class BaseActivity  extends AppCompatActivity {
         }
 
         fragment.setArguments(args);
-        getSupportFragmentManager().beginTransaction()
-                .replace(target, fragment)
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
+                android.R.anim.fade_in, android.R.anim.fade_out);
+        transaction.replace(target, fragment)
                 .commit();
+        transaction.addToBackStack(fragment.getClass().getName());
         return fragment;
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+    }
+
+    public void onBackPressed(){
+        //you can do your other onBackPressed logic here..
+
+        //Then just call finish()
+        finish();
     }
 }

@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.notificationSetting.NotificationSettingViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                android:onClick="@{() -> viewModel.onBackPressed()}"
+                app:srcCompat="@drawable/ic_back_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/back"
+                android:text="@string/notification_tab"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_18" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_gray_white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_marginTop="@dimen/dp_0_mid"
+                        android:background="@color/color_white"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:fontFamily="@string/font_serif"
+                        android:onClick="@{() -> viewModel.onNotificationCLick()}"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/notification_tab"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_16"
+                        android:gravity="center|left"
+                        app:srcDrawableRight="@{viewModel.iconNotification}"
+                        tools:ignore="UnusedAttribute" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="@{viewModel.showNotificationSetting == true ? View.VISIBLE : View.GONE}">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_50"
+                            android:background="@color/color_white"
+                            android:layout_marginTop="@dimen/dp_0_mid"
+                            android:onClick="@{()->viewModel.onReceiveNotificationClick()}">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@string/font_serif"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:text="@string/notification_tab"
+                                android:textAllCaps="false"
+                                android:textColor="@color/color_black"
+                                android:layout_centerVertical="true"
+                                android:textSize="@dimen/sp_14" />
+
+                            <android.support.v7.widget.SwitchCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:checked="@{viewModel.receiveNotification}"
+                                android:padding="@dimen/dp_10" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="@{viewModel.receiveNotification == true ? View.VISIBLE : View.GONE}">
+
+                            <RelativeLayout
+                                android:onClick="@{() ->viewModel.onNotificationUpdateProductClick()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@string/font_serif"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
+                                    android:text="@string/update_order"
+                                    android:textColor="@color/color_black"
+                                    android:textSize="@dimen/sp_14" />
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:onClick="@{() ->viewModel.onNotificationUpdateProductClick()}"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:checked="@{viewModel.notificationUpdateProduct}"
+                                    android:padding="@dimen/dp_10" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:onClick="@{()->viewModel.onReceiveChatNotifyClick()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@string/font_serif"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
+                                    android:text="@string/notification_setting_chat"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/color_black"
+                                    android:textSize="@dimen/sp_14" />
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:checked="@{viewModel.notificationChat}"
+                                    android:padding="@dimen/dp_10" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:onClick="@{()->viewModel.onNotificationProductPromotionClick()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@string/font_serif"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
+                                    android:text="@string/product_promotion"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/color_black"
+                                    android:textSize="@dimen/sp_14" />
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:checked="@{viewModel.notificationPromotion}"
+                                    android:padding="@dimen/dp_10" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:onClick="@{() -> viewModel.onNotificationFollowCLick()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@string/font_serif"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:text="@string/notification_setting_follow"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/color_black"
+                                    android:textSize="@dimen/sp_14"
+                                    android:layout_centerVertical="true" />
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:checked="@{viewModel.notificationFollow}"
+                                    android:padding="@dimen/dp_10" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:onClick="@{() -> viewModel.onNotifyEmptyWarehouseClick()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@string/font_serif"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
+                                    android:text="@string/notification_setting_product_end"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/color_black"
+                                    android:textSize="@dimen/sp_14" />
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="center_horizontal"
+                                    android:checked="@{viewModel.notifyEmptyWarehouse}"
+                                    android:padding="@dimen/dp_10" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:onClick="@{() ->viewModel.onReceiveAppUpdateClick()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_50"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@string/font_serif"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:paddingTop="@dimen/dp_10"
+                                    android:layout_centerVertical="true"
+                                    android:text="@string/notification_setting_update"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/color_black"
+                                    android:textSize="@dimen/sp_14"
+                                    android:gravity="center|left" />
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:checked="@{viewModel.receiveAppUpdate}"
+                                    android:padding="@dimen/dp_10" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50"
+                        android:background="@color/color_white"
+                        android:layout_marginTop="@dimen/dp_0_mid"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:fontFamily="@string/font_serif"
+                        android:onClick="@{() -> viewModel.onReceiveEmailCLick()}"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/notification_email"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_16"
+                        android:layout_gravity="center|left"
+                        app:srcDrawableRight="@{viewModel.iconNotificationEmail}"
+                        tools:ignore="UnusedAttribute" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="@{viewModel.showReceiveEmailSetting == true ? View.VISIBLE : View.GONE}">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_50"
+                            android:background="@color/color_white"
+                            android:layout_marginTop="@dimen/dp_0_mid"
+                            android:onClick="@{() -> viewModel.onTurnOnReceiveEmail()}">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@string/font_serif"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:text="@string/notification_email_order"
+                                android:textAllCaps="false"
+                                android:textColor="@color/color_black"
+                                android:textSize="@dimen/sp_14"
+                                android:layout_centerVertical="true"/>
+
+                            <android.support.v7.widget.SwitchCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@color/transparent"
+                                android:checked="@{viewModel.receiveEmail}"
+                                android:layout_centerVertical="true"
+                                android:padding="@dimen/dp_10" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="@{viewModel.receiveEmail == true ? View.VISIBLE : View.GONE}">
+
+                            <LinearLayout
+                                android:onClick="@{()->viewModel.onReceiveUpdateOrderAndPaymentClick()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid"
+                                android:weightSum="8">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="6"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@string/font_serif"
+                                        android:paddingLeft="@dimen/dp_10"
+                                        android:paddingTop="@dimen/dp_10"
+                                        android:text="@string/notification_email_update_product"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/color_black"
+                                        android:textSize="@dimen/sp_14" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingBottom="@dimen/dp_10"
+                                        android:paddingLeft="@dimen/dp_10"
+                                        android:paddingRight="@dimen/dp_8"
+                                        android:text="@string/notification_email_product_detail"
+                                        android:textAllCaps="false"
+                                        android:textSize="@dimen/sp_14" />
+                                </LinearLayout>
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_weight="2"
+                                    android:background="@color/transparent"
+                                    android:checked="@{viewModel.receiveUpdateOrderAndPayment}"
+                                    android:padding="@dimen/dp_10" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:onClick="@{() -> viewModel.onReceiveInfoStoreAndCompany()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid"
+                                android:weightSum="8">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="6"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@string/font_serif"
+                                        android:paddingLeft="@dimen/dp_10"
+                                        android:paddingTop="@dimen/dp_10"
+                                        android:text="@string/notification_email_app"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/color_black"
+                                        android:textSize="@dimen/sp_14" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingBottom="@dimen/dp_10"
+                                        android:paddingLeft="@dimen/dp_10"
+                                        android:paddingRight="@dimen/dp_8"
+                                        android:text="@string/notification_email_app_detail"
+                                        android:textAllCaps="false"
+                                        android:textSize="@dimen/sp_14" />
+                                </LinearLayout>
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_weight="2"
+                                    android:background="@color/transparent"
+                                    android:checked="@{viewModel.receiveInfoStoreAndCompany}"
+                                    android:padding="@dimen/dp_10" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:onClick="@{()->viewModel.onReceiveNewsClick()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid"
+                                android:weightSum="8">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="6"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@string/font_serif"
+                                        android:paddingLeft="@dimen/dp_10"
+                                        android:paddingTop="@dimen/dp_10"
+                                        android:text="@string/notification_email_news"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/color_black"
+                                        android:textSize="@dimen/sp_14" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingBottom="@dimen/dp_10"
+                                        android:paddingLeft="@dimen/dp_10"
+                                        android:paddingRight="@dimen/dp_8"
+                                        android:text="@string/notificatino_email_news_detail"
+                                        android:textAllCaps="false"
+                                        android:textSize="@dimen/sp_14" />
+                                </LinearLayout>
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_weight="2"
+                                    android:background="@color/transparent"
+                                    android:checked="@{viewModel.receiveNews}"
+                                    android:padding="@dimen/dp_10" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:onClick="@{() -> viewModel.onReceivePersonalInfoClick()}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:background="@color/color_white"
+                                android:layout_marginTop="@dimen/dp_0_mid"
+                                android:weightSum="8">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="6"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@string/font_serif"
+                                        android:paddingLeft="@dimen/dp_10"
+                                        android:paddingTop="@dimen/dp_10"
+                                        android:text="@string/notification_email_personal"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/color_black"
+                                        android:textSize="@dimen/sp_14" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingBottom="@dimen/dp_10"
+                                        android:paddingLeft="@dimen/dp_10"
+                                        android:paddingRight="@dimen/dp_8"
+                                        android:text="@string/notification_email_personal_detail"
+                                        android:textAllCaps="false"
+                                        android:textSize="@dimen/sp_14" />
+                                </LinearLayout>
+
+                                <android.support.v7.widget.SwitchCompat
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="2"
+                                    android:checked="@{viewModel.receivePersonalInfo}"
+                                    android:padding="@dimen/dp_10" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</layout>

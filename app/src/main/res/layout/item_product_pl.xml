@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.mainPage.itemProduct.ItemProductPlViewModel" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:onClick="@{() -> viewModel.onItemClicked()}"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_250"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="@dimen/dp_3"
+        app:cardCornerRadius="@dimen/dp_3"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <RelativeLayout
+                android:id="@+id/image_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <ImageView
+                    android:id="@+id/image_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_150"
+                    android:background="@drawable/ic_placeholder"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    tools:ignore="ContentDescription"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/dp_8"
+                    android:src="@drawable/ic_edits"
+                    android:tint="@color/colorPrimary"
+                    tools:ignore="ContentDescription,VectorDrawableCompat"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image_container"
+                android:ellipsize="marquee"
+                android:maxLines="2"
+                android:text="Product name"
+                android:lineSpacingExtra="@dimen/dp_4"
+                android:padding="@dimen/dp_5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_16"
+                />
+
+            <RelativeLayout
+                android:id="@+id/fee_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/extras_info">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:text="Gồm 4 vật tư"
+                    android:textColor="@color/color_green"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:drawableLeft="@drawable/ic_trunk_mini"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableStart="@drawable/ic_trunk_mini"
+                    android:text="miễn phí"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/sp_10"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/dp_5"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/extras_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+                <RatingBar
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:numStars="5"
+                    android:stepSize="0.5"
+                    android:isIndicator="true"
+                    android:rating="4.5"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="(200)"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/sp_10"
+                    android:layout_toRightOf="@+id/rating"
+                    android:padding="@dimen/dp_5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="Đã bán 60"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/sp_10"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/dp_5"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</layout>
+

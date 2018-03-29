@@ -1,8 +1,33 @@
-<!-- drawable/account_circle.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path android:fillColor="@color/color_gray" android:pathData="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
+    android:height="24dp"
+    android:viewportWidth="505"
+    android:viewportHeight="505">
+
+    <path
+        android:fillColor="#FFD05B"
+        android:pathData="M252.5,0 C391.952,0,505,113.048,505,252.5 C505,391.952,391.952,505,252.5,505
+C113.048,505,0,391.952,0,252.5 C0,113.048,113.048,0,252.5,0 Z" />
+    <path
+        android:fillColor="#2B3B4E"
+        android:pathData="M241.2,268.9 L229.9,249.3 L241.2,229.7 L263.8,229.7 L275.1,249.3 L263.8,268.9 Z" />
+    <path
+        android:fillColor="#324A5E"
+        android:pathData="M279,348.1 L252.5,372.1 L226,348.1 L241.2,268.9 L263.8,268.9 Z" />
+    <path
+        android:fillColor="#FF7058"
+        android:pathData="M320.7,248.1 L252.5,363.8 L184.3,248.1 C135.4,272.3,101.2,321.7,98.7,379.4
+L406.3,379.4 C403.8,321.7,369.6,272.3,320.7,248.1 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M252.5,62.5 C293.7,62.5,327.1,95.8996,327.1,137.1
+C327.1,178.3,293.7,211.7,252.5,211.7 C211.3,211.7,177.9,178.3,177.9,137.1
+C177.9,95.8996,211.3,62.5,252.5,62.5 Z" />
+    <path
+        android:fillColor="#324A5E"
+        android:pathData="M272.5,65.3 C270.4,64.7,268.2,64.2,266,63.8 C261.6,63,257.1,62.5,252.5,62.5
+C214,62.5,182.4,91.6,178.4,129 C177.4,137.1,178.3,147.8,178.7,147.7
+C217,138.7,257.8,114.2,267.7,89.7 C275,110.2,294.5,129.1,317.5,129.1
+C320.6,129.1,323.6,128.8,326.6,128.3 C322.9,98,301.2,73.3,272.5,65.3 Z" />
 </vector>

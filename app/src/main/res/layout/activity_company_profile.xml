@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.companyProfile.CompanyProfileViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_gray_white">
+
+        <ScrollView
+            android:id="@+id/sv_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:ignore="ScrollViewSize">
+
+                <RelativeLayout
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_170"
+                    android:background="@color/color_gray_mos">
+
+                    <ss.com.bannerslider.views.BannerSlider
+                        android:id="@+id/banner_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:bannersrc="@{viewModel.banners}"
+                        app:defaultIndicators="circle" />
+
+
+                    <vn.needy.vendor.widget.CircleImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="@dimen/dp_56"
+                        android:layout_height="@dimen/dp_56"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:src="@drawable/ic_placeholder" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/dp_35"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_toRightOf="@+id/avatar"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@string/not_set"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/sp_16" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:text="Tên hiển thị"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:drawableEnd="@drawable/ic_check_circle_mini"
+                        android:drawablePadding="@dimen/dp_15"
+                        android:drawableRight="@drawable/ic_check_circle_mini"
+                        android:enabled="@{viewModel.enable}"
+                        android:fontFamily="@string/font_serif"
+                        android:hint="@string/not_set"
+                        android:inputType="textCapWords"
+                        android:text="@={viewModel.company.name}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray70"
+                        android:textSize="@dimen/sp_14"
+                        app:errorText="@{viewModel.nameError}"
+                        tools:ignore="UnusedAttribute" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:id="@+id/headerState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Trạng thái"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerState"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:text='@{viewModel.company.state == 1 ? "Hoạt động":(viewModel.company.state == 0 ? "Chưa kích hoạt":"Ngừng hoạt động")}'
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white"
+                    android:clickable="@{viewModel.enable}"
+                    android:onClick="@{() -> viewModel.onClickFoundedDate()}">
+
+                    <TextView
+                        android:id="@+id/headerFoundedDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="@string/founded_date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerFoundedDate"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:text="@{viewModel.company.foundedDate}"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:id="@+id/headerNumberEmployee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="@string/number_of_staff"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:text="@{viewModel.numberOfEmployee}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerNumberEmployee"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:id="@+id/headerNumberStore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Số cửa hàng"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:text="@{viewModel.numberOfStore}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerNumberStore"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white"
+                    android:clickable="@{viewModel.enable}"
+                    android:onClick="@{() -> viewModel.onClickOpeningTime()}">
+
+                    <TextView
+                        android:id="@+id/headerOpenTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Thời gian mở cửa"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerOpenTime"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:text="@{viewModel.company.openingTime}"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white"
+                    android:clickable="@{viewModel.enable}"
+                    android:onClick="@{() -> viewModel.onClickClosingTime()}">
+
+                    <TextView
+                        android:id="@+id/headeCloseTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Thời gian đóng cửa"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headeCloseTime"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:text="@{viewModel.company.closingTime}"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_10">
+
+                    <TextView
+                        android:id="@+id/headerSiteUrl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:text="Website"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:drawablePadding="@dimen/dp_15"
+                        android:enabled="@{viewModel.enable}"
+                        android:fontFamily="@string/font_serif"
+                        android:hint="@string/not_set"
+                        android:inputType="textCapWords"
+                        android:text="@={viewModel.company.siteUrl}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray70"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_10">
+
+                    <TextView
+                        android:id="@+id/headerEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:text="Email"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:drawablePadding="@dimen/dp_15"
+                        android:enabled="@{viewModel.enable}"
+                        android:fontFamily="@string/font_serif"
+                        android:hint="@string/not_set"
+                        android:inputType="textCapWords"
+                        android:text="@={viewModel.company.email}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray70"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:id="@+id/headerDescription"
+                        android:onClick="@{() -> viewModel.onClickDescription()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_1"
+                        android:background="@color/color_white"
+                        android:drawablePadding="@dimen/dp_15"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@string/company_description"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <EditText
+                        android:inputType="textMultiLine"
+                        android:layout_below="@+id/headerDescription"
+                        android:animateLayoutChanges="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:drawablePadding="@dimen/dp_15"
+                        android:enabled="@{viewModel.enable}"
+                        android:fontFamily="@string/font_serif"
+                        android:hint="@string/not_set"
+                        android:text="@={viewModel.company.description}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray70"
+                        android:textSize="@dimen/sp_14"
+                        android:visibility="@{viewModel.visibleDescription ? View.VISIBLE : View.GONE}"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:onClick="@{() -> viewModel.onClickDescription()}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:background="@color/transparent"
+                        app:srcVector="@{viewModel.drawableExpandDescription}" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@color/color_white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/map"
+                        android:layout_toStartOf="@+id/map"
+                        android:id="@+id/headerAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:text="Địa chỉ"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <EditText
+                        android:layout_toLeftOf="@+id/map"
+                        android:layout_toStartOf="@+id/map"
+                        android:layout_below="@+id/headerAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:drawableEnd="@drawable/ic_check_circle_mini"
+                        android:drawablePadding="@dimen/dp_15"
+                        android:drawableRight="@drawable/ic_check_circle_mini"
+                        android:enabled="@{viewModel.enable}"
+                        android:fontFamily="@string/font_serif"
+                        android:hint="@string/not_set"
+                        android:inputType="textCapWords"
+                        android:text="@={viewModel.company.address}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray70"
+                        android:textSize="@dimen/sp_14"
+                        app:errorText="@{viewModel.addressError}"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:clickable="@{viewModel.enable}"
+                        android:id="@+id/map"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_35"
+                        app:srcCompat="@drawable/ic_map_marker"
+                        android:background="@color/color_white"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:onClick="@{() -> viewModel.onPlaceClick()}"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/transparent"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/back"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/transparent"
+                    android:onClick="@{() -> viewModel.onBackPressed()}"
+                    app:srcCompat="@drawable/ic_back_left" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/back"
+                    android:text="@string/profile_company"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_18" />
+
+                <ImageButton
+                    android:id="@+id/edit"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/transparent"
+                    android:onClick="@{() -> viewModel.onClickEdit()}"
+                    app:srcVector="@{viewModel.drawableEdit}" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
+</layout>

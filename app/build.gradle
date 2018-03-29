@@ -10,15 +10,16 @@ def APP_ID = "vn.needy.vendor";
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "${APP_ID}"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-
+        
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
 
     dataBinding {
@@ -71,7 +72,7 @@ android {
 
 @SuppressWarnings("GroovyAssignabilityCheck")
 def appendVersionNameVersionCode(variant) {
-    variant.outputs.each { output ->
+    variant.outputs.all { output ->
         def applicationId = variant.mergedFlavor.applicationId + (variant.buildType.applicationIdSuffix ==
                 null ? "" : variant.buildType.applicationIdSuffix)
         if (variant.buildType.name == android.buildTypes.debug.name ||
@@ -80,8 +81,7 @@ def appendVersionNameVersionCode(variant) {
                 variant.buildType.name ==
                 android.buildTypes.staging.name) {
             if (output.zipAlign) {
-                def file = output.outputFile
-                output.outputFile = new File(file.parentFile,
+                outputFileName = new File("${project.projectDir}/build/outputs/apks/" + variant.name,
                         "${variant.buildType.name}_${applicationId}_v${variant.versionName}-${variant.versionCode}.apk")
             }
         }
@@ -98,6 +98,8 @@ dependencies {
     compile dependencies.constraintLayout
     compile dependencies.cardView
 
+    compile dependencies.multidex
+
     compile dependencies.rxJava
     compile dependencies.rxAndroid
 
@@ -109,9 +111,22 @@ dependencies {
     compile dependencies.floatingsearchview
     compile dependencies.expandablerecyclerview
     compile dependencies.firebaseMessage
+    compile dependencies.firebaseAuth
+    compile dependencies.location
+    compile dependencies.bottomBar
+    compile dependencies.bannerSlider
+    compile dependencies.phoneNumber
+    compile dependencies.map
+    compile dependencies.imagePicker
+    compile dependencies.imageCrop
+
+    compile dependencies.material
+
+    compile dependencies.places
 
     testCompile dependencies.junit
     testCompile dependencies.mockito
+
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

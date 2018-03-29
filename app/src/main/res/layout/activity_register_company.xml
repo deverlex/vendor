@@ -1,238 +1,475 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fillViewport="true"
-    android:background="@drawable/background_login"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.registerCompany.RegisterCompanyViewModel"
+            />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".screen.splash.SplashActivity"
-        tools:ignore="ScrollViewSize">
-
+        android:layout_height="match_parent">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/back"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    app:srcCompat="@drawable/ic_back_left"
+                    android:background="@color/transparent"
+                    android:onClick="@{() -> viewModel.onBackPressed()}"
+                    />
                 <TextView
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/create_new_account"
+                    android:layout_toRightOf="@+id/back"
+                    android:layout_centerVertical="true"
+                    android:text="@string/quick_register_company"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/sp_18"
+                    />
+
+                <ImageButton
+                    android:id="@+id/done"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentRight="true"
+                    app:srcCompat="@drawable/ic_check"
+                    android:background="@color/transparent"
+                    android:onClick="@{() -> viewModel.onRegisterClick()}"
                     />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
-        <RelativeLayout
-            android:id="@+id/containerInput"
+        <ScrollView
+            android:id="@+id/sv_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="@dimen/dp_200"
-            android:paddingTop="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:background="@color/color_white">
-            <EditText
-                android:id="@+id/text_company_name"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:fillViewport="true">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_10"
-                android:drawableLeft="@drawable/ic_company"
-                android:background="@drawable/background_text"
-                android:drawablePadding="@dimen/dp_10"
-                android:drawableStart="@drawable/ic_company"
-                android:fontFamily="@string/font_serif"
-                android:hint="@string/company_name"
-                android:inputType="textCapWords"
-                android:textAllCaps="false"
-                android:paddingEnd="@dimen/dp_5"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_5"
-                android:paddingStart="@dimen/dp_10"
-                android:textColor="@color/color_black"
-                android:textColorHint="@color/gray70"
-                tools:ignore="UnusedAttribute"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1"
-                android:background="@color/gray27"
-                android:layout_below="@+id/text_company_name"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20"
-                />
-            <EditText
-                android:id="@+id/text_office_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_company_name"
-                android:padding="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_5"
-                android:drawableLeft="@drawable/ic_home_map"
-                android:background="@drawable/background_text"
-                android:drawablePadding="@dimen/dp_10"
-                android:drawableStart="@drawable/ic_home_map"
-                android:fontFamily="@string/font_serif"
-                android:hint="@string/office_address"
-                android:inputType="textCapWords"
-                android:textAllCaps="false"
-                android:paddingEnd="@dimen/dp_5"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_5"
-                android:paddingStart="@dimen/dp_10"
-                android:textColor="@color/color_black"
-                android:textColorHint="@color/gray70"
-                tools:ignore="UnusedAttribute"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1"
-                android:background="@color/gray27"
-                android:layout_below="@+id/text_office_address"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20"/>
-            <EditText
-                android:id="@+id/text_store_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_office_address"
-                android:padding="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_20"
-                android:layout_marginBottom="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_5"
-                android:drawableLeft="@drawable/ic_store"
-                android:background="@drawable/background_text"
-                android:drawablePadding="@dimen/dp_10"
-                android:drawableStart="@drawable/ic_store"
-                android:fontFamily="@string/font_serif"
-                android:hint="@string/store_name"
-                android:inputType="phone"
-                android:textAllCaps="false"
-                android:paddingEnd="@dimen/dp_5"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_5"
-                android:paddingStart="@dimen/dp_10"
-                android:textColor="@color/color_black"
-                android:textColorHint="@color/gray70"
-                tools:ignore="UnusedAttribute"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1"
-                android:background="@color/gray27"
-                android:layout_below="@+id/text_store_name"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20"/>
+                android:layout_height="match_parent"
+                android:background="@color/color_gray_white"
+                android:orientation="vertical"
+                tools:context=".screen.registerCompany.RegisterCompanyActivity"
+                tools:ignore="ScrollViewSize">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1"
-                android:background="@color/gray27"
-                android:layout_below="@+id/text_store_name"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_store_name"
-                android:layout_marginBottom="@dimen/dp_5"
-                >
-                <EditText
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_5"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_5"
-                    android:layout_marginBottom="@dimen/dp_5"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_toLeftOf="@+id/locateButton"
-                    android:drawableLeft="@drawable/ic_home_map"
-                    android:background="@drawable/background_text"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_home_map"
-                    android:fontFamily="@string/font_serif"
-                    android:hint="@string/store_address"
-                    android:inputType="textCapWords"
-                    android:textAllCaps="false"
-                    android:paddingEnd="@dimen/dp_5"
+                    android:orientation="vertical"
                     android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_5"
-                    android:paddingStart="@dimen/dp_10"
-                    android:textColor="@color/color_black"
-                    android:textColorHint="@color/gray70"
-                    android:textSize="@dimen/sp_16"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
 
-                <ImageButton
-                    android:id="@+id/locateButton"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@string/company_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@={viewModel.companyName}"
+                        android:hint="@string/not_set"
+                        android:inputType="textCapWords"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray65"
+                        android:textSize="@dimen/sp_16"
+                        app:errorText="@{viewModel.companyNameError}"
+                        tools:ignore="UnusedAttribute" />
+                </LinearLayout>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_map_marker"
                     android:padding="@dimen/dp_10"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="@dimen/dp_20"
                     android:layout_centerVertical="true"
-                    />
-            </RelativeLayout>
+                    android:text="@string/intro_company_name"
+                    android:fontFamily="@string/font_serif"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/sp_14"/>
 
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:background="@color/color_white">
 
-        <TextView
-            android:id="@+id/intro_register_company"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/containerInput"
-            android:layout_marginTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_5"
-            android:paddingTop="@dimen/dp_5"
-            android:paddingLeft="@dimen/dp_20"
-            android:paddingRight="@dimen/dp_20"
-            android:layout_alignParentRight="true"
-            android:text="@string/intro_register_company"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/sp_17"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@string/office_address"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/intro_register_company"
-            android:layout_centerHorizontal="true"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_40"
-            android:background="@color/colorPrimaryDark"
-            android:fontFamily="@string/font_serif"
-            android:text="Tiếp theo"
-            android:textColor="@color/color_white"
-            android:textStyle="bold"
-            tools:ignore="UnusedAttribute"
-            />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                        android:onClick="@{() -> viewModel.onClickEditCompanyAddress()}"
+                        android:layout_toLeftOf="@+id/position_company"
+                        android:layout_toStartOf="@+id/position_company"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@={viewModel.officeAddress}"
+                        android:hint="@string/not_set"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray65"
+                        android:textSize="@dimen/sp_16"
+                        app:errorText="@{viewModel.officeAddressError}"
+                        tools:ignore="UnusedAttribute" />
+
+                        <ImageButton
+                            android:id="@+id/position_company"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            app:srcCompat="@drawable/ic_map_marker"
+                            android:background="@color/color_white"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:onClick="@{() -> viewModel.onCompanyPositionClick()}"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:onClick="@{() -> viewModel.onClickOpeningTimeCompany()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/opeing_time_company_expand"
+                        android:layout_toStartOf="@+id/opeing_time_company_expand"
+                        android:id="@+id/headerOpenTimeCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Thời gian mở cửa"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/opeing_time_company_expand"
+                        android:layout_toStartOf="@+id/opeing_time_company_expand"
+                        errorText="@{viewModel.openingTimeCompanyError}"
+                        android:text="@{viewModel.openingTimeCompany}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerOpenTimeCompany"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:hint="@string/not_set"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:id="@+id/opeing_time_company_expand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:onClick="@{() -> viewModel.onClickClosingTimeCompany()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/closing_time_company_expand"
+                        android:layout_toStartOf="@+id/closing_time_company_expand"
+                        android:id="@+id/headerClosingTimeCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Thời gian đóng cửa"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/closing_time_company_expand"
+                        android:layout_toStartOf="@+id/closing_time_company_expand"
+                        errorText="@{viewModel.closingTimeCompanyError}"
+                        android:text="@{viewModel.closingTimeCompany}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerClosingTimeCompany"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:hint="@string/not_set"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:id="@+id/closing_time_company_expand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10"
+                    android:layout_centerVertical="true"
+                    android:text="@string/intro_company_address"
+                    android:fontFamily="@string/font_serif"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/sp_14"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@string/store_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@={viewModel.storeName}"
+                        android:hint="@string/not_set"
+                        android:inputType="textCapWords"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray65"
+                        android:textSize="@dimen/sp_16"
+                        app:errorText="@{viewModel.storeNameError}"
+                        tools:ignore="UnusedAttribute" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@string/store_address"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                        android:onClick="@{() -> viewModel.onClickEditStoreAddress()}"
+                        android:layout_toLeftOf="@+id/position_store"
+                        android:layout_toStartOf="@+id/position_store"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text"
+                        android:fontFamily="@string/font_serif"
+                        android:text="@={viewModel.storeAddress}"
+                        android:hint="@string/not_set"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray65"
+                        android:textSize="@dimen/sp_16"
+                        app:errorText="@{viewModel.storeAddressError}"
+                        tools:ignore="UnusedAttribute" />
+
+                        <ImageButton
+                            android:id="@+id/position_store"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            app:srcCompat="@drawable/ic_map_marker"
+                            android:background="@color/color_white"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:onClick="@{() -> viewModel.onStorePositionClick()}"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:onClick="@{() -> viewModel.onClickOpeningTimeStore()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:id="@+id/headerOpenTimeStore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Thời gian mở cửa"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/opeing_time_store_expand"
+                        android:layout_toStartOf="@+id/opeing_time_store_expand"
+                        errorText="@{viewModel.openingTimeStoreError}"
+                        android:text="@{viewModel.openingTimeStore}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerOpenTimeStore"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:hint="@string/not_set"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:id="@+id/opeing_time_store_expand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:onClick="@{() -> viewModel.onClickClosingTimeStore()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:id="@+id/headerClosingTimeStore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="Thời gian đóng cửa"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_14"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/closing_time_store_expand"
+                        android:layout_toStartOf="@+id/closing_time_store_expand"
+                        errorText="@{viewModel.closingTimeStoreError}"
+                        android:text="@{viewModel.closingTimeStore}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/headerClosingTimeStore"
+                        android:fontFamily="@string/font_serif"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:hint="@string/not_set"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/sp_13"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageButton
+                        android:id="@+id/closing_time_store_expand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/transparent"
+                        android:padding="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_next_right" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
-</ScrollView>
+</layout>

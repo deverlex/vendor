@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.needy.vendor.screen.place.PlaceViewModel" />
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/color_white"
+                app:contentInsetEnd="@dimen/dp_10"
+                app:contentInsetLeft="@dimen/dp_10"
+                app:contentInsetRight="@dimen/dp_10"
+                app:contentInsetStart="@dimen/dp_10"
+                app:elevation="@dimen/dp_4">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:paddingTop="@dimen/dp_8">
+
+                    <ImageButton
+                        android:onClick="@{() -> viewModel.onBackPressed()}"
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/back"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@color/transparent"
+                        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+                    <EditText
+                        android:text="@{viewModel.pinPlace}"
+                        android:onTextChanged="@{(text, start, before, count) -> viewModel.onTextChanged(text)}"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@drawable/background_text"
+                        android:fontFamily="@string/font_serif"
+                        android:hint="Địa chỉ"
+                        android:inputType="textCapWords"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/gray65"
+                        android:textSize="@dimen/sp_16"
+                        tools:ignore="UnusedAttribute" />
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:visibility="@{viewModel.visibleMap ? View.GONE : View.VISIBLE}"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:onClick="@{() -> viewModel.onShowMap()}"
+                    android:drawablePadding="@dimen/dp_18"
+                    android:gravity="center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingLeft="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_8"
+                    android:paddingTop="@dimen/dp_14"
+                    android:paddingBottom="@dimen/dp_14"
+                    android:textColor="@color/color_black"
+                    android:drawableLeft="@{@drawable/place_holder}"
+                    android:drawableStart="@{@drawable/place_holder}"
+                    android:text="Chọn địa điểm trên bản đồ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:background="@color/color_gray_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    app:layoutManager="LinearLayoutManager"
+                    app:recyclerAdapter="@{viewModel.placesAdapter}"
+                    />
+            </LinearLayout>
+
+            <FrameLayout
+                android:visibility="@{viewModel.visibleMap ? View.VISIBLE : View.GONE}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <fragment
+                    xmlns:map="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    map:cameraZoom="16"
+                    map:cameraTargetLat="21.028667"
+                    map:cameraTargetLng="105.852148"/>
+
+                <Button
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:onClick="@{() -> viewModel.clickAcceptPlace()}"
+                    android:layout_gravity="bottom"
+                    android:id="@+id/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:background="@color/colorPrimary"
+                    android:fontFamily="@string/font_serif"
+                    android:text="Xác nhận"
+                    android:textColor="@color/color_white"
+                    android:textStyle="bold"
+                    tools:ignore="UnusedAttribute"
+                    />
+            </FrameLayout>
+        </FrameLayout>
+    </LinearLayout>
+</layout>
