@@ -3,6 +3,11 @@ package vn.needy.vendor.repository.remote.user.request;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
+import vn.needy.vendor.repository.remote.user.context.UpdateUserContext;
+import vn.needy.vendor.repository.remote.user.context.UserLocationContext;
+
 /**
  * Created by truongpq on 06/12/2017.
  */
@@ -10,86 +15,38 @@ import com.google.gson.annotations.SerializedName;
 public class UpdateUserInfoRequest {
 
     @Expose
-    @SerializedName("name")
-    private String mName;
+    @SerializedName("user")
+    private UpdateUserContext user;
 
     @Expose
-    @SerializedName("gender")
-    private String mGender;
+    @SerializedName("user_location")
+    private List<UserLocationContext> locations;
 
     @Expose
-    @SerializedName("birthday")
-    private String mBirthday;
+    @SerializedName("deleted_location")
+    private List<UserLocationContext> deletedlocations;
 
-    @Expose
-    @SerializedName("email")
-    private String mEmail;
-
-    @Expose
-    @SerializedName("address")
-    private String mAddress;
-
-    @Expose
-    @SerializedName("lat")
-    private float lat;
-
-    @Expose
-    @SerializedName("lng")
-    private float lng;
-
-    public String getName() {
-        return mName;
+    public UpdateUserContext getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.mName = name;
+    public void setUser(UpdateUserContext user) {
+        this.user = user;
     }
 
-    public String getGender() {
-        return mGender;
+    public List<UserLocationContext> getLocations() {
+        return locations;
     }
 
-    public void setGender(String gender) {
-        this.mGender = gender;
+    public void setLocations(List<UserLocationContext> locations) {
+        this.locations = locations;
     }
 
-    public String getBirthday() {
-        return mBirthday;
+    public List<UserLocationContext> getDeletedlocations() {
+        return deletedlocations;
     }
 
-    public void setBirthday(String birthday) {
-        this.mBirthday = birthday;
-    }
-
-    public String getEmail() {
-        return mEmail;
-    }
-
-    public void setEmail(String email) {
-        this.mEmail = email;
-    }
-
-    public String getAddress() {
-        return mAddress;
-    }
-
-    public void setAddress(String address){
-        this.mAddress = address;
-    }
-
-    public float getLat() {
-        return lat;
-    }
-
-    public void setLat(float lat) {
-        this.lat = lat;
-    }
-
-    public float getLng() {
-        return lng;
-    }
-
-    public void setLng(float lng) {
-        this.lng = lng;
+    public void setDeletedlocations(List<UserLocationContext> deletedlocations) {
+        this.deletedlocations = deletedlocations;
     }
 }

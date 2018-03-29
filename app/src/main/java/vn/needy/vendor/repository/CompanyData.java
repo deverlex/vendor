@@ -22,7 +22,9 @@ public interface CompanyData {
 
         Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(RegisterCompanyRequest request);
 
-        Observable<ResponseWrapper> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest);
+        Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInfo(long companyId);
+
+        Observable<ResponseWrapper> updateCompanyInfo(long companyId, UpdateCompanyInfoRequest infoRequest);
 
         Observable<ResponseWrapper> updateStaffFcmToken(String companyId, String fcmToken);
     }
@@ -34,6 +36,8 @@ public interface CompanyData {
         void saveCompanySync(Company company);
 
         void saveCompanyId(long companyId);
+
+        long getCompanyId();
 
         String getOurCompanyIdSync();
     }

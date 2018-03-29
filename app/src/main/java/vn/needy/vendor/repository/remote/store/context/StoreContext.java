@@ -1,13 +1,25 @@
-package vn.needy.vendor.repository.remote.company.request;
-
+package vn.needy.vendor.repository.remote.store.context;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by truongpq on 08/12/2017.
- */
+public class StoreContext {
 
-public class UpdateCompanyInfoRequest {
+    @Expose
+    @SerializedName(value = "store_id")
+    private long id;
+
+    @Expose
+    @SerializedName("state")
+    private int state;
+
+    @Expose
+    @SerializedName("status")
+    private int status;
+
+    @Expose
+    @SerializedName(value = "unlock_time")
+    private String unlockTime;
+
     @Expose
     @SerializedName("name")
     private String name;
@@ -21,12 +33,12 @@ public class UpdateCompanyInfoRequest {
     private String description;
 
     @Expose
-    @SerializedName(value = "site_url")
-    private String siteUrl;
+    @SerializedName("email")
+    private String email;
 
     @Expose
-    @SerializedName(value = "founded_date")
-    private String foundedDate;
+    @SerializedName(value = "support_mobile")
+    private boolean supportMobile;
 
     @Expose
     @SerializedName("lat")
@@ -37,16 +49,36 @@ public class UpdateCompanyInfoRequest {
     private Double lng;
 
     @Expose
-    @SerializedName("email")
-    private String email;
-
-    @Expose
-    @SerializedName(value = "opening_time")
+    @SerializedName("opening_time")
     private String openingTime;
 
     @Expose
-    @SerializedName(value = "closing_time")
+    @SerializedName("closing_time")
     private String closingTime;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getName() {
         return name;
@@ -72,20 +104,28 @@ public class UpdateCompanyInfoRequest {
         this.description = description;
     }
 
-    public String getSiteUrl() {
-        return siteUrl;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSiteUrl(String siteUrl) {
-        this.siteUrl = siteUrl;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getFoundedDate() {
-        return foundedDate;
+    public boolean isSupportMobile() {
+        return supportMobile;
     }
 
-    public void setFoundedDate(String foundedDate) {
-        this.foundedDate = foundedDate;
+    public void setSupportMobile(boolean supportMobile) {
+        this.supportMobile = supportMobile;
+    }
+
+    public String getUnlockTime() {
+        return unlockTime;
+    }
+
+    public void setUnlockTime(String unlockTime) {
+        this.unlockTime = unlockTime;
     }
 
     public Double getLat() {
@@ -102,14 +142,6 @@ public class UpdateCompanyInfoRequest {
 
     public void setLng(Double lng) {
         this.lng = lng;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getOpeningTime() {

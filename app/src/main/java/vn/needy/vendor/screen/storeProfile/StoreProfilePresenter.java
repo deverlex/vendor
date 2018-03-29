@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -13,16 +14,19 @@ import io.reactivex.schedulers.Schedulers;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import vn.needy.vendor.database.realm.RealmApi;
+import vn.needy.vendor.database.sharedprf.SharedPrefsImpl;
 import vn.needy.vendor.domain.Store;
 import vn.needy.vendor.port.api.VendorApi;
 import vn.needy.vendor.port.error.BaseException;
 import vn.needy.vendor.port.error.SafetyError;
+import vn.needy.vendor.port.message.BaseCode;
 import vn.needy.vendor.port.message.ResponseWrapper;
 import vn.needy.vendor.repository.StoreRepository;
 import vn.needy.vendor.repository.local.StoreDataLocal;
 import vn.needy.vendor.repository.remote.store.StoreDataRemote;
 import vn.needy.vendor.repository.remote.store.request.UpdateStoreInfoRequest;
 import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
+import vn.needy.vendor.utils.Constant;
 
 /**
  * Created by lion on 12/12/2017.
@@ -36,7 +40,7 @@ public class StoreProfilePresenter implements StoreProfileContract.Presenter {
 
     public StoreProfilePresenter(StoreProfileContract.ViewModel viewModel, VendorApi vendorApi) {
         mViewModel = viewModel;
-        mStoreRepository = new StoreRepository(new StoreDataRemote(vendorApi), new StoreDataLocal());
+        mStoreRepository = new StoreRepository(new StoreDataRemote(vendorApi), new StoreDataLocal(SharedPrefsImpl.getInstance()));
     }
 
     @Override
@@ -50,18 +54,19 @@ public class StoreProfilePresenter implements StoreProfileContract.Presenter {
     }
 
     @Override
-    public void getCoverPictures() {
+    public void getCoverPictures(List<Long> images) {
         List<Banner> banners = new ArrayList<>();
-        banners.add(new RemoteBanner("https://techent.tv/wp-content/uploads/2015/11/Banner.jpg"));
-        banners.add(new RemoteBanner("http://www.dubaimallsgroup.com/wp-content/uploads/2016/09/web-banner-eid-al-adha-1200-px-x-400-px-Ol.jpg"));
-        banners.add(new RemoteBanner("https://spark.adobe.com/images/landing/examples/fathersday-sale-etsy-banner.jpg"));
+        if (images != null) {
+            for (Long image : images) {
+                banners.add(new RemoteBanner(String.format(Locale.getDefault(), "%sv1/images/products/%d", Constant.API_END_POINT_URL, image)));
+            }
+        }
 
         mViewModel.setBanner(banners);
     }
 
     @Override
     public void getStoreInfo() {
-        getStoreFromLocal();
         getStoreFromRemote();
     }
 
@@ -105,46 +110,22 @@ public class StoreProfilePresenter implements StoreProfileContract.Presenter {
         return isValidate;
     }
 
-    private void getStoreFromLocal() {
-        mStoreRepository.getOurStoreAsync()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Store>() {
-                    @Override
-                    public void accept(Store store) throws Exception {
-                        Store st = RealmApi.getSync().copyFromRealm(store);
-                        mViewModel.setStoreInfo(st);
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-
-                    }
-                });
-    }
 
     private void getStoreFromRemote() {
-        String storeId = mStoreRepository.getOurStoreIdSync();
+        long storeId = mStoreRepository.getStoreId();
         mStoreRepository.getStoreInfo(storeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map(new Function<ResponseWrapper<StoreInfoResponse>, Store>() {
-                    @Override
-                    public Store apply(ResponseWrapper<StoreInfoResponse> storeInfoRespResponseWrapper) throws Exception {
-                        StoreInfoResponse storeInfoResp = storeInfoRespResponseWrapper.getData();
-                        if (storeInfoResp != null) {
-                            Store store = new Store(storeInfoResp.getStore());
-                            store.setTotalStaff(storeInfoResp.getTotalStaff());
-                            mStoreRepository.saveStoreSync(store);
-                            return store;
-                        }
-                        return null;
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Store>() {
+                .subscribe(new Consumer<ResponseWrapper<StoreInfoResponse>>() {
                     @Override
-                    public void accept(Store store) throws Exception {
-                        mViewModel.setStoreInfo(store);
+                    public void accept(ResponseWrapper<StoreInfoResponse> respone) throws Exception {
+                        if (respone.getCode() == BaseCode.OK && respone.getData() != null) {
+                            StoreInfoResponse data = respone.getData();
+                            mViewModel.setStoreInfo(data.getStore(), data.getNumberOfEmployee());
+                            mViewModel.setAvatar(String.format(Locale.getDefault(), "%sv1/images/products/%d", Constant.API_END_POINT_URL, data.getAvatar()));
+                            getCoverPictures(data.getImages());
+                        }
                     }
                 }, new SafetyError() {
                     @Override

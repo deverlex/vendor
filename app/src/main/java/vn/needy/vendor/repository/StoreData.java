@@ -15,7 +15,7 @@ import vn.needy.vendor.repository.remote.store.response.StoreInfoResponse;
 public interface StoreData {
 
     interface Remote {
-        Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(String storeId);
+        Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(long storeId);
 
         Observable<ResponseWrapper> updateStoreInfo(String storeId, UpdateStoreInfoRequest infoReq);
 
@@ -30,5 +30,7 @@ public interface StoreData {
         void saveStoreId(long storeId);
 
         String getOurStoreIdSync();
+
+        long getStoreId();
     }
 }

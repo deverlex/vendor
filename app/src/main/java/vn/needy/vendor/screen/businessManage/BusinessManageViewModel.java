@@ -6,6 +6,9 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import vn.needy.vendor.R;
+import vn.needy.vendor.screen.companyProfile.CompanyProfileActivity;
+import vn.needy.vendor.screen.storeProfile.StoreProfileActivity;
+import vn.needy.vendor.utils.navigator.Navigator;
 
 /**
  * Created by lion on 10/01/2018.
@@ -17,12 +20,15 @@ public class BusinessManageViewModel extends BaseObservable implements BusinessM
     private String mSiteUrl;
     private Context mContext;
     private BusinessManageContract.Presenter mPresenter;
+    private Navigator mNavigator;
 
-    public BusinessManageViewModel(Context mContext) {
+    public BusinessManageViewModel(Context mContext, Navigator navigator) {
         this.mContext = mContext;
 
         mNumberProduct = 1;
         mSiteUrl = "http://sales.needy.vn";
+
+        mNavigator = navigator;
     }
 
     @Override
@@ -43,6 +49,16 @@ public class BusinessManageViewModel extends BaseObservable implements BusinessM
     @Override
     public void onBackPressed() {
         ((Activity) mContext).onBackPressed();
+    }
+
+    @Override
+    public void onClickCompanyProfile() {
+        mNavigator.startActivity(CompanyProfileActivity.class);
+    }
+
+    @Override
+    public void onClickStoreProfile() {
+        mNavigator.startActivity(StoreProfileActivity.class);
     }
 
     @Bindable

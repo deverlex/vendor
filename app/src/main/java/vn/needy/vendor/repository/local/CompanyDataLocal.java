@@ -58,6 +58,11 @@ public class CompanyDataLocal implements CompanyData.Local {
     }
 
     @Override
+    public long getCompanyId() {
+        return mPrefsApi.get(SharedPrefsKey.COMPANY_ID, Long.class);
+    }
+
+    @Override
     public String getOurCompanyIdSync() {
 //        return RealmApi.getSync().where(Company.class)
 //                .findFirst().getId();

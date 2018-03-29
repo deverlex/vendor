@@ -36,7 +36,7 @@ public interface UserData {
 
         Observable<ResponseWrapper<UserInfoResponse>> getUserInfo();
 
-        Observable<ResponseWrapper> updateUserInformation(UpdateUserInfoRequest request);
+        Observable<ResponseWrapper> updateUserInfo(UpdateUserInfoRequest request);
 
         Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();
     }

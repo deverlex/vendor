@@ -27,6 +27,7 @@ public class PlaceActivity extends BaseActivity {
 
     public static final int RC_OK = 1101;
     public static final int RC_NOT_OK = 1102;
+    public static final int RC_OK_EDIT = 1103;
 
     public static final String PLACE = "_place";
 

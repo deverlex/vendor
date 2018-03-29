@@ -1,13 +1,22 @@
-package vn.needy.vendor.repository.remote.company.request;
+package vn.needy.vendor.repository.remote.company.context;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by truongpq on 08/12/2017.
- */
+public class CompanyContext {
 
-public class UpdateCompanyInfoRequest {
+    @Expose
+    @SerializedName(value = "company_id")
+    private long id;
+
+    @Expose
+    @SerializedName("state")
+    private int state;
+
+    @Expose
+    @SerializedName("level")
+    private int level;
+
     @Expose
     @SerializedName("name")
     private String name;
@@ -30,11 +39,11 @@ public class UpdateCompanyInfoRequest {
 
     @Expose
     @SerializedName("lat")
-    private Double lat;
+    private float lat;
 
     @Expose
     @SerializedName("lng")
-    private Double lng;
+    private float lng;
 
     @Expose
     @SerializedName("email")
@@ -47,6 +56,30 @@ public class UpdateCompanyInfoRequest {
     @Expose
     @SerializedName(value = "closing_time")
     private String closingTime;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public String getName() {
         return name;
@@ -88,19 +121,19 @@ public class UpdateCompanyInfoRequest {
         this.foundedDate = foundedDate;
     }
 
-    public Double getLat() {
+    public float getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(float lat) {
         this.lat = lat;
     }
 
-    public Double getLng() {
+    public float getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
+    public void setLng(float lng) {
         this.lng = lng;
     }
 

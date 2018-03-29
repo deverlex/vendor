@@ -22,7 +22,7 @@ public class StoreRepository {
         mLocal = local;
     }
 
-    public Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(String storeId) {
+    public Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(long storeId) {
         return mRemote.getStoreInfo(storeId);
     }
 
@@ -49,5 +49,9 @@ public class StoreRepository {
 
     public void saveStoreId(long storeId) {
         mLocal.saveStoreId(storeId);
+    }
+
+    public long getStoreId() {
+        return mLocal.getStoreId();
     }
 }

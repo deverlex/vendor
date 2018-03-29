@@ -31,6 +31,10 @@ public class CompanyRepository {
         return mRemote.getCompanyInformation(companyId);
     }
 
+    public Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInfo(long companyId) {
+        return mRemote.getCompanyInfo(companyId);
+    }
+
     public Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(RegisterCompanyRequest request) {
         return mRemote.registerCompany(request);
     }
@@ -39,8 +43,8 @@ public class CompanyRepository {
         return mRemote.updateStaffFcmToken(companyId, fcmToken);
     }
 
-    public Observable<ResponseWrapper> updateCompanyInformation(String companyId, UpdateCompanyInfoRequest infoRequest) {
-        return mRemote.updateCompanyInformation(companyId, infoRequest);
+    public Observable<ResponseWrapper> updateCompanyInfo(long companyId, UpdateCompanyInfoRequest infoRequest) {
+        return mRemote.updateCompanyInfo(companyId, infoRequest);
     }
 
     /** LOCAL */
@@ -58,5 +62,9 @@ public class CompanyRepository {
 
     public void saveCompanyId(long companyId) {
         mLocal.saveCompanyId(companyId);
+    }
+
+    public long getCompanyId() {
+        return mLocal.getCompanyId();
     }
 }

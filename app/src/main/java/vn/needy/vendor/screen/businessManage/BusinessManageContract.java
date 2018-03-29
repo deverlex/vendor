@@ -12,6 +12,10 @@ interface BusinessManageContract {
     interface ViewModel extends BaseViewModel<Presenter> {
 
         void onBackPressed();
+
+        void onClickCompanyProfile();
+
+        void onClickStoreProfile();
     }
 
     interface Presenter extends BasePresenter {

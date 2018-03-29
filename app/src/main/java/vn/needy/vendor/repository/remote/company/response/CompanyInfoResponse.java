@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import vn.needy.vendor.port.wrapper.CompanyWrapper;
-import vn.needy.vendor.port.wrapper.FeeTransportWrapper;
+import vn.needy.vendor.repository.remote.company.context.CompanyContext;
 
 /**
  * Created by lion on 07/10/2017.
@@ -16,37 +15,49 @@ public class CompanyInfoResponse {
 
     @Expose
     @SerializedName("company")
-    private CompanyWrapper mCompany;
+    private CompanyContext company;
 
     @Expose
-    @SerializedName("totalStaff")
-    private int mTotalStaff;
+    @SerializedName(value = "number_employee")
+    private int numberEmployee;
 
     @Expose
-    @SerializedName("feeTransport")
-    private List<FeeTransportWrapper> mFeeTransports;
+    @SerializedName(value = "number_store")
+    private int numberStore;
 
-    public CompanyWrapper getCompany() {
-        return mCompany;
+    @Expose
+    @SerializedName("images")
+    private List<Long> images;
+
+    public CompanyContext getCompany() {
+        return company;
     }
 
-    public void setCompany(CompanyWrapper mCompany) {
-        mCompany = mCompany;
+    public void setCompany(CompanyContext company) {
+        this.company = company;
     }
 
-    public int getTotalStaff() {
-        return mTotalStaff;
+    public int getNumberEmployee() {
+        return numberEmployee;
     }
 
-    public void setTotalStaff(int totalStaff) {
-        mTotalStaff = totalStaff;
+    public void setNumberEmployee(int numberEmployee) {
+        this.numberEmployee = numberEmployee;
     }
 
-    public List<FeeTransportWrapper> getFeeTransports() {
-        return mFeeTransports;
+    public int getNumberStore() {
+        return numberStore;
     }
 
-    public void setFeeTransports(List<FeeTransportWrapper> feeTransports) {
-        mFeeTransports = feeTransports;
+    public void setNumberStore(int numberStore) {
+        this.numberStore = numberStore;
+    }
+
+    public List<Long> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Long> images) {
+        this.images = images;
     }
 }

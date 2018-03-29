@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -18,7 +19,7 @@ import vn.needy.vendor.screen.BaseRecyclerViewAdapter;
  * Created by truongpq on 17/01/2018.
  */
 
-public class UserLocationAdapter extends BaseRecyclerViewAdapter<UserLocationAdapter.ItemViewHolder>{
+public class UserLocationAdapter extends BaseRecyclerViewAdapter<UserLocationAdapter.ItemViewHolder> {
 
     private List<UserLocationContext> mUserLocations;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
@@ -55,6 +56,33 @@ public class UserLocationAdapter extends BaseRecyclerViewAdapter<UserLocationAda
             mUserLocations.addAll(userLocations);
             notifyDataSetChanged();
         }
+    }
+
+    public void addLocation(UserLocationContext location) {
+        mUserLocations.add(location);
+        notifyItemInserted(mUserLocations.size());
+    }
+
+    public void editLocation(int position, UserLocationContext location) {
+        mUserLocations.set(position, location);
+        notifyItemChanged(position);
+    }
+
+    public int indexOf(UserLocationContext location) {
+        return mUserLocations.indexOf(location);
+    }
+
+    public List<UserLocationContext> getLocations() {
+        return mUserLocations;
+    }
+
+    public void removeLocation(int position) {
+        mUserLocations.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public UserLocationContext getLocation(int position) {
+        return mUserLocations.get(position);
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {

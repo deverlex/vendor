@@ -61,19 +61,30 @@ public interface VendorApi {
     @GET("v1/users/details")
     Observable<ResponseWrapper<UserInfoResponse>> getUserInfo();
 
+    @PUT("v1/users/details")
+    Observable<ResponseWrapper> updateUserInfo(@Body RequestWrapper<UpdateUserInfoRequest> request);
+
     @POST("v1/companies")
     Observable<ResponseWrapper<RegisterComapnyRespone>> registerCompany(@Body RequestWrapper<RegisterCompanyRequest> request);
+
+    @GET("v1/companies/{company_id}/details")
+    Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInfo(@Path(value = "company_id") long companyId);
+
+    @PUT("v1/companies/{company_id}/details")
+    Observable<ResponseWrapper> updateCompanyInfo(@Path(value = "company_id") long companyId,
+                                                         @Body RequestWrapper<UpdateCompanyInfoRequest> infoRequest);
 
     @POST("v1/stores")
     Observable<ResponseWrapper<CreateStoreRespone>> createStore(@Query("company_id") long companyId,
                                                                 @Body RequestWrapper<CreateStoreRequest> request);
 
+    @GET("v1/stores/{store_id}/details")
+    Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(@Path(value = "store_id") long storeId);
+
     @GET("v1/companies/employees/own")
     Observable<ResponseWrapper<CheckOwnCompanyExistRespone>> checkOwnCompanyExist();
 
     /*************OLD************/
-    @PUT("v1/users/informations/details")
-    Observable<ResponseWrapper> updateUserInformation(@Body RequestWrapper<UpdateUserInfoRequest> request);
 
     @GET("v1/users/businesses/informations")
     Observable<ResponseWrapper<BusinessInfoResponse>> getBusinessInformation();
@@ -84,10 +95,6 @@ public interface VendorApi {
     @GET("v1/companies/{company_id}/informations/details")
     Observable<ResponseWrapper<CompanyInfoResponse>> getCompanyInformation(@Path(value = "company_id") String companyId);
 
-    @PUT("v1/companies/{company_id}/informations/details")
-    Observable<ResponseWrapper> updateCompanyInformation(@Path(value = "company_id") String companyId,
-                                                         @Body RequestWrapper<UpdateCompanyInfoRequest> infoRequest);
-
     @GET("v1/categories/{category}/childs")
     Observable<ResponseWrapper<CategoriesResponse>> getCategories(@Path("category") String category);
 
@@ -97,9 +104,6 @@ public interface VendorApi {
 
     @GET("v1/attributes/lists")
     Observable<ResponseWrapper<AttributeInfoResponse>> getAttributesCategory(@Query("category_name") String category);
-
-    @GET("v1/stores/{store_id}/infomations/details")
-    Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(@Path(value = "store_id") String storeId);
 
     @PUT("v1/stores/{store_id}/infomations/details")
     Observable<ResponseWrapper> updateStoreInfo(@Path("store_id") String storeId,

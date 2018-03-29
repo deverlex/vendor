@@ -22,7 +22,7 @@ public class StoreDataRemote extends BaseDataRemote<VendorApi> implements StoreD
     }
 
     @Override
-    public Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(String storeId) {
+    public Observable<ResponseWrapper<StoreInfoResponse>> getStoreInfo(long storeId) {
         return mApi.getStoreInfo(storeId);
     }
 
